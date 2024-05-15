@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "606700156156",
+    "firebase_url": "https://pos-saas-a7b6c-default-rtdb.firebaseio.com",
+    "project_id": "pos-saas-a7b6c",
+    "storage_bucket": "pos-saas-a7b6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606700156156:android:e8579627b70be96c3dd379",
+        "android_client_info": {
+          "package_name": "com.possaas.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDSGu-ysB31hRZL02sfM2S2gQj-gwYnik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
