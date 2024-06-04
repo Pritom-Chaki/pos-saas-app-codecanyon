@@ -77,7 +77,9 @@ class MyApp extends StatelessWidget {
         child: Builder(
             builder: (context) => MaterialApp(
                   debugShowCheckedModeBanner: false,
-                  locale: pro.Provider.of<LanguageChangeProvider>(context, listen: true).currentLocale,
+                  locale: pro.Provider.of<LanguageChangeProvider>(context,
+                          listen: true)
+                      .currentLocale,
                   localizationsDelegates: const [
                     S.delegate,
                     GlobalMaterialLocalizations.delegate,
@@ -112,17 +114,20 @@ class MyApp extends StatelessWidget {
                     // ignore: missing_required_param
                     '/SalesDetails': (context) => SalesDetails(),
                     // ignore: prefer_const_constructors
-                    '/salesCustomer': (context) => SalesContact(isFromHome: false),
+                    '/salesCustomer': (context) =>
+                        SalesContact(isFromHome: false),
                     '/addPromoCode': (context) => const AddPromoCode(),
                     '/addDiscount': (context) => const AddDiscount(),
-                    '/Sales': (context) => const SalesContact(isFromHome: false),
+                    '/Sales': (context) =>
+                        const SalesContact(isFromHome: false),
                     '/Parties': (context) => const CustomerList(),
                     '/Expense': (context) => const ExpenseList(),
                     '/Stock List': (context) => const StockList(),
                     '/Purchase': (context) => const PurchaseContacts(),
                     '/Delivery': (context) => const DeliveryAddress(),
                     '/Reports': (context) => const Reports(isFromHome: false),
-                    '/Due List': (context) => const DueCalculationContactScreen(),
+                    '/Due List': (context) =>
+                        const DueCalculationContactScreen(),
                     '/PaymentOptions': (context) => const PaymentOptions(),
                     '/Sales List': (context) => const SalesListScreen(),
                     '/Purchase List': (context) => const PurchaseListScreen(),

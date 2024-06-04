@@ -42,24 +42,24 @@ dependencies:
   flutter_credit_card: ^4.0.1
   barcode_widget: ^2.0.2
   flutter_grid_button: ^2.0.0
-  firebase_core: ^2.3.0
-  firebase_database: ^10.0.6
-  firebase_auth: ^4.2.5
-  firebase_storage: ^11.0.6
-  firebase_app_check: ^0.2.1+8
+  firebase_core: ^2.31.0
+  firebase_database: ^10.5.5
+  firebase_auth: ^4.19.5
+  firebase_storage: ^11.7.5
+  firebase_app_check: ^0.2.2+5
   image_picker: ^0.8.9
-  flutter_cart: ^0.0.7
+  flutter_cart: 0.0.7
   flutter_easyloading: ^3.0.5
   math_expressions: ^2.3.1
   platform: ^3.1.0
-  flutter_riverpod: ^2.3.6
+  flutter_riverpod: ^2.5.1
   shimmer: ^3.0.0
   cached_network_image: ^3.2.1
   url_launcher: ^6.1.5
   flutter_feather_icons: ^2.0.0+1
   bluetooth_thermal_printer: ^0.0.6
   esc_pos_utils: ^1.1.0
-  permission_handler: ^11.0.0
+  permission_handler: ^11.3.1
   image: ^3.0.2
   flutter_paypal_easy_checkout: ^1.0.4
   shared_preferences: ^2.0.15
