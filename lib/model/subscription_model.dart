@@ -16,7 +16,7 @@ class SubscriptionModel {
   SubscriptionModel.fromJson(Map<dynamic, dynamic> json)
       : subscriptionName = json['subscriptionName'] as String,
         saleNumber = json['saleNumber'],
-        subscriptionDate = json['subscriptionDate'] ??  DateTime.now().toString(),
+        subscriptionDate = json['subscriptionDate'],
         purchaseNumber = json['purchaseNumber'],
         partiesNumber = json['partiesNumber'],
         dueNumber = json['dueNumber'],

@@ -10,7 +10,6 @@ import '../../Provider/product_provider.dart';
 import '../../constant.dart';
 import '../../currency.dart';
 import '../../empty_screen_widget.dart';
-import '../../model/product_model.dart';
 import '../Warehouse/warehouse_model.dart';
 
 class StockList extends StatefulWidget {
@@ -22,7 +21,7 @@ class StockList extends StatefulWidget {
 }
 
 class _StockListState extends State<StockList> {
-  int totalStock = 0;
+  num totalStock = 0;
   double totalSalePrice = 0;
   double totalParPrice = 0;
   String? productName;
@@ -114,9 +113,9 @@ class _StockListState extends State<StockList> {
                         if (count == 0) {
                           count++;
                           for (var element in product) {
-                            totalStock = totalStock + element.productStock.toInt();
-                            totalSalePrice = totalSalePrice + (element.productStock.toInt() * element.productSalePrice.toInt());
-                            totalParPrice = totalParPrice + (element.productStock.toInt() * element.productSalePrice.toInt());
+                            totalStock = totalStock + (num.tryParse(element.productStock)??0);
+                            totalSalePrice = totalSalePrice + ((num.tryParse(element.productStock)??0) * element.productSalePrice.toInt());
+                            totalParPrice = totalParPrice + ((num.tryParse(element.productStock)??0) * element.productSalePrice.toInt());
                           }
                         }
                         return product.isNotEmpty
@@ -339,7 +338,7 @@ class _StockListState extends State<StockList> {
                                                   product[index].productName,
                                                   textAlign: TextAlign.start,
                                                   style: GoogleFonts.poppins(
-                                                    color: product[index].productStock.toInt() <= product[index].lowerStockAlert ? Colors.red : Colors.black,
+                                                    color: (num.tryParse(product[index].productStock)??0) <= product[index].lowerStockAlert ? Colors.red : Colors.black,
                                                     fontSize: 16.0,
                                                   ),
                                                 ),
@@ -347,7 +346,7 @@ class _StockListState extends State<StockList> {
                                                   product[index].brandName,
                                                   textAlign: TextAlign.start,
                                                   style: GoogleFonts.poppins(
-                                                    color: product[index].productStock.toInt() <= product[index].lowerStockAlert ? Colors.red : kGreyTextColor,
+                                                    color: (num.tryParse(product[index].productStock)??0) <= product[index].lowerStockAlert ? Colors.red : kGreyTextColor,
                                                     fontSize: 12.0,
                                                   ),
                                                 ),
@@ -356,9 +355,9 @@ class _StockListState extends State<StockList> {
                                           )),
                                           DataCell(
                                             Text(
-                                              myFormat.format(int.tryParse(product[index].productStock) ?? 0),
+                                              myFormat.format(num.tryParse(product[index].productStock) ?? 0),
                                               style: GoogleFonts.poppins(
-                                                color: product[index].productStock.toInt() <= product[index].lowerStockAlert ? Colors.red : Colors.black,
+                                                color: (num.tryParse(product[index].productStock)??0) <= product[index].lowerStockAlert ? Colors.red : Colors.black,
                                               ),
                                             ),
                                           ),
@@ -366,7 +365,7 @@ class _StockListState extends State<StockList> {
                                             Text(
                                               product[index].warehouseName,
                                               style: GoogleFonts.poppins(
-                                                color: product[index].productStock.toInt() <= product[index].lowerStockAlert ? Colors.red : Colors.black,
+                                                color: (num.tryParse(product[index].productStock)??0) <= product[index].lowerStockAlert ? Colors.red : Colors.black,
                                               ),
                                             ),
                                           ),
@@ -374,14 +373,14 @@ class _StockListState extends State<StockList> {
                                             Text(
                                               '$currency${myFormat.format(int.tryParse(product[index].productPurchasePrice) ?? 0)}',
                                               style: GoogleFonts.poppins(
-                                                color: product[index].productStock.toInt() <= product[index].lowerStockAlert ? Colors.red : Colors.black,
+                                                color:(num.tryParse(product[index].productStock)??0) <= product[index].lowerStockAlert ? Colors.red : Colors.black,
                                               ),
                                             ),
                                           ),
                                           DataCell(Text(
                                             '$currency ${myFormat.format(int.tryParse(product[index].productSalePrice) ?? 0)}',
                                             style: GoogleFonts.poppins(
-                                              color: product[index].productStock.toInt() <= product[index].lowerStockAlert ? Colors.red : Colors.black,
+                                              color: (num.tryParse(product[index].productStock)??0) <= product[index].lowerStockAlert ? Colors.red : Colors.black,
                                             ),
                                           )),
                                         ]),

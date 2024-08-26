@@ -5,7 +5,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bkash/flutter_bkash.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -82,7 +81,7 @@ class _BuyNowState extends State<BuyNow> {
 
   SubscriptionRequestModel data = SubscriptionRequestModel(
     subscriptionPlanModel: SubscriptionPlanModel(
-        dueNumber: 0, duration: 0, offerPrice: 0, partiesNumber: 0, products: 0, purchaseNumber: 0, saleNumber: 0, subscriptionName: '', subscriptionPrice: 00,subscriptionDate: DateTime.now().toString()),
+        dueNumber: 0, duration: 0, offerPrice: 0, partiesNumber: 0, products: 0, purchaseNumber: 0, saleNumber: 0, subscriptionName: '', subscriptionPrice: 00),
     transactionNumber: '',
     note: '',
     attachment: '',
@@ -213,6 +212,75 @@ class _BuyNowState extends State<BuyNow> {
                                       )),
                                 ],
                               ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      flex: 4,
+                                      child: Text(
+                                        lang.S.of(context).accountNumber,
+                                        style: kTextStyle.copyWith(color: kGreyTextColor),
+                                      )),
+                                  Expanded(
+                                      child: Text(
+                                    ':',
+                                    style: kTextStyle.copyWith(color: kGreyTextColor),
+                                  )),
+                                  Expanded(
+                                      flex: 5,
+                                      child: Text(
+                                        bankData.accountNumber,
+                                        style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                      )),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      flex: 4,
+                                      child: Text(
+                                        lang.S.of(context).swiftCode,
+                                        style: kTextStyle.copyWith(color: kGreyTextColor),
+                                      )),
+                                  Expanded(
+                                      child: Text(
+                                    ':',
+                                    style: kTextStyle.copyWith(color: kGreyTextColor),
+                                  )),
+                                  Expanded(
+                                      flex: 5,
+                                      child: Text(
+                                        bankData.swiftCode,
+                                        style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                      )),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                      flex: 4,
+                                      child: Text(
+                                        lang.S.of(context).bankAccountingCurrecny,
+                                        style: kTextStyle.copyWith(color: kGreyTextColor),
+                                      )),
+                                  Expanded(
+                                      child: Text(
+                                    ':',
+                                    style: kTextStyle.copyWith(color: kGreyTextColor),
+                                  )),
+                                  Expanded(
+                                      flex: 5,
+                                      child: Text(
+                                        bankData.bankAccountCurrency,
+                                        style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                      )),
+                                ],
+                              ),
                             ],
                           );
                         },
@@ -232,16 +300,15 @@ class _BuyNowState extends State<BuyNow> {
                         height: 30,
                       ),
                       TextFormField(
-                        enabled: false,
                         onChanged: (value) {
-                          data.transactionNumber = data.userId;
+                          data.transactionNumber = value;
                         },
                         decoration: kInputDecoration.copyWith(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            labelText: lang.S.of(context).invoiceNumber,
+                            labelText: lang.S.of(context).transactionId,
                             hintStyle: kTextStyle.copyWith(color: kGreyTextColor),
                             labelStyle: kTextStyle.copyWith(fontWeight: FontWeight.bold, color: kTitleColor),
-                            hintText:data.userId),
+                            hintText: lang.S.of(context).enterTransactionId),
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
@@ -329,76 +396,24 @@ class _BuyNowState extends State<BuyNow> {
               },
               child: GestureDetector(
                 onTap: () async {
-
-                    final flutterBkash = FlutterBkash(
-                        bkashCredentials: BkashCredentials(
-                            username: '01752156079',
-                            password: '!<+8Cb!k^@C',
-                            appKey: 'TyvaRsl9jCZ37daetzZ1lQeKtc',
-                            appSecret: 'nQYx0fC5jDdN9DitOKPkDuYLOUqEVHVqMVA8RmGgqSxewtKsgsqX',
-                            isSandbox: false));
-                    try {
-                     double price =  ((widget.subscriptionPlanModel.offerPrice < 1 )
-                          ? widget.subscriptionPlanModel.subscriptionPrice :
-                      widget.subscriptionPlanModel.offerPrice).toDouble();
-                      /// call pay method to pay without agreement as parameter pass the context, amount, merchantInvoiceNumber
-                      final result = await flutterBkash.pay(
-                        context: context,
-                        amount: price,
-                        merchantInvoiceNumber: data.userId,
-                      );
-
-                      if(result != null ){
-                        // EasyLoading.dismiss();
-                      String? sellerUserRef = await getSaleID(id: await getUserID());
-                      if (sellerUserRef != null) {
-
-                        final DatabaseReference subscriptionRef = FirebaseDatabase.instance.ref().child(data.userId).child('Subscription');
-                        widget.subscriptionPlanModel.subscriptionDate = DateTime.now().toString();
-                        await subscriptionRef.set(widget.subscriptionPlanModel.toJson());
-
-                        ///_____Seller_info_update________________________________________
-                        final DatabaseReference superAdminSellerListRepo =
-                        FirebaseDatabase.instance.ref().child('Admin Panel').child('Seller List').child(sellerUserRef);
-                        superAdminSellerListRepo.update({
-                          "subscriptionDate": DateTime.now().toString(),
-                          "subscriptionName": widget.subscriptionPlanModel.subscriptionName,
-                        });
-                        ///______________________________________
-                        data.transactionNumber = result.trxId;
-                        data.attachment == '' ? null : await uploadFile(data.attachment);
-                        final DatabaseReference ref = FirebaseDatabase.instance.ref().child('Admin Panel').child('Subscription Update Request');
-                        ref.keepSynced(true);
-                        ref.push().set(data.toJson());
-                        EasyLoading.showSuccess('Payment Successfully');
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      } else {
-                        EasyLoading.showError('You Are Not A Valid User');
-                      }
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("(Success) tranId: ${result.trxId}"),
-                          duration: Duration(seconds: 3),
-                        ),
-                      );
-                      }
-                    } on BkashFailure catch (e, st) {
-                      // paymentStatus = "Bkash Response Error";
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("${e.message}"),
-                          duration: Duration(seconds: 3),
-                        ),
-                      );
-                    } catch (e, st) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("Something went wrong"),
-                          duration: Duration(seconds: 3),
-                        ),
-                      );
+                  if (data.transactionNumber == '') {
+                    EasyLoading.showError('Please Enter Transaction Number');
+                  } else {
+                    String? sellerUserRef = await getSaleID(id: await getUserID());
+                    if (sellerUserRef != null) {
+                      ///______________________________________
+                      data.attachment == '' ? null : await uploadFile(data.attachment);
+                      final DatabaseReference ref = FirebaseDatabase.instance.ref().child('Admin Panel').child('Subscription Update Request');
+                      ref.keepSynced(true);
+                      ref.push().set(data.toJson());
+                      EasyLoading.showSuccess('Request has been send');
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    } else {
+                      EasyLoading.showError('You Are Not A Valid User');
                     }
+
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -406,7 +421,7 @@ class _BuyNowState extends State<BuyNow> {
                   width: double.infinity,
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: kMainColor),
                   child: Text(
-                    'Bkash Payment',
+                    'Submit',
                     style: kTextStyle.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -451,8 +466,8 @@ class SubscriptionRequestModel {
         'subscriptionPrice': subscriptionPlanModel.offerPrice > 0 ? subscriptionPlanModel.offerPrice : subscriptionPlanModel.subscriptionPrice,
         'transactionNumber': transactionNumber,
         'note': note,
-        'status':'approved' /*'pending'*/,
-        'approvedDate': DateTime.now().toString(),
+        'status': 'pending',
+        'approvedDate': '',
         'attachment': attachment,
         'phoneNumber': phoneNumber,
         'companyName': companyName,

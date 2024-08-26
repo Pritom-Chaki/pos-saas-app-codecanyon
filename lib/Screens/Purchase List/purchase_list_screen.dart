@@ -8,12 +8,12 @@ import 'package:intl/intl.dart';
 import 'package:mobile_pos/Provider/print_purchase_provider.dart';
 import 'package:mobile_pos/Provider/transactions_provider.dart';
 import 'package:mobile_pos/Screens/Purchase%20List/purchase_list_edit_screen.dart';
+import 'package:mobile_pos/Widget/primary_button_widget.dart';
 import 'package:mobile_pos/const_commas.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
 import 'package:mobile_pos/model/personal_information_model.dart';
 import 'package:mobile_pos/model/product_model.dart';
 import 'package:mobile_pos/model/transition_model.dart';
-import 'package:mobile_pos/widget/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../Provider/profile_provider.dart';
@@ -252,6 +252,7 @@ class _PurchaseReportState extends State<PurchaseListScreen> {
                                                                   ),
                                                                 );
                                                               });
+
                                                         },
                                                         icon: const Icon(
                                                           FeatherIcons.printer,
@@ -471,9 +472,9 @@ class _PurchaseReportState extends State<PurchaseListScreen> {
         purchaseTransitionModel: reTransaction, personalInformationModel: data);
     if (connected) {
       await printerData.printTicket(
-        printTransactionModel: model,
-        productList: model.purchaseTransitionModel!.productList,
-        printer58: printer58
+          printTransactionModel: model,
+          productList: model.purchaseTransitionModel!.productList,
+          printer58: printer58
       );
     } else {
       showDialog(
@@ -540,4 +541,5 @@ class _PurchaseReportState extends State<PurchaseListScreen> {
     }
 
   }
+
 }

@@ -36,44 +36,57 @@ class SalesReturn extends StatefulWidget {
 }
 
 class _SalesReturnState extends State<SalesReturn> {
+  double calculateAmountFromPercentage(double percentage, double price) {
+    return (percentage * price) / 100;
+  }
+
   num getTotalReturnAmount() {
     num returnAmount = 0;
     for (var element in returnList) {
       if (element.quantity > 0) {
-        returnAmount += element.quantity * (num.tryParse(element.subTotal.toString()) ?? 0);
+        returnAmount +=
+            element.quantity * (num.tryParse(element.subTotal.toString()) ?? 0);
       }
     }
     return returnAmount;
   }
 
   Future<void> saleReturn(
-      {required SalesTransitionModel salesModel, required SalesTransitionModel orginal, required WidgetRef consumerRef, required BuildContext context}) async {
+      {required SalesTransitionModel salesModel,
+      required SalesTransitionModel orginal,
+      required WidgetRef consumerRef,
+      required BuildContext context}) async {
     try {
       EasyLoading.show(status: 'Loading...', dismissOnTap: false);
 
       ///_________Push_on_Sale_return_dataBase____________________________________________________________________________
-      DatabaseReference ref = FirebaseDatabase.instance.ref("${await getUserID()}/Sales Return");
+      DatabaseReference ref =
+          FirebaseDatabase.instance.ref("${await getUserID()}/Sales Return");
       await ref.push().set(salesModel.toJson());
 
-
       ///__________StockMange_________________________________________________________________________________
-      final stockRef = FirebaseDatabase.instance.ref('${await getUserID()}/Products/');
+      final stockRef =
+          FirebaseDatabase.instance.ref('${await getUserID()}/Products/');
 
       for (var element in salesModel.productList!) {
-        var data = await stockRef.orderByChild('productCode').equalTo(element.productId).once();
+        var data = await stockRef
+            .orderByChild('productCode')
+            .equalTo(element.productId)
+            .once();
         final data2 = jsonDecode(jsonEncode(data.snapshot.value));
         String productPath = data.snapshot.value.toString().substring(1, 21);
 
         var data1 = await stockRef.child('$productPath/productStock').once();
-        int stock = int.parse(data1.snapshot.value.toString());
-        int remainStock = stock + element.quantity;
+        num stock = num.parse(data1.snapshot.value.toString());
+        num remainStock = stock + element.quantity;
 
         stockRef.child(productPath).update({'productStock': '$remainStock'});
 
         ///________Update_Serial_Number____________________________________________________
 
         if (element.serialNumber != null && element.serialNumber!.isNotEmpty) {
-          var productOldSerialList = data2[productPath]['serialNumber'] + element.serialNumber;
+          var productOldSerialList =
+              data2[productPath]['serialNumber'] + element.serialNumber;
 
           // List<dynamic> result = productOldSerialList.where((item) => !element.serialNumber!.contains(item)).toList();
           stockRef.child(productPath).update({
@@ -90,12 +103,15 @@ class _SalesReturnState extends State<SalesReturn> {
         type: 'Sale Return',
         total: salesModel.totalAmount!.toDouble(),
         paymentIn: 0,
-        paymentOut: ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)) > (salesModel.totalAmount ?? 0)
+        paymentOut: ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)) >
+                (salesModel.totalAmount ?? 0)
             ? (salesModel.totalAmount ?? 0)
             : ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)),
-        remainingBalance: ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)) > (salesModel.totalAmount ?? 0)
-            ? (salesModel.totalAmount ?? 0)
-            : ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)),
+        remainingBalance:
+            ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)) >
+                    (salesModel.totalAmount ?? 0)
+                ? (salesModel.totalAmount ?? 0)
+                : ((orginal.totalAmount ?? 0) - (orginal.dueAmount ?? 0)),
         id: salesModel.invoiceNumber,
         saleTransactionModel: salesModel,
       );
@@ -104,10 +120,16 @@ class _SalesReturnState extends State<SalesReturn> {
 
       ///_________DueUpdate___________________________________________________________________________________
       if (salesModel.customerName != 'Guest' && (orginal.dueAmount ?? 0) > 0) {
-        final dueUpdateRef = FirebaseDatabase.instance.ref('${await getUserID()}/Customers/');
+        final dueUpdateRef =
+            FirebaseDatabase.instance.ref('${await getUserID()}/Customers/');
         String? key;
 
-        await FirebaseDatabase.instance.ref(await getUserID()).child('Customers').orderByKey().get().then((value) {
+        await FirebaseDatabase.instance
+            .ref(await getUserID())
+            .child('Customers')
+            .orderByKey()
+            .get()
+            .then((value) {
           for (var element in value.children) {
             var data = jsonDecode(jsonEncode(element.value));
             if (data['phoneNumber'] == salesModel.customerPhone) {
@@ -120,7 +142,13 @@ class _SalesReturnState extends State<SalesReturn> {
 
         num dueNow = (orginal.dueAmount ?? 0) - (salesModel.totalAmount ?? 0);
 
-        int totalDue = dueNow.isNegative ? 0 : previousDue - salesModel.totalAmount!.toInt();
+        int totalDue = int.parse(dueNow.toString()) < 0
+            ? 0
+            : int.parse(previousDue.toString()) -
+                int.parse(salesModel.totalAmount == null
+                    ? '0'
+                    : salesModel.totalAmount.toString());
+
         dueUpdateRef.child(key!).update({'due': '$totalDue'});
       }
       consumerRef.refresh(customerProvider);
@@ -137,7 +165,8 @@ class _SalesReturnState extends State<SalesReturn> {
       Navigator.pop(context);
     } catch (e) {
       EasyLoading.dismiss();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -147,7 +176,11 @@ class _SalesReturnState extends State<SalesReturn> {
   DateTime selectedDueDate = DateTime.now();
 
   Future<void> _selectedDueDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(context: context, initialDate: selectedDueDate, firstDate: DateTime(2015, 8), lastDate: DateTime(2101));
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDueDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
     if (picked != null && picked != selectedDueDate) {
       setState(() {
         selectedDueDate = picked;
@@ -172,22 +205,31 @@ class _SalesReturnState extends State<SalesReturn> {
 
     for (var element in widget.saleTransactionModel.productList!) {
       AddToCartModel p = AddToCartModel(
-          warehouseName: element.warehouseName,
-          warehouseId: element.warehouseId,
-          productPurchasePrice: element.productPurchasePrice,
-          productImage: element.productImage,
-          itemCartIndex: element.itemCartIndex,
-          productBrandName: element.productBrandName,
-          productDetails: element.productDetails,
-          productId: element.productId,
-          productName: element.productName,
-          quantity: 0,
-          serialNumber: element.serialNumber,
-          stock: element.quantity,
-          subTotal: element.subTotal,
-          uniqueCheck: element.uniqueCheck,
-          unitPrice: element.unitPrice,
-          uuid: element.uuid);
+        warehouseName: element.warehouseName,
+        warehouseId: element.warehouseId,
+        productPurchasePrice: element.productPurchasePrice,
+        productImage: element.productImage,
+        itemCartIndex: element.itemCartIndex,
+        productBrandName: element.productBrandName,
+        productDetails: element.productDetails,
+        productId: element.productId,
+        productName: element.productName,
+        quantity: 0,
+        serialNumber: element.serialNumber,
+        stock: element.quantity,
+        subTotal: element.subTotal,
+        uniqueCheck: element.uniqueCheck,
+        unitPrice: element.unitPrice,
+        uuid: element.uuid,
+        subTaxes: element.subTaxes,
+        excTax: element.excTax,
+        groupTaxName: element.groupTaxName,
+        groupTaxRate: element.groupTaxRate,
+        incTax: element.incTax,
+        margin: element.margin,
+        taxType: element.taxType,
+      );
+
       returnList.add(p);
     }
   }
@@ -211,7 +253,10 @@ class _SalesReturnState extends State<SalesReturn> {
         ),
         body: Container(
           alignment: Alignment.topCenter,
-          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(30), topLeft: Radius.circular(30))),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -223,7 +268,8 @@ class _SalesReturnState extends State<SalesReturn> {
                         child: AppTextField(
                           textFieldType: TextFieldType.NAME,
                           readOnly: true,
-                          initialValue: widget.saleTransactionModel.invoiceNumber,
+                          initialValue:
+                              widget.saleTransactionModel.invoiceNumber,
                           decoration: InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: lang.S.of(context).invNo,
@@ -236,7 +282,8 @@ class _SalesReturnState extends State<SalesReturn> {
                         child: AppTextField(
                           textFieldType: TextFieldType.NAME,
                           readOnly: true,
-                          initialValue: DateFormat.yMMMd().format(DateTime.parse(
+                          initialValue:
+                              DateFormat.yMMMd().format(DateTime.parse(
                             widget.saleTransactionModel.purchaseDate,
                           )),
                           decoration: InputDecoration(
@@ -252,9 +299,10 @@ class _SalesReturnState extends State<SalesReturn> {
                   AppTextField(
                     textFieldType: TextFieldType.NAME,
                     readOnly: true,
-                    initialValue: widget.saleTransactionModel.customerName.isNotEmpty
-                        ? widget.saleTransactionModel.customerName
-                        : widget.saleTransactionModel.customerPhone,
+                    initialValue:
+                        widget.saleTransactionModel.customerName.isNotEmpty
+                            ? widget.saleTransactionModel.customerName
+                            : widget.saleTransactionModel.customerPhone,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       labelText: lang.S.of(context).customerName,
@@ -270,7 +318,8 @@ class _SalesReturnState extends State<SalesReturn> {
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10),
                       ),
-                      border: Border.all(width: 1, color: const Color(0xffEAEFFA)),
+                      border:
+                          Border.all(width: 1, color: const Color(0xffEAEFFA)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,7 +338,8 @@ class _SalesReturnState extends State<SalesReturn> {
                             child: SizedBox(
                               width: context.width() / 1.35,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     lang.S.of(context).itemAdded,
@@ -310,22 +360,32 @@ class _SalesReturnState extends State<SalesReturn> {
                             itemCount: returnList.length,
                             itemBuilder: (context, index) {
                               int i = 0;
-                              TextEditingController quantityController = TextEditingController(text: returnList[index].quantity.toString());
+                              TextEditingController quantityController =
+                                  TextEditingController(
+                                      text: returnList[index]
+                                          .quantity
+                                          .toString());
                               return Padding(
-                                padding: const EdgeInsets.only(left: 10, right: 10),
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
                                 child: ListTile(
-                                  visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                                  visualDensity: const VisualDensity(
+                                      horizontal: -4, vertical: -4),
                                   contentPadding: const EdgeInsets.all(0),
                                   title: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(returnList[index].productName.toString()),
+                                      Text(returnList[index]
+                                          .productName
+                                          .toString()),
                                       const SizedBox(width: 5.0),
                                       const Text('Return QTY'),
                                     ],
                                   ),
                                   subtitle: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         '${returnList[index].stock.toString()} X ${returnList[index].subTotal} = ${myFormat.format(double.tryParse((double.parse(returnList[index].subTotal) * ((returnList[index].stock ?? 0) - returnList[index].quantity)).toStringAsFixed(2)) ?? 0)}',
@@ -336,25 +396,40 @@ class _SalesReturnState extends State<SalesReturn> {
                                           SizedBox(
                                             width: 100,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 GestureDetector(
                                                   onTap: () {
                                                     setState(() {
-                                                      returnList[index].quantity > 0 ? returnList[index].quantity-- : returnList[index].quantity = 0;
+                                                      returnList[index]
+                                                                  .quantity >
+                                                              0
+                                                          ? returnList[index]
+                                                              .quantity--
+                                                          : returnList[index]
+                                                              .quantity = 0;
                                                     });
                                                   },
                                                   child: Container(
                                                     height: 20,
                                                     width: 20,
-                                                    decoration: const BoxDecoration(
+                                                    decoration:
+                                                        const BoxDecoration(
                                                       color: kMainColor,
-                                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10)),
                                                     ),
                                                     child: const Center(
                                                       child: Text(
                                                         '-',
-                                                        style: TextStyle(fontSize: 14, color: Colors.white),
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            color:
+                                                                Colors.white),
                                                       ),
                                                     ),
                                                   ),
@@ -364,58 +439,95 @@ class _SalesReturnState extends State<SalesReturn> {
                                                   width: 50,
                                                   child: TextFormField(
                                                     // initialValue: quantityController.text,
-                                                    controller: quantityController,
+                                                    controller:
+                                                        quantityController,
                                                     textAlign: TextAlign.center,
-                                                    keyboardType: TextInputType.phone,
+                                                    keyboardType:
+                                                        TextInputType.phone,
                                                     onChanged: (value) {
-                                                      if (returnList[index].stock!.toInt() < value.toInt()) {
-                                                        EasyLoading.showError('Out of Stock');
-                                                        quantityController.clear();
+                                                      if ((returnList[index]
+                                                                  .stock ??
+                                                              0) <
+                                                          (num.tryParse(
+                                                                  value) ??
+                                                              0)) {
+                                                        EasyLoading.showError(
+                                                            'Out of Stock');
+                                                        quantityController
+                                                            .clear();
                                                       } else if (value == '') {
-                                                        returnList[index].quantity = 1;
+                                                        returnList[index]
+                                                            .quantity = 1;
                                                       } else if (value == '0') {
-                                                        returnList[index].quantity = 1;
+                                                        returnList[index]
+                                                            .quantity = 1;
                                                       } else {
-                                                        returnList[index].quantity = value.toInt();
+                                                        returnList[index]
+                                                                .quantity =
+                                                            (num.tryParse(
+                                                                    value) ??
+                                                                0);
                                                       }
                                                     },
                                                     onFieldSubmitted: (value) {
                                                       if (value == '') {
                                                         setState(() {
-                                                          returnList[index].quantity = 1;
+                                                          returnList[index]
+                                                              .quantity = 1;
                                                         });
                                                       } else {
                                                         setState(() {
-                                                          returnList[index].quantity = value.toInt();
+                                                          returnList[index]
+                                                                  .quantity =
+                                                              (num.tryParse(
+                                                                      value) ??
+                                                                  0);
                                                         });
                                                       }
                                                     },
-                                                    decoration: const InputDecoration(border: InputBorder.none),
+                                                    decoration:
+                                                        const InputDecoration(
+                                                            border: InputBorder
+                                                                .none),
                                                   ),
                                                 ),
                                                 const SizedBox(width: 5),
                                                 GestureDetector(
                                                   onTap: () {
-                                                    if (returnList[index].quantity < returnList[index].stock!.toInt()) {
+                                                    if (returnList[index]
+                                                            .quantity <
+                                                        (returnList[index]
+                                                                .stock ??
+                                                            0)) {
                                                       setState(() {
-                                                        returnList[index].quantity += 1;
-                                                        toast(returnList[index].quantity.toString());
+                                                        returnList[index]
+                                                            .quantity += 1;
+                                                        toast(returnList[index]
+                                                            .quantity
+                                                            .toString());
                                                       });
                                                     } else {
-                                                      EasyLoading.showError('Out of Stock');
+                                                      EasyLoading.showError(
+                                                          'Out of Stock');
                                                     }
                                                   },
                                                   child: Container(
                                                     height: 20,
                                                     width: 20,
-                                                    decoration: const BoxDecoration(
+                                                    decoration:
+                                                        const BoxDecoration(
                                                       color: kMainColor,
-                                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10)),
                                                     ),
                                                     child: const Center(
                                                         child: Text(
                                                       '+',
-                                                      style: TextStyle(fontSize: 14, color: Colors.white),
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.white),
                                                     )),
                                                   ),
                                                 ),
@@ -500,16 +612,127 @@ class _SalesReturnState extends State<SalesReturn> {
               Expanded(
                 child: GestureDetector(
                   onTap: () async {
+                    returnList
+                        .removeWhere((element) => (element.quantity) <= 0);
+                    SalesTransitionModel editedTransitionModel =
+                        widget.saleTransactionModel;
+                    (num.tryParse(getTotalReturnAmount().toString()) ?? 0) >
+                            (widget.saleTransactionModel.dueAmount ?? 0)
+                        ? editedTransitionModel.isPaid = true
+                        : editedTransitionModel.isPaid = false;
+                    if ((widget.saleTransactionModel.dueAmount ?? 0) > 0) {
+                      (num.tryParse(getTotalReturnAmount().toString()) ?? 0) >=
+                              (widget.saleTransactionModel.dueAmount ?? 0)
+                          ? editedTransitionModel.dueAmount = 0
+                          : editedTransitionModel.dueAmount =
+                              (widget.saleTransactionModel.dueAmount ?? 0) -
+                                  (num.tryParse(
+                                          getTotalReturnAmount().toString()) ??
+                                      0);
+                    }
+                    List<AddToCartModel> newProductList = [];
+                    List<AddToCartModel> oldProduct =
+                        widget.saleTransactionModel.productList!;
+
+                    for (var p in widget.saleTransactionModel.productList!) {
+                      if (returnList
+                          .any((element) => element.productId == p.productId)) {
+                        int index = returnList.indexWhere(
+                            (element) => element.productId == p.productId);
+                        p.quantity = p.quantity - returnList[index].quantity;
+                      }
+
+                      if (p.quantity > 0) newProductList.add(p);
+                    }
+
+                    editedTransitionModel.productList = newProductList;
+                    editedTransitionModel.totalAmount = (editedTransitionModel
+                                .totalAmount ??
+                            0) -
+                        (double.tryParse(getTotalReturnAmount().toString()) ??
+                            0);
+
+                    // myTransitionModel.totalAmount = widget.newTransitionModel.totalAmount!.toDouble();
+                    ///________________updateInvoice___________________________________________________________OK
+                    String? key;
+                    final userId = await getUserID();
+                    await FirebaseDatabase.instance
+                        .ref(userId)
+                        .child('Sales Transition')
+                        .orderByKey()
+                        .get()
+                        .then((value) {
+                      for (var element in value.children) {
+                        final t = SalesTransitionModel.fromJson(
+                            jsonDecode(jsonEncode(element.value)));
+                        if (editedTransitionModel.invoiceNumber ==
+                            t.invoiceNumber) {
+                          key = element.key;
+                        }
+                      }
+                    });
+
+                    if (newProductList.isEmpty) {
+                      await FirebaseDatabase.instance
+                          .ref(userId)
+                          .child('Sales Transition')
+                          .child(key!)
+                          .remove();
+                    } else {
+                      num totalQuantity = 0;
+                      double lossProfit = 0;
+                      double totalPurchasePrice = 0;
+                      double totalSalePrice = 0;
+                      for (var element in newProductList) {
+                        if (element.taxType == 'Exclusive') {
+                          double tax = calculateAmountFromPercentage(
+                              element.groupTaxRate.toDouble(),
+                              double.tryParse(element.productPurchasePrice
+                                      .toString()) ??
+                                  0);
+                          totalPurchasePrice = totalPurchasePrice +
+                              ((double.parse(element.productPurchasePrice) +
+                                      tax) *
+                                  element.quantity);
+                        } else {
+                          totalPurchasePrice = totalPurchasePrice +
+                              (double.parse(element.productPurchasePrice) *
+                                  element.quantity);
+                        }
+
+                        totalSalePrice = totalSalePrice +
+                            (double.parse(element.subTotal) * element.quantity);
+
+                        totalQuantity = totalQuantity + element.quantity;
+                      }
+                      lossProfit = ((totalSalePrice -
+                              totalPurchasePrice.toDouble()) -
+                          double.parse(
+                              editedTransitionModel.discountAmount.toString()));
+                      editedTransitionModel.totalQuantity = totalQuantity;
+                      editedTransitionModel.lossProfit = lossProfit;
+
+                      ///__________total LossProfit & quantity________________________________________________________________
+                      // final postEditedTransitionModel = ShowEditPaymentPopUp.checkLossProfit(transitionModel: editedTransitionModel);
+                      await FirebaseDatabase.instance
+                          .ref(userId)
+                          .child('Sales Transition')
+                          .child(key!)
+                          .update(editedTransitionModel.toJson());
+                    }
                     SalesTransitionModel invoice = SalesTransitionModel(
                       customerName: widget.saleTransactionModel.customerName,
                       customerType: widget.saleTransactionModel.customerType,
                       customerPhone: widget.saleTransactionModel.customerPhone,
                       invoiceNumber: widget.saleTransactionModel.invoiceNumber,
                       purchaseDate: widget.saleTransactionModel.purchaseDate,
-                      customerAddress: widget.saleTransactionModel.customerAddress,
+                      customerGst: widget.saleTransactionModel.customerGst,
+                      customerAddress:
+                          widget.saleTransactionModel.customerAddress,
                       customerImage: widget.saleTransactionModel.customerImage,
                       productList: returnList,
-                      totalAmount: double.tryParse(getTotalReturnAmount().toString()),
+                      totalAmount:
+                          double.tryParse(getTotalReturnAmount().toString()),
                       discountAmount: 0,
                       dueAmount: 0,
                       isPaid: false,
@@ -521,7 +744,11 @@ class _SalesReturnState extends State<SalesReturn> {
                       totalQuantity: 0,
                     );
 
-                    await saleReturn(salesModel: invoice, orginal: widget.saleTransactionModel, consumerRef: consumerRef, context: context);
+                    await saleReturn(
+                        salesModel: invoice,
+                        orginal: widget.saleTransactionModel,
+                        consumerRef: consumerRef,
+                        context: context);
                   },
                   child: Container(
                     height: 60,

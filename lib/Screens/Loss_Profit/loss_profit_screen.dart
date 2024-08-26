@@ -5,15 +5,16 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_pos/Provider/all_expanse_provider.dart';
 import 'package:mobile_pos/Provider/printer_provider.dart';
 import 'package:mobile_pos/Provider/transactions_provider.dart';
 import 'package:mobile_pos/Screens/Loss_Profit/single_loss_profit_screen.dart';
+import 'package:mobile_pos/Widget/primary_button_widget.dart';
 import 'package:mobile_pos/const_commas.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
 import 'package:mobile_pos/model/personal_information_model.dart';
 import 'package:mobile_pos/model/print_transaction_model.dart';
 import 'package:mobile_pos/model/transition_model.dart';
-import 'package:mobile_pos/widget/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../Provider/profile_provider.dart';
@@ -36,6 +37,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
   DateTime fromDate = DateTime(2021);
   DateTime toDate = DateTime.now();
   double totalProfit = 0;
+  double totalExpense = 0;
   double totalLoss = 0;
 
   bool isPicked = false;
@@ -69,6 +71,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
               children: [
                 Consumer(builder: (context, ref, __) {
                   final providerData = ref.watch(transitionProvider);
+                  final expenseData = ref.watch(expenseProvider);
                   final printerData = ref.watch(printerProviderNotifier);
                   final personalData = ref.watch(profileDetailsProvider);
                   return SingleChildScrollView(
@@ -149,22 +152,39 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                           final reTransaction = transaction.reversed.toList();
                           for (var element in reTransaction) {
                             if (!isPicked) {
-                              if (DateTime.parse(element.purchaseDate).month == DateTime.now().month &&
-                                  DateTime.parse(element.purchaseDate).year == DateTime.now().year) {
-                                element.lossProfit!.isNegative
-                                    ? totalLoss = totalLoss + element.lossProfit!.abs()
-                                    : totalProfit = totalProfit + element.lossProfit!;
+                              if (DateTime.parse(element.purchaseDate).month == DateTime.now().month && DateTime.parse(element.purchaseDate).year == DateTime.now().year) {
+                                element.lossProfit!.isNegative ? totalLoss = totalLoss + element.lossProfit!.abs() : totalProfit = totalProfit + element.lossProfit!;
                               }
                             } else {
-                              if ((fromDate.isBefore(DateTime.parse(element.purchaseDate)) ||
-                                      DateTime.parse(element.purchaseDate).isAtSameMomentAs(fromDate)) &&
+                              if ((fromDate.isBefore(DateTime.parse(element.purchaseDate)) || DateTime.parse(element.purchaseDate).isAtSameMomentAs(fromDate)) &&
                                   (toDate.isAfter(DateTime.parse(element.purchaseDate)) || DateTime.parse(element.purchaseDate).isAtSameMomentAs(toDate))) {
-                                element.lossProfit!.isNegative
-                                    ? totalLoss = totalLoss + element.lossProfit!.abs()
-                                    : totalProfit = totalProfit + element.lossProfit!;
+                                element.lossProfit!.isNegative ? totalLoss = totalLoss + element.lossProfit!.abs() : totalProfit = totalProfit + element.lossProfit!;
                               }
                             }
                           }
+                          expenseData.when(data: (transaction) {
+                            totalExpense = 0;
+                            final reTransaction = transaction.reversed.toList();
+                            for (var element in reTransaction) {
+                              if (!isPicked) {
+                                if (DateTime.parse(element.expenseDate).month == DateTime.now().month && DateTime.parse(element.expenseDate).year == DateTime.now().year) {
+                                  totalExpense = totalExpense + (num.tryParse(element.amount) ?? 0);
+                                }
+                              } else {
+                                if ((fromDate.isBefore(DateTime.parse(element.expenseDate)) || DateTime.parse(element.expenseDate).isAtSameMomentAs(fromDate)) &&
+                                    (toDate.isAfter(DateTime.parse(element.expenseDate)) || DateTime.parse(element.expenseDate).isAtSameMomentAs(toDate))) {
+                                  totalExpense = totalExpense + (num.tryParse(element.amount) ?? 0);
+                                  // element.lossProfit!.isNegative ? totalLoss = totalLoss + element.lossProfit!.abs() : totalProfit = totalProfit + element.lossProfit!;
+                                }
+                              }
+                            }
+
+                            return Container();
+                          }, error: (e, stack) {
+                            return Text(e.toString());
+                          }, loading: () {
+                            return const Center(child: CircularProgressIndicator());
+                          });
 
                           return reTransaction.isNotEmpty
                               ? Column(
@@ -172,62 +192,97 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                     Padding(
                                       padding: const EdgeInsets.all(20.0),
                                       child: Container(
-                                        height: 100,
+                                        height: 180,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                            color: kMainColor.withOpacity(0.1),
-                                            border: Border.all(width: 1, color: kMainColor),
-                                            borderRadius: const BorderRadius.all(Radius.circular(15))),
-                                        child: Row(
+                                            color: kMainColor.withOpacity(0.1), border: Border.all(width: 1, color: kMainColor), borderRadius: const BorderRadius.all(Radius.circular(15))),
+                                        child: Column(
+
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+
+
                                           children: [
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
-                                                Text(
-                                                  myFormat.format(totalProfit),
-                                                  style: const TextStyle(
-                                                    color: Colors.green,
-                                                    fontSize: 20,
+                                                SizedBox(
+
+                                                  width: MediaQuery.of(context).size.width/2-30,
+
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Text(
+                                                        myFormat.format(totalProfit),
+                                                        style: const TextStyle(
+                                                          color: Colors.green,
+                                                          fontSize: 20,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(height: 10),
+                                                      Text(
+                                                        lang.S.of(context).profit,
+                                                        style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                                const SizedBox(height: 10),
-                                                Text(
-                                                  lang.S.of(context).profit,
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 16,
+                                                Container(
+                                                  width: 1,
+                                                  height: 60,
+                                                  color: kMainColor,
+                                                ),
+                                                SizedBox(
+                                                  width: MediaQuery.of(context).size.width/2-30,
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Text(
+                                                        myFormat.format(totalLoss),
+                                                        style: const TextStyle(
+                                                          color: Colors.orange,
+                                                          fontSize: 20,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(height: 10),
+                                                      Text(
+                                                        lang.S.of(context).loss,
+                                                        style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                            Container(
-                                              width: 1,
-                                              height: 60,
-                                              color: kMainColor,
-                                            ),
                                             Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  myFormat.format(totalLoss),
+                                                  myFormat.format(totalExpense),
                                                   style: const TextStyle(
                                                     color: Colors.orange,
                                                     fontSize: 20,
                                                   ),
                                                 ),
                                                 const SizedBox(height: 10),
-                                                Text(
-                                                  lang.S.of(context).loss,
-                                                  style: const TextStyle(
+                                                const Text(
+                                                  'Expense',
+                                                  style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 16,
                                                   ),
                                                 ),
                                               ],
                                             ),
+
                                           ],
                                         ),
                                       ),
@@ -237,10 +292,8 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                       physics: const NeverScrollableScrollPhysics(),
                                       itemCount: reTransaction.length,
                                       itemBuilder: (context, index) {
-                                        return (fromDate.isBefore(DateTime.parse(reTransaction[index].purchaseDate)) ||
-                                                    DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(fromDate)) &&
-                                                (toDate.isAfter(DateTime.parse(reTransaction[index].purchaseDate)) ||
-                                                    DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(toDate))
+                                        return (fromDate.isBefore(DateTime.parse(reTransaction[index].purchaseDate)) || DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(fromDate)) &&
+                                                (toDate.isAfter(DateTime.parse(reTransaction[index].purchaseDate)) || DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(toDate))
                                             ? GestureDetector(
                                                 onTap: () {
                                                   SingleLossProfitScreen(
@@ -260,9 +313,7 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                             children: [
                                                               Flexible(
                                                                 child: Text(
-                                                                  reTransaction[index].customerName.isNotEmpty
-                                                                      ? reTransaction[index].customerName
-                                                                      : reTransaction[index].customerPhone,
+                                                                  reTransaction[index].customerName.isNotEmpty ? reTransaction[index].customerName : reTransaction[index].customerPhone,
                                                                   style: const TextStyle(fontSize: 16),
                                                                   maxLines: 2,
                                                                   overflow: TextOverflow.ellipsis,
@@ -281,16 +332,11 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                               Container(
                                                                 padding: const EdgeInsets.all(8),
                                                                 decoration: BoxDecoration(
-                                                                    color: reTransaction[index].dueAmount! <= 0
-                                                                        ? const Color(0xff0dbf7d).withOpacity(0.1)
-                                                                        : const Color(0xFFED1A3B).withOpacity(0.1),
+                                                                    color: reTransaction[index].dueAmount! <= 0 ? const Color(0xff0dbf7d).withOpacity(0.1) : const Color(0xFFED1A3B).withOpacity(0.1),
                                                                     borderRadius: const BorderRadius.all(Radius.circular(10))),
                                                                 child: Text(
                                                                   reTransaction[index].dueAmount! <= 0 ? 'Paid' : 'Unpaid',
-                                                                  style: TextStyle(
-                                                                      color: reTransaction[index].dueAmount! <= 0
-                                                                          ? const Color(0xff0dbf7d)
-                                                                          : const Color(0xFFED1A3B)),
+                                                                  style: TextStyle(color: reTransaction[index].dueAmount! <= 0 ? const Color(0xff0dbf7d) : const Color(0xFFED1A3B)),
                                                                 ),
                                                               ),
                                                               Column(
@@ -333,7 +379,6 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                                   children: [
                                                                     IconButton(
                                                                         onPressed: () async {
-
                                                                           showDialog(
                                                                               context: context,
                                                                               builder: (_) {
@@ -388,7 +433,6 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
                                                                                   ),
                                                                                 );
                                                                               });
-
                                                                         },
                                                                         icon: const Icon(
                                                                           FeatherIcons.printer,
@@ -454,9 +498,9 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
         transitionModel: reTransaction, personalInformationModel: data);
     connected
         ? printerData.printTicket(
-      printTransactionModel: model,
-      productList: model.transitionModel!.productList,
-      printer58: printer58
+        printTransactionModel: model,
+        productList: model.transitionModel!.productList,
+        printer58: printer58
     )
         : showDialog(
         context: context,
@@ -521,4 +565,5 @@ class _LossProfitScreenState extends State<LossProfitScreen> {
         });
 
   }
+
 }

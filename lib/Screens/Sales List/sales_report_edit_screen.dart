@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,10 +46,10 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
         double.parse(widget.transitionModel.dueAmount.toString()) +
         double.parse(widget.transitionModel.returnAmount.toString());
     discountAmount = widget.transitionModel.discountAmount!;
-    vatAmount = widget.transitionModel.vat!;
+    // vatAmount = widget.transitionModel.vat!;
     dropdownValue = widget.transitionModel.paymentType;
     discountText.text = discountAmount.toString();
-    vatText.text = vatAmount.toString();
+    // vatText.text = vatAmount.toString();
     paidText.text = paidAmount.toString();
     pastDue = widget.transitionModel.dueAmount!.toInt();
     returnAmount = widget.transitionModel.returnAmount!;
@@ -58,13 +59,13 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
   int pastDue = 0;
 
   TextEditingController discountText = TextEditingController();
-  TextEditingController vatText = TextEditingController();
+  // TextEditingController vatText = TextEditingController();
   TextEditingController paidText = TextEditingController();
 
   int invoice = 0;
   double paidAmount = 0;
   double discountAmount = 0;
-  double vatAmount = 0;
+  // double vatAmount = 0;
   double returnAmount = 0;
   double dueAmount = 0;
   double subTotal = 0;
@@ -82,16 +83,22 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
   double calculateSubtotal({required double total}) {
     // subTotal = total - discountAmount;
     // return total - discountAmount;
-    subTotal = total + vatAmount - discountAmount;
-    return total + vatAmount - discountAmount;
+    subTotal = total - discountAmount;
+    return total - discountAmount;
   }
 
   double calculateReturnAmount({required double total}) {
+    if (widget.transitionModel.customerType == 'Guest') {
+      return 0;
+    }
     returnAmount = total - paidAmount;
     return paidAmount <= 0 || paidAmount <= subTotal ? 0 : total - paidAmount;
   }
 
   double calculateDueAmount({required double total}) {
+    if (widget.transitionModel.customerType == 'Guest') {
+      return 0;
+    }
     if (total < 0) {
       dueAmount = 0;
     } else {
@@ -104,6 +111,7 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
     customerName: widget.transitionModel.customerName,
     customerAddress: widget.transitionModel.customerAddress,
     customerImage: widget.transitionModel.customerImage,
+    customerGst: widget.transitionModel.customerGst,
     customerPhone: '',
     customerType: '',
     invoiceNumber: invoice.toString(),
@@ -127,16 +135,21 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
           String sentProductPrice = '';
 
           widget.transitionModel.productList?.forEach((element) {
-            if (element.productId == products.productCode && element.subTotal == products.productSalePrice) {
+            if (element.productId == products.productCode &&
+                element.subTotal == products.productSalePrice) {
               if (widget.transitionModel.customerType.contains('Retailer')) {
                 sentProductPrice = products.productSalePrice;
-              } else if (widget.transitionModel.customerType.contains('Dealer')) {
+              } else if (widget.transitionModel.customerType
+                  .contains('Dealer')) {
                 sentProductPrice = products.productDealerPrice;
-              } else if (widget.transitionModel.customerType.contains('Wholesaler')) {
+              } else if (widget.transitionModel.customerType
+                  .contains('Wholesaler')) {
                 sentProductPrice = products.productWholeSalePrice;
-              } else if (widget.transitionModel.customerType.contains('Supplier')) {
+              } else if (widget.transitionModel.customerType
+                  .contains('Supplier')) {
                 sentProductPrice = products.productPurchasePrice;
-              } else if (widget.transitionModel.customerType.contains('Guest')) {
+              } else if (widget.transitionModel.customerType
+                  .contains('Guest')) {
                 sentProductPrice = products.productSalePrice;
                 isGuestCustomer = true;
               }
@@ -151,7 +164,14 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                 productId: products.productCode,
                 productBrandName: products.brandName,
                 productPurchasePrice: products.productPurchasePrice,
-                stock: int.parse(products.productStock),
+                stock: num.parse(products.productStock),
+                subTaxes: products.subTaxes,
+                excTax: products.excTax,
+                groupTaxName: products.groupTaxName,
+                groupTaxRate: products.groupTaxRate,
+                incTax: products.incTax,
+                margin: products.margin,
+                taxType: products.taxType,
               );
               list.add(cartItem);
 
@@ -159,13 +179,17 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
             } else if (element.productId == products.productCode) {
               if (widget.transitionModel.customerType.contains('Retailer')) {
                 sentProductPrice = element.subTotal.toString();
-              } else if (widget.transitionModel.customerType.contains('Dealer')) {
+              } else if (widget.transitionModel.customerType
+                  .contains('Dealer')) {
                 sentProductPrice = products.productDealerPrice;
-              } else if (widget.transitionModel.customerType.contains('Wholesaler')) {
+              } else if (widget.transitionModel.customerType
+                  .contains('Wholesaler')) {
                 sentProductPrice = products.productWholeSalePrice;
-              } else if (widget.transitionModel.customerType.contains('Supplier')) {
+              } else if (widget.transitionModel.customerType
+                  .contains('Supplier')) {
                 sentProductPrice = element.productPurchasePrice.toString();
-              } else if (widget.transitionModel.customerType.contains('Guest')) {
+              } else if (widget.transitionModel.customerType
+                  .contains('Guest')) {
                 sentProductPrice = element.subTotal.toString();
                 isGuestCustomer = true;
               }
@@ -180,7 +204,14 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                 productId: products.productCode,
                 productBrandName: products.brandName,
                 productPurchasePrice: element.productPurchasePrice.toString(),
-                stock: int.parse(products.productStock),
+                stock: num.parse(products.productStock),
+                subTaxes: products.subTaxes,
+                excTax: products.excTax,
+                groupTaxName: products.groupTaxName,
+                groupTaxRate: products.groupTaxRate,
+                incTax: products.incTax,
+                margin: products.margin,
+                taxType: products.taxType,
               );
               list.add(cartItem);
             }
@@ -210,7 +241,11 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
           ),
           body: Container(
             alignment: Alignment.topCenter,
-            decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30))),
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -224,7 +259,8 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                             readOnly: true,
                             initialValue: widget.transitionModel.invoiceNumber,
                             decoration: InputDecoration(
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
                               labelText: lang.S.of(context).invNo,
                               border: const OutlineInputBorder(),
                             ),
@@ -235,11 +271,13 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                           child: AppTextField(
                             textFieldType: TextFieldType.NAME,
                             readOnly: true,
-                            initialValue: DateFormat.yMMMd().format(DateTime.parse(
+                            initialValue:
+                                DateFormat.yMMMd().format(DateTime.parse(
                               widget.transitionModel.purchaseDate,
                             )),
                             decoration: InputDecoration(
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
                               labelText: lang.S.of(context).date,
                               border: const OutlineInputBorder(),
                             ),
@@ -251,7 +289,10 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                     AppTextField(
                       textFieldType: TextFieldType.NAME,
                       readOnly: true,
-                      initialValue: widget.transitionModel.customerName.isNotEmpty ? widget.transitionModel.customerName : widget.transitionModel.customerPhone,
+                      initialValue:
+                          widget.transitionModel.customerName.isNotEmpty
+                              ? widget.transitionModel.customerName
+                              : widget.transitionModel.customerPhone,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         labelText: lang.S.of(context).customerName,
@@ -263,8 +304,11 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                     ///_______Added_ItemS__________________________________________________
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                        border: Border.all(width: 1, color: const Color(0xffEAEFFA)),
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        border: Border.all(
+                            width: 1, color: const Color(0xffEAEFFA)),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,14 +317,17 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                               width: double.infinity,
                               decoration: const BoxDecoration(
                                 color: Color(0xffEAEFFA),
-                                borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: SizedBox(
                                   width: context.width() / 1.35,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         lang.S.of(context).itemAdded,
@@ -301,28 +348,43 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                               itemBuilder: (context, index) {
                                 int i = 0;
                                 for (var element in pastProducts) {
-                                  if (element.productId != providerData.cartItemList[index].productId) {
+                                  if (element.productId !=
+                                      providerData
+                                          .cartItemList[index].productId) {
                                     i++;
                                   }
                                   if (i == pastProducts.length) {
                                     bool isInTheList = false;
                                     for (var element in decreaseStockList) {
-                                      if (element.productId == providerData.cartItemList[index].productId) {
-                                        element.quantity = providerData.cartItemList[index].quantity;
+                                      if (element.productId ==
+                                          providerData
+                                              .cartItemList[index].productId) {
+                                        element.quantity = providerData
+                                            .cartItemList[index].quantity;
                                         isInTheList = true;
                                         break;
                                       }
                                     }
 
-                                    isInTheList ? null : decreaseStockList.add(providerData.cartItemList[index]);
+                                    isInTheList
+                                        ? null
+                                        : decreaseStockList.add(
+                                            providerData.cartItemList[index]);
                                   }
                                 }
-                                TextEditingController quantityController = TextEditingController(text: providerData.cartItemList[index].quantity.toString());
+                                TextEditingController quantityController =
+                                    TextEditingController(
+                                        text: providerData
+                                            .cartItemList[index].quantity
+                                            .toString());
                                 return Padding(
-                                  padding: const EdgeInsets.only(left: 10, right: 10),
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
                                   child: ListTile(
                                     contentPadding: const EdgeInsets.all(0),
-                                    title: Text(providerData.cartItemList[index].productName.toString()),
+                                    title: Text(providerData
+                                        .cartItemList[index].productName
+                                        .toString()),
                                     subtitle: Text(
                                         '${providerData.cartItemList[index].quantity} X ${providerData.cartItemList[index].subTotal} = ${double.parse(providerData.cartItemList[index].subTotal) * providerData.cartItemList[index].quantity}'),
                                     trailing: Row(
@@ -331,23 +393,31 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                                         SizedBox(
                                           width: 100,
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  providerData.quantityDecrease(index);
+                                                  providerData
+                                                      .quantityDecrease(index);
                                                 },
                                                 child: Container(
                                                   height: 20,
                                                   width: 20,
-                                                  decoration: const BoxDecoration(
+                                                  decoration:
+                                                      const BoxDecoration(
                                                     color: kMainColor,
-                                                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10)),
                                                   ),
                                                   child: const Center(
                                                     child: Text(
                                                       '-',
-                                                      style: TextStyle(fontSize: 14, color: Colors.white),
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.white),
                                                     ),
                                                   ),
                                                 ),
@@ -364,38 +434,64 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                                                 width: 50,
                                                 child: TextFormField(
                                                   // initialValue: quantityController.text,
-                                                  controller: quantityController,
+                                                  controller:
+                                                      quantityController,
                                                   textAlign: TextAlign.center,
-                                                  keyboardType: TextInputType.phone,
+                                                  keyboardType:
+                                                      TextInputType.phone,
                                                   onFieldSubmitted: (value) {
-                                                    int stock = providerData.cartItemList[index].stock!.toInt();
-                                                    if (value.isEmpty || value == '0' || int.tryParse(value) == null) {
+                                                    num stock = (num.tryParse(
+                                                            providerData
+                                                                .cartItemList[
+                                                                    index]
+                                                                .stock
+                                                                .toString()) ??
+                                                        0);
+                                                    if (value.isEmpty ||
+                                                        value == '0' ||
+                                                        num.tryParse(value) ==
+                                                            null) {
                                                       value = '1';
-                                                    } else if (stock < int.parse(value)) {
-                                                      EasyLoading.showError('Out of Stock');
+                                                    } else if (stock <
+                                                        num.parse(value)) {
+                                                      EasyLoading.showError(
+                                                          'Out of Stock');
                                                       value = '1';
                                                     }
-                                                    providerData.cartItemList[index].quantity = int.parse(value);
+                                                    providerData
+                                                            .cartItemList[index]
+                                                            .quantity =
+                                                        num.parse(value);
                                                   },
-                                                  decoration: const InputDecoration(border: InputBorder.none),
+                                                  decoration:
+                                                      const InputDecoration(
+                                                          border:
+                                                              InputBorder.none),
                                                 ),
                                               ),
                                               const SizedBox(width: 5),
                                               GestureDetector(
                                                 onTap: () {
-                                                  providerData.quantityIncrease(index);
+                                                  providerData
+                                                      .quantityIncrease(index);
                                                 },
                                                 child: Container(
                                                   height: 20,
                                                   width: 20,
-                                                  decoration: const BoxDecoration(
+                                                  decoration:
+                                                      const BoxDecoration(
                                                     color: kMainColor,
-                                                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10)),
                                                   ),
                                                   child: const Center(
                                                       child: Text(
                                                     '+',
-                                                    style: TextStyle(fontSize: 14, color: Colors.white),
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.white),
                                                   )),
                                                 ),
                                               ),
@@ -407,11 +503,19 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                                           onTap: () {
                                             int i = 0;
                                             for (var element in pastProducts) {
-                                              if (element.productId != providerData.cartItemList[index].productId) {
+                                              if (element.productId !=
+                                                  providerData
+                                                      .cartItemList[index]
+                                                      .productId) {
                                                 i++;
                                               }
                                               if (i == pastProducts.length) {
-                                                decreaseStockList.removeWhere((element) => element.productId == providerData.cartItemList[index].productId);
+                                                decreaseStockList.removeWhere(
+                                                    (element) =>
+                                                        element.productId ==
+                                                        providerData
+                                                            .cartItemList[index]
+                                                            .productId);
                                               }
                                             }
 
@@ -442,19 +546,33 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                       onTap: () {
                         EditSaleInvoiceSaleProducts(
                           catName: null,
-                          customerModel: CustomerModel(widget.transitionModel.customerName, widget.transitionModel.customerPhone,
-                              widget.transitionModel.customerType, '', '', 'customerAddress', '', '', ''),
+                          customerModel: CustomerModel(
+                              widget.transitionModel.customerName,
+                              widget.transitionModel.customerPhone,
+                              widget.transitionModel.customerType,
+                              '',
+                              '',
+                              gst: widget.transitionModel.customerGst,
+                              'customerAddress',
+                              '',
+                              '',
+                              '',
+                              ''),
                           transitionModel: widget.transitionModel,
                         ).launch(context);
                       },
                       child: Container(
                         height: 50,
                         width: double.infinity,
-                        decoration: BoxDecoration(color: kMainColor.withOpacity(0.1), borderRadius: const BorderRadius.all(Radius.circular(10))),
+                        decoration: BoxDecoration(
+                            color: kMainColor.withOpacity(0.1),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10))),
                         child: Center(
                             child: Text(
                           lang.S.of(context).addItems,
-                          style: const TextStyle(color: kMainColor, fontSize: 20),
+                          style:
+                              const TextStyle(color: kMainColor, fontSize: 20),
                         )),
                       ),
                     ),
@@ -462,14 +580,20 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
 
                     ///_____Total______________________________
                     Container(
-                      decoration:
-                          BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(10)), border: Border.all(color: Colors.grey.shade300, width: 1)),
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          border: Border.all(
+                              color: Colors.grey.shade300, width: 1)),
                       child: Column(
                         children: [
                           Container(
                             padding: const EdgeInsets.all(10),
                             decoration: const BoxDecoration(
-                                color: Color(0xffEAEFFA), borderRadius: BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10))),
+                                color: Color(0xffEAEFFA),
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(10),
+                                    topLeft: Radius.circular(10))),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -503,16 +627,19 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                                           discountAmount = 0;
                                         });
                                       } else {
-                                        if (value.toInt() <= providerData.getTotalAmount()) {
+                                        if (value.toInt() <=
+                                            providerData.getTotalAmount()) {
                                           setState(() {
-                                            discountAmount = double.parse(value);
+                                            discountAmount =
+                                                double.parse(value);
                                           });
                                         } else {
                                           discountText.clear();
                                           setState(() {
                                             discountAmount = 0;
                                           });
-                                          EasyLoading.showError('Enter a valid Discount');
+                                          EasyLoading.showError(
+                                              'Enter a valid Discount');
                                         }
                                       }
                                     },
@@ -526,48 +653,204 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Vat',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                SizedBox(
-                                  width: context.width() / 4,
-                                  child: TextField(
-                                    controller: vatText,
-                                    onChanged: (value) {
-                                      if (value == '') {
-                                        setState(() {
-                                          vatAmount = 0;
-                                        });
-                                      } else {
-                                        if (value.toInt() <= providerData.getTotalAmount()) {
-                                          setState(() {
-                                            vatAmount = double.parse(value);
-                                          });
-                                        } else {
-                                          vatText.clear();
-                                          setState(() {
-                                            vatAmount = 0;
-                                          });
-                                          EasyLoading.showError('Enter a valid Discount');
-                                        }
-                                      }
-                                    },
-                                    textAlign: TextAlign.right,
-                                    decoration: const InputDecoration(
-                                      hintText: '0',
-                                    ),
-                                    keyboardType: TextInputType.number,
+                          ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: getAllTaxFromCartList(
+                                      cart: providerData.cartItemList)
+                                  .length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        getAllTaxFromCartList(
+                                                cart: providerData
+                                                    .cartItemList)[index]
+                                            .name,
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: context.width() / 4,
+                                            height: 40.0,
+                                            child: Center(
+                                              child: AppTextField(
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter
+                                                      .allow(RegExp(
+                                                          r'^\d*\.?\d{0,2}'))
+                                                ],
+                                                initialValue: getAllTaxFromCartList(
+                                                            cart: providerData
+                                                                .cartItemList)[
+                                                        index]
+                                                    .taxRate
+                                                    .toString(),
+                                                readOnly: true,
+                                                textAlign: TextAlign.right,
+                                                decoration: InputDecoration(
+                                                  contentPadding:
+                                                      const EdgeInsets.only(
+                                                          right: 6.0),
+                                                  hintText: '0',
+                                                  border:
+                                                      const OutlineInputBorder(
+                                                          gapPadding: 0.0,
+                                                          borderSide: BorderSide(
+                                                              color: Color(
+                                                                  0xFFff5f00))),
+                                                  enabledBorder:
+                                                      const OutlineInputBorder(
+                                                          gapPadding: 0.0,
+                                                          borderSide: BorderSide(
+                                                              color: Color(
+                                                                  0xFFff5f00))),
+                                                  disabledBorder:
+                                                      const OutlineInputBorder(
+                                                          gapPadding: 0.0,
+                                                          borderSide: BorderSide(
+                                                              color: Color(
+                                                                  0xFFff5f00))),
+                                                  focusedBorder:
+                                                      const OutlineInputBorder(
+                                                          gapPadding: 0.0,
+                                                          borderSide: BorderSide(
+                                                              color: Color(
+                                                                  0xFFff5f00))),
+                                                  prefixIconConstraints:
+                                                      const BoxConstraints(
+                                                          maxWidth: 30.0,
+                                                          minWidth: 30.0),
+                                                  prefixIcon: Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8.0,
+                                                            left: 8.0),
+                                                    height: 40,
+                                                    decoration: const BoxDecoration(
+                                                        color:
+                                                            Color(0xFFff5f00),
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        4.0),
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                        4.0))),
+                                                    child: const Text(
+                                                      '%',
+                                                      style: TextStyle(
+                                                          fontSize: 18.0,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                                textFieldType:
+                                                    TextFieldType.PHONE,
+                                              ),
+                                            ),
+                                          ),
+                                          // const SizedBox(width: 4.0),
+                                          // SizedBox(
+                                          //   width: context.width() / 4,
+                                          //   height: 40.0,
+                                          //   child: Center(
+                                          //     child: AppTextField(
+                                          //       inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))],
+                                          //       initialValue: (calculateSubtotal(total: providerData.getTotalAmount()) * (providerData.taxRates[index].taxRate.toInt() / 100)).toString(),
+                                          //       readOnly: true,
+                                          //       onChanged: (value) {
+                                          //         if (value == '') {
+                                          //           setState(() {
+                                          //             vatAmount = 0;
+                                          //             vatPercentageEditingController.clear();
+                                          //           });
+                                          //         } else {
+                                          //           setState(() {
+                                          //             vatAmount = double.parse(value);
+                                          //             vatPercentageEditingController.text = ((vatAmount * 100) / providerData.getTotalAmount()).toString();
+                                          //           });
+                                          //         }
+                                          //       },
+                                          //       textAlign: TextAlign.right,
+                                          //       decoration: InputDecoration(
+                                          //         contentPadding: const EdgeInsets.only(right: 6.0),
+                                          //         hintText: '0',
+                                          //         border: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                          //         enabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                          //         disabledBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                          //         focusedBorder: const OutlineInputBorder(gapPadding: 0.0, borderSide: BorderSide(color: kMainColor)),
+                                          //         prefixIconConstraints: const BoxConstraints(maxWidth: 30.0, minWidth: 30.0),
+                                          //         prefixIcon: Container(
+                                          //           alignment: Alignment.center,
+                                          //           height: 40,
+                                          //           decoration: const BoxDecoration(
+                                          //               color: kMainColor,
+                                          //               borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), bottomLeft: Radius.circular(4.0))),
+                                          //           child: Text(
+                                          //             currency,
+                                          //             style: const TextStyle(fontSize: 14.0, color: Colors.white),
+                                          //           ),
+                                          //         ),
+                                          //       ),
+                                          //       textFieldType: TextFieldType.PHONE,
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
+                                );
+                              }),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(10.0),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       const Text(
+                          //         'Vat',
+                          //         style: TextStyle(fontSize: 16),
+                          //       ),
+                          //       SizedBox(
+                          //         width: context.width() / 4,
+                          //         child: TextField(
+                          //           controller: vatText,
+                          //           onChanged: (value) {
+                          //             if (value == '') {
+                          //               setState(() {
+                          //                 vatAmount = 0;
+                          //               });
+                          //             } else {
+                          //               if (value.toInt() <= providerData.getTotalAmount()) {
+                          //                 setState(() {
+                          //                   vatAmount = double.parse(value);
+                          //                 });
+                          //               } else {
+                          //                 vatText.clear();
+                          //                 setState(() {
+                          //                   vatAmount = 0;
+                          //                 });
+                          //                 EasyLoading.showError('Enter a valid Discount');
+                          //               }
+                          //             }
+                          //           },
+                          //           textAlign: TextAlign.right,
+                          //           decoration: const InputDecoration(
+                          //             hintText: '0',
+                          //           ),
+                          //           keyboardType: TextInputType.number,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Row(
@@ -578,63 +861,84 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                                   style: const TextStyle(fontSize: 16),
                                 ),
                                 Text(
-                                  calculateSubtotal(total: providerData.getTotalAmount()).toString(),
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  lang.S.of(context).previousPayAmounts,
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                                Text(
-                                  (double.parse(widget.transitionModel.totalAmount.toString()) -
-                                          double.parse(widget.transitionModel.dueAmount.toString()) +
-                                          double.parse(widget.transitionModel.returnAmount.toString()))
+                                  calculateSubtotal(
+                                          total: providerData.getTotalAmount())
                                       .toString(),
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  lang.S.of(context).paidAmount,
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                                SizedBox(
-                                  width: context.width() / 4,
-                                  child: TextField(
-                                    controller: paidText,
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (value) {
-                                      if (value == '') {
-                                        setState(() {
-                                          paidAmount = 0;
-                                        });
-                                      } else {
-                                        setState(() {
-                                          paidAmount = double.parse(value);
-                                        });
-                                      }
-                                    },
-                                    textAlign: TextAlign.right,
-                                    decoration: const InputDecoration(hintText: '0'),
+                          Visibility(
+                            visible:
+                                widget.transitionModel.customerType != 'Guest',
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    lang.S.of(context).previousPayAmounts,
+                                    style: const TextStyle(fontSize: 16),
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    (double.parse(widget
+                                                .transitionModel.totalAmount
+                                                .toString()) -
+                                            double.parse(widget
+                                                .transitionModel.dueAmount
+                                                .toString()) +
+                                            double.parse(widget
+                                                .transitionModel.returnAmount
+                                                .toString()))
+                                        .toString(),
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
+
+                          Visibility(
+                            visible:
+                                widget.transitionModel.customerType != 'Guest',
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    lang.S.of(context).paidAmount,
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                  SizedBox(
+                                    width: context.width() / 4,
+                                    child: TextField(
+                                      controller: paidText,
+                                      keyboardType: TextInputType.number,
+                                      onChanged: (value) {
+                                        if (value == '') {
+                                          setState(() {
+                                            paidAmount = 0;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            paidAmount = double.parse(value);
+                                          });
+                                        }
+                                      },
+                                      textAlign: TextAlign.right,
+                                      decoration:
+                                          const InputDecoration(hintText: '0'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
                           Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Row(
@@ -645,7 +949,9 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                                   style: const TextStyle(fontSize: 16),
                                 ),
                                 Text(
-                                  calculateReturnAmount(total: subTotal).abs().toString(),
+                                  calculateReturnAmount(total: subTotal)
+                                      .abs()
+                                      .toString(),
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ],
@@ -661,7 +967,8 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                                   style: const TextStyle(fontSize: 16),
                                 ),
                                 Text(
-                                  calculateDueAmount(total: subTotal).toString(),
+                                  calculateDueAmount(total: subTotal)
+                                      .toString(),
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ],
@@ -684,7 +991,8 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                           children: [
                             Text(
                               lang.S.of(context).paymentType,
-                              style: const TextStyle(fontSize: 16, color: Colors.black54),
+                              style: const TextStyle(
+                                  fontSize: 16, color: Colors.black54),
                             ),
                             const SizedBox(
                               width: 5,
@@ -728,7 +1036,8 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                               setState(() {});
                             },
                             decoration: InputDecoration(
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
                               labelText: lang.S.of(context).describtion,
                               hintText: lang.S.of(context).addNote,
                               border: const OutlineInputBorder(),
@@ -739,7 +1048,10 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                         Container(
                           height: 60,
                           width: 100,
-                          decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(10)), color: Colors.grey.shade200),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              color: Colors.grey.shade200),
                           child: Center(
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -751,7 +1063,8 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                                 const SizedBox(width: 5),
                                 Text(
                                   lang.S.of(context).image,
-                                  style: const TextStyle(color: Colors.grey, fontSize: 16),
+                                  style: const TextStyle(
+                                      color: Colors.grey, fontSize: 16),
                                 )
                               ],
                             ),
@@ -770,7 +1083,8 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                             height: 60,
                             decoration: BoxDecoration(
                               color: Colors.grey.shade300,
-                              borderRadius: const BorderRadius.all(Radius.circular(30)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(30)),
                             ),
                             child: Center(
                               child: Text(
@@ -785,128 +1099,255 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                           child: GestureDetector(
                             onTap: () async {
                               if (providerData.cartItemList.isNotEmpty) {
-                                if (isGuestCustomer && dueAmount > 0) {
-                                  EasyLoading.showError('Due is not for Guest Customer');
-                                } else {
-                                  try {
-                                    EasyLoading.show(status: 'Loading...', dismissOnTap: false);
+                                try {
+                                  EasyLoading.show(
+                                      status: 'Loading...',
+                                      dismissOnTap: false);
 
-                                    dueAmount <= 0 ? transitionModel.isPaid = true : transitionModel.isPaid = false;
-                                    dueAmount <= 0 ? transitionModel.dueAmount = 0 : transitionModel.dueAmount = dueAmount;
-                                    returnAmount < 0 ? transitionModel.returnAmount = returnAmount.abs() : transitionModel.returnAmount = 0;
-                                    transitionModel.discountAmount = discountAmount;
-                                    transitionModel.vat = vatAmount;
-                                    transitionModel.totalAmount = subTotal;
+                                  dueAmount <= 0
+                                      ? transitionModel.isPaid = true
+                                      : transitionModel.isPaid = false;
+                                  dueAmount <= 0
+                                      ? transitionModel.dueAmount = 0
+                                      : transitionModel.dueAmount = dueAmount;
+                                  returnAmount < 0
+                                      ? transitionModel.returnAmount =
+                                          returnAmount.abs()
+                                      : transitionModel.returnAmount = 0;
+                                  transitionModel.discountAmount =
+                                      discountAmount;
+                                  transitionModel.vat = 0;
+                                  transitionModel.totalAmount = subTotal;
 
-                                    transitionModel.productList = providerData.cartItemList;
-                                    transitionModel.paymentType = dropdownValue;
-                                    transitionModel.invoiceNumber = invoice.toString();
+                                  transitionModel.productList =
+                                      providerData.cartItemList;
+                                  transitionModel.paymentType = dropdownValue;
+                                  transitionModel.invoiceNumber =
+                                      invoice.toString();
 
-                                    ///________________updateInvoice___________________________________________________________
-                                    final ref = FirebaseDatabase.instance.ref(constUserId).child('Sales Transition');
-                                    ref.keepSynced(true);
-                                    String? key;
-                                    ref.orderByKey().get().then((value) async {
-                                      for (var element in value.children) {
-                                        final t = SalesTransitionModel.fromJson(jsonDecode(jsonEncode(element.value)));
-                                        if (transitionModel.invoiceNumber == t.invoiceNumber) {
-                                          key = element.key;
-                                          ref.child(element.key.toString()).update(transitionModel.toJson());
+                                  ///________________updateInvoice___________________________________________________________
+                                  final ref = FirebaseDatabase.instance
+                                      .ref(constUserId)
+                                      .child('Sales Transition');
+                                  ref.keepSynced(true);
+                                  String? key;
+                                  ref.orderByKey().get().then((value) async {
+                                    for (var element in value.children) {
+                                      final t = SalesTransitionModel.fromJson(
+                                          jsonDecode(
+                                              jsonEncode(element.value)));
+                                      if (transitionModel.invoiceNumber ==
+                                          t.invoiceNumber) {
+                                        key = element.key;
+                                        ref
+                                            .child(element.key.toString())
+                                            .update(transitionModel.toJson());
 
-                                          ///__________StockMange_________________________________________________
+                                        ///__________StockMange_________________________________________________
 
-                                          presentProducts = transitionModel.productList!;
+                                        presentProducts =
+                                            transitionModel.productList!;
 
-                                          for (var pastElement in pastProducts) {
-                                            int i = 0;
-                                            for (var futureElement in presentProducts) {
-                                              if (pastElement.productId == futureElement.productId) {
-                                                if (pastElement.quantity < futureElement.quantity && pastElement.quantity != futureElement.quantity) {
-                                                  decreaseStockList.contains(pastElement.productId)
-                                                      ? null
-                                                      : decreaseStockList.add(
-                                                          AddToCartModel(
-                                                            productName: pastElement.productName,
-                                                            warehouseName: pastElement.warehouseName,
-                                                            warehouseId: pastElement.warehouseId,
-                                                            productImage: pastElement.productImage,
-                                                            productId: pastElement.productId,
-                                                            quantity: futureElement.quantity.toInt() - pastElement.quantity.toInt(),
-                                                          ),
-                                                        );
-                                                } else if (pastElement.quantity > futureElement.quantity && pastElement.quantity != futureElement.quantity) {
-                                                  increaseStockList.contains(pastElement.productId)
-                                                      ? null
-                                                      : increaseStockList.add(
-                                                          AddToCartModel(
-                                                            productImage: pastElement.productImage,
-                                                            productName: pastElement.productName,
-                                                            warehouseName: pastElement.warehouseName,
-                                                            warehouseId: pastElement.warehouseId,
-                                                            productId: pastElement.productId,
-                                                            quantity: pastElement.quantity - futureElement.quantity,
-                                                          ),
-                                                        );
-                                                }
-                                                break;
-                                              } else {
-                                                i++;
-                                                if (i == presentProducts.length) {
-                                                  increaseStockList.add(
-                                                    AddToCartModel(
-                                                      productImage: pastElement.productImage,
-                                                      productName: pastElement.productName,
-                                                      warehouseName: pastElement.warehouseName,
-                                                      warehouseId: pastElement.warehouseId,
-                                                      productId: pastElement.productId,
-                                                      quantity: pastElement.quantity,
-                                                    ),
-                                                  );
-                                                }
+                                        for (var pastElement in pastProducts) {
+                                          int i = 0;
+                                          for (var futureElement
+                                              in presentProducts) {
+                                            if (pastElement.productId ==
+                                                futureElement.productId) {
+                                              if (pastElement.quantity <
+                                                      futureElement.quantity &&
+                                                  pastElement.quantity !=
+                                                      futureElement.quantity) {
+                                                decreaseStockList.contains(
+                                                        pastElement.productId)
+                                                    ? null
+                                                    : decreaseStockList.add(
+                                                        AddToCartModel(
+                                                          productName:
+                                                              pastElement
+                                                                  .productName,
+                                                          warehouseName:
+                                                              pastElement
+                                                                  .warehouseName,
+                                                          warehouseId:
+                                                              pastElement
+                                                                  .warehouseId,
+                                                          productImage:
+                                                              pastElement
+                                                                  .productImage,
+                                                          productId: pastElement
+                                                              .productId,
+                                                          quantity: futureElement
+                                                                  .quantity -
+                                                              pastElement
+                                                                  .quantity,
+                                                          subTaxes: pastElement
+                                                              .subTaxes,
+                                                          excTax: pastElement
+                                                              .excTax,
+                                                          groupTaxName:
+                                                              pastElement
+                                                                  .groupTaxName,
+                                                          groupTaxRate:
+                                                              pastElement
+                                                                  .groupTaxRate,
+                                                          incTax: pastElement
+                                                              .incTax,
+                                                          margin: pastElement
+                                                              .margin,
+                                                          taxType: pastElement
+                                                              .taxType,
+                                                        ),
+                                                      );
+                                              } else if (pastElement.quantity >
+                                                      futureElement.quantity &&
+                                                  pastElement.quantity !=
+                                                      futureElement.quantity) {
+                                                increaseStockList.contains(
+                                                        pastElement.productId)
+                                                    ? null
+                                                    : increaseStockList.add(
+                                                        AddToCartModel(
+                                                          productImage:
+                                                              pastElement
+                                                                  .productImage,
+                                                          productName:
+                                                              pastElement
+                                                                  .productName,
+                                                          warehouseName:
+                                                              pastElement
+                                                                  .warehouseName,
+                                                          warehouseId:
+                                                              pastElement
+                                                                  .warehouseId,
+                                                          productId: pastElement
+                                                              .productId,
+                                                          quantity: pastElement
+                                                                  .quantity -
+                                                              futureElement
+                                                                  .quantity,
+                                                          subTaxes: pastElement
+                                                              .subTaxes,
+                                                          excTax: pastElement
+                                                              .excTax,
+                                                          groupTaxName:
+                                                              pastElement
+                                                                  .groupTaxName,
+                                                          groupTaxRate:
+                                                              pastElement
+                                                                  .groupTaxRate,
+                                                          incTax: pastElement
+                                                              .incTax,
+                                                          margin: pastElement
+                                                              .margin,
+                                                          taxType: pastElement
+                                                              .taxType,
+                                                        ),
+                                                      );
+                                              }
+                                              break;
+                                            } else {
+                                              i++;
+                                              if (i == presentProducts.length) {
+                                                increaseStockList.add(
+                                                  AddToCartModel(
+                                                    productImage: pastElement
+                                                        .productImage,
+                                                    productName:
+                                                        pastElement.productName,
+                                                    warehouseName: pastElement
+                                                        .warehouseName,
+                                                    warehouseId:
+                                                        pastElement.warehouseId,
+                                                    productId:
+                                                        pastElement.productId,
+                                                    quantity:
+                                                        pastElement.quantity,
+                                                    subTaxes:
+                                                        pastElement.subTaxes,
+                                                    excTax: pastElement.excTax,
+                                                    groupTaxName: pastElement
+                                                        .groupTaxName,
+                                                    groupTaxRate: pastElement
+                                                        .groupTaxRate,
+                                                    incTax: pastElement.incTax,
+                                                    margin: pastElement.margin,
+                                                    taxType:
+                                                        pastElement.taxType,
+                                                  ),
+                                                );
                                               }
                                             }
                                           }
-
-                                          ///_____________StockUpdate_______________________________________________________
-
-                                          for (var element in decreaseStockList) {
-                                            decreaseStock(element.productId, element.quantity);
-                                          }
-
-                                          for (var element in increaseStockList) {
-                                            increaseStock(element.productId, element.quantity);
-                                          }
-                                          // double due = transitionModel.dueAmount! - widget.transitionModel.dueAmount!;
-                                          // print(due.toInt());
-
-                                          ///_________DueUpdate______________________________________________________
-                                          if (pastDue < transitionModel.dueAmount!) {
-                                            double due = pastDue - transitionModel.dueAmount!;
-                                            getSpecificCustomersDueUpdate(
-                                                phoneNumber: widget.transitionModel.customerPhone, isDuePaid: false, due: due.toInt());
-                                          } else if (pastDue > transitionModel.dueAmount!) {
-                                            double due = transitionModel.dueAmount! - pastDue;
-                                            getSpecificCustomersDueUpdate(phoneNumber: widget.transitionModel.customerPhone, isDuePaid: true, due: due.toInt());
-                                          }
-                                          // getSpecificCustomersDueUpdate(phoneNumber: widget.transitionModel.customerPhone, isDuePaid: true, due: 20);
-
-                                          providerData.clearCart();
-                                          consumerRef.refresh(customerProvider);
-                                          consumerRef.refresh(productProvider);
-                                          consumerRef.refresh(salesReportProvider);
-                                          consumerRef.refresh(transitionProvider);
-                                          consumerRef.refresh(profileDetailsProvider);
-
-                                          EasyLoading.dismiss();
-
-                                          // ignore: use_build_context_synchronously
-                                          await Future.delayed(const Duration(microseconds: 100)).then((value) => Navigator.pop(context));
                                         }
+
+                                        ///_____________StockUpdate_______________________________________________________
+
+                                        for (var element in decreaseStockList) {
+                                          decreaseStock(element.productId,
+                                              element.quantity);
+                                        }
+
+                                        for (var element in increaseStockList) {
+                                          increaseStock(element.productId,
+                                              element.quantity);
+                                        }
+                                        // double due = transitionModel.dueAmount! - widget.transitionModel.dueAmount!;
+                                        // print(due.toInt());
+
+                                        ///_________DueUpdate______________________________________________________
+                                        if (pastDue <
+                                            transitionModel.dueAmount!) {
+                                          double due =
+                                              double.parse(pastDue.toString()) -
+                                                  double.parse(transitionModel
+                                                              .dueAmount ==
+                                                          null
+                                                      ? '0'
+                                                      : transitionModel
+                                                          .dueAmount
+                                                          .toString());
+                                          getSpecificCustomersDueUpdate(
+                                              phoneNumber: widget
+                                                  .transitionModel
+                                                  .customerPhone,
+                                              isDuePaid: false,
+                                              due: due.toInt());
+                                        } else if (pastDue >
+                                            transitionModel.dueAmount!) {
+                                          double due =
+                                              transitionModel.dueAmount! -
+                                                  pastDue;
+                                          getSpecificCustomersDueUpdate(
+                                              phoneNumber: widget
+                                                  .transitionModel
+                                                  .customerPhone,
+                                              isDuePaid: true,
+                                              due: due.toInt());
+                                        }
+                                        // getSpecificCustomersDueUpdate(phoneNumber: widget.transitionModel.customerPhone, isDuePaid: true, due: 20);
+
+                                        providerData.clearCart();
+                                        consumerRef.refresh(customerProvider);
+                                        consumerRef.refresh(productProvider);
+                                        consumerRef
+                                            .refresh(salesReportProvider);
+                                        consumerRef.refresh(transitionProvider);
+                                        consumerRef
+                                            .refresh(profileDetailsProvider);
+
+                                        EasyLoading.dismiss();
+
+                                        // ignore: use_build_context_synchronously
+                                        await Future.delayed(const Duration(
+                                                microseconds: 100))
+                                            .then((value) =>
+                                                Navigator.pop(context));
                                       }
-                                    });
-                                  } catch (e) {
-                                    EasyLoading.showError(e.toString());
-                                  }
+                                    }
+                                  });
+                                } catch (e) {
+                                  EasyLoading.showError(e.toString());
                                 }
                               } else {
                                 EasyLoading.showError('Add product first');
@@ -916,12 +1357,14 @@ class _SalesReportEditScreenState extends State<SalesReportEditScreen> {
                               height: 60,
                               decoration: const BoxDecoration(
                                 color: kMainColor,
-                                borderRadius: BorderRadius.all(Radius.circular(30)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
                               ),
                               child: Center(
                                 child: Text(
                                   lang.S.of(context).save,
-                                  style: const TextStyle(fontSize: 18, color: Colors.white),
+                                  style: const TextStyle(
+                                      fontSize: 18, color: Colors.white),
                                 ),
                               ),
                             ),

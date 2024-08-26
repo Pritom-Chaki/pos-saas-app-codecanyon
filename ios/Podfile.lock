@@ -1,66 +1,112 @@
 PODS:
+  - AppCheckCore (10.19.1):
+    - GoogleUtilities/Environment (~> 7.13)
+    - GoogleUtilities/UserDefaults (~> 7.13)
+    - PromisesObjC (~> 2.3)
   - bluetooth_thermal_printer (0.0.1):
+    - Flutter
+  - charset_converter (0.0.1):
     - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
-    - ReachabilitySwift
+    - FlutterMacOS
   - contacts_service (0.2.2):
     - Flutter
-  - Firebase/Auth (10.12.0):
+  - DKImagePickerController/Core (4.3.9):
+    - DKImagePickerController/ImageDataManager
+    - DKImagePickerController/Resource
+  - DKImagePickerController/ImageDataManager (4.3.9)
+  - DKImagePickerController/PhotoGallery (4.3.9):
+    - DKImagePickerController/Core
+    - DKPhotoGallery
+  - DKImagePickerController/Resource (4.3.9)
+  - DKPhotoGallery (0.0.19):
+    - DKPhotoGallery/Core (= 0.0.19)
+    - DKPhotoGallery/Model (= 0.0.19)
+    - DKPhotoGallery/Preview (= 0.0.19)
+    - DKPhotoGallery/Resource (= 0.0.19)
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Core (0.0.19):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Preview
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Model (0.0.19):
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Preview (0.0.19):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Resource
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Resource (0.0.19):
+    - SDWebImage
+    - SwiftyGif
+  - file_picker (0.0.1):
+    - DKImagePickerController/PhotoGallery
+    - Flutter
+  - Firebase/Auth (10.24.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 10.12.0)
-  - Firebase/CoreOnly (10.12.0):
-    - FirebaseCore (= 10.12.0)
-  - Firebase/Database (10.12.0):
+    - FirebaseAuth (~> 10.24.0)
+  - Firebase/CoreOnly (10.24.0):
+    - FirebaseCore (= 10.24.0)
+  - Firebase/Database (10.24.0):
     - Firebase/CoreOnly
-    - FirebaseDatabase (~> 10.12.0)
-  - Firebase/Storage (10.12.0):
+    - FirebaseDatabase (~> 10.24.0)
+  - Firebase/Storage (10.24.0):
     - Firebase/CoreOnly
-    - FirebaseStorage (~> 10.12.0)
-  - firebase_app_check (0.1.5-2):
-    - Firebase/CoreOnly (~> 10.12.0)
+    - FirebaseStorage (~> 10.24.0)
+  - firebase_app_check (0.2.2-2):
+    - Firebase/CoreOnly (~> 10.24.0)
     - firebase_core
-    - FirebaseAppCheck (~> 10.12.0-beta)
+    - FirebaseAppCheck (~> 10.24.0-beta)
     - Flutter
-  - firebase_auth (4.9.0):
-    - Firebase/Auth (= 10.12.0)
-    - firebase_core
-    - Flutter
-  - firebase_core (2.15.1):
-    - Firebase/CoreOnly (= 10.12.0)
-    - Flutter
-  - firebase_database (10.2.5):
-    - Firebase/Database (= 10.12.0)
+  - firebase_auth (4.19.2):
+    - Firebase/Auth (= 10.24.0)
     - firebase_core
     - Flutter
-  - firebase_storage (11.2.6):
-    - Firebase/Storage (= 10.12.0)
+  - firebase_core (2.30.0):
+    - Firebase/CoreOnly (= 10.24.0)
+    - Flutter
+  - firebase_database (10.5.2):
+    - Firebase/Database (= 10.24.0)
     - firebase_core
     - Flutter
-  - FirebaseAppCheck (10.12.0):
+  - firebase_storage (11.7.2):
+    - Firebase/Storage (= 10.24.0)
+    - firebase_core
+    - Flutter
+  - FirebaseAppCheck (10.24.0):
+    - AppCheckCore (~> 10.18)
+    - FirebaseAppCheckInterop (~> 10.17)
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - PromisesObjC (~> 2.1)
-  - FirebaseAppCheckInterop (10.14.0)
-  - FirebaseAuth (10.12.0):
-    - FirebaseAppCheckInterop (~> 10.0)
+  - FirebaseAppCheckInterop (10.25.0)
+  - FirebaseAuth (10.24.0):
+    - FirebaseAppCheckInterop (~> 10.17)
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
-  - FirebaseAuthInterop (10.14.0)
-  - FirebaseCore (10.12.0):
+    - RecaptchaInterop (~> 100.0)
+  - FirebaseAuthInterop (10.25.0)
+  - FirebaseCore (10.24.0):
     - FirebaseCoreInternal (~> 10.0)
-    - GoogleUtilities/Environment (~> 7.8)
-    - GoogleUtilities/Logger (~> 7.8)
-  - FirebaseCoreExtension (10.14.0):
+    - GoogleUtilities/Environment (~> 7.12)
+    - GoogleUtilities/Logger (~> 7.12)
+  - FirebaseCoreExtension (10.25.0):
     - FirebaseCore (~> 10.0)
-  - FirebaseCoreInternal (10.14.0):
+  - FirebaseCoreInternal (10.25.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
-  - FirebaseDatabase (10.12.0):
+  - FirebaseDatabase (10.24.0):
+    - FirebaseAppCheckInterop (~> 10.17)
     - FirebaseCore (~> 10.0)
+    - FirebaseSharedSwift (~> 10.0)
     - leveldb-library (~> 1.22)
-  - FirebaseStorage (10.12.0):
+  - FirebaseSharedSwift (10.25.0)
+  - FirebaseStorage (10.24.0):
     - FirebaseAppCheckInterop (~> 10.0)
     - FirebaseAuthInterop (~> 10.0)
     - FirebaseCore (~> 10.0)
@@ -68,6 +114,8 @@ PODS:
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - Flutter (1.0.0)
   - flutter_barcode_scanner (2.0.0):
+    - Flutter
+  - flutter_credit_card (0.0.1):
     - Flutter
   - flutter_inappwebview (0.0.1):
     - Flutter
@@ -83,28 +131,84 @@ PODS:
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
-  - FMDB (2.7.5):
-    - FMDB/standard (= 2.7.5)
-  - FMDB/standard (2.7.5)
-  - GoogleUtilities/AppDelegateSwizzler (7.11.5):
+  - GoogleDataTransport (9.4.1):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleMLKit/BarcodeScanning (4.0.0):
+    - GoogleMLKit/MLKitCore
+    - MLKitBarcodeScanning (~> 3.0.0)
+  - GoogleMLKit/MLKitCore (4.0.0):
+    - MLKitCommon (~> 9.0.0)
+  - GoogleToolboxForMac/DebugUtils (2.3.2):
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - GoogleToolboxForMac/Defines (2.3.2)
+  - GoogleToolboxForMac/Logger (2.3.2):
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - "GoogleToolboxForMac/NSData+zlib (2.3.2)":
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.3.2)":
+    - GoogleToolboxForMac/DebugUtils (= 2.3.2)
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.3.2)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.3.2)"
+  - GoogleUtilities/AppDelegateSwizzler (7.13.3):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.11.5):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Environment (7.13.3):
+    - GoogleUtilities/Privacy
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.11.5):
+  - GoogleUtilities/Logger (7.13.3):
     - GoogleUtilities/Environment
-  - GoogleUtilities/Network (7.11.5):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Network (7.13.3):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Privacy
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.11.5)"
-  - GoogleUtilities/Reachability (7.11.5):
+  - "GoogleUtilities/NSData+zlib (7.13.3)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (7.13.3)
+  - GoogleUtilities/Reachability (7.13.3):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (3.1.1)
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/UserDefaults (7.13.3):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - GoogleUtilitiesComponents (1.1.0):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (2.3.0)
   - image_picker_ios (0.0.1):
     - Flutter
-  - leveldb-library (1.22.2)
+  - leveldb-library (1.22.5)
+  - MLImage (1.0.0-beta4)
+  - MLKitBarcodeScanning (3.0.0):
+    - MLKitCommon (~> 9.0)
+    - MLKitVision (~> 5.0)
+  - MLKitCommon (9.0.0):
+    - GoogleDataTransport (~> 9.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - GoogleUtilities/UserDefaults (~> 7.0)
+    - GoogleUtilitiesComponents (~> 1.0)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.1)
+  - MLKitVision (5.0.0):
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GTMSessionFetcher/Core (< 3.0, >= 1.1)
+    - MLImage (= 1.0.0-beta4)
+    - MLKitCommon (~> 9.0)
+  - mobile_scanner (3.5.6):
+    - Flutter
+    - GoogleMLKit/BarcodeScanning (~> 4.0.0)
+  - nanopb (2.30910.0):
+    - nanopb/decode (= 2.30910.0)
+    - nanopb/encode (= 2.30910.0)
+  - nanopb/decode (2.30910.0)
+  - nanopb/encode (2.30910.0)
   - nb_utils (0.0.1):
     - Flutter
   - open_file (0.0.1):
@@ -115,20 +219,21 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - paytm_allinonesdk (1.2.1):
+  - paytm_allinonesdk (1.2.4):
     - Flutter
-  - permission_handler_apple (9.1.1):
+  - permission_handler_apple (9.3.0):
     - Flutter
-  - PromisesObjC (2.3.1)
-  - razorpay-pod (1.3.4)
+  - PromisesObjC (2.4.0)
+  - razorpay-pod (1.3.7)
   - razorpay_flutter (1.1.10):
     - Flutter
     - razorpay-pod
-  - ReachabilitySwift (5.0.0)
+  - RecaptchaInterop (100.0.0)
   - restart_app (0.0.1):
     - Flutter
-  - share (0.0.1):
-    - Flutter
+  - SDWebImage (5.19.2):
+    - SDWebImage/Core (= 5.19.2)
+  - SDWebImage/Core (5.19.2)
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
@@ -138,8 +243,9 @@ PODS:
     - Flutter
   - sqflite (0.0.3):
     - Flutter
-    - FMDB (>= 2.7.5)
-  - Toast (4.0.0)
+    - FlutterMacOS
+  - SwiftyGif (5.4.5)
+  - Toast (4.1.1)
   - url_launcher_ios (0.0.1):
     - Flutter
   - webview_flutter_wkwebview (0.0.1):
@@ -147,8 +253,10 @@ PODS:
 
 DEPENDENCIES:
   - bluetooth_thermal_printer (from `.symlinks/plugins/bluetooth_thermal_printer/ios`)
-  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
+  - charset_converter (from `.symlinks/plugins/charset_converter/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/darwin`)
   - contacts_service (from `.symlinks/plugins/contacts_service/ios`)
+  - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - firebase_app_check (from `.symlinks/plugins/firebase_app_check/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -156,11 +264,13 @@ DEPENDENCIES:
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
   - flutter_barcode_scanner (from `.symlinks/plugins/flutter_barcode_scanner/ios`)
+  - flutter_credit_card (from `.symlinks/plugins/flutter_credit_card/ios`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
   - flutter_sslcommerz (from `.symlinks/plugins/flutter_sslcommerz/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - mobile_scanner (from `.symlinks/plugins/mobile_scanner/ios`)
   - nb_utils (from `.symlinks/plugins/nb_utils/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
@@ -169,16 +279,18 @@ DEPENDENCIES:
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - razorpay_flutter (from `.symlinks/plugins/razorpay_flutter/ios`)
   - restart_app (from `.symlinks/plugins/restart_app/ios`)
-  - share (from `.symlinks/plugins/share/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - smart_auth (from `.symlinks/plugins/smart_auth/ios`)
-  - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 SPEC REPOS:
   trunk:
+    - AppCheckCore
+    - DKImagePickerController
+    - DKPhotoGallery
     - Firebase
     - FirebaseAppCheck
     - FirebaseAppCheckInterop
@@ -188,24 +300,39 @@ SPEC REPOS:
     - FirebaseCoreExtension
     - FirebaseCoreInternal
     - FirebaseDatabase
+    - FirebaseSharedSwift
     - FirebaseStorage
-    - FMDB
+    - GoogleDataTransport
+    - GoogleMLKit
+    - GoogleToolboxForMac
     - GoogleUtilities
+    - GoogleUtilitiesComponents
     - GTMSessionFetcher
     - leveldb-library
+    - MLImage
+    - MLKitBarcodeScanning
+    - MLKitCommon
+    - MLKitVision
+    - nanopb
     - OrderedSet
     - PromisesObjC
     - razorpay-pod
-    - ReachabilitySwift
+    - RecaptchaInterop
+    - SDWebImage
+    - SwiftyGif
     - Toast
 
 EXTERNAL SOURCES:
   bluetooth_thermal_printer:
     :path: ".symlinks/plugins/bluetooth_thermal_printer/ios"
+  charset_converter:
+    :path: ".symlinks/plugins/charset_converter/ios"
   connectivity_plus:
-    :path: ".symlinks/plugins/connectivity_plus/ios"
+    :path: ".symlinks/plugins/connectivity_plus/darwin"
   contacts_service:
     :path: ".symlinks/plugins/contacts_service/ios"
+  file_picker:
+    :path: ".symlinks/plugins/file_picker/ios"
   firebase_app_check:
     :path: ".symlinks/plugins/firebase_app_check/ios"
   firebase_auth:
@@ -220,6 +347,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_barcode_scanner:
     :path: ".symlinks/plugins/flutter_barcode_scanner/ios"
+  flutter_credit_card:
+    :path: ".symlinks/plugins/flutter_credit_card/ios"
   flutter_inappwebview:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
   flutter_pdfview:
@@ -230,6 +359,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluttertoast/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
+  mobile_scanner:
+    :path: ".symlinks/plugins/mobile_scanner/ios"
   nb_utils:
     :path: ".symlinks/plugins/nb_utils/ios"
   open_file:
@@ -246,8 +377,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/razorpay_flutter/ios"
   restart_app:
     :path: ".symlinks/plugins/restart_app/ios"
-  share:
-    :path: ".symlinks/plugins/share/ios"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
@@ -255,63 +384,80 @@ EXTERNAL SOURCES:
   smart_auth:
     :path: ".symlinks/plugins/smart_auth/ios"
   sqflite:
-    :path: ".symlinks/plugins/sqflite/ios"
+    :path: ".symlinks/plugins/sqflite/darwin"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
   webview_flutter_wkwebview:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
+  AppCheckCore: db04d539b37794558391bc56bc65e2440b01a195
   bluetooth_thermal_printer: 65b8304b3a1d8c67d466642a28cc2b4984409346
-  connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
+  charset_converter: 215c7b04932ec2b9ba43be96a9bc34afed3e5322
+  connectivity_plus: ddd7f30999e1faaef5967c23d5b6d503d10434db
   contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
-  Firebase: 07150e75d142fb9399f6777fa56a187b17f833a0
-  firebase_app_check: 054d90729814a3b9727abd6b290bea1fe0009267
-  firebase_auth: 097a2440d40bed75f4dfe4cb91b4d98349509b47
-  firebase_core: 4a3246a02f828a01c74a2c26427037786d90f17f
-  firebase_database: ae8b70d7f5867c5f65a08353d81521896d850771
-  firebase_storage: 90a6038e00d3903c7f665dcfc57a9a98c7c8366b
-  FirebaseAppCheck: c5e49dadf9c9cbabf0066074af938e032a0cce48
-  FirebaseAppCheckInterop: c87f1d5421c852413dd936b2b2340b21e62501a0
-  FirebaseAuth: a66c1e14ec58f41d154a4b41ce1a23ea00ad4805
-  FirebaseAuthInterop: 23be77be1ca68e4bd15214f403f807a6ca70d7e0
-  FirebaseCore: f86a1394906b97ac445ae49c92552a9425831bed
-  FirebaseCoreExtension: 976638051b1a46b503afce7ec80277f9161f2040
-  FirebaseCoreInternal: d558159ee6cc4b823c2296ecc193de9f6d9a5bb3
-  FirebaseDatabase: 6d998d7ef2c1723b3e798a85e61a7dc0504b1ea0
-  FirebaseStorage: 1d7ca8c8953fc61ccacaa7c612696b5402968a0d
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
+  DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
+  file_picker: 09aa5ec1ab24135ccd7a1621c46c84134bfd6655
+  Firebase: 91fefd38712feb9186ea8996af6cbdef41473442
+  firebase_app_check: 0749fd2b3704e9eaa92f7a66de256050e4b32e72
+  firebase_auth: c889ae9f6d5116804d50bf9fa931b383f3e82a9b
+  firebase_core: 66b99b4fb4e5d7cc4e88d4c195fe986681f3466a
+  firebase_database: 8da9008830aaefb7355a9897b4244e24785d7b5c
+  firebase_storage: 056e3c8f9ec19df166eec9211cd3dba876d1ca36
+  FirebaseAppCheck: afb42367002c12bbb5f58c4a954ecd2f0a171182
+  FirebaseAppCheckInterop: 5da5ce93e8797a215e3f677fb0654b74e736c8b8
+  FirebaseAuth: 711d01cccefaf10035b3090a92956d0dd4f99088
+  FirebaseAuthInterop: 2753ef68cb3cd5aefebe0f58082671cede78350f
+  FirebaseCore: 11dc8a16dfb7c5e3c3f45ba0e191a33ac4f50894
+  FirebaseCoreExtension: 8a47811d0b155501559ef05d089518152a0a1677
+  FirebaseCoreInternal: 910a81992c33715fec9263ca7381d59ab3a750b7
+  FirebaseDatabase: 09752515c6abf792b6f61ca6d0354952a8c1feb9
+  FirebaseSharedSwift: 0274086954b1b2d5fd7e829eccc587044d72a4ba
+  FirebaseStorage: 03710f9a0e3824d3069ed1128601a3d3a5e7d817
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_barcode_scanner: 7a1144744c28dc0c57a8de7218ffe5ec59a9e4bf
-  flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
+  flutter_credit_card: 48fb35065294868bc6a3e7f18a42f28929b84f48
+  flutter_inappwebview: 3d32228f1304635e7c028b0d4252937730bbc6cf
   flutter_pdfview: 25f53dd6097661e6395b17de506e6060585946bd
   flutter_sslcommerz: 326cb374adc1167259dd2c512eb2a25fdbc0fabd
-  fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
-  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
-  GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
-  image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
-  leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
+  fluttertoast: 9f2f8e81bb5ce18facb9748d7855bf5a756fe3db
+  GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
+  GoogleMLKit: 2bd0dc6253c4d4f227aad460f69215a504b2980e
+  GoogleToolboxForMac: 8bef7c7c5cf7291c687cf5354f39f9db6399ad34
+  GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
+  GoogleUtilitiesComponents: 679b2c881db3b615a2777504623df6122dd20afe
+  GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
+  image_picker_ios: b545a5f16c0fa88e3ecbbce3ed4de45567a8ec18
+  leveldb-library: e8eadf9008a61f9e1dde3978c086d2b6d9b9dc28
+  MLImage: 7bb7c4264164ade9bf64f679b40fb29c8f33ee9b
+  MLKitBarcodeScanning: 04e264482c5f3810cb89ebc134ef6b61e67db505
+  MLKitCommon: c1b791c3e667091918d91bda4bba69a91011e390
+  MLKitVision: 8baa5f46ee3352614169b85250574fde38c36f49
+  mobile_scanner: 38dcd8a49d7d485f632b7de65e4900010187aef2
+  nanopb: 438bc412db1928dac798aa6fd75726007be04262
   nb_utils: ada4338858d8827ec92fdab2a545206b4ba4cfb1
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
   OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
-  package_info_plus: fd030dabf36271f146f1f3beacd48f564b0f17f7
-  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
-  paytm_allinonesdk: 40f4db5d33dc7960b4e87cd8e643f8cafdfca180
-  permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
-  PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
-  razorpay-pod: df3aa440969489d242c40ec606db9a0c7095743f
+  package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
+  path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
+  paytm_allinonesdk: cb5e007fefed53454659a01800433ee3fdb07344
+  permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
+  PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  razorpay-pod: a4c288f8bc9eaae49c167df365cfda4f5e153ee2
   razorpay_flutter: 84b3bfd206ae9c9c2a9ba585524a1b3d8102b6c1
-  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   restart_app: 806659942bf932f6ce51c5372f91ce5e81c8c14a
-  share: 0b2c3e82132f5888bccca3351c504d0003b3b410
-  share_plus: 599aa54e4ea31d4b4c0e9c911bcc26c55e791028
-  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  SDWebImage: dfe95b2466a9823cf9f0c6d01217c06550d7b29a
+  share_plus: 8875f4f2500512ea181eef553c3e27dba5135aad
+  shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
   smart_auth: 4bedbc118723912d0e45a07e8ab34039c19e04f2
-  sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
-  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
-  webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
+  sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
+  SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
+  Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
+  url_launcher_ios: 6116280ddcfe98ab8820085d8d76ae7449447586
+  webview_flutter_wkwebview: be0f0d33777f1bfd0c9fdcb594786704dbf65f36
 
 PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2

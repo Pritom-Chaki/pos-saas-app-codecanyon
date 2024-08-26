@@ -3,14 +3,21 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_pos/model/product_model.dart';
 
+import '../Screens/tax report/tax_model.dart';
 import '../model/add_to_cart_model.dart';
 
 final cartNotifier = ChangeNotifierProvider((ref) => CartNotifier());
 
 class CartNotifier extends ChangeNotifier {
   List<AddToCartModel> cartItemList = [];
+  List<TaxModel> taxRates = [];
   double discount = 0;
   String discountType = 'USD';
+  // List<GlobalKey> keyForEdit = [];
+
+  List<TextEditingController> controllers = [];
+  List<FocusNode> focus = [];
+
 
   final List<ProductModel> productList = [];
 
@@ -87,9 +94,12 @@ class CartNotifier extends ChangeNotifier {
     }
     if (isNotInList) {
       cartItemList.add(cartItem);
+      controllers.add(TextEditingController());
+      focus.add(FocusNode());
     }
     notifyListeners();
   }
+
 
   addToCartRiverPodForEdit(List<AddToCartModel> cartItem) {
     cartItemList = cartItem;

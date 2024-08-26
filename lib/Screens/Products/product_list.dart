@@ -1,8 +1,6 @@
 // ignore_for_file: unused_result
-
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +13,10 @@ import 'package:intl/intl.dart';
 import 'package:mobile_pos/Provider/category,brans,units_provide.dart';
 import 'package:mobile_pos/Provider/product_provider.dart';
 import 'package:mobile_pos/Screens/Home/home.dart';
+import 'package:mobile_pos/Screens/Products/product_details.dart';
 import 'package:mobile_pos/Screens/Products/update_product.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
 import 'package:nb_utils/nb_utils.dart';
-
 import '../../GlobalComponents/button_global.dart';
 import '../../const_commas.dart';
 import '../../constant.dart';
@@ -26,8 +24,8 @@ import '../../currency.dart';
 import '../../empty_screen_widget.dart';
 import '../../model/product_model.dart';
 import '../Warehouse/warehouse_model.dart';
+import '../tax report/tax_model.dart';
 import 'add_product.dart';
-import 'excel_upload screen.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
@@ -132,9 +130,9 @@ class _ProductListState extends State<ProductList> with TickerProviderStateMixin
     List<WarehouseBasedProductModel> warehouseBasedProductModel = [];
     List<String> allWarehouseId = [];
     return Consumer(builder: (context, ref, __) {
+      final groupTax = ref.watch(groupTaxProvider);
       final providerData = ref.watch(productProvider);
       final categoryData = ref.watch(categoryProvider);
-      final wareHouseList = ref.watch(warehouseProvider);
       return categoryData.when(data: (categoryList) {
         for (int i = 0; i < categoryList.length; i++) {
           category.contains(categoryList[i].categoryName) ? null : category.add(categoryList[i].categoryName);
@@ -179,8 +177,7 @@ class _ProductListState extends State<ProductList> with TickerProviderStateMixin
               },
               child: Container(
                 alignment: Alignment.topCenter,
-                decoration:
-                    const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
+                decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -192,7 +189,11 @@ class _ProductListState extends State<ProductList> with TickerProviderStateMixin
                         controller: tabController,
                         padding: EdgeInsets.zero,
                         isScrollable: true,
+                        labelColor: kMainColor,
+                        unselectedLabelColor: kGreyTextColor,
                         indicatorColor: kMainColor,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        tabAlignment: TabAlignment.start,
                         indicator: UnderlineTabIndicator(
                           borderSide: const BorderSide(color: kMainColor, width: 4),
                           borderRadius: BorderRadius.only(
@@ -203,7 +204,6 @@ class _ProductListState extends State<ProductList> with TickerProviderStateMixin
                         tabs: category.map((String tab) {
                           return Tab(text: tab);
                         }).toList(),
-
                         // List.generate(
                         //   category.length,
                         //   (index) => Padding(
@@ -234,74 +234,7 @@ class _ProductListState extends State<ProductList> with TickerProviderStateMixin
                               prefixIcon: const Icon(Icons.search)),
                         ),
                       ),
-
-                      // Padding(
-                      //   padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                      //   child: wareHouseList.when(
-                      //     data: (warehouse) {
-                      //       List<WareHouseModel> wareHouseList = warehouse;
-                      //       // List<WareHouseModel> wareHouseList = [];
-                      //       return Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [
-                      //           Text(
-                      //             'Selected Warehouse:',
-                      //             style: kTextStyle.copyWith(color: kGreyTextColor),
-                      //           ),
-                      //           DropdownButtonHideUnderline(
-                      //             child: getName(list: warehouse ?? []),
-                      //           ),
-                      //         ],
-                      //       );
-                      //
-                      //       //   FormField(
-                      //       //   builder: (FormFieldState<dynamic> field) {
-                      //       //     return InputDecorator(
-                      //       //       decoration:  InputDecoration(
-                      //       //         border: const OutlineInputBorder(),
-                      //       //           contentPadding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                      //       //           ),
-                      //       //       child: DropdownButtonHideUnderline(
-                      //       //         child: getName(list: warehouse ?? []),
-                      //       //       ),
-                      //       //     );
-                      //       //   },
-                      //       // );
-                      //     },
-                      //     error: (e, stack) {
-                      //       return Center(
-                      //         child: Text(
-                      //           e.toString(),
-                      //         ),
-                      //       );
-                      //     },
-                      //     loading: () {
-                      //       return const Center(
-                      //         child: CircularProgressIndicator(),
-                      //       );
-                      //     },
-                      //   ),
-                      // ),
-                      // const Divider(
-                      //   thickness: 1.0,
-                      //   color: kBorderColorTextField,
-                      //   height: 0,
-                      // ),
                       providerData.when(data: (products) {
-                        // List<ProductModel> filteredProducts = products
-                        //     .where((product) =>
-                        // productName.isEmptyOrNull
-                        //     ? true
-                        //     : product.productName.toUpperCase().contains(productName!.toUpperCase()))
-                        //     .where((product) =>
-                        // category[tabController!.index] == 'All'
-                        //     ? true
-                        //     : ((category[tabController.index] == 'Expiring' && product.expiringDate != null)
-                        //     ? ((DateTime.tryParse(product.expiringDate ?? '') ?? DateTime.now())
-                        //     .isBefore(DateTime.now().add(const Duration(days: 7))))
-                        //     : product.productCategory == category[tabController.index]))
-                        //     .toList();
-
                         List<ProductModel> showAbleProducts = [];
                         for (var element in products) {
                           productNameList.add(element.productName.removeAllWhiteSpace().toLowerCase());
@@ -341,137 +274,151 @@ class _ProductListState extends State<ProductList> with TickerProviderStateMixin
                                       itemBuilder: (_, i) {
                                         productCodeList.add(showAbleProducts[i].productCode.replaceAll(' ', '').toLowerCase());
                                         productNameList.add(showAbleProducts[i].productName.replaceAll(' ', '').toLowerCase());
-
-                                        return ListTile(
-                                          leading: Container(
-                                            height: 50,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(color: kBorderColorTextField),
-                                              image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: NetworkImage(showAbleProducts[i].productPicture),
-                                              ),
-                                            ),
-                                          ),
-                                          title: Text(showAbleProducts[i].productName, maxLines: 2, overflow: TextOverflow.ellipsis),
-                                          subtitle: Text(
-                                              "${lang.S.of(context).stocks} : ${myFormat.format(int.tryParse(showAbleProducts[i].productStock) ?? 0)} (${showAbleProducts[i].warehouseName})"),
-                                          trailing: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.end,
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "$currency ${myFormat.format(double.tryParse(showAbleProducts[i].productSalePrice) ?? 0)}",
-                                                    // "$currency ${products[i].productSalePrice}",
-                                                    style: const TextStyle(fontSize: 18),
+                                        return Column(
+                                          children: [
+                                            ListTile(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) => ProductDetails(
+                                                              productModel: products[i],
+                                                            )));
+                                                print(products[index].productName);
+                                              },
+                                              leading: Container(
+                                                height: 50,
+                                                width: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(color: kBorderColorTextField),
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: NetworkImage(showAbleProducts[i].productPicture),
                                                   ),
-                                                  Visibility(
-                                                    visible: (category[index] == 'Expiring' && products[i].expiringDate != null),
-                                                    child: Text(
-                                                      (DateTime.tryParse(showAbleProducts[i].expiringDate ?? '') ?? DateTime.now())
-                                                              .isBefore(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day))
-                                                          ? 'Expired'
-                                                          : "Will Expire at ${DateFormat.yMMMd().format(DateTime.tryParse(showAbleProducts[i].expiringDate ?? '') ?? DateTime.now())}",
+                                                ),
+                                              ),
+                                              title: Text(showAbleProducts[i].productName, maxLines: 2, overflow: TextOverflow.ellipsis),
+                                              subtitle:
+                                                  Text("${lang.S.of(context).stocks} : ${myFormat.format(num.tryParse(showAbleProducts[i].productStock) ?? 0)} (${showAbleProducts[i].warehouseName})"),
+                                              trailing: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Text(
+                                                        "$currency ${myFormat.format(double.tryParse(showAbleProducts[i].productSalePrice) ?? 0)}",
+                                                        // "$currency ${products[i].productSalePrice}",
+                                                        style: const TextStyle(fontSize: 18),
+                                                      ),
+                                                      Visibility(
+                                                        visible: (category[index] == 'Expiring' && products[i].expiringDate != null),
+                                                        child: Text(
+                                                          (DateTime.tryParse(showAbleProducts[i].expiringDate ?? '') ?? DateTime.now())
+                                                                  .isBefore(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day))
+                                                              ? 'Expired'
+                                                              : "Will Expire at ${DateFormat.yMMMd().format(DateTime.tryParse(showAbleProducts[i].expiringDate ?? '') ?? DateTime.now())}",
 
-                                                      // "$currency ${products[i].productSalePrice}",
-                                                      style: const TextStyle(fontSize: 10, color: Colors.red),
-                                                      textAlign: TextAlign.center,
+                                                          // "$currency ${products[i].productSalePrice}",
+                                                          style: const TextStyle(fontSize: 10, color: Colors.red),
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    width: 30,
+                                                    child: PopupMenuButton(
+                                                      padding: EdgeInsets.zero,
+                                                      itemBuilder: (BuildContext bc) => [
+                                                        PopupMenuItem(
+                                                            child: InkWell(
+                                                          onTap: () {
+                                                            UpdateProduct(
+                                                              productModel: showAbleProducts[i],
+                                                              productCodeList: productCodeList,
+                                                              productNameList: productNameList,
+                                                              groupTaxModel: groupTax.value ?? [],
+                                                            ).launch(context);
+                                                          },
+                                                          child: Row(
+                                                            children: [
+                                                              const Icon(FeatherIcons.edit3, size: 18.0, color: Colors.black),
+                                                              const SizedBox(width: 4.0),
+                                                              Text(
+                                                                lang.S.of(context).edit,
+                                                                style: const TextStyle(color: Colors.black),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        )),
+                                                        PopupMenuItem(
+                                                          child: GestureDetector(
+                                                            onTap: () {
+                                                              increseStockPopUp(context, products, i, ref);
+                                                            },
+                                                            child: Row(
+                                                              children: [
+                                                                const Icon(Icons.add, size: 18.0, color: Colors.black),
+                                                                const SizedBox(width: 4.0),
+                                                                Text(
+                                                                  lang.S.of(context).increaseStock,
+                                                                  style: const TextStyle(color: Colors.black),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        PopupMenuItem(
+                                                          child: GestureDetector(
+                                                            onTap: () {
+                                                              deleteProduct(productCode: showAbleProducts[i].productCode, updateProduct: ref, context: bc);
+                                                            },
+                                                            child: Row(
+                                                              children: [
+                                                                const Icon(Icons.delete, size: 18.0, color: Colors.black),
+                                                                const SizedBox(width: 4.0),
+                                                                Text(
+                                                                  lang.S.of(context).delete,
+                                                                  style: const TextStyle(color: Colors.black),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      onSelected: (value) {
+                                                        Navigator.pushNamed(context, '$value');
+                                                      },
+                                                      child: Center(
+                                                        child: Container(
+                                                            height: 18,
+                                                            width: 18,
+                                                            alignment: Alignment.centerRight,
+                                                            child: const Icon(
+                                                              Icons.more_vert_sharp,
+                                                              size: 20,
+                                                              color: Colors.black,
+                                                            )),
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(
-                                                width: 30,
-                                                child: PopupMenuButton(
-                                                  padding: EdgeInsets.zero,
-                                                  itemBuilder: (BuildContext bc) => [
-                                                    PopupMenuItem(
-                                                        child: InkWell(
-                                                      onTap: () {
-                                                        UpdateProduct(
-                                                          productModel: showAbleProducts[i],
-                                                          productCodeList: productCodeList,
-                                                          productNameList: productNameList,
-                                                        ).launch(context);
-                                                      },
-                                                      child: Row(
-                                                        children: [
-                                                          const Icon(FeatherIcons.edit3, size: 18.0, color: Colors.black),
-                                                          const SizedBox(width: 4.0),
-                                                          Text(
-                                                            lang.S.of(context).edit,
-                                                            style: const TextStyle(color: Colors.black),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )),
-                                                    PopupMenuItem(
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          increseStockPopUp(context, products, i, ref);
-                                                        },
-                                                        child: Row(
-                                                          children: [
-                                                            const Icon(Icons.add, size: 18.0, color: Colors.black),
-                                                            const SizedBox(width: 4.0),
-                                                            Text(
-                                                              lang.S.of(context).increaseStock,
-                                                              style: const TextStyle(color: Colors.black),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    PopupMenuItem(
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          deleteProduct(productCode: showAbleProducts[i].productCode, updateProduct: ref, context: bc);
-                                                        },
-                                                        child: Row(
-                                                          children: [
-                                                            const Icon(Icons.delete, size: 18.0, color: Colors.black),
-                                                            const SizedBox(width: 4.0),
-                                                            Text(
-                                                              lang.S.of(context).delete,
-                                                              style: const TextStyle(color: Colors.black),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                  onSelected: (value) {
-                                                    Navigator.pushNamed(context, '$value');
-                                                  },
-                                                  child: Center(
-                                                    child: Container(
-                                                        height: 18,
-                                                        width: 18,
-                                                        alignment: Alignment.centerRight,
-                                                        child: const Icon(
-                                                          Icons.more_vert_sharp,
-                                                          size: 20,
-                                                          color: Colors.black,
-                                                        )),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                            .visible(searchedProduct.isEmptyOrNull
-                                                ? true
-                                                : showAbleProducts[i].productName.toUpperCase().contains(searchedProduct!.toUpperCase()))
-                                            .visible(category[index] == 'All'
+                                            ),
+                                            Divider(
+                                              height: 1,
+                                              thickness: 1.0,
+                                              color: kBorderColor.withOpacity(0.3),
+                                            )
+                                          ],
+                                        ).visible(searchedProduct.isEmptyOrNull ? true : showAbleProducts[i].productName.toUpperCase().contains(searchedProduct!.toUpperCase())).visible(
+                                            category[index] == 'All'
                                                 ? true
                                                 : ((category[index] == 'Expiring' && showAbleProducts[i].expiringDate != null)
-                                                    ? ((DateTime.tryParse(showAbleProducts[i].expiringDate ?? '') ?? DateTime.now())
-                                                        .isBefore(DateTime.now().add(const Duration(days: 7))))
+                                                    ? ((DateTime.tryParse(showAbleProducts[i].expiringDate ?? '') ?? DateTime.now()).isBefore(DateTime.now().add(const Duration(days: 7))))
                                                     : showAbleProducts[i].productCategory == category[index]));
                                       },
                                     ),
@@ -500,12 +447,16 @@ class _ProductListState extends State<ProductList> with TickerProviderStateMixin
                 buttontext: lang.S.of(context).addNewProduct,
                 iconColor: Colors.white,
                 buttonDecoration: kButtonDecoration.copyWith(color: kMainColor, borderRadius: const BorderRadius.all(Radius.circular(30))),
-                onPressed: () {
-                  AddProduct(
+                onPressed: () async {
+                  bool? isAdded = await AddProduct(
                     productNameList: productNameList,
                     productCodeList: productCodeList,
                     warehouseBasedProductModel: warehouseBasedProductModel,
                   ).launch(context);
+
+                  if (isAdded ?? false) {
+                    ref.refresh(productProvider);
+                  }
                 },
               ),
             ),
@@ -713,8 +664,9 @@ class _ProductListState extends State<ProductList> with TickerProviderStateMixin
                           'productDealerPrice': dealerController.text,
                         });
                         EasyLoading.showSuccess('Done');
-                        pref.refresh(productProvider);
+
                         pref.refresh(categoryProvider);
+                        pref.refresh(productProvider);
                         Navigator.pop(context);
                         Navigator.pop(context1);
                       } else {

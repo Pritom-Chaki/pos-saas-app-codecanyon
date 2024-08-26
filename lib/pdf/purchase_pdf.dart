@@ -48,6 +48,44 @@ Future<File> createAndSaveSalePDF({required PurchaseTransactionModel transaction
                 ),
               ),
 
+              ///______Phone________________________________________________________________
+              pw.Container(
+                width: double.infinity,
+                padding: const pw.EdgeInsets.all(1.0),
+                child: pw.Center(
+                  child: pw.Text(
+                    'Phone: ${personalInformation.phoneNumber}',
+                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                  ),
+                ),
+              ),
+
+              ///______Address________________________________________________________________
+              pw.Container(
+                width: double.infinity,
+                padding: const pw.EdgeInsets.all(1.0),
+                child: pw.Center(
+                  child: pw.Text(
+                    'Address: ${personalInformation.countryName}',
+                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                  ),
+                ),
+              ),
+
+              ///______Shop_GST________________________________________________________________
+              personalInformation.gst.trim().isNotEmpty
+                  ? pw.Container(
+                      width: double.infinity,
+                      padding: const pw.EdgeInsets.all(1.0),
+                      child: pw.Center(
+                        child: pw.Text(
+                          'Shop GST: ${personalInformation.gst}',
+                          style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                        ),
+                      ),
+                    )
+                  : pw.Container(),
+
               ///________Bill/Invoice_________________________________________________________
               pw.Container(
                 width: double.infinity,
@@ -72,10 +110,7 @@ Future<File> createAndSaveSalePDF({required PurchaseTransactionModel transaction
                 ///_________Left_Side__________________________________________________________
                 pw.Column(children: [
                   ///_____Name_______________________________________
-                  pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.start,
-                      crossAxisAlignment: pw.CrossAxisAlignment.start,
-                      children: [
+                  pw.Row(mainAxisAlignment: pw.MainAxisAlignment.start, crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
                     pw.SizedBox(
                       width: 60.0,
                       child: pw.Text(
@@ -151,6 +186,34 @@ Future<File> createAndSaveSalePDF({required PurchaseTransactionModel transaction
                       ),
                     ),
                   ]),
+
+                  ///_____Party GST_______________________________________
+                  pw.SizedBox(height: transactions.customerGst.trim().isNotEmpty ? 2 : 0),
+                  transactions.customerGst.trim().isNotEmpty
+                      ? pw.Row(children: [
+                    pw.SizedBox(
+                      width: 60.0,
+                      child: pw.Text(
+                        'Party GST',
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                      ),
+                    ),
+                    pw.SizedBox(
+                      width: 10.0,
+                      child: pw.Text(
+                        ':',
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                      ),
+                    ),
+                    pw.SizedBox(
+                      width: 140.0,
+                      child: pw.Text(
+                        transactions.customerGst,
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                      ),
+                    ),
+                  ])
+                      : pw.Container(),
 
                   ///_____Remarks_______________________________________
                   // pw.SizedBox(height: 2),
@@ -422,8 +485,7 @@ Future<File> createAndSaveSalePDF({required PurchaseTransactionModel transaction
                       (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).productStock.toString()) ?? 0)),
                       (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).productPurchasePrice.toString()) ?? 0)),
                       (myFormat.format(double.tryParse(
-                              (double.parse(transactions.productList!.elementAt(i).productPurchasePrice) * double.parse(transactions.productList!.elementAt(i).productStock))
-                                  .toStringAsFixed(2)) ??
+                              (double.parse(transactions.productList!.elementAt(i).productPurchasePrice) * double.parse(transactions.productList!.elementAt(i).productStock)).toStringAsFixed(2)) ??
                           0))
                     ],
                 ],
@@ -485,30 +547,30 @@ Future<File> createAndSaveSalePDF({required PurchaseTransactionModel transaction
                           pw.SizedBox(height: 2),
 
                           ///________vat_______________________________________________
-                          pw.Row(children: [
-                            pw.SizedBox(
-                              width: 100.0,
-                              child: pw.Text(
-                                'Vat',
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                                      color: PdfColors.black,
-                                      fontSize: 11,
-                                    ),
-                              ),
-                            ),
-                            pw.Container(
-                              alignment: pw.Alignment.centerRight,
-                              width: 150.0,
-                              child: pw.Text(
-                                '0',
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                                      color: PdfColors.black,
-                                      fontSize: 11,
-                                    ),
-                              ),
-                            ),
-                          ]),
-                          pw.SizedBox(height: 2),
+                          // pw.Row(children: [
+                          //   pw.SizedBox(
+                          //     width: 100.0,
+                          //     child: pw.Text(
+                          //       'Vat',
+                          //       style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                          //             color: PdfColors.black,
+                          //             fontSize: 11,
+                          //           ),
+                          //     ),
+                          //   ),
+                          //   pw.Container(
+                          //     alignment: pw.Alignment.centerRight,
+                          //     width: 150.0,
+                          //     child: pw.Text(
+                          //       '0',
+                          //       style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                          //             color: PdfColors.black,
+                          //             fontSize: 11,
+                          //           ),
+                          //     ),
+                          //   ),
+                          // ]),
+                          // pw.SizedBox(height: 2),
 
                           ///________Service/Shipping__________________________________
                           pw.Row(children: [
@@ -693,7 +755,7 @@ Future<File> createAndSaveSalePDF({required PurchaseTransactionModel transaction
   );
 
   final output = await getTemporaryDirectory();
-  final file = File('${output.path}/POS_SAAS_purchase_${transactions.invoiceNumber}.pdf');
+  final file = File('${output.path}/${invoiceName}_purchase_${transactions.invoiceNumber}.pdf');
   await file.writeAsBytes(await pdf.save());
 
   return file;

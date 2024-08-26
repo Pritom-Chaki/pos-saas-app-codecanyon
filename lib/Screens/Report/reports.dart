@@ -104,39 +104,59 @@ class ReportCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: pressed,
-      child: Card(
-        elevation: 0.0,
-        color: Colors.white,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Image(
-                height: 40,
-                width: 40,
-                image: AssetImage(iconPath),
+    return Padding(
+      padding: const EdgeInsets.only(left: 16,right: 16,bottom: 15),
+      child: GestureDetector(
+        onTap: pressed,
+        child: Container(
+          decoration: BoxDecoration(
+            color: kWhite,
+            borderRadius: BorderRadius.circular(6),
+            boxShadow: [
+              BoxShadow(
+                  color: const Color(0xff0C1A4B).withOpacity(0.24),
+                  offset: const Offset(0, 0),
+                  blurRadius: 1,
+                  spreadRadius: 0
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                title,
-                style: GoogleFonts.poppins(
-                  color: Colors.black,
+              BoxShadow(
+                color: const Color(0xff473232).withOpacity(0.05),
+                offset: const Offset(0, 3),
+                blurRadius: 8,
+                spreadRadius: -1
+              ),
+            ]
+          ),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Image(
+                  height: 40,
+                  width: 40,
+                  image: AssetImage(iconPath),
                 ),
               ),
-            ),
-            const Spacer(),
-            const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Icon(
-                Icons.arrow_forward_ios,
-                color: kMainColor,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                  ),
+                ),
               ),
-            ),
-          ],
+              const Spacer(),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Icon(
+                  Icons.arrow_forward_ios,
+                  color: kMainColor,
+                  size: 18,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

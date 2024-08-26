@@ -105,7 +105,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                         flex: 2,
                         child: Center(
                           child: Text(
-                            'Total: $currency${myFormat.format(int.tryParse(total)??0)}',
+                            'Total: $currency${myFormat.format(int.tryParse(total) ?? 0)}',
                             style: GoogleFonts.poppins(
                               color: Colors.white,
                               fontSize: 16.0,
@@ -191,10 +191,20 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            cart.addToCart(productId: items, unitPrice: products[index].productSalePrice.toInt(), productName: products[index].productName);
+                            cartModel:
+                            CartModel(
+                              productId: items.toString(),
+                              productName: products[index].productName,
+                              variants: [],
+                              productDetails: '',
+                            );
+
+                            //cart.addToCart(productId: items, unitPrice: products[index].productSalePrice.toInt(), productName: products[index].productName);
                             EasyLoading.showSuccess('Added To Cart', duration: const Duration(milliseconds: 1000));
                             setState(() {
-                              total = cart.getTotalAmount().toString();
+                              // total = cart.getTotalAmount().toString();
+                              total = cart.total.toString();
+
                               items++;
                             });
                           },
@@ -204,7 +214,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                             productPrice: products[index].productSalePrice,
                             productImage: products[index].productPicture,
                             stock: products[index].productStock,
-                            productId:  products[index].productCode,
+                            productId: products[index].productCode,
                             warehouseName: products[index].warehouseName,
                           ),
                         );

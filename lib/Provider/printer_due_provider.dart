@@ -5,6 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constant.dart';
 import '../model/print_transaction_model.dart';
+import 'package:image/image.dart' as IMG;
+import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart';
+import 'package:image/image.dart';
 
 final printerDueProviderNotifier = ChangeNotifierProvider((ref) => PrinterDue());
 
@@ -27,11 +31,11 @@ class PrinterDue extends ChangeNotifier {
     return status;
   }
 
-  Future<bool> printTicket({required PrintDueTransactionModel printDueTransactionModel, required bool printer58}) async {
+  Future<bool> printTicket({required PrintDueTransactionModel printDueTransactionModel}) async {
     bool isPrinted = false;
     String? isConnected = await BluetoothThermalPrinter.connectionStatus;
     if (isConnected == "true") {
-      List<int> bytes = await getTicket(printDueTransactionModel: printDueTransactionModel,printer58: printer58);
+      List<int> bytes = await getTicket(printDueTransactionModel: printDueTransactionModel);
       await BluetoothThermalPrinter.writeBytes(bytes);
 
       isPrinted = true;
@@ -42,14 +46,21 @@ class PrinterDue extends ChangeNotifier {
     return isPrinted;
   }
 
-  Future<List<int>> getTicket({required PrintDueTransactionModel printDueTransactionModel,required bool printer58}) async {
+  Future<List<int>> getTicket({required PrintDueTransactionModel printDueTransactionModel}) async {
     List<int> bytes = [];
+    http.Response response = await http.get(
+      Uri.parse(printDueTransactionModel.personalInformationModel.pictureUrl ?? ''),
+    );
+    response.bodyBytes;
+    final decodedImage = IMG.decodeImage(response.bodyBytes);
+    final resizedImage = IMG.copyResize(decodedImage!, width: 120, height: 120); //Uint8List
+    final encodedImage = IMG.encodeJpg(resizedImage);
+    Uint8List byteList = Uint8List.fromList(encodedImage);
+
     CapabilityProfile profile = await CapabilityProfile.load();
-    final generator = Generator(printer58 ?PaperSize.mm58 : PaperSize.mm80, profile);
-    // final ByteData data = await rootBundle.load('images/logo.png');
-    // final Uint8List imageBytes = data.buffer.asUint8List();
-    // final Image? imagez = decodeImage(imageBytes);
-    // bytes += generator.image(imagez!);
+    final generator = Generator(PaperSize.mm58, profile);
+    final Uint8List imageBytes = byteList;
+    bytes += generator.image(decodeImage(imageBytes)!);
     bytes += generator.text(printDueTransactionModel.personalInformationModel.companyName ?? '',
         styles: const PosStyles(
           align: PosAlign.center,
@@ -59,9 +70,16 @@ class PrinterDue extends ChangeNotifier {
         linesAfter: 1);
 
     bytes += generator.text(printDueTransactionModel.personalInformationModel.countryName ?? '', styles: const PosStyles(align: PosAlign.center));
-    bytes += generator.text(printDueTransactionModel.personalInformationModel.phoneNumber, styles: const PosStyles(align: PosAlign.center), linesAfter: 1);
+    bytes += generator.text('Tel: ${printDueTransactionModel.personalInformationModel.phoneNumber ?? ''}',
+        styles: const PosStyles(align: PosAlign.center), linesAfter: printDueTransactionModel.personalInformationModel.gst.trim().isNotEmpty ? 0 : 1);
+    printDueTransactionModel.personalInformationModel.gst.trim().isNotEmpty
+        ? bytes += generator.text('Shop GST: ${printDueTransactionModel.personalInformationModel.gst ?? ''}', styles: const PosStyles(align: PosAlign.center), linesAfter: 1)
+        : null;
     bytes += generator.text('Received From: ${printDueTransactionModel.dueTransactionModel!.customerName} ', styles: const PosStyles(align: PosAlign.left));
     bytes += generator.text('mobile: ${printDueTransactionModel.dueTransactionModel!.customerPhone}', styles: const PosStyles(align: PosAlign.left));
+    (printDueTransactionModel.dueTransactionModel?.customerGst.trim().isNotEmpty ?? false)
+        ? bytes += generator.text('Party GST: ${printDueTransactionModel.dueTransactionModel?.customerGst ?? 'Not Provided'}', styles: const PosStyles(align: PosAlign.left))
+        : null;
     bytes += generator.hr();
     bytes += generator.row([
       PosColumn(text: 'Invoice', width: 8, styles: const PosStyles(align: PosAlign.left, bold: true)),
@@ -134,8 +152,8 @@ class PrinterDue extends ChangeNotifier {
 
     bytes += generator.text(printDueTransactionModel.dueTransactionModel!.purchaseDate, styles: const PosStyles(align: PosAlign.center), linesAfter: 1);
 
-    // bytes += generator.qrcode('https://maantechnology.com', size: QRSize.Size4);
-    // bytes += generator.text('Developed By: Pix Pos', styles: const PosStyles(align: PosAlign.center), linesAfter: 1);
+    // bytes += generator.qrcode('https://posbharat.com', size: QRSize.Size4);
+    bytes += generator.text('Developed By: $invoiceName', styles: const PosStyles(align: PosAlign.center), linesAfter: 1);
     bytes += generator.cut();
     return bytes;
   }

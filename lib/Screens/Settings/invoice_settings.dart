@@ -214,7 +214,7 @@ class _InvoiceSettingsState extends State<InvoiceSettings> {
                       buttontext: lang.S.of(context).saveChanges,
                       buttonDecoration: kButtonDecoration.copyWith(color: kMainColor),
                       onPressed: () async {
-                        imagePath.contains('com.possaas.app/cache/') ? await uploadFile(imagePath) : null;
+                        imagePath.contains('com.pixposbd.app/cache/') ? await uploadFile(imagePath) : null;
                         InvoiceModel invoice = InvoiceModel(
                           address: addressController.text,
                           emailAddress: emailController.text,

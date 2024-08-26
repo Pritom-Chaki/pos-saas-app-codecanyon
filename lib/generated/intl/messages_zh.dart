@@ -205,7 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("时尚"),
         "featureAreTheImportant":
-            MessageLookupByLibrary.simpleMessage("功能是使Pix Pos与传统解决方案不同的重要部分。"),
+            MessageLookupByLibrary.simpleMessage("功能是使Pos Saas与传统解决方案不同的重要部分。"),
         "feedBack": MessageLookupByLibrary.simpleMessage("反馈"),
         "firstName": MessageLookupByLibrary.simpleMessage("名字"),
         "fontSide": MessageLookupByLibrary.simpleMessage("正面"),
@@ -262,10 +262,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("发送短信"),
         "messageHistory": MessageLookupByLibrary.simpleMessage("消息历史"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos应用程序是免费的，易于使用。实际上，它是世界上最好的POS系统之一。"),
+            "Pos Saas应用程序是免费的，易于使用。实际上，它是世界上最好的POS系统之一。"),
         "mobiPosIsaCompleteBusinesSolution":
             MessageLookupByLibrary.simpleMessage(
-                "Pix Pos是一个全面的业务解决方案，包括库存、账户、销售、支出和损益。"),
+                "Pos Saas是一个全面的业务解决方案，包括库存、账户、销售、支出和损益。"),
         "monthly": MessageLookupByLibrary.simpleMessage("每月"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("更多信息"),
         "name": MessageLookupByLibrary.simpleMessage("输入您的姓名"),
@@ -321,7 +321,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseEnterTheEmailAddressBelowToRecive":
             MessageLookupByLibrary.simpleMessage("请输入您的电子邮件地址以接收重置密码链接。"),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("由 Pix Pos 提供技术支持"),
+            MessageLookupByLibrary.simpleMessage("由 Pos Saas 提供技术支持"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("优质客户支持"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("高级计划"),
@@ -365,7 +365,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("退款金额"),
         "revenue": MessageLookupByLibrary.simpleMessage("营收"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "轻松保护您的业务数据。我们的 Pix Pos POS 无限升级包括免费数据备份，确保您的宝贵信息受到保护，免受意外事件的影响。专注于真正重要的事情 - 您的业务增长。"),
+            "轻松保护您的业务数据。我们的 Pos Saas POS 无限升级包括免费数据备份，确保您的宝贵信息受到保护，免受意外事件的影响。专注于真正重要的事情 - 您的业务增长。"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("销售明细"),
         "salePrice": MessageLookupByLibrary.simpleMessage("销售价格"),
         "saleReports": MessageLookupByLibrary.simpleMessage("销售报告"),
@@ -400,7 +400,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startNewSale": MessageLookupByLibrary.simpleMessage("开始新销售"),
         "startTypingToSearch": MessageLookupByLibrary.simpleMessage("开始输入搜索"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "始终处于技术进步的前沿，无需额外费用。我们的 Pix Pos POS 无限升级确保您始终拥有最新的工具和功能，确保您的业务保持前沿。"),
+            "始终处于技术进步的前沿，无需额外费用。我们的 Pos Saas POS 无限升级确保您始终拥有最新的工具和功能，确保您的业务保持前沿。"),
         "stockList": MessageLookupByLibrary.simpleMessage("库存列表"),
         "stocks": MessageLookupByLibrary.simpleMessage("库存"),
         "subTotal": MessageLookupByLibrary.simpleMessage("小计"),
@@ -419,7 +419,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("感谢您的购买"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "名字就说了一切。使用 Pix Pos POS 无限版，您的使用没有限制。无论您正在处理少量交易还是迎来涌入的客户，您都可以自信地运营，无需受到限制。"),
+            "名字就说了一切。使用 Pos Saas POS 无限版，您的使用没有限制。无论您正在处理少量交易还是迎来涌入的客户，您都可以自信地运营，无需受到限制。"),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "用户将被删除，并且所有数据将从您的账户中删除。确定要删除吗？"),
         "thirdPartyServices": MessageLookupByLibrary.simpleMessage("第三方服务"),
@@ -445,7 +445,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "units": MessageLookupByLibrary.simpleMessage("单位"),
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage("无限使用"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "解锁 Pix Pos POS 的全部潜力，由我们的专业团队带领进行个性化培训。从基础知识到高级技巧，我们确保您精通系统的每个方面，以优化您的业务流程。"),
+            "解锁 Pos Saas POS 的全部潜力，由我们的专业团队带领进行个性化培训。从基础知识到高级技巧，我们确保您精通系统的每个方面，以优化您的业务流程。"),
         "update": MessageLookupByLibrary.simpleMessage("更新"),
         "updateContact": MessageLookupByLibrary.simpleMessage("更新联系人"),
         "updateNow": MessageLookupByLibrary.simpleMessage("立即更新"),
@@ -491,7 +491,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youAreUsing": MessageLookupByLibrary.simpleMessage("您正在使用"),
         "youHaveGotAnEmail": MessageLookupByLibrary.simpleMessage("您收到一封电子邮件"),
         "youHaveSuccefulyLogin":
-            MessageLookupByLibrary.simpleMessage("您已成功登录您的账户。请使用Pix Pos 。"),
+            MessageLookupByLibrary.simpleMessage("您已成功登录您的账户。请使用Pos Saas 。"),
         "youHaveToReLogin":
             MessageLookupByLibrary.simpleMessage("您必须重新登录您的帐户。"),
         "youNeedToIdentityVerifyBeforeYouBuying":

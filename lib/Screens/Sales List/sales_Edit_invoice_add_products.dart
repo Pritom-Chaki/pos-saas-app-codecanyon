@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -192,28 +193,41 @@ class _EditSaleInvoiceSaleProductsState extends State<EditSaleInvoiceSaleProduct
                                 torchEnabled: false,
                                 returnImage: false,
                               );
-                              return WillPopScope(
-                                onWillPop: () async => false,
-                                child: Container(
-                                  decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(6.0)),
-                                  child: MobileScanner(
-                                    fit: BoxFit.contain,
-                                    controller: controller,
-                                    onDetect: (capture) {
-                                      final List<Barcode> barcodes = capture.barcodes;
+                              return Container(
+                                decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(6.0)),
+                                child: Column(
+                                  children: [
+                                    AppBar(
+                                      backgroundColor: Colors.transparent,
+                                      iconTheme: const IconThemeData(color: Colors.white),
+                                      leading: IconButton(
+                                        icon: const Icon(Icons.arrow_back),
+                                        onPressed: () {
+                                          Navigator.pop(context1);
+                                        },
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: MobileScanner(
+                                        fit: BoxFit.contain,
+                                        controller: controller,
+                                        onDetect: (capture) {
+                                          final List<Barcode> barcodes = capture.barcodes;
 
-                                      if (barcodes.isNotEmpty) {
-                                        final Barcode barcode = barcodes.first;
-                                        debugPrint('Barcode found! ${barcode.rawValue}');
+                                          if (barcodes.isNotEmpty) {
+                                            final Barcode barcode = barcodes.first;
+                                            debugPrint('Barcode found! ${barcode.rawValue}');
 
-                                        productCode = barcode.rawValue!;
-                                        scarchController.text = productCode;
-                                        _key.currentState!.save();
+                                            productCode = barcode.rawValue!;
+                                            scarchController.text = productCode;
+                                            _key.currentState!.save();
 
-                                        Navigator.pop(context1);
-                                      }
-                                    },
-                                  ),
+                                            Navigator.pop(context1);
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               );
                             },
@@ -301,82 +315,86 @@ class _EditSaleInvoiceSaleProductsState extends State<EditSaleInvoiceSaleProduct
 
                     allWarehouseId.add(element.warehouseId);
                     if (productCode != '' &&
-                        (element.productName.removeAllWhiteSpace().toLowerCase().contains(productName.toString().toLowerCase()) ||
-                            element.productCode.contains(productCode.toString()))) {
+                        (element.productName.removeAllWhiteSpace().toLowerCase().contains(productName.toString().toLowerCase()) || element.productCode.contains(productCode.toString()))) {
                       showAbleProducts.add(element);
                     } else if (productCode == '') {
                       showAbleProducts.add(element);
                     }
                   }
-                  return showAbleProducts.isNotEmpty ?
-
-                    ListView.builder(
-                      padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: showAbleProducts.length,
-                      itemBuilder: (_, i) {
-                        if (widget.customerModel!.type.contains('Retailer')) {
-                          productPrice = showAbleProducts[i].productSalePrice;
-                        } else if (widget.customerModel!.type.contains('Dealer')) {
-                          productPrice = showAbleProducts[i].productDealerPrice;
-                        } else if (widget.customerModel!.type.contains('Wholesaler')) {
-                          productPrice = showAbleProducts[i].productWholeSalePrice;
-                        } else if (widget.customerModel!.type.contains('Supplier')) {
-                          productPrice = showAbleProducts[i].productPurchasePrice;
-                        } else if (widget.customerModel!.type.contains('Guest')) {
-                          productPrice = showAbleProducts[i].productSalePrice;
-                        }
-                        return GestureDetector(
-                          onTap: () async {
-                            if (showAbleProducts[i].productStock.toInt() <= 0) {
-                              EasyLoading.showError('Out of stock');
-                            } else {
-                              if (widget.customerModel!.type.contains('Retailer')) {
-                                sentProductPrice = showAbleProducts[i].productSalePrice;
-                              } else if (widget.customerModel!.type.contains('Dealer')) {
-                                sentProductPrice = showAbleProducts[i].productDealerPrice;
-                              } else if (widget.customerModel!.type.contains('Wholesaler')) {
-                                sentProductPrice = showAbleProducts[i].productWholeSalePrice;
-                              } else if (widget.customerModel!.type.contains('Supplier')) {
-                                sentProductPrice = showAbleProducts[i].productPurchasePrice;
-                              } else if (widget.customerModel!.type.contains('Guest')) {
-                                sentProductPrice = showAbleProducts[i].productSalePrice;
-                              }
-
-                              AddToCartModel cartItem = AddToCartModel(
-                                productName: showAbleProducts[i].productName,
-                                warehouseName: showAbleProducts[i].warehouseName,
-                                warehouseId: showAbleProducts[i].warehouseId,
-                                subTotal: sentProductPrice,
-                                productImage: showAbleProducts[i].productPicture,
-                                productId: showAbleProducts[i].productCode,
-                                productBrandName: showAbleProducts[i].brandName,
-                                stock: int.parse(showAbleProducts[i].productStock),
-                              );
-                              providerData.addToCartRiverPod(cartItem);
-                              providerData.addProductsInSales(showAbleProducts[i]);
-                              Navigator.pop(context);
+                  return showAbleProducts.isNotEmpty
+                      ? ListView.builder(
+                          padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: showAbleProducts.length,
+                          itemBuilder: (_, i) {
+                            if (widget.customerModel!.type.contains('Retailer')) {
+                              productPrice = showAbleProducts[i].productSalePrice;
+                            } else if (widget.customerModel!.type.contains('Dealer')) {
+                              productPrice = showAbleProducts[i].productDealerPrice;
+                            } else if (widget.customerModel!.type.contains('Wholesaler')) {
+                              productPrice = showAbleProducts[i].productWholeSalePrice;
+                            } else if (widget.customerModel!.type.contains('Supplier')) {
+                              productPrice = showAbleProducts[i].productPurchasePrice;
+                            } else if (widget.customerModel!.type.contains('Guest')) {
+                              productPrice = showAbleProducts[i].productSalePrice;
                             }
-                          },
-                          child: ProductCard(
-                            productTitle: showAbleProducts[i].productName,
-                            productDescription: showAbleProducts[i].brandName,
-                            productPrice: productPrice,
-                            productImage: showAbleProducts[i].productPicture,
-                            stock: showAbleProducts[i].productStock,
-                            warehouseName: showAbleProducts[i].warehouseName,
-                          ).visible(productName.isEmptyOrNull
-                              ? true
-                              : showAbleProducts[i].productName.toUpperCase().contains(productName.toUpperCase()) ||
-                                  (productName.isEmpty ||
-                                          productCode.isEmpty ||
-                                          showAbleProducts[i].productCode.contains(productCode) ||
-                                          productCode == '0000' ||
-                                          productCode == '-1') &&
-                                      productPrice != '0'),
+                            return GestureDetector(
+                              onTap: () async {
+                                if (showAbleProducts[i].productStock.toInt() <= 0) {
+                                  EasyLoading.showError('Out of stock');
+                                } else {
+                                  if (widget.customerModel!.type.contains('Retailer')) {
+                                    sentProductPrice = showAbleProducts[i].productSalePrice;
+                                  } else if (widget.customerModel!.type.contains('Dealer')) {
+                                    sentProductPrice = showAbleProducts[i].productDealerPrice;
+                                  } else if (widget.customerModel!.type.contains('Wholesaler')) {
+                                    sentProductPrice = showAbleProducts[i].productWholeSalePrice;
+                                  } else if (widget.customerModel!.type.contains('Supplier')) {
+                                    sentProductPrice = showAbleProducts[i].productPurchasePrice;
+                                  } else if (widget.customerModel!.type.contains('Guest')) {
+                                    sentProductPrice = showAbleProducts[i].productSalePrice;
+                                  }
+
+                                  AddToCartModel cartItem = AddToCartModel(
+                                    productName: showAbleProducts[i].productName,
+                                    warehouseName: showAbleProducts[i].warehouseName,
+                                    warehouseId: showAbleProducts[i].warehouseId,
+                                    subTotal: sentProductPrice,
+                                    productImage: showAbleProducts[i].productPicture,
+                                    productId: showAbleProducts[i].productCode,
+                                    productBrandName: showAbleProducts[i].brandName,
+                                    stock: int.parse(showAbleProducts[i].productStock),
+                                    subTaxes: showAbleProducts[i].subTaxes,
+                                    excTax: showAbleProducts[i].excTax,
+                                    groupTaxName: showAbleProducts[i].groupTaxName,
+                                    groupTaxRate: showAbleProducts[i].groupTaxRate,
+                                    incTax: showAbleProducts[i].incTax,
+                                    margin: showAbleProducts[i].margin,
+                                    taxType: showAbleProducts[i].taxType,
+                                  );
+                                  providerData.addToCartRiverPod(cartItem);
+                                  providerData.addProductsInSales(showAbleProducts[i]);
+                                  Navigator.pop(context);
+                                }
+                              },
+                              child: ProductCard(
+                                productTitle: showAbleProducts[i].productName,
+                                productDescription: showAbleProducts[i].brandName,
+                                productPrice: productPrice,
+                                productImage: showAbleProducts[i].productPicture,
+                                stock: showAbleProducts[i].productStock,
+                                warehouseName: showAbleProducts[i].warehouseName,
+                              ).visible(productName.isEmptyOrNull
+                                  ? true
+                                  : showAbleProducts[i].productName.toUpperCase().contains(productName.toUpperCase()) ||
+                                      (productName.isEmpty || productCode.isEmpty || showAbleProducts[i].productCode.contains(productCode) || productCode == '0000' || productCode == '-1') &&
+                                          productPrice != '0'),
+                            );
+                          })
+                      : const Center(
+                          child: Text('No product Found'),
                         );
-                      }) : const Center(child: Text('No product Found'),);
                 }, error: (e, stack) {
                   return Text(e.toString());
                 }, loading: () {
@@ -393,18 +411,17 @@ class _EditSaleInvoiceSaleProductsState extends State<EditSaleInvoiceSaleProduct
 
 // ignore: must_be_immutable
 class ProductCard extends StatefulWidget {
-  ProductCard(
-      {super.key, required this.productTitle, required this.productDescription, required this.productPrice, required this.productImage, required this.stock,required this.warehouseName});
+  ProductCard({super.key, required this.productTitle, required this.productDescription, required this.productPrice, required this.productImage, required this.stock, required this.warehouseName});
 
   // final Product product;
-  String productImage, productTitle, productDescription, productPrice, stock,warehouseName;
+  String productImage, productTitle, productDescription, productPrice, stock, warehouseName;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
 }
 
 class _ProductCardState extends State<ProductCard> {
-  int quantity = 0;
+  num quantity = 0;
 
   @override
   Widget build(BuildContext context) {

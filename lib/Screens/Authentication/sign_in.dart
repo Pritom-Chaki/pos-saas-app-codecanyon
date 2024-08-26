@@ -34,7 +34,10 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Center(
                 child: Text(
                   lang.S.of(context).createAFreeAccounts,
-                  style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 20.0),
+                  style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 20.0),
                 ),
               ),
             ),

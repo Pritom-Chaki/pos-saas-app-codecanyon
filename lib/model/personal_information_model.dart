@@ -12,6 +12,7 @@ class PersonalInformationModel {
     this.shopOpeningBalance,
     this.remainingShopBalance,
     this.currency,
+    required this.gst,
   });
 
   PersonalInformationModel.fromJson(dynamic json) {
@@ -27,6 +28,7 @@ class PersonalInformationModel {
     shopOpeningBalance = json['shopOpeningBalance'];
     remainingShopBalance = json['remainingShopBalance'];
     currency = json['currency'] ?? '\$';
+    gst = json['gst'] ?? '';
   }
 
   dynamic phoneNumber;
@@ -35,12 +37,13 @@ class PersonalInformationModel {
   String? businessCategory;
   String? language;
   String? countryName;
-  int? saleInvoiceCounter;
-  int? purchaseInvoiceCounter;
-  int? dueInvoiceCounter;
-  num? shopOpeningBalance;
-  num? remainingShopBalance;
+  dynamic saleInvoiceCounter;
+  dynamic purchaseInvoiceCounter;
+  dynamic dueInvoiceCounter;
+  dynamic shopOpeningBalance;
+  dynamic remainingShopBalance;
   String? currency;
+  late String gst;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -56,6 +59,7 @@ class PersonalInformationModel {
     map['shopOpeningBalance'] = shopOpeningBalance;
     map['remainingShopBalance'] = remainingShopBalance;
     map['currency'] = currency;
+    map['gst'] = gst;
     return map;
   }
 }

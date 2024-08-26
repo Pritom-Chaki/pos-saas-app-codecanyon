@@ -17,7 +17,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mobile_pos/GlobalComponents/button_global.dart';
 import 'package:mobile_pos/model/product_model.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 import '../../GlobalComponents/Model/category_model.dart';
 import '../../Provider/category,brans,units_provide.dart';
 import '../../Provider/product_provider.dart';
@@ -25,16 +24,17 @@ import '../../const_commas.dart';
 import '../../constant.dart';
 import '../../currency.dart';
 import '../Home/home.dart';
-import '../Home/home_screen.dart';
+import '../tax report/tax_model.dart';
 import 'brands_list.dart';
 import 'category_list.dart';
 
 class UpdateProduct extends StatefulWidget {
-  const UpdateProduct({super.key, required this.productModel, required this.productNameList, required this.productCodeList});
+  const UpdateProduct({super.key, required this.productModel, required this.productNameList, required this.productCodeList, required this.groupTaxModel});
 
   final ProductModel productModel;
   final List<String> productNameList;
   final List<String> productCodeList;
+  final List<GroupTaxModel> groupTaxModel;
 
   @override
   UpdateProductState createState() => UpdateProductState();
@@ -66,6 +66,9 @@ class UpdateProductState extends State<UpdateProduct> {
     }
   }
 
+  bool isIncludeTax = true;
+  GroupTaxModel? selectedGroupTaxModel;
+
   void getProductKey(String code) async {
     // ignore: unused_local_variable
     List<ProductModel> productList = [];
@@ -84,13 +87,20 @@ class UpdateProductState extends State<UpdateProduct> {
     });
   }
 
+  String productSalePrice = '';
+  String productPurchasePrice = '';
+  String productDealerPrice = '';
+  String productWholeSalePrice = '';
+  String excTaxAmount = '';
+  String incTaxAmount = '';
   TextEditingController productNameController = TextEditingController();
+  TextEditingController productDescriptionController = TextEditingController();
   TextEditingController sizeController = TextEditingController();
   TextEditingController colorController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController capacityController = TextEditingController();
   TextEditingController typeController = TextEditingController();
-  TextEditingController purchasePriceController = TextEditingController();
+  TextEditingController productPurchasePriceController = TextEditingController();
   TextEditingController mrpController = TextEditingController();
   TextEditingController wholeSaleController = TextEditingController();
   TextEditingController dealerPriceController = TextEditingController();
@@ -98,6 +108,10 @@ class UpdateProductState extends State<UpdateProduct> {
   TextEditingController expireDateTextEditingController = TextEditingController();
   TextEditingController manufactureDateTextEditingController = TextEditingController();
   TextEditingController productStockController = TextEditingController();
+  TextEditingController totalAmountController = TextEditingController();
+  TextEditingController incTaxController = TextEditingController();
+  TextEditingController excTaxController = TextEditingController();
+  TextEditingController marginController = TextEditingController();
   int lowerStockAlert = 5;
   String? expireDate;
   String? manufactureDate;
@@ -110,12 +124,13 @@ class UpdateProductState extends State<UpdateProduct> {
 
     ///________set_previous_data_________________________
     productNameController.value = TextEditingValue(text: widget.productModel.productName);
+    productDescriptionController.value = TextEditingValue(text: widget.productModel.productDescription);
     sizeController.value = TextEditingValue(text: widget.productModel.size);
     colorController.value = TextEditingValue(text: widget.productModel.color);
     weightController.value = TextEditingValue(text: widget.productModel.weight);
     capacityController.value = TextEditingValue(text: widget.productModel.capacity);
     typeController.value = TextEditingValue(text: widget.productModel.type);
-    purchasePriceController.value = TextEditingValue(text: widget.productModel.productPurchasePrice);
+    productPurchasePriceController.value = TextEditingValue(text: widget.productModel.productPurchasePrice);
     mrpController.value = TextEditingValue(text: widget.productModel.productSalePrice);
     wholeSaleController.value = TextEditingValue(text: widget.productModel.productWholeSalePrice);
     dealerPriceController.value = TextEditingValue(text: widget.productModel.productDealerPrice);
@@ -131,6 +146,24 @@ class UpdateProductState extends State<UpdateProduct> {
     }
 
     lowerStockAlert = widget.productModel.lowerStockAlert;
+
+    marginController.text = widget.productModel.margin.toString();
+    incTaxController.text = widget.productModel.incTax.toString();
+    excTaxController.text = widget.productModel.excTax.toString();
+    selectedTaxType = widget.productModel.taxType;
+
+    GroupTaxModel groupTaxModel = GroupTaxModel(name: widget.productModel.groupTaxName, taxRate: widget.productModel.groupTaxRate, id: '', subTaxes: widget.productModel.subTaxes);
+    bool isInList = false;
+    for (var element in widget.groupTaxModel) {
+      if (element.name == groupTaxModel.name) {
+        isInList = true;
+        groupTaxModel = element;
+        continue;
+      }
+    }
+    if (isInList) {
+      selectedGroupTaxModel = groupTaxModel;
+    }
   }
 
   GlobalKey<FormState> globalKey = GlobalKey<FormState>();
@@ -141,6 +174,99 @@ class UpdateProductState extends State<UpdateProduct> {
   String brandNameHint = 'Select Brand';
   String productUnit = '';
   String productUnitHint = 'Select Unit';
+
+  //___________________________________tax_type____________________________________
+  List<String> status = [
+    'Inclusive',
+    'Exclusive',
+  ];
+
+  String selectedTaxType = 'Exclusive';
+  DropdownButton<String> getTaxType() {
+    List<DropdownMenuItem<String>> dropDownItems = [];
+    for (String des in status) {
+      var item = DropdownMenuItem(
+        value: des,
+        child: Text(des),
+      );
+      dropDownItems.add(item);
+    }
+    return DropdownButton(
+      hint: const Text('Select Tax type'),
+      items: dropDownItems,
+      value: selectedTaxType,
+      onChanged: (value) {
+        setState(() {
+          selectedTaxType = value!;
+          adjustSalesPrices();
+        });
+      },
+    );
+  }
+
+  //___________________________________calculate_total_with_tax____________________
+  double totalAmount = 0.0;
+  void calculateTotal() {
+    String saleAmountText = productPurchasePriceController.text.replaceAll(',', '');
+    double saleAmount = double.tryParse(saleAmountText) ?? 0.0;
+    if (selectedGroupTaxModel != null) {
+      double taxRate = double.parse(selectedGroupTaxModel!.taxRate.toString());
+      double totalAmount = calculateTotalAmount(saleAmount, taxRate);
+      setState(() {
+        totalAmountController.text = totalAmount.toStringAsFixed(2);
+        this.totalAmount = totalAmount;
+      });
+    }
+  }
+
+  double calculateTotalAmount(double saleAmount, double taxRate) {
+    double taxDecimal = taxRate / 100;
+    double totalAmount = saleAmount + (saleAmount * taxDecimal);
+    return totalAmount;
+  }
+
+  void adjustSalesPrices() {
+    // double taxAmount = double.tryParse(selectedGroupTaxModel?.taxRate.toString() ?? '') ?? 0.0;
+    double margin = double.tryParse(marginController.text) ?? 0;
+    final sanitizedValue = productPurchasePriceController.text.replaceAll(RegExp(r'[^0-9]'), '');
+    double purchasePrice = double.tryParse(sanitizedValue) ?? 0;
+    double salesPrice = 0;
+    double excPrice = 0;
+    double taxAmount = calculateAmountFromPercentage((selectedGroupTaxModel?.taxRate.toString() ?? '').toDouble(), purchasePrice);
+    print(taxAmount);
+
+    if (selectedTaxType == 'Inclusive') {
+      salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice);
+      // salesPrice -= calculateAmountFromPercentage(double.parse(selectedGroupTaxModel!.taxRate.toString()), purchasePrice);
+      mrpController.text = salesPrice.toString();
+      dealerPriceController.text = salesPrice.toString();
+      wholeSaleController.text = salesPrice.toString();
+      incTaxController.text = purchasePrice.toString();
+      excTaxController.text = salesPrice.toString();
+    } else {
+      salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice) + taxAmount;
+      excPrice = purchasePrice + taxAmount;
+      mrpController.text = salesPrice.toString();
+      dealerPriceController.text = salesPrice.toString();
+      wholeSaleController.text = salesPrice.toString();
+      incTaxController.text = purchasePrice.toString();
+      excTaxController.text = excPrice.toString();
+    }
+
+    // Add margin to prices if margin is provided
+
+    // Update controllers with adjusted prices
+    mrpController.text = salesPrice.toStringAsFixed(0);
+    wholeSaleController.text = salesPrice.toStringAsFixed(0);
+    dealerPriceController.text = salesPrice.toStringAsFixed(0);
+    incTaxController.text = purchasePrice.toStringAsFixed(0);
+    excTaxController.text = excPrice.toStringAsFixed(0);
+  }
+
+  // Function to calculate the amount from a given percentage
+  double calculateAmountFromPercentage(double percentage, double price) {
+    return price * (percentage / 100);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,6 +285,7 @@ class UpdateProductState extends State<UpdateProduct> {
         centerTitle: true,
       ),
       body: Consumer(builder: (context, pref, __) {
+        final groupTax = pref.watch(groupTaxProvider);
         return Container(
           alignment: Alignment.topCenter,
           decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
@@ -392,25 +519,33 @@ class UpdateProductState extends State<UpdateProduct> {
                                 // hintText: widget.productModel.productStock,
                                 border: const OutlineInputBorder(),
                               ),
+                              inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))],
                               onChanged: (value) {
-                                final sanitizedValue = value.replaceAll(RegExp(r'[^0-9]'), '');
-                                final formattedValue = myFormat.format(int.tryParse(sanitizedValue) ?? 0);
-                                if (formattedValue.length > 20) {
-                                  productStockController.value = productStockController.value.copyWith(
-                                    text: sanitizedValue.substring(0, 20),
-                                    selection: const TextSelection.collapsed(offset: 20),
-                                  );
-                                } else {
-                                  productStockController.value = productStockController.value.copyWith(
-                                    text: formattedValue,
-                                    selection: TextSelection.collapsed(offset: formattedValue.length),
-                                  );
-                                }
-                                updatedProductModel.productStock = sanitizedValue;
+                                // final sanitizedValue =
+                                //     value.replaceAll(RegExp(r'[^0-9]'), '');
+                                // final formattedValue = myFormat
+                                //     .format(num.tryParse(sanitizedValue) ?? 0);
+                                // if (formattedValue.length > 20) {
+                                //   productStockController.value =
+                                //       productStockController.value.copyWith(
+                                //     text: sanitizedValue.substring(0, 20),
+                                //     selection: const TextSelection.collapsed(
+                                //         offset: 20),
+                                //   );
+                                // } else {
+                                //   productStockController.value =
+                                //       productStockController.value.copyWith(
+                                //     text: formattedValue,
+                                //     selection: TextSelection.collapsed(
+                                //         offset: formattedValue.length),
+                                //   );
+                                // }
+                                updatedProductModel.productStock = value;
                               },
                               onSaved: (value) {
-                                final rawValue = value!.replaceAll(RegExp(r'[^0-9]'), '');
-                                updatedProductModel.productStock = rawValue;
+                                // final rawValue =
+                                //     value!.replaceAll(RegExp(r'[^0-9]'), '');
+                                updatedProductModel.productStock = value ?? '';
                               },
                             ),
                           ),
@@ -441,6 +576,260 @@ class UpdateProductState extends State<UpdateProduct> {
                       ],
                     ),
 
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              labelText: lang.S.of(context).discount,
+                              hintText: lang.S.of(context).enterDiscount,
+                              border: const OutlineInputBorder(),
+                            ),
+                          ),
+                        )).visible(false),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: TextFormField(
+                              controller: manufacturerController,
+                              onSaved: (value) {
+                                updatedProductModel.productManufacturer = value!;
+                              },
+                              decoration: InputDecoration(
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                labelText: lang.S.of(context).menufeturer,
+                                border: const OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    ///______________ExpireDate______________________
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: AppTextField(
+                              textFieldType: TextFieldType.NAME,
+                              readOnly: true,
+                              validator: (value) {
+                                return null;
+                              },
+                              controller: manufactureDateTextEditingController,
+                              decoration: InputDecoration(
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                labelText: "Manufacture Date",
+                                hintText: manufactureDateTextEditingController.text.isEmpty ? 'N/A' : '',
+                                border: const OutlineInputBorder(),
+                                suffixIcon: IconButton(
+                                  onPressed: () async {
+                                    final DateTime? picked = await showDatePicker(
+                                      initialDate: DateTime.tryParse(manufactureDate ?? '') ?? DateTime.now(),
+                                      firstDate: DateTime(2015, 8),
+                                      lastDate: DateTime(2101),
+                                      context: context,
+                                    );
+                                    setState(() {
+                                      manufactureDateTextEditingController.text = DateFormat.yMMMd().format(picked ?? DateTime.parse(manufactureDate!));
+                                      picked != null ? manufactureDate = picked.toString() : null;
+                                    });
+                                  },
+                                  icon: const Icon(FeatherIcons.calendar),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: AppTextField(
+                              textFieldType: TextFieldType.NAME,
+                              readOnly: true,
+                              validator: (value) {
+                                return null;
+                              },
+                              controller: expireDateTextEditingController,
+                              decoration: InputDecoration(
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                labelText: 'Expire Date',
+                                hintText: expireDateTextEditingController.text.isEmpty ? 'N/A' : '',
+                                border: const OutlineInputBorder(),
+                                suffixIcon: IconButton(
+                                  onPressed: () async {
+                                    final DateTime? picked = await showDatePicker(
+                                      initialDate: DateTime.tryParse(expireDate ?? '') ?? DateTime.now(),
+                                      firstDate: DateTime(2015, 8),
+                                      lastDate: DateTime(2101),
+                                      context: context,
+                                    );
+                                    setState(() {
+                                      expireDateTextEditingController.text = DateFormat.yMMMd().format(picked ?? DateTime.parse(expireDate!));
+                                      picked != null ? expireDate = picked.toString() : null;
+                                    });
+                                  },
+                                  icon: const Icon(FeatherIcons.calendar),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          groupTax.when(
+                            data: (groupTax) {
+                              // List<WareHouseModel> wareHouseList = [];
+                              return Expanded(
+                                child: FormField(
+                                  builder: (FormFieldState<dynamic> field) {
+                                    return InputDecorator(
+                                      decoration: const InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                            borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                          ),
+                                          contentPadding: EdgeInsets.all(8.0),
+                                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                                          labelText: 'Taxes'),
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton<GroupTaxModel>(
+                                          hint: const Text('Select Tax'),
+                                          items: widget.groupTaxModel.map((e) {
+                                            return DropdownMenuItem<GroupTaxModel>(
+                                              value: e,
+                                              child: Text(e.name),
+                                            );
+                                          }).toList(),
+                                          value: selectedGroupTaxModel,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedGroupTaxModel = value;
+                                              calculateTotal();
+                                              adjustSalesPrices(); // Update total amount when tax changes
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            error: (e, stack) {
+                              return Center(
+                                child: Text(
+                                  e.toString(),
+                                ),
+                              );
+                            },
+                            loading: () {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          ),
+                          const SizedBox(
+                            width: 10.0,
+                          ),
+                          Expanded(
+                            child: FormField(
+                              builder: (FormFieldState<dynamic> field) {
+                                return InputDecorator(
+                                  decoration: const InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                        borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                      ),
+                                      contentPadding: EdgeInsets.all(8.0),
+                                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                                      labelText: 'Tax Type'),
+                                  child: DropdownButtonHideUnderline(
+                                    child: getTaxType(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+//______________________________________________________________Tax_Amount________________
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: TextFormField(
+                              onChanged: (value) {
+                                adjustSalesPrices();
+                              },
+                              onSaved: (value) {
+                                marginController.text = value!;
+                              },
+                              controller: marginController,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                labelText: 'Margin',
+                                hintText: '0',
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: selectedTaxType == 'Inclusive',
+                          child: Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextFormField(
+                                readOnly: true,
+                                controller: incTaxController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  labelText: 'Inc. tax:',
+                                  hintText: '0',
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: selectedTaxType == 'Exclusive',
+                          child: Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextFormField(
+                                controller: excTaxController,
+                                readOnly: true,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  labelText: 'Exc. Tax',
+                                  hintText: '0',
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
                     ///__________purchase & sale price_______________________________
                     Row(
                       children: [
@@ -450,7 +839,7 @@ class UpdateProductState extends State<UpdateProduct> {
                             child: TextFormField(
                               readOnly: false,
                               keyboardType: TextInputType.number,
-                              controller: purchasePriceController,
+                              controller: productPurchasePriceController,
                               decoration: InputDecoration(
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).purchasePrice,
@@ -460,13 +849,14 @@ class UpdateProductState extends State<UpdateProduct> {
                               onChanged: (value) {
                                 final sanitizedValue = value.replaceAll(RegExp(r'[^0-9]'), '');
                                 final formattedValue = myFormat.format(int.tryParse(sanitizedValue) ?? 0);
+                                adjustSalesPrices();
                                 if (formattedValue.length > 20) {
-                                  purchasePriceController.value = purchasePriceController.value.copyWith(
+                                  productPurchasePriceController.value = productPurchasePriceController.value.copyWith(
                                     text: sanitizedValue.substring(0, 20),
                                     selection: const TextSelection.collapsed(offset: 20),
                                   );
                                 } else {
-                                  purchasePriceController.value = purchasePriceController.value.copyWith(
+                                  productPurchasePriceController.value = productPurchasePriceController.value.copyWith(
                                     text: formattedValue,
                                     selection: TextSelection.collapsed(offset: formattedValue.length),
                                   );
@@ -592,113 +982,6 @@ class UpdateProductState extends State<UpdateProduct> {
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              labelText: lang.S.of(context).discount,
-                              hintText: lang.S.of(context).enterDiscount,
-                              border: const OutlineInputBorder(),
-                            ),
-                          ),
-                        )).visible(false),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: TextFormField(
-                              controller: manufacturerController,
-                              onSaved: (value) {
-                                updatedProductModel.productManufacturer = value!;
-                              },
-                              decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                labelText: lang.S.of(context).menufeturer,
-                                border: const OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    ///______________ExpireDate______________________
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: AppTextField(
-                              textFieldType: TextFieldType.NAME,
-                              readOnly: true,
-                              validator: (value) {
-                                return null;
-                              },
-                              controller: manufactureDateTextEditingController,
-                              decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                labelText: "Manufacture Date",
-                                hintText: manufactureDateTextEditingController.text.isEmpty ? 'N/A' : '',
-                                border: const OutlineInputBorder(),
-                                suffixIcon: IconButton(
-                                  onPressed: () async {
-                                    final DateTime? picked = await showDatePicker(
-                                      initialDate: DateTime.tryParse(manufactureDate ?? '') ?? DateTime.now(),
-                                      firstDate: DateTime(2015, 8),
-                                      lastDate: DateTime(2101),
-                                      context: context,
-                                    );
-                                    setState(() {
-                                      manufactureDateTextEditingController.text = DateFormat.yMMMd().format(picked ?? DateTime.parse(manufactureDate!));
-                                      picked != null ? manufactureDate = picked.toString() : null;
-                                    });
-                                  },
-                                  icon: const Icon(FeatherIcons.calendar),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: AppTextField(
-                              textFieldType: TextFieldType.NAME,
-                              readOnly: true,
-                              validator: (value) {
-                                return null;
-                              },
-                              controller: expireDateTextEditingController,
-                              decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                labelText: 'Expire Date',
-                                hintText: expireDateTextEditingController.text.isEmpty ? 'N/A' : '',
-                                border: const OutlineInputBorder(),
-                                suffixIcon: IconButton(
-                                  onPressed: () async {
-                                    final DateTime? picked = await showDatePicker(
-                                      initialDate: DateTime.tryParse(expireDate ?? '') ?? DateTime.now(),
-                                      firstDate: DateTime(2015, 8),
-                                      lastDate: DateTime(2101),
-                                      context: context,
-                                    );
-                                    setState(() {
-                                      expireDateTextEditingController.text = DateFormat.yMMMd().format(picked ?? DateTime.parse(expireDate!));
-                                      picked != null ? expireDate = picked.toString() : null;
-                                    });
-                                  },
-                                  icon: const Icon(FeatherIcons.calendar),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
 
                     ///_______Lower_stock___________________________
                     Padding(
@@ -715,6 +998,32 @@ class UpdateProductState extends State<UpdateProduct> {
                           border: OutlineInputBorder(),
                         ),
                         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      ),
+                    ),
+                    ///--------------product description------------------
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        controller: productDescriptionController,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 3,
+                        decoration: const InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          border: OutlineInputBorder(),
+                          labelText: 'Description',
+                          hintText: 'Enter Description',
+                        ),
+                        // validator: (value) {
+                        //   if (value.isEmptyOrNull) {
+                        //     return 'Product name is required.';
+                        //   } else if (widget.productNameList.contains(value?.toLowerCase().removeAllWhiteSpace()) && value != widget.productModel.productName) {
+                        //     return 'Product name is already added.';
+                        //   }
+                        //   return null;
+                        // },
+                        onSaved: (value) {
+                          updatedProductModel.productDescription = value!;
+                        },
                       ),
                     ),
                     GestureDetector(
@@ -859,29 +1168,67 @@ class UpdateProductState extends State<UpdateProduct> {
                             EasyLoading.show(status: 'Loading...', dismissOnTap: false);
                             DatabaseReference ref = FirebaseDatabase.instance.ref("$constUserId/Products/$productKey");
                             ref.keepSynced(true);
-                            ref.update({
-                              'productName': updatedProductModel.productName,
-                              'productCategory': updatedProductModel.productCategory,
-                              'size': updatedProductModel.size,
-                              'color': updatedProductModel.color,
-                              'weight': updatedProductModel.weight,
-                              'capacity': updatedProductModel.capacity,
-                              'type': updatedProductModel.type,
-                              'brandName': updatedProductModel.brandName,
-                              'productCode': updatedProductModel.productCode,
-                              'productStock': updatedProductModel.productStock,
-                              'productUnit': updatedProductModel.productUnit,
-                              'productSalePrice': updatedProductModel.productSalePrice,
-                              'productPurchasePrice': updatedProductModel.productPurchasePrice,
-                              'productDiscount': updatedProductModel.productDiscount,
-                              'productWholeSalePrice': updatedProductModel.productWholeSalePrice,
-                              'productDealerPrice': updatedProductModel.productDealerPrice,
-                              'productManufacturer': updatedProductModel.productManufacturer,
-                              'productPicture': updatedProductModel.productPicture,
-                              'manufacturingDate': manufactureDate,
-                              'expiringDate': expireDate,
-                              'lowerStockAlert': lowerStockAlert,
-                            });
+                            ProductModel productModel = ProductModel(
+                              productName: updatedProductModel.productName,
+                              productDescription: updatedProductModel.productDescription,
+                              productCategory: updatedProductModel.productCategory,
+                              size: updatedProductModel.size,
+                              color: updatedProductModel.color,
+                              weight: updatedProductModel.weight,
+                              capacity: updatedProductModel.capacity,
+                              type: updatedProductModel.type,
+                              brandName: updatedProductModel.brandName,
+                              productCode: updatedProductModel.productCode,
+                              productStock: updatedProductModel.productStock,
+                              productUnit: updatedProductModel.productUnit,
+                              productSalePrice: updatedProductModel.productSalePrice,
+                              productPurchasePrice: updatedProductModel.productPurchasePrice,
+                              productDiscount: updatedProductModel.productDiscount,
+                              productWholeSalePrice: updatedProductModel.productWholeSalePrice,
+                              productDealerPrice: updatedProductModel.productDealerPrice,
+                              productManufacturer: updatedProductModel.productManufacturer,
+                              productPicture: updatedProductModel.productPicture,
+                              manufacturingDate: manufactureDate,
+                              expiringDate: expireDate,
+                              lowerStockAlert: lowerStockAlert,
+                              warehouseName: updatedProductModel.warehouseName,
+                              warehouseId: updatedProductModel.warehouseId,
+                              serialNumber: updatedProductModel.serialNumber,
+                              taxType: selectedTaxType,
+                              margin: num.tryParse(marginController.text) ?? 0,
+                              excTax: num.tryParse(excTaxController.text) ?? 0,
+                              incTax: num.tryParse(incTaxController.text) ?? 0,
+                              groupTaxName: selectedGroupTaxModel?.name ?? '',
+                              groupTaxRate: selectedGroupTaxModel?.taxRate ?? 0,
+                              subTaxes: selectedGroupTaxModel?.subTaxes ?? [],
+                            );
+                            // ref.update({
+                            //   'productName': updatedProductModel.productName,
+                            //   'productCategory': updatedProductModel.productCategory,
+                            //   'size': updatedProductModel.size,
+                            //   'color': updatedProductModel.color,
+                            //   'weight': updatedProductModel.weight,
+                            //   'capacity': updatedProductModel.capacity,
+                            //   'type': updatedProductModel.type,
+                            //   'brandName': updatedProductModel.brandName,
+                            //   'productCode': updatedProductModel.productCode,
+                            //   'productStock': updatedProductModel.productStock,
+                            //   'productUnit': updatedProductModel.productUnit,
+                            //   'productSalePrice': updatedProductModel.productSalePrice,
+                            //   'productPurchasePrice': updatedProductModel.productPurchasePrice,
+                            //   'productDiscount': updatedProductModel.productDiscount,
+                            //   'productWholeSalePrice': updatedProductModel.productWholeSalePrice,
+                            //   'productDealerPrice': updatedProductModel.productDealerPrice,
+                            //   'productManufacturer': updatedProductModel.productManufacturer,
+                            //   'productPicture': updatedProductModel.productPicture,
+                            //   'manufacturingDate': manufactureDate,
+                            //   'expiringDate': expireDate,
+                            //   'lowerStockAlert': lowerStockAlert,
+                            //   'isTaxInclusive': isIncludeTax,
+                            //   'taxRates': selectedGroupTaxModel!.subTaxes,
+                            // });
+
+                            await ref.update(productModel.toJson());
                             EasyLoading.dismiss();
                             pref.refresh(productProvider);
                             pref.refresh(categoryProvider);

@@ -51,6 +51,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
 
   String dropdownLangValue = 'English';
   String initialCountry = 'Bangladesh';
+  String gst = '';
   String dropdownValue = 'Bag & Luggage';
   late String companyName;
   String phoneNumber = FirebaseAuth.instance.currentUser?.phoneNumber ?? '';
@@ -76,9 +77,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
         status: 'Uploading... ',
         dismissOnTap: false,
       );
-      var snapshot = await FirebaseStorage.instance.ref('Profile Picture/${DateTime
-          .now()
-          .millisecondsSinceEpoch}').putFile(file);
+      var snapshot = await FirebaseStorage.instance.ref('Profile Picture/${DateTime.now().millisecondsSinceEpoch}').putFile(file);
       var url = await snapshot.ref.getDownloadURL();
       setState(() {
         profilePicture = url.toString();
@@ -187,12 +186,12 @@ class _ProfileSetupState extends State<ProfileSetup> {
     }
 
     return DropdownButton(
-      icon: Icon(
+      icon: const Icon(
         Icons.keyboard_arrow_down_outlined,
         color: kGreyTextColor,
       ),
       items: dropDownItems,
-      hint: Text('Select Shop Category'),
+      hint: const Text('Select Shop Category'),
       value: selectedShopCategory,
       onChanged: (ShopCategoryModel? value) {
         setState(() {
@@ -212,9 +211,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
         backgroundColor: kMainColor,
         appBar: AppBar(
           title: Text(
-            lang.S
-                .of(context)
-                .setUpYourProfile,
+            lang.S.of(context).setUpYourProfile,
             style: GoogleFonts.poppins(
               color: Colors.white,
             ),
@@ -228,8 +225,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
             AsyncValue<List<ShopCategoryModel>> categoryList = ref.watch(shopCategoryProvider);
             return Container(
               alignment: Alignment.topCenter,
-              decoration:
-              const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
+              decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
               child: SingleChildScrollView(
                 child: Center(
                   child: Column(
@@ -237,9 +233,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          lang.S
-                              .of(context)
-                              .updateYourProfileToConnect,
+                          lang.S.of(context).updateYourProfileToConnect,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
@@ -261,10 +255,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                                   // ignore: sized_box_for_whitespace
                                   child: Container(
                                     height: 200.0,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .width - 80,
+                                    width: MediaQuery.of(context).size.width - 80,
                                     child: Center(
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -289,9 +280,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                                                   color: kMainColor,
                                                 ),
                                                 Text(
-                                                  lang.S
-                                                      .of(context)
-                                                      .gallary,
+                                                  lang.S.of(context).gallary,
                                                   style: GoogleFonts.poppins(
                                                     fontSize: 20.0,
                                                     color: kMainColor,
@@ -323,9 +312,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                                                   color: kGreyTextColor,
                                                 ),
                                                 Text(
-                                                  lang.S
-                                                      .of(context)
-                                                      .camera,
+                                                  lang.S.of(context).camera,
                                                   style: GoogleFonts.poppins(
                                                     fontSize: 20.0,
                                                     color: kGreyTextColor,
@@ -351,13 +338,13 @@ class _ProfileSetupState extends State<ProfileSetup> {
                                 borderRadius: const BorderRadius.all(Radius.circular(120)),
                                 image: imagePath == 'No Data'
                                     ? DecorationImage(
-                                  image: NetworkImage(profilePicture),
-                                  fit: BoxFit.cover,
-                                )
+                                        image: NetworkImage(profilePicture),
+                                        fit: BoxFit.cover,
+                                      )
                                     : DecorationImage(
-                                  image: FileImage(imageFile),
-                                  fit: BoxFit.cover,
-                                ),
+                                        image: FileImage(imageFile),
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                             ),
                             Positioned(
@@ -395,9 +382,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                                   return InputDecorator(
                                     decoration: InputDecoration(
                                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                                        labelText: lang.S
-                                            .of(context)
-                                            .businessCategory,
+                                        labelText: lang.S.of(context).businessCategory,
                                         labelStyle: GoogleFonts.poppins(
                                           color: Colors.black,
                                           fontSize: 20.0,
@@ -432,9 +417,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                             });
                           }, // Optional
                           textFieldType: TextFieldType.NAME,
-                          decoration: InputDecoration(labelText: lang.S
-                              .of(context)
-                              .companyAndShopName, border: const OutlineInputBorder()),
+                          decoration: InputDecoration(labelText: lang.S.of(context).companyAndShopName, border: const OutlineInputBorder()),
                         ),
                       ),
                       Padding(
@@ -450,12 +433,8 @@ class _ProfileSetupState extends State<ProfileSetup> {
                               });
                             },
                             decoration: InputDecoration(
-                              labelText: lang.S
-                                  .of(context)
-                                  .phoneNumber,
-                              hintText: lang.S
-                                  .of(context)
-                                  .enterPhoneNumber,
+                              labelText: lang.S.of(context).phoneNumber,
+                              hintText: lang.S.of(context).enterPhoneNumber,
                               border: const OutlineInputBorder(),
                             ),
                           ),
@@ -471,12 +450,8 @@ class _ProfileSetupState extends State<ProfileSetup> {
                             focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: kGreyTextColor),
                             ),
-                            labelText: lang.S
-                                .of(context)
-                                .companyAddress,
-                            hintText: lang.S
-                                .of(context)
-                                .enterFullAddress,
+                            labelText: lang.S.of(context).companyAddress,
+                            hintText: lang.S.of(context).enterFullAddress,
                             border: const OutlineInputBorder(),
                           ),
                         ),
@@ -490,9 +465,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                               return InputDecorator(
                                 decoration: InputDecoration(
                                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    labelText: lang.S
-                                        .of(context)
-                                        .language,
+                                    labelText: lang.S.of(context).language,
                                     labelStyle: GoogleFonts.poppins(
                                       color: Colors.black,
                                       fontSize: 20.0,
@@ -520,9 +493,28 @@ class _ProfileSetupState extends State<ProfileSetup> {
                               width: 30,
                               child: Text(currency),
                             ),
-                            labelText: lang.S
-                                .of(context)
-                                .openingBalance,
+                            labelText: lang.S.of(context).openingBalance,
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: const OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: AppTextField(
+                          onChanged: (value) {
+                            gst = value;
+                          }, // Optional
+                          textFieldType: TextFieldType.PHONE,
+                          decoration: InputDecoration(
+                            prefixIcon: Container(
+                              alignment: Alignment.center,
+                              height: 60,
+                              width: 30,
+                              child: Text(currency),
+                            ),
+                            labelText: "GST Number",
+                            hintText: 'Enter your GST Number',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             border: const OutlineInputBorder(),
                           ),
@@ -530,9 +522,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                       ),
                       const SizedBox(height: 20.0),
                       ButtonGlobalWithoutIcon(
-                        buttontext: lang.S
-                            .of(context)
-                            .continu,
+                        buttontext: lang.S.of(context).continu,
                         buttonDecoration: kButtonDecoration.copyWith(color: kMainColor, borderRadius: const BorderRadius.all(Radius.circular(30))),
                         onPressed: () async {
                           if (selectedShopCategory?.categoryName?.isNotEmpty ?? false) {
@@ -542,16 +532,17 @@ class _ProfileSetupState extends State<ProfileSetup> {
                               bool result = await InternetConnectionChecker().hasConnection;
                               result
                                   ? imagePath == 'No Data'
-                                  ? null
-                                  : await uploadFile(imagePath)
+                                      ? null
+                                      : await uploadFile(imagePath)
                                   : null;
 
                               // ignore: no_leading_underscores_for_local_identifiers
                               final DatabaseReference _personalInformationRef =
-                              // ignore: deprecated_member_use
-                              FirebaseDatabase.instance.ref().child(FirebaseAuth.instance.currentUser!.uid).child('Personal Information');
+                                  // ignore: deprecated_member_use
+                                  FirebaseDatabase.instance.ref().child(FirebaseAuth.instance.currentUser!.uid).child('Personal Information');
                               PersonalInformationModel personalInformation = PersonalInformationModel(
                                 businessCategory: selectedShopCategory?.categoryName ?? '',
+                                gst: gst,
                                 companyName: companyName,
                                 phoneNumber: phoneNumber,
                                 countryName: controller.text,
@@ -576,6 +567,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                                 subscriptionDate: DateTime.now().toString(),
                                 subscriptionName: 'Free',
                                 subscriptionMethod: 'Not Provided',
+                                gst: gst,
                                 userRegistrationDate: DateTime.now().toString(),
                               );
 

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
 import 'package:mobile_pos/GlobalComponents/button_global.dart';
 import 'package:mobile_pos/Screens/Authentication/login_form.dart';
 import 'package:mobile_pos/Screens/Profile%20Screen/edit_profile.dart';
+import 'package:mobile_pos/Widget/key_value_widget.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
 import 'package:nb_utils/nb_utils.dart';
 
@@ -43,8 +45,9 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               child: Row(
                 children: [
                   const Icon(
-                    Icons.edit,
+                    IconlyBold.edit,
                     color: Colors.white,
+                    size: 22,
                   ),
                   const SizedBox(
                     width: 5.0,
@@ -68,92 +71,52 @@ class _ProfileDetailsState extends State<ProfileDetails> {
       body: Consumer(builder: (context, ref, child) {
         AsyncValue<PersonalInformationModel> userProfileDetails = ref.watch(profileDetailsProvider);
         return Container(
-          alignment: Alignment.topCenter,
           decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
+          alignment: Alignment.topCenter,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: SingleChildScrollView(
               child: userProfileDetails.when(data: (details) {
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(height: 10,),
                     Center(
-                      child: Container(
-                        height: 100.0,
-                        width: 100.0,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(image: NetworkImage(details.pictureUrl ?? ''), fit: BoxFit.cover),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 100.0,
+                            width: 100.0,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(image: NetworkImage(details.pictureUrl ?? ''), fit: BoxFit.cover),
+                              shape: BoxShape.circle
+                            ),
+                          ),
+                          Text(details.companyName.toString(),style: kTextStyle.copyWith(color: kTitleColor,fontWeight: FontWeight.bold,fontSize: 20),),
+                        ],
                       ),
                     ),
+
                     const SizedBox(
-                      height: 10.0,
+                      height: 25.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: AppTextField(
-                        readOnly: true,
-                        cursorColor: kGreyTextColor,
-                        controller: TextEditingController(
-                          text: details.companyName,
-                        ),
-                        decoration: InputDecoration(
-                            labelText: lang.S.of(context).name,
-                            border: const OutlineInputBorder().copyWith(borderSide: const BorderSide(color: kGreyTextColor)),
-                            hoverColor: kGreyTextColor,
-                            fillColor: kGreyTextColor),
-                        textFieldType: TextFieldType.NAME,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: AppTextField(
-                        readOnly: true,
-                        cursorColor: kGreyTextColor,
-                        controller: TextEditingController(
-                          text: details.phoneNumber,
-                        ),
-                        decoration: InputDecoration(
-                            labelText: lang.S.of(context).phoneNumber,
-                            border: const OutlineInputBorder().copyWith(borderSide: const BorderSide(color: kGreyTextColor)),
-                            hoverColor: kGreyTextColor,
-                            fillColor: kGreyTextColor),
-                        textFieldType: TextFieldType.NAME,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: AppTextField(
-                        readOnly: true,
-                        cursorColor: kGreyTextColor,
-                        controller: TextEditingController(
-                          text: details.businessCategory,
-                        ),
-                        decoration: InputDecoration(
-                          labelText: lang.S.of(context).businessCategory,
-                          border: const OutlineInputBorder().copyWith(borderSide: const BorderSide(color: kGreyTextColor)),
-                          hoverColor: kGreyTextColor,
-                          fillColor: kGreyTextColor,
-                        ),
-                        textFieldType: TextFieldType.NAME,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: AppTextField(
-                        readOnly: true,
-                        cursorColor: kGreyTextColor,
-                        controller: TextEditingController(
-                          text: details.countryName,
-                        ),
-                        decoration: InputDecoration(
-                            labelText: lang.S.of(context).address,
-                            border: const OutlineInputBorder().copyWith(borderSide: const BorderSide(color: kGreyTextColor)),
-                            hoverColor: kGreyTextColor,
-                            fillColor: kGreyTextColor),
-                        textFieldType: TextFieldType.NAME,
-                      ),
-                    ),
+                    Text('Personal Information:',style: kTextStyle.copyWith(fontWeight: FontWeight.bold,fontSize: 18,color: kTitleColor),),
+                    const SizedBox(height: 15,),
+                    KeyValueWidget(
+                        keys: 'Shop Name',
+                        value: details.companyName.toString()),
+                    Divider(thickness: 1.0,color: kBorderColor.withOpacity(0.30),),
+                    KeyValueWidget(keys: 'Phone Number', value: details.phoneNumber),
+                    Divider(thickness: 1.0,color: kBorderColor.withOpacity(0.30),),
+                    KeyValueWidget(keys: 'Business Category', value: details.businessCategory.toString()),
+                    Divider(thickness: 1.0,color: kBorderColor.withOpacity(0.30),),
+                    KeyValueWidget(keys: 'Language', value: details.language.toString()),
+                    Divider(thickness: 1.0,color: kBorderColor.withOpacity(0.30),),
+                    KeyValueWidget(keys: 'Shop GST', value: details.gst.toString()),
+                    Divider(thickness: 1.0,color: kBorderColor.withOpacity(0.30),),
+                    KeyValueWidget(keys: 'Address', value: details.countryName.toString()),
+                    // Divider(thickness: 1.0,color: kBorderColor.withOpacity(0.30),),
+                    // KeyValueWidget(keys: 'Opening Balance', value: details.shopOpeningBalance.toString()),
                     ButtonGlobal(
                       iconWidget: Icons.arrow_forward,
                       buttontext: lang.S.of(context).changePassword,

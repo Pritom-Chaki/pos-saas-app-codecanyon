@@ -19,10 +19,6 @@ class DefaultFirebaseOptions {
       return web;
     }
     switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-        return android;
-      case TargetPlatform.iOS:
-        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -46,28 +42,16 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAxKb4x7MBCPrwk-n-hLhm9PKc9RWhABwA',
-    appId: '1:453829112125:web:3fdf7875805301bee6d554',
-    messagingSenderId: '453829112125',
-    projectId: 'salespro-19e86',
-    authDomain: 'salespro-19e86.firebaseapp.com',
-    storageBucket: 'salespro-19e86.appspot.com',
+      apiKey: "AIzaSyBwADjCS1sSgpMUCd4NqvbbC2izeU7ch9M",
+      authDomain: "posbharat-fbae1.firebaseapp.com",
+      databaseURL: "https://posbharat-fbae1-default-rtdb.firebaseio.com",
+      projectId: "posbharat-fbae1",
+      storageBucket: "posbharat-fbae1.appspot.com",
+      messagingSenderId: "1023425003656",
+      appId: "1:1023425003656:web:dace68254ce03c1bf8df3d",
+      measurementId: "G-KTSX9NNFT5"
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDDSGu-ysB31hRZL02sfM2S2gQj-gwYnik',
-    appId: '1:606700156156:android:e8579627b70be96c3dd379',
-    messagingSenderId: '606700156156',
-    projectId: 'pos-saas-a7b6c',
-    storageBucket: 'pos-saas-a7b6c.appspot.com',
-  );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAT1zNWpyIsMp29W0OEKcJ9NJa0b_HvDwE',
-    appId: '1:736551413173:ios:f50c8a1a94df52472fe5fc',
-    messagingSenderId: '736551413173',
-    projectId: 'maanpos',
-    storageBucket: 'maanpos.appspot.com',
-    iosBundleId: 'com.maantheme.mobilepo',
-  );
+
 }

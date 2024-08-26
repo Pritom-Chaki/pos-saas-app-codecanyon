@@ -278,7 +278,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Mode"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Les fonctionnalités sont la partie importante qui rend Pix Pos différent des solutions traditionnelles."),
+            "Les fonctionnalités sont la partie importante qui rend Pos Saas différent des solutions traditionnelles."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Commentaires"),
         "firstName": MessageLookupByLibrary.simpleMessage("Prénom"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Face avant"),
@@ -347,9 +347,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("Historique des messages"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "L\'application Pix Pos est gratuite et facile à utiliser. En fait, c\'est l\'un des meilleurs systèmes de point de vente au monde."),
+            "L\'application Pos Saas est gratuite et facile à utiliser. En fait, c\'est l\'un des meilleurs systèmes de point de vente au monde."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos est une solution commerciale complète avec des fonctionnalités de stock, de comptabilité, de ventes, de dépenses et de pertes/profits."),
+            "Pos Saas est une solution commerciale complète avec des fonctionnalités de stock, de comptabilité, de ventes, de dépenses et de pertes/profits."),
         "monthly": MessageLookupByLibrary.simpleMessage("Mensuel"),
         "moreInfo":
             MessageLookupByLibrary.simpleMessage("Plus d\'informations"),
@@ -428,7 +428,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Veuillez entrer votre adresse courriel ci-dessous pour recevoir le lien de réinitialisation du mot de passe."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Propulsé par Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Propulsé par Pos Saas"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Support client premium"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Forfait Premium"),
@@ -584,7 +584,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Utilisation illimitée"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Débloquez le plein potentiel de Pix Pos POS avec des sessions de formation personnalisées dirigées par notre équipe d\'experts. Des bases aux techniques avancées, nous veillons à ce que vous maîtrisiez toutes les facettes du système pour optimiser vos processus commerciaux."),
+            "Débloquez le plein potentiel de Pos Saas POS avec des sessions de formation personnalisées dirigées par notre équipe d\'experts. Des bases aux techniques avancées, nous veillons à ce que vous maîtrisiez toutes les facettes du système pour optimiser vos processus commerciaux."),
         "update": MessageLookupByLibrary.simpleMessage("Mettre à jour"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Mettre à jour le contact"),
@@ -604,7 +604,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadFile":
             MessageLookupByLibrary.simpleMessage("Télécharger un fichier"),
         "upplier": MessageLookupByLibrary.simpleMessage("Fournisseur"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("Utilisez Pix Pos"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("Utilisez Pos Saas"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Järjestelmän käyttö"),
         "userRole":
@@ -645,7 +645,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Vous avez reçu un courriel"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Vous êtes connecté avec succès à votre compte. Restez avec Pix Pos ."),
+            "Vous êtes connecté avec succès à votre compte. Restez avec Pos Saas ."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Vous devez vous RECONNECTER à votre compte."),
         "youNeedToIdentityVerifyBeforeYouBuying":

@@ -378,7 +378,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "කරුණාකර ඔබේ ඊමේල් ලිපිනය පහත සැපයුම් ලබා ගැනීමට පහත ඇති ඊමේල් ලිපිනය ඇතුළත් කරන්න:"),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pix Pos වෙත සබලකළ"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas වෙත සබලකළ"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("විසින් පාරිභාවය සහාය"),
         "premiumPlan":
@@ -437,7 +437,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("සහාය පාර සහාය"),
         "revenue": MessageLookupByLibrary.simpleMessage("ආදායම"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "ඔබේ ව්යාපාර දත්ත ආයාසයකින් තොරව සුරක්ෂිත කරන්න. අපගේ Pix Pos POS Unlimited Upgrade හි නොමිලේ දත්ත උපස්ථයක් ඇතුළත් වන අතර, ඔබගේ වටිනා තොරතුරු අනපේක්ෂිත සිදුවීම් වලින් ආරක්ෂා කර ඇති බව සහතික කරයි. සැබවින්ම වැදගත් වන්නේ කුමක්ද යන්න පිළිබඳව අවධානය යොමු කරන්න - ඔබේ ව්යාපාර වර්ධනය."),
+            "ඔබේ ව්යාපාර දත්ත ආයාසයකින් තොරව සුරක්ෂිත කරන්න. අපගේ Pos Saas POS Unlimited Upgrade හි නොමිලේ දත්ත උපස්ථයක් ඇතුළත් වන අතර, ඔබගේ වටිනා තොරතුරු අනපේක්ෂිත සිදුවීම් වලින් ආරක්ෂා කර ඇති බව සහතික කරයි. සැබවින්ම වැදගත් වන්නේ කුමක්ද යන්න පිළිබඳව අවධානය යොමු කරන්න - ඔබේ ව්යාපාර වර්ධනය."),
         "saleDetails": MessageLookupByLibrary.simpleMessage("විකුණු විස්තර"),
         "salePrice": MessageLookupByLibrary.simpleMessage("විකුණු මිල"),
         "saleReports": MessageLookupByLibrary.simpleMessage("විකුණු වාර්තා"),
@@ -481,7 +481,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("සොයන්නට ඇරඹන්න"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "කිසිදු අමතර පිරිවැයකින් තොරව තාක්ෂණික දියුණුවෙහි ඉදිරියෙන් සිටින්න. අපගේ Pix Pos POS Unlimited උත්ශ්රේණි කිරීම මඟින් ඔබට සැමවිටම නවතම මෙවලම් සහ විශේෂාංග ඔබේ ඇඟිලි තුඩුවල ඇති බව සහතික කරයි, ඔබේ ව්යාපාරය අති නවීන බව සහතික කරයි."),
+            "කිසිදු අමතර පිරිවැයකින් තොරව තාක්ෂණික දියුණුවෙහි ඉදිරියෙන් සිටින්න. අපගේ Pos Saas POS Unlimited උත්ශ්රේණි කිරීම මඟින් ඔබට සැමවිටම නවතම මෙවලම් සහ විශේෂාංග ඔබේ ඇඟිලි තුඩුවල ඇති බව සහතික කරයි, ඔබේ ව්යාපාරය අති නවීන බව සහතික කරයි."),
         "stockList": MessageLookupByLibrary.simpleMessage("සම්පත් ලැයිස්තුව"),
         "stocks": MessageLookupByLibrary.simpleMessage("ස්ථාන"),
         "subTotal": MessageLookupByLibrary.simpleMessage("උප මුලු"),
@@ -501,7 +501,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase": MessageLookupByLibrary.simpleMessage(
             "ඔබගේ වෙළඳපොලට ස්වයංක්රීයයි සැපයූවන්ද"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "නම හැම දෙයක්ම කියනවා. Pix Pos POS Unlimited සමඟින්, ඔබේ භාවිතයේ සීමාවක් නොමැත. ඔබ ගනුදෙනු අතලොස්සක් සකසමින් සිටියත් හෝ ගනුදෙනුකරුවන්ගේ අධික තදබදයක් අත්විඳිමින් සිටියත්, ඔබ සීමාවන්ට සීමා නොවන බව දැනගෙන ඔබට විශ්වාසයෙන් යුතුව ක්රියා කළ හැක."),
+            "නම හැම දෙයක්ම කියනවා. Pos Saas POS Unlimited සමඟින්, ඔබේ භාවිතයේ සීමාවක් නොමැත. ඔබ ගනුදෙනු අතලොස්සක් සකසමින් සිටියත් හෝ ගනුදෙනුකරුවන්ගේ අධික තදබදයක් අත්විඳිමින් සිටියත්, ඔබ සීමාවන්ට සීමා නොවන බව දැනගෙන ඔබට විශ්වාසයෙන් යුතුව ක්රියා කළ හැක."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "පරිශීලකයා මකා දැමීමට සහ සියල්ල දත්ත ඔබේ ගිණුමෙහිද මකා දමා යෑමට හෝදයාගේ ඉල්ලීමට ඔබට විසඳුමක් ලැබේ. මෙම මකා දැමීමට ඔබට හෝදයේ වෙනත් සියල්ල ගැන හෝදයේ උපදෙස් සහිත නිසාය."),
         "title": MessageLookupByLibrary.simpleMessage("ශීර්ෂය"),
@@ -527,7 +527,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "units": MessageLookupByLibrary.simpleMessage("ඒකක"),
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage("අසීමිත භාරකෝ"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "අපගේ විශේෂඥ කණ්ඩායම විසින් මෙහෙයවනු ලබන පුද්ගලාරෝපිත පුහුණු සැසි සමඟ Pix Pos POS හි සම්පූර්ණ විභවය අගුළු හරින්න. මූලික කරුණුවල සිට උසස් තාක්ෂණික ක්රම දක්වා, ඔබේ ව්යාපාර ක්රියාවලීන් ප්රශස්ත කිරීම සඳහා පද්ධතියේ සෑම අංශයක්ම භාවිතා කිරීමට ඔබ හොඳින් දන්නා බව අපි සහතික කරමු."),
+            "අපගේ විශේෂඥ කණ්ඩායම විසින් මෙහෙයවනු ලබන පුද්ගලාරෝපිත පුහුණු සැසි සමඟ Pos Saas POS හි සම්පූර්ණ විභවය අගුළු හරින්න. මූලික කරුණුවල සිට උසස් තාක්ෂණික ක්රම දක්වා, ඔබේ ව්යාපාර ක්රියාවලීන් ප්රශස්ත කිරීම සඳහා පද්ධතියේ සෑම අංශයක්ම භාවිතා කිරීමට ඔබ හොඳින් දන්නා බව අපි සහතික කරමු."),
         "update": MessageLookupByLibrary.simpleMessage("යාවත්කාලීනය"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("දුරකථන එකතු කරන්න"),
@@ -578,7 +578,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("ඔබට ඊමේල් එකක් ලබාදී ඇත"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "ඔබට සාර්ථකත්වයෙන් ඔබේ ගිණුමට පිවිසුම් වී ඇත. Pix Pos සමඟ සම්බනවේ."),
+            "ඔබට සාර්ථකත්වයෙන් ඔබේ ගිණුමට පිවිසුම් වී ඇත. Pos Saas සමඟ සම්බනවේ."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "ඔබට ඔබේ ගිණුමට නැවත පිවිසීමට අවශ්‍යයි"),
         "youNeedToIdentityVerifyBeforeYouBuying":

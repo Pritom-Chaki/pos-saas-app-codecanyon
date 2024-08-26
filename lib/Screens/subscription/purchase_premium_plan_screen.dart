@@ -1,17 +1,17 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bkash/flutter_bkash.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile_pos/Provider/profile_provider.dart';
-import 'package:mobile_pos/Screens/subscription/buy_now.dart';
+import 'package:mobile_pos/Screens/subscription/payment_page.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
+import 'package:mobile_pos/repository/paypal_info_repo.dart';
 import 'package:mobile_pos/subscript.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../Provider/subscription_provider.dart';
 import '../../constant.dart';
 import '../../currency.dart';
+import '../../model/payment_model.dart';
 import '../../model/subscription_model.dart';
 import '../../model/subscription_plan_model.dart';
 import '../Home/home.dart';
@@ -63,33 +63,78 @@ class _PurchasePremiumPlanScreenState extends State<PurchasePremiumPlanScreen> {
     const Color(0xFFF5B400),
     const Color(0xFFFF7468),
   ];
-  SubscriptionPlanModel selectedPlan = SubscriptionPlanModel(subscriptionName: '', saleNumber: 0, purchaseNumber: 0, partiesNumber: 0, dueNumber: 0, duration: 0, products: 0, subscriptionPrice: 0, offerPrice: 0);
+  SubscriptionPlanModel selectedPlan =
+  SubscriptionPlanModel(subscriptionName: '', saleNumber: 0, purchaseNumber: 0, partiesNumber: 0, dueNumber: 0, duration: 0, products: 0, subscriptionPrice: 0, offerPrice: 0);
   ScrollController mainScroll = ScrollController();
 
-  SubscriptionRequestModel subscriptionRequestModelData = SubscriptionRequestModel(
-    subscriptionPlanModel: SubscriptionPlanModel(
-        dueNumber: 0, duration: 0, offerPrice: 0, partiesNumber: 0, products: 0, purchaseNumber: 0, saleNumber: 0, subscriptionName: '', subscriptionPrice: 00, subscriptionDate: DateTime.now().toString()),
-    transactionNumber: '',
-    note: '',
-    attachment: '',
-    userId: constUserId,
-    businessCategory: '',
-    companyName: '',
-    countryName: '',
-    language: '',
-    phoneNumber: '',
-    pictureUrl: '',
-  );
+  List<String> imageList = [
+    'images/sp1.png',
+    'images/sp2.png',
+    'images/sp3.png',
+    'images/sp4.png',
+    'images/sp5.png',
+    'images/sp6.png',
+  ];
+
+  List<String> getTitleList({required BuildContext context}){
+    List<String> titleListData = [
+      lang.S.of(context).freeLifeTimeUpdate,
+      lang.S.of(context).androidIOSAppSupport,
+      lang.S.of(context).premiumCustomerSupport,
+      lang.S.of(context).customInvoiceBranding,
+      lang.S.of(context).unlimitedUsage,
+      lang.S.of(context).freeDataBackup,
+    ];
+    return titleListData;
+  }
+
+  List<String> titleListData = [];
+
+
+  List<String> planDetailsImages = [
+    'images/plan_details_1.png',
+    'images/plan_details_2.png',
+    'images/plan_details_3.png',
+    'images/plan_details_4.png',
+    'images/plan_details_5.png',
+    'images/plan_details_6.png',
+  ];
+  List<String> getPlanDetailsText({required BuildContext context}){
+    List<String> planDetailsText = [
+      lang.S.of(context).freeLifeTimeUpdate,
+      lang.S.of(context).androidIOSAppSupport,
+      lang.S.of(context).premiumCustomerSupport,
+      lang.S.of(context).customInvoiceBranding,
+      lang.S.of(context).unlimitedUsage,
+      lang.S.of(context).freeDataBackup,
+    ];
+    return planDetailsText;
+  }
+  List<String> planDetailsText = [];
+
+  List<String> getDescription({required BuildContext context}){
+    List<String> desciption = [
+      lang.S.of(context).stayAtTheForFront,
+      lang.S.of(context).weUnderStand,
+      lang.S.of(context).unlockTheFull,
+      lang.S.of(context).makeALastingImpression,
+      lang.S.of(context).theNameSysIt,
+      lang.S.of(context).safeGuardYourBusinessDate,
+    ];
+    return desciption;
+  }
+  List<String> desciption = [];
 
   @override
   Widget build(BuildContext context) {
+    desciption=getDescription(context: context);
+    planDetailsText=getPlanDetailsText(context: context);
+    titleListData=getTitleList(context: context);
     return Scaffold(
       backgroundColor: kMainColor,
       body: Consumer(
         builder: (context, ref, __) {
           final subscriptionData = ref.watch(subscriptionPlanProvider);
-          final userProfileDetails = ref.watch(profileDetailsProvider);
-
           return SingleChildScrollView(
             child: SafeArea(
               child: subscriptionData.when(data: (data) {
@@ -128,12 +173,190 @@ class _PurchasePremiumPlanScreenState extends State<PurchasePremiumPlanScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 10),
+                          ListView.builder(
+                              itemCount: imageList.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (_, i) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                const SizedBox(height: 20),
+                                                Row(
+                                                  mainAxisSize: MainAxisSize.max,
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    GestureDetector(
+                                                      child: const Icon(Icons.cancel),
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                    const SizedBox(width: 20),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 20),
+                                                Image(
+                                                  height: 200,
+                                                  width: 200,
+                                                  image: AssetImage(planDetailsImages[i]),
+                                                ),
+                                                const SizedBox(height: 20),
+                                                Text(
+                                                  planDetailsText[i],
+                                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                                ),
+                                                const SizedBox(height: 15),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Text(desciption[i], textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
+                                                ),
+                                                const SizedBox(height: 20),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Card(
+                                      elevation: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: ListTile(
+                                          leading: SizedBox(
+                                            height: 40,
+                                            width: 40,
+                                            child: Image(
+                                              image: AssetImage(imageList[i]),
+                                            ),
+                                          ),
+                                          title: Text(
+                                            titleListData[i],
+                                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                          ),
+                                          trailing: const Icon(FeatherIcons.alertCircle),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                          const SizedBox(height: 10),
                           Text(
                             lang.S.of(context).buyPremiumPlan,
                             textAlign: TextAlign.start,
                             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 20),
+                          // SizedBox(
+                          //   height: 210,
+                          //   child: ListView.builder(
+                          //     physics: const ClampingScrollPhysics(),
+                          //     shrinkWrap: true,
+                          //     scrollDirection: Axis.horizontal,
+                          //     itemCount: data.length,
+                          //     itemBuilder: (BuildContext context, int index) {
+                          //       return Padding(
+                          //         padding: const EdgeInsets.only(right: 10),
+                          //         child: Column(
+                          //           children: [
+                          //             SizedBox(
+                          //               width: 150,
+                          //               child: Stack(
+                          //                 alignment: Alignment.bottomCenter,
+                          //                 children: [
+                          //                   GestureDetector(
+                          //                     onTap:(){
+                          //                       setState(() {
+                          //                       });
+                          //                     },
+                          //                     child: Container(
+                          //                       height: 210,
+                          //                       width: 150,
+                          //                       decoration: BoxDecoration(
+                          //                         color: currentSubscriptionPlan.subscriptionName == data[index].subscriptionName ? kPremiumPlanColor2.withOpacity(0.1) : Colors.white,
+                          //                         borderRadius: const BorderRadius.all(
+                          //                           Radius.circular(10),
+                          //                         ),
+                          //                         border: Border.all(width: 1, color: currentSubscriptionPlan.subscriptionName == data[index].subscriptionName ? kPremiumPlanColor2 : kPremiumPlanColor),
+                          //                       ),
+                          //                       child: Column(
+                          //                         mainAxisAlignment: MainAxisAlignment.center,
+                          //                         children: [
+                          //                           const SizedBox(height: 15),
+                          //                           const Text(
+                          //                             'Mobile App \n+\nDesktop',
+                          //                             textAlign: TextAlign.center,
+                          //                             style: TextStyle(
+                          //                               fontSize: 16,
+                          //                             ),
+                          //                           ),
+                          //                           const SizedBox(height: 15),
+                          //                           Text(
+                          //                             data[index].subscriptionName,
+                          //                             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blue),
+                          //                           ),
+                          //                           const SizedBox(height: 5),
+                          //                           Text(
+                          //                             '$currency${data[index].offerPrice > 0 ? data[index].offerPrice : data[index].subscriptionPrice}',
+                          //                             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.blue),
+                          //                           ),
+                          //                           Text(
+                          //                             '$currency${data[index].subscriptionPrice}',
+                          //                             style: const TextStyle(decoration: TextDecoration.lineThrough, fontSize: 14, color: Colors.grey),
+                          //                           ).visible(data[index].offerPrice > 0),
+                          //                           const SizedBox(height: 5),
+                          //                           Text(
+                          //                             'Duration ${data[index].duration} Day',
+                          //                             style: const TextStyle(color: kGreyTextColor),
+                          //                           ),
+                          //                         ],
+                          //                       ),
+                          //                     ),
+                          //                   ),
+                          //                   Positioned(
+                          //                     top: 0,
+                          //                     left: 0,
+                          //                     child: Container(
+                          //                       height: 25,
+                          //                       width: 70,
+                          //                       decoration: const BoxDecoration(
+                          //                         color: Colors.blue,
+                          //                         borderRadius: BorderRadius.only(
+                          //                           topLeft: Radius.circular(10),
+                          //                           bottomRight: Radius.circular(10),
+                          //                         ),
+                          //                       ),
+                          //                       child: Center(
+                          //                         child: Text(
+                          //                           data[index].offerPrice == data[index].subscriptionPrice
+                          //                               ? ""
+                          //                               : 'Save ${(100 - ((data[index].offerPrice * 100) / data[index].subscriptionPrice)).toInt().toString()}%',
+                          //                           style: const TextStyle(color: Colors.white),
+                          //                         ),
+                          //                       ),
+                          //                     ),
+                          //                   ).visible(data[index].offerPrice > 0),
+                          //                 ],
+                          //               ),
+                          //             ),
+                          //
+                          //           ],
+                          //         ),
+                          //       );
+                          //     },
+                          //   ),
+                          // ),
                           SizedBox(
                             height: (context.width() / 2) + 18,
                             child: ListView.builder(
@@ -150,86 +373,13 @@ class _PurchasePremiumPlanScreenState extends State<PurchasePremiumPlanScreen> {
                                   },
                                   child: data[index].offerPrice >= 1
                                       ? Padding(
-                                          padding: const EdgeInsets.only(right: 10),
-                                          child: SizedBox(
-                                            height: (context.width() / 2.5) + 18,
-                                            child: Stack(
-                                              alignment: Alignment.bottomCenter,
-                                              children: [
-                                                Container(
-                                                  height: (context.width() / 2.0),
-                                                  width: (context.width() / 2.5) - 20,
-                                                  decoration: BoxDecoration(
-                                                    color: data[index].subscriptionName == selectedPlan.subscriptionName ? kPremiumPlanColor2.withOpacity(0.1) : Colors.white,
-                                                    borderRadius: const BorderRadius.all(
-                                                      Radius.circular(10),
-                                                    ),
-                                                    border: Border.all(
-                                                      width: 1,
-                                                      color: data[index].subscriptionName == selectedPlan.subscriptionName ? kPremiumPlanColor2 : kPremiumPlanColor,
-                                                    ),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      const SizedBox(height: 15),
-                                                      const Text(
-                                                        'Mobile App\n+\nDesktop',
-                                                        textAlign: TextAlign.center,
-                                                        style: TextStyle(
-                                                          fontSize: 16,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(height: 15),
-                                                      Text(
-                                                        data[index].subscriptionName,
-                                                        style: const TextStyle(fontSize: 16),
-                                                      ),
-                                                      const SizedBox(height: 5),
-                                                      Text(
-                                                        '$currency${data[index].offerPrice}',
-                                                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: kPremiumPlanColor2),
-                                                      ),
-                                                      Text(
-                                                        '$currency${data[index].subscriptionPrice}',
-                                                        style: const TextStyle(decoration: TextDecoration.lineThrough, fontSize: 14, color: Colors.grey),
-                                                      ),
-                                                      const SizedBox(height: 5),
-                                                      Text(
-                                                        'Duration ${data[index].duration} Day',
-                                                        style: const TextStyle(color: kGreyTextColor),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  top: 8,
-                                                  left: 0,
-                                                  child: Container(
-                                                    height: 25,
-                                                    width: 70,
-                                                    decoration: const BoxDecoration(
-                                                      color: kPremiumPlanColor2,
-                                                      borderRadius: BorderRadius.only(
-                                                        topLeft: Radius.circular(10),
-                                                        bottomRight: Radius.circular(10),
-                                                      ),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        'Save ${(100 - ((data[index].offerPrice * 100) / data[index].subscriptionPrice)).toInt().toString()}%',
-                                                        style: const TextStyle(color: Colors.white),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.only(bottom: 20, top: 20, right: 10),
-                                          child: Container(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: SizedBox(
+                                      height: (context.width() / 2.5) + 18,
+                                      child: Stack(
+                                        alignment: Alignment.bottomCenter,
+                                        children: [
+                                          Container(
                                             height: (context.width() / 2.0),
                                             width: (context.width() / 2.5) - 20,
                                             decoration: BoxDecoration(
@@ -237,11 +387,15 @@ class _PurchasePremiumPlanScreenState extends State<PurchasePremiumPlanScreen> {
                                               borderRadius: const BorderRadius.all(
                                                 Radius.circular(10),
                                               ),
-                                              border: Border.all(width: 1, color: data[index].subscriptionName == selectedPlan.subscriptionName ? kPremiumPlanColor2 : kPremiumPlanColor),
+                                              border: Border.all(
+                                                width: 1,
+                                                color: data[index].subscriptionName == selectedPlan.subscriptionName ? kPremiumPlanColor2 : kPremiumPlanColor,
+                                              ),
                                             ),
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
+                                                const SizedBox(height: 15),
                                                 const Text(
                                                   'Mobile App\n+\nDesktop',
                                                   textAlign: TextAlign.center,
@@ -256,8 +410,12 @@ class _PurchasePremiumPlanScreenState extends State<PurchasePremiumPlanScreen> {
                                                 ),
                                                 const SizedBox(height: 5),
                                                 Text(
-                                                  '$currency${data[index].subscriptionPrice.toString()}',
-                                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: kPremiumPlanColor),
+                                                  '$currency${data[index].offerPrice}',
+                                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: kPremiumPlanColor2),
+                                                ),
+                                                Text(
+                                                  '$currency${data[index].subscriptionPrice}',
+                                                  style: const TextStyle(decoration: TextDecoration.lineThrough, fontSize: 14, color: Colors.grey),
                                                 ),
                                                 const SizedBox(height: 5),
                                                 Text(
@@ -267,105 +425,100 @@ class _PurchasePremiumPlanScreenState extends State<PurchasePremiumPlanScreen> {
                                               ],
                                             ),
                                           ),
+                                          Positioned(
+                                            top: 8,
+                                            left: 0,
+                                            child: Container(
+                                              height: 25,
+                                              width: 70,
+                                              decoration: const BoxDecoration(
+                                                color: kPremiumPlanColor2,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(10),
+                                                  bottomRight: Radius.circular(10),
+                                                ),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'Save ${(100 - ((data[index].offerPrice * 100) / data[index].subscriptionPrice)).toInt().toString()}%',
+                                                  style: const TextStyle(color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                      : Padding(
+                                    padding: const EdgeInsets.only(bottom: 20, top: 20, right: 10),
+                                    child: Container(
+                                      height: (context.width() / 2.0),
+                                      width: (context.width() / 2.5) - 20,
+                                      decoration: BoxDecoration(
+                                        color: data[index].subscriptionName == selectedPlan.subscriptionName ? kPremiumPlanColor2.withOpacity(0.1) : Colors.white,
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(10),
                                         ),
+                                        border: Border.all(
+                                            width: 1, color: data[index].subscriptionName == selectedPlan.subscriptionName ? kPremiumPlanColor2 : kPremiumPlanColor),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            'Mobile App\n+\nDesktop',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 15),
+                                          Text(
+                                            data[index].subscriptionName,
+                                            style: const TextStyle(fontSize: 16),
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Text(
+                                            '$currency${data[index].subscriptionPrice.toString()}',
+                                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: kPremiumPlanColor),
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Text(
+                                            'Duration ${data[index].duration} Day',
+                                            style: const TextStyle(color: kGreyTextColor),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 );
                               },
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(
+                            height: 20
+                          ),
                           GestureDetector(
                             onTap: () async {
                               if (selectedPlan.subscriptionName == '') {
                                 EasyLoading.showError('Please Select a Plan');
                               } else {
-                                await userProfileDetails.when(data: (details) {
+                                EasyLoading.show(status: "Loading");
+                                var paypal = await PaypalInfoRepo().getPaypalInfo();
+                                var stripe = await StripeInfoRepo().getStripeInfo();
+                                var razorpay = await RazorpayInfoRepo().getRazorpayInfo();
+                                var ssl = await SSLInfoRepo().getSSLInfo();
+                                var flutterwave = await FlutterWaveInfoRepo().getFlutterWaveInfo();
+                                var tap = await TapInfoRepo().getTapInfo();
+                                var kkiPay = await KkiPayInfoRepo().getKkiPayInfo();
+                                var paystack = await PayStackInfoRepo().getPayStackInfo();
+                                var billPlz = await BillplzInfoRepo().getBillplzInfo();
+                                var cashfree = await CashFreeInfoRepo().getCashFreeInfo();
+                                var iyzico = await IyzicoInfoRepo().getIyzicoInfo();
+                                var price = selectedPlan.offerPrice < 1 ? selectedPlan.subscriptionPrice : selectedPlan.offerPrice;
+                                if(mounted){
                                   EasyLoading.dismiss();
-                                  subscriptionRequestModelData.countryName = details.countryName ?? '';
-                                  subscriptionRequestModelData.language = details.language ?? '';
-                                  subscriptionRequestModelData.pictureUrl = details.pictureUrl ?? '';
-                                  subscriptionRequestModelData.companyName = details.companyName ?? '';
-                                  subscriptionRequestModelData.businessCategory = details.businessCategory ?? '';
-                                  subscriptionRequestModelData.phoneNumber = details.phoneNumber ?? '';
-                                }, error: (Object error, StackTrace stackTrace) {
-                                  EasyLoading.dismiss();
-                                }, loading: () {
-                                  EasyLoading.show(status: 'Loading....');
-                                });
-
-                                subscriptionRequestModelData.subscriptionPlanModel = selectedPlan;
-
-                                final flutterBkash = FlutterBkash(
-                                    bkashCredentials: BkashCredentials(
-                                        username: '01752156079', password: '!<+8Cb!k^@C', appKey: 'TyvaRsl9jCZ37daetzZ1lQeKtc', appSecret: 'nQYx0fC5jDdN9DitOKPkDuYLOUqEVHVqMVA8RmGgqSxewtKsgsqX', isSandbox: false));
-                                try {
-                                  double price = ((selectedPlan.offerPrice < 1) ? selectedPlan.subscriptionPrice : selectedPlan.offerPrice).toDouble();
-
-                                  /// call pay method to pay without agreement as parameter pass the context, amount, merchantInvoiceNumber
-                                  final result = await flutterBkash.pay(
-                                    context: context,
-                                    amount: price,
-                                    merchantInvoiceNumber: subscriptionRequestModelData.userId,
-                                  );
-
-                                  if (result != null) {
-                                    // EasyLoading.dismiss();
-                                    String? sellerUserRef = await getSaleID(id: await getUserID());
-                                    if (sellerUserRef != null) {
-                                      final DatabaseReference subscriptionRef = FirebaseDatabase.instance.ref().child(subscriptionRequestModelData.userId).child('Subscription');
-                                      selectedPlan.subscriptionDate = DateTime.now().toString();
-                                      await subscriptionRef.set(selectedPlan.toJson());
-
-                                      ///_____Seller_info_update________________________________________
-                                      final DatabaseReference superAdminSellerListRepo = FirebaseDatabase.instance.ref().child('Admin Panel').child('Seller List').child(sellerUserRef);
-                                      superAdminSellerListRepo.update({
-                                        "subscriptionDate": DateTime.now().toString(),
-                                        "subscriptionName": selectedPlan.subscriptionName,
-                                      });
-
-                                      ///______________________________________
-                                      subscriptionRequestModelData.transactionNumber = result.trxId;
-                                      // data.attachment == '' ? null : await uploadFile(data.attachment);
-                                      final DatabaseReference ref = FirebaseDatabase.instance.ref().child('Admin Panel').child('Subscription Update Request');
-                                      ref.keepSynced(true);
-                                      ref.push().set(subscriptionRequestModelData.toJson());
-                                      EasyLoading.showSuccess('Payment Successfully');
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    } else {
-                                      EasyLoading.showError('You Are Not A Valid User');
-                                    }
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text("(Success) tranId: ${result.trxId}"),
-                                        duration: Duration(seconds: 3),
-                                      ),
-                                    );
-                                  }
-                                } on BkashFailure catch (e, st) {
-                                  // paymentStatus = "Bkash Response Error";
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text("${e.message}"),
-                                      duration: Duration(seconds: 3),
-                                    ),
-                                  );
-                                } catch (e, st) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text("Something went wrong"),
-                                      duration: Duration(seconds: 3),
-                                    ),
-                                  );
-                                }
-
-                                /*                Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => BuyNow(
-                                            subscriptionPlanModel: selectedPlan,
-                                          )));
-*/
-                                /*
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -386,8 +539,7 @@ class _PurchasePremiumPlanScreenState extends State<PurchasePremiumPlanScreen> {
                                             iyzicoInfoModel: iyzico,
                                           ),
                                           )));
-
-                                  */
+                                }
                               }
                             },
                             child: Container(
@@ -396,9 +548,9 @@ class _PurchasePremiumPlanScreenState extends State<PurchasePremiumPlanScreen> {
                                 color: kMainColor,
                                 borderRadius: BorderRadius.all(Radius.circular(10)),
                               ),
-                              child: Center(
+                              child:  Center(
                                 child: Text(
-                                  "Pay Now",
+                                  lang.S.of(context).payCash,
                                   style: const TextStyle(fontSize: 18, color: Colors.white),
                                 ),
                               ),

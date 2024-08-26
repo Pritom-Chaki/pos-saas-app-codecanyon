@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,7 +13,6 @@ import 'package:mobile_pos/Screens/Customers/Model/customer_model.dart';
 import 'package:mobile_pos/constant.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
 import 'package:nb_utils/nb_utils.dart';
-
 import '../../Provider/customer_provider.dart';
 import '../../currency.dart';
 import 'customer_list.dart';
@@ -412,6 +410,23 @@ class _EditCustomerState extends State<EditCustomer> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: AppTextField(
+                                  initialValue: widget.customerModel.gst,
+                                  textFieldType: TextFieldType.NUMBER,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      updatedCustomerModel.gst = value;
+                                    });
+                                  },
+                                  decoration:  const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                    labelText: 'Customer GST',
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: AppTextField(
                                   initialValue: widget.customerModel.customerAddress,
                                   textFieldType: TextFieldType.NAME,
                                   maxLines: 2,
@@ -437,6 +452,23 @@ class _EditCustomerState extends State<EditCustomer> {
                                       border: OutlineInputBorder(), floatingLabelBehavior: FloatingLabelBehavior.always, labelText: 'Previous Due'),
                                 ),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  initialValue: widget.customerModel.note,
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: 3,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      updatedCustomerModel.note = value;
+                                    });
+                                  },
+                                  decoration:  InputDecoration(
+                                    border: const OutlineInputBorder(),
+                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                    labelText: lang.S.of(context).note,),
+                                ),
+                              ),
                             ],
                           ),
                           isExpanded: expanded,
@@ -458,6 +490,8 @@ class _EditCustomerState extends State<EditCustomer> {
                             'profilePicture': updatedCustomerModel.profilePicture,
                             'emailAddress': updatedCustomerModel.emailAddress,
                             'customerAddress': updatedCustomerModel.customerAddress,
+                            'note' : updatedCustomerModel.note,
+                            'gst': updatedCustomerModel.gst,
                           });
                           EasyLoading.dismiss();
                           //ref.refresh(productProvider);

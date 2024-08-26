@@ -248,7 +248,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("เฟสบุ๊ค"),
         "fashion": MessageLookupByLibrary.simpleMessage("แฟชั่น"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "คุณสมบัติเป็นส่วนสำคัญที่ทำให้ Pix Pos แตกต่างจากการแก้ไขด้วยวิธีเดิม"),
+            "คุณสมบัติเป็นส่วนสำคัญที่ทำให้ Pos Saas แตกต่างจากการแก้ไขด้วยวิธีเดิม"),
         "feedBack": MessageLookupByLibrary.simpleMessage("ข้อเสนอแนะ"),
         "firstName": MessageLookupByLibrary.simpleMessage("ชื่อ"),
         "fontSide": MessageLookupByLibrary.simpleMessage("ด้านหน้า"),
@@ -316,9 +316,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("ประวัติข้อความ"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "แอปพลิเคชัน Pix Pos ฟรี ใช้งานง่าย และเป็นหนึ่งในระบบจุดขายที่ดีที่สุดทั่วโลก"),
+            "แอปพลิเคชัน Pos Saas ฟรี ใช้งานง่าย และเป็นหนึ่งในระบบจุดขายที่ดีที่สุดทั่วโลก"),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos เป็นโซลูชั่นธุรกิจที่ครอบคลุมด้านสินค้าคงคลัง บัญชี การขาย ค่าใช้จ่าย และขาดทุน/กำไร"),
+            "Pos Saas เป็นโซลูชั่นธุรกิจที่ครอบคลุมด้านสินค้าคงคลัง บัญชี การขาย ค่าใช้จ่าย และขาดทุน/กำไร"),
         "monthly": MessageLookupByLibrary.simpleMessage("รายเดือน"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("ข้อมูลเพิ่มเติม"),
         "name": MessageLookupByLibrary.simpleMessage("ใส่ชื่อของคุณ"),
@@ -391,7 +391,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "โปรดป้อนที่อยู่อีเมลของคุณด้านล่างเพื่อรับลิงค์การรีเซ็ตรหัสผ่าน"),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("ขับเคลื่อนโดย Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("ขับเคลื่อนโดย Pos Saas"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("บริการลูกค้าพรีเมี่ยม"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("แผนพรีเมียม"),
@@ -448,7 +448,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("ยอดเงินคืน"),
         "revenue": MessageLookupByLibrary.simpleMessage("รายได้"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "ป้องกันข้อมูลธุรกิจของคุณอย่างง่ายดาย การอัปเดตไม่จำกัดของ Pix Pos POS ของเรารวมถึงการสำรองข้อมูลฟรีเพื่อให้คุณมั่นใจว่าข้อมูลคุณมีค่าจะได้รับความคุ้มครองจากเหตุการณ์ที่ไม่คาดคิด ให้ความสำคัญกับสิ่งที่สำคัญจริง ซึ่งคือการเติบโตของธุรกิจของคุณ"),
+            "ป้องกันข้อมูลธุรกิจของคุณอย่างง่ายดาย การอัปเดตไม่จำกัดของ Pos Saas POS ของเรารวมถึงการสำรองข้อมูลฟรีเพื่อให้คุณมั่นใจว่าข้อมูลคุณมีค่าจะได้รับความคุ้มครองจากเหตุการณ์ที่ไม่คาดคิด ให้ความสำคัญกับสิ่งที่สำคัญจริง ซึ่งคือการเติบโตของธุรกิจของคุณ"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("รายละเอียดการขาย"),
         "salePrice": MessageLookupByLibrary.simpleMessage("ราคาขาย"),
         "saleReports": MessageLookupByLibrary.simpleMessage("รายงานการขาย"),
@@ -492,7 +492,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("เริ่มพิมพ์เพื่อค้นหา"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "อยู่ริมแรมของความล้ำค่าด้านเทคโนโลยีโดยไม่มีค่าใช้จ่ายเพิ่มเติม อัปเดตไม่จำกัดของ Pix Pos POS ของเรา รับรองว่าคุณจะมีเครื่องมือและคุณสมบัติล่าสุดเสมอที่ปลายนิ้วคุณ รับรองว่าธุรกิจของคุณจะคงอยู่ในจุดขอบตัดต่อ."),
+            "อยู่ริมแรมของความล้ำค่าด้านเทคโนโลยีโดยไม่มีค่าใช้จ่ายเพิ่มเติม อัปเดตไม่จำกัดของ Pos Saas POS ของเรา รับรองว่าคุณจะมีเครื่องมือและคุณสมบัติล่าสุดเสมอที่ปลายนิ้วคุณ รับรองว่าธุรกิจของคุณจะคงอยู่ในจุดขอบตัดต่อ."),
         "stockList": MessageLookupByLibrary.simpleMessage("รายการสินค้าคงคลัง"),
         "stocks": MessageLookupByLibrary.simpleMessage("สต็อก"),
         "subTotal": MessageLookupByLibrary.simpleMessage("ยอดรวมย่อย"),
@@ -513,7 +513,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("ขอบคุณสำหรับการซื้อของคุณ"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "ชื่อบอกทุกสิ่ง ด้วย Pix Pos POS Unlimited ไม่มีข้อจำกัดในการใช้งานของคุณ ไม่ว่าคุณจะประมวลผลรายการไม่กี่รายการหรือประสบการณ์การมีลูกค้ามากมาย คุณสามารถดำเนินการอย่างมั่นใจโดยรู้ว่าคุณไม่ถูกจำกัดด้วยขีดจำกัด"),
+            "ชื่อบอกทุกสิ่ง ด้วย Pos Saas POS Unlimited ไม่มีข้อจำกัดในการใช้งานของคุณ ไม่ว่าคุณจะประมวลผลรายการไม่กี่รายการหรือประสบการณ์การมีลูกค้ามากมาย คุณสามารถดำเนินการอย่างมั่นใจโดยรู้ว่าคุณไม่ถูกจำกัดด้วยขีดจำกัด"),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "ผู้ใช้จะถูกลบและข้อมูลทั้งหมดจะถูกลบออกจากบัญชีของคุณ คุณแน่ใจหรือไม่ที่จะลบ?"),
         "thirdPartyServices":
@@ -542,7 +542,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("การใช้งานไม่จำกัด"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "ปลดล็อคศักยภาพที่เต็มรูปแบบของ Pix Pos POS ด้วยการฝึกอบรมที่กำหนดเองซึ่งนำโดยทีมผู้เชี่ยวชาญของเรา จากเรื่องพื้นฐานถึงเทคนิคขั้นสูง เรารับรองว่าคุณจะมีความรู้เพียงพอในการใช้ทุกด้านของระบบเพื่อเพิ่มประสิทธิภาพของธุรกิจของคุณ."),
+            "ปลดล็อคศักยภาพที่เต็มรูปแบบของ Pos Saas POS ด้วยการฝึกอบรมที่กำหนดเองซึ่งนำโดยทีมผู้เชี่ยวชาญของเรา จากเรื่องพื้นฐานถึงเทคนิคขั้นสูง เรารับรองว่าคุณจะมีความรู้เพียงพอในการใช้ทุกด้านของระบบเพื่อเพิ่มประสิทธิภาพของธุรกิจของคุณ."),
         "update": MessageLookupByLibrary.simpleMessage("อัปเดต"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("อัปเดตการติดต่อ"),
@@ -558,7 +558,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "อัปเดตโปรไฟล์เพื่อเชื่อมต่อกับลูกค้าของคุณด้วยความประทับใจที่ดีขึ้น"),
         "uploadDocument": MessageLookupByLibrary.simpleMessage("อัปโหลดเอกสาร"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("อัปโหลดไฟล์"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("ใช้ Pix Pos"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("ใช้ Pos Saas"),
         "useOfTheSystem": MessageLookupByLibrary.simpleMessage("การใช้ระบบ"),
         "userRole": MessageLookupByLibrary.simpleMessage("บทบาทของผู้ใช้"),
         "userRoleDetails":
@@ -597,7 +597,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("คุณได้รับอีเมล"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "คุณเข้าสู่ระบบสำเร็จแล้ว อยู่กับ Pix Pos ไปเถอะ"),
+            "คุณเข้าสู่ระบบสำเร็จแล้ว อยู่กับ Pos Saas ไปเถอะ"),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "คุณต้องเข้าสู่ระบบใหม่ในบัญชีของคุณ"),
         "youNeedToIdentityVerifyBeforeYouBuying":

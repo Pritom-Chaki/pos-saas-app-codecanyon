@@ -88,56 +88,70 @@ class _SalesContactState extends State<SalesContact> {
                                 '0',
                                 '0',
                                 '',
+                                '',
+                              gst:   '',
                               );
                               AddSalesScreen(customerModel: guestModel).launch(context);
                               cart.clearCart();
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Row(
+                              child: Column(
                                 children: [
-                                  const SizedBox(
-                                    height: 50.0,
-                                    width: 50.0,
-                                    child: CircleAvatar(
-                                      foregroundColor: Colors.blue,
-                                      backgroundColor: kMainColor,
-                                      radius: 70.0,
-                                      child: Text(
-                                        'G',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10.0),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  Row(
                                     children: [
-                                      Text(
-                                        lang.S.of(context).walkInCustomer,
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.black,
-                                          fontSize: 15.0,
+                                      const SizedBox(
+                                        height: 50.0,
+                                        width: 50.0,
+                                        child: CircleAvatar(
+                                          foregroundColor: Colors.blue,
+                                          backgroundColor: kMainColor,
+                                          radius: 70.0,
+                                          child: Text(
+                                            'G',
+                                            style: TextStyle(color: Colors.white),
+                                          ),
                                         ),
                                       ),
-                                      Text(
-                                        lang.S.of(context).guest,
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.grey,
-                                          fontSize: 15.0,
-                                        ),
+                                      const SizedBox(width: 10.0),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            lang.S.of(context).walkInCustomer,
+                                            style: GoogleFonts.poppins(
+                                              color: Colors.black,
+                                              fontSize: 15.0,
+                                            ),
+                                          ),
+                                          Text(
+                                            lang.S.of(context).guest,
+                                            style: GoogleFonts.poppins(
+                                              color: Colors.grey,
+                                              fontSize: 15.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const Spacer(),
+                                      const SizedBox(width: 20),
+                                      const Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: kGreyTextColor,
                                       ),
                                     ],
                                   ),
-                                  const Spacer(),
-                                  const SizedBox(width: 20),
-                                  const Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: kGreyTextColor,
-                                  ),
                                 ],
                               ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0,right: 10.0),
+                            child: Divider(
+                              height: 1,
+                              thickness: 1.0,
+                              color: kBorderColor.withOpacity(0.3),
                             ),
                           ),
                           ListView.builder(
@@ -151,87 +165,96 @@ class _SalesContactState extends State<SalesContact> {
                                 customer[index].type == 'Dealer' ? color = const Color(0xFFff5f00) : Colors.white;
                                 customer[index].type == 'Supplier' ? color = const Color(0xFFA569BD) : Colors.white;
                                 return customer[index].customerName.contains(searchCustomer) && !customer[index].type.contains('Supplier')
-                                    ? GestureDetector(
-                                        onTap: () {
-                                          AddSalesScreen(customerModel: customer[index]).launch(context);
-                                          cart.clearCart();
-                                        },
-                                        child: Column(
-                                          children: [
-                                            ListTile(
-                                              leading: SizedBox(
-                                                height: 50.0,
-                                                width: 50.0,
-                                                child: CircleAvatar(
-                                                  foregroundColor: Colors.blue,
-                                                  backgroundColor: kMainColor,
-                                                  radius: 70.0,
-                                                  child: Text(
-                                                    customer[index].customerName.isNotEmpty ? customer[index].customerName.substring(0, 1) : '',
-                                                    style: const TextStyle(color: Colors.white),
+                                    ? Column(
+                                      children: [
+                                        GestureDetector(
+                                            onTap: () {
+                                              AddSalesScreen(customerModel: customer[index]).launch(context);
+                                              cart.clearCart();
+                                            },
+                                            child: Column(
+                                              children: [
+                                                ListTile(
+                                                  leading: SizedBox(
+                                                    height: 50.0,
+                                                    width: 50.0,
+                                                    child: CircleAvatar(
+                                                      foregroundColor: Colors.blue,
+                                                      backgroundColor: kMainColor,
+                                                      radius: 70.0,
+                                                      child: Text(
+                                                        customer[index].customerName.isNotEmpty ? customer[index].customerName.substring(0, 1) : '',
+                                                        style: const TextStyle(color: Colors.white),
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                              title: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      customer[index].customerName.isNotEmpty ? customer[index].customerName : customer[index].phoneNumber,
-                                                      style: GoogleFonts.poppins(
-                                                        color: Colors.black,
-                                                        fontSize: 15.0,
+                                                  title: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          customer[index].customerName.isNotEmpty ? customer[index].customerName : customer[index].phoneNumber,
+                                                          style: GoogleFonts.poppins(
+                                                            color: Colors.black,
+                                                            fontSize: 15.0,
 
+                                                          ),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                        ),
                                                       ),
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(width: 10.0),
-                                                  Visibility(
-                                                    visible: customer[index].dueAmount != '' && customer[index].dueAmount != '0',
-                                                    child: Text(
-                                                      '$currency ${myFormat.format(int.tryParse(customer[index].dueAmount) ?? 0)}',
-                                                      style: GoogleFonts.poppins(
-                                                        color: Colors.black,
-                                                        fontSize: 15.0,
+                                                      const SizedBox(width: 10.0),
+                                                      Visibility(
+                                                        visible: customer[index].dueAmount != '' && customer[index].dueAmount != '0',
+                                                        child: Text(
+                                                          '$currency ${myFormat.format(int.tryParse(customer[index].dueAmount) ?? 0)}',
+                                                          style: GoogleFonts.poppins(
+                                                            color: Colors.black,
+                                                            fontSize: 15.0,
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
-                                              subtitle: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    customer[index].type,
-                                                    style: GoogleFonts.poppins(
-                                                      color: color,
-                                                      fontSize: 15.0,
-                                                    ),
-                                                  ),
-                                                  Visibility(
-                                                    visible: customer[index].dueAmount != '' && customer[index].dueAmount != '0',
-                                                    child: Text(
-                                                      lang.S.of(context).due,
-                                                      style: GoogleFonts.poppins(
-                                                        color: const Color(0xFFff5f00),
-                                                        fontSize: 15.0,
+                                                  subtitle: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        customer[index].type,
+                                                        style: GoogleFonts.poppins(
+                                                          color: color,
+                                                          fontSize: 15.0,
+                                                        ),
                                                       ),
-                                                    ),
+                                                      Visibility(
+                                                        visible: customer[index].dueAmount != '' && customer[index].dueAmount != '0',
+                                                        child: Text(
+                                                          lang.S.of(context).due,
+                                                          style: GoogleFonts.poppins(
+                                                            color: const Color(0xFFff5f00),
+                                                            fontSize: 15.0,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
-                                              trailing: const Icon(
-                                                Icons.arrow_forward_ios,
-                                                color: kGreyTextColor,
-                                              ),
-                                              contentPadding: EdgeInsets.zero,
-                                              horizontalTitleGap: 10,
-                                            )
-                                          ],
-                                        ),
-                                      )
+                                                  trailing: const Icon(
+                                                    Icons.arrow_forward_ios,
+                                                    color: kGreyTextColor,
+                                                  ),
+                                                  contentPadding: EdgeInsets.zero,
+                                                  horizontalTitleGap: 10,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        Divider(
+                                          height: 1,
+                                          thickness: 1.0,
+                                          color: kBorderColor.withOpacity(0.3),
+                                        )
+                                      ],
+                                    )
                                     : Container();
                               }),
                         ],
@@ -248,6 +271,8 @@ class _SalesContactState extends State<SalesContact> {
                             '0',
                             '0',
                             '',
+                            '',
+                            gst: '',
                           );
                           AddSalesScreen(customerModel: guestModel).launch(context);
                           cart.clearCart();

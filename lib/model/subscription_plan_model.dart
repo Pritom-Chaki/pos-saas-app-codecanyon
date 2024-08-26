@@ -8,7 +8,6 @@ import '../constant.dart';
 class SubscriptionPlanModel {
   SubscriptionPlanModel({
     required this.subscriptionName,
-    this.subscriptionDate = '',
     required this.saleNumber,
     required this.purchaseNumber,
     required this.partiesNumber,
@@ -19,13 +18,12 @@ class SubscriptionPlanModel {
     required this.offerPrice,
   });
 
-  String subscriptionName,subscriptionDate ;
+  String subscriptionName;
   int saleNumber, purchaseNumber, partiesNumber, dueNumber, duration, products;
   int subscriptionPrice, offerPrice;
 
   SubscriptionPlanModel.fromJson(Map<dynamic, dynamic> json)
       : subscriptionName = json['subscriptionName'] as String,
-        subscriptionDate = json['subscriptionDate'] ?? DateTime.now().toString(),
         saleNumber = json['saleNumber'],
         purchaseNumber = json['purchaseNumber'],
         partiesNumber = json['partiesNumber'],
@@ -37,7 +35,6 @@ class SubscriptionPlanModel {
 
   Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
         'subscriptionName': subscriptionName,
-        'subscriptionDate': subscriptionDate,
         'subscriptionPrice': subscriptionPrice,
         'saleNumber': saleNumber,
         'purchaseNumber': purchaseNumber,

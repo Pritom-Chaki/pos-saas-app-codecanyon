@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_pos/const_commas.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
-import 'package:mobile_pos/widget/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../Provider/printer_due_provider.dart';
@@ -74,6 +73,12 @@ class _DueInvoiceDetailsState extends State<DueInvoiceDetails> {
                             color: kGreyTextColor,
                           ),
                         ),
+                        Text(
+                          'Shop GST: ${widget.personalInformationModel.gst}',
+                          style: kTextStyle.copyWith(
+                            color: kGreyTextColor,
+                          ),
+                        ),
                       ],
                     ),
                     isThreeLine: true,
@@ -103,13 +108,11 @@ class _DueInvoiceDetailsState extends State<DueInvoiceDetails> {
                   const SizedBox(height: 5.0),
                   Row(
                     children: [
-                      Flexible(
-                        child: Text(
-                          widget.transitionModel.customerName,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: kTextStyle.copyWith(color: kGreyTextColor),
-                        ),
+                      Text(
+                        widget.transitionModel.customerName,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: kTextStyle.copyWith(color: kGreyTextColor),
                       ),
                       const Spacer(),
                       Text(
@@ -131,6 +134,11 @@ class _DueInvoiceDetailsState extends State<DueInvoiceDetails> {
                         style: kTextStyle.copyWith(color: kGreyTextColor),
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 5.0),
+                  Text(
+                    'Party GST: ${widget.transitionModel.customerGst}',
+                    style: kTextStyle.copyWith(color: kGreyTextColor),
                   ),
                   const SizedBox(height: 10.0),
                   Divider(
@@ -256,62 +264,62 @@ class _DueInvoiceDetailsState extends State<DueInvoiceDetails> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () async {
-
-                      showDialog(
-                          context: context,
-                          builder: (_) {
-                            return Dialog(
-                              child: SizedBox(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.only(top: 20, bottom: 10),
-                                      child: Text(
-                                        "POS Printer",
-                                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Container(height: 1, width: double.infinity, color: Colors.grey),
-                                    const SizedBox(height: 15),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: PrimaryButton(
-                                        label: "58 mm",
-                                        isDisabled: false,
-                                        onPressed: () =>  duePrinter(printerData, true,widget.transitionModel,widget.personalInformationModel),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: PrimaryButton(
-                                        label: "80 mm",
-                                        isDisabled: false,
-                                        onPressed: () =>  duePrinter(printerData, false,widget.transitionModel,widget.personalInformationModel),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            lang.S.of(context).cacel,
-                                            style: const TextStyle(color: kMainColor),
+                      await printerData.getBluetooth();
+                      PrintDueTransactionModel model =
+                          PrintDueTransactionModel(dueTransactionModel: widget.transitionModel, personalInformationModel: widget.personalInformationModel);
+                      mainConstant.connected
+                          ? printerData.printTicket(
+                              printDueTransactionModel: model,
+                            )
+                          : showDialog(
+                              context: context,
+                              builder: (_) {
+                                return WillPopScope(
+                                  onWillPop: () async => false,
+                                  child: Dialog(
+                                    child: SizedBox(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: printerData.availableBluetoothDevices.isNotEmpty ? printerData.availableBluetoothDevices.length : 0,
+                                            itemBuilder: (context, index) {
+                                              return ListTile(
+                                                onTap: () async {
+                                                  String select = printerData.availableBluetoothDevices[index];
+                                                  List list = select.split("#");
+                                                  // String name = list[0];
+                                                  String mac = list[1];
+                                                  bool isConnect = await printerData.setConnect(mac);
+                                                  isConnect ? finish(context) : toast('Try Again');
+                                                },
+                                                title: Text('${printerData.availableBluetoothDevices[index]}'),
+                                                subtitle: Text(lang.S.of(context).clickToConnect),
+                                              );
+                                            },
                                           ),
-                                        ),
+                                          const SizedBox(height: 10),
+                                          Container(height: 1, width: double.infinity, color: Colors.grey),
+                                          const SizedBox(height: 15),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Center(
+                                              child: Text(
+                                                lang.S.of(context).cacel,
+                                                style: const TextStyle(color: mainConstant.kMainColor),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 15),
+                                        ],
                                       ),
                                     ),
-                                    const SizedBox(height: 15),
-                                  ],
-                                ),
-                              ),
-                            );
-                          });
-
+                                  ),
+                                );
+                              });
                     },
                     child: Container(
                       height: 60,
@@ -388,65 +396,5 @@ class _DueInvoiceDetailsState extends State<DueInvoiceDetails> {
         ),
       );
     });
-  }
-
-  void duePrinter(PrinterDue printerData, bool printer58, DueTransactionModel transitionModel, PersonalInformationModel personalInformationModel) async {
-    await printerData.getBluetooth();
-    PrintDueTransactionModel model =
-    PrintDueTransactionModel(dueTransactionModel: widget.transitionModel, personalInformationModel: widget.personalInformationModel);
-    mainConstant.connected
-        ? printerData.printTicket(
-      printDueTransactionModel: model,
-      printer58: printer58
-    )
-        : showDialog(
-        context: context,
-        builder: (_) {
-          return WillPopScope(
-            onWillPop: () async => false,
-            child: Dialog(
-              child: SizedBox(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: printerData.availableBluetoothDevices.isNotEmpty ? printerData.availableBluetoothDevices.length : 0,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          onTap: () async {
-                            String select = printerData.availableBluetoothDevices[index];
-                            List list = select.split("#");
-                            // String name = list[0];
-                            String mac = list[1];
-                            bool isConnect = await printerData.setConnect(mac);
-                            isConnect ? finish(context) : toast('Try Again');
-                          },
-                          title: Text('${printerData.availableBluetoothDevices[index]}'),
-                          subtitle: Text(lang.S.of(context).clickToConnect),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    Container(height: 1, width: double.infinity, color: Colors.grey),
-                    const SizedBox(height: 15),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Center(
-                        child: Text(
-                          lang.S.of(context).cacel,
-                          style: const TextStyle(color: mainConstant.kMainColor),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
   }
 }

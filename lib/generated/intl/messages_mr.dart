@@ -398,7 +398,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "कृपया आपला ईमेल पत्ता खालीलप्रमाणे पासवर्ड रीसेट लिंक प्राप्त करण्यासाठी प्रविष्ट करा."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pix Pos द्वारे संचालित"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas द्वारे संचालित"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("प्रीमियम ग्राहक समर्थन"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("प्रीमियम प्लॅन"),
@@ -450,7 +450,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("परत रक्कम"),
         "revenue": MessageLookupByLibrary.simpleMessage("रुग्णाणी"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "तुमचा व्यवसाय डेटा सहजतेने सुरक्षित करा. आमच्या Pix Pos POS अमर्यादित अपग्रेडमध्ये विनामूल्य डेटा बॅकअप समाविष्ट आहे, आपली मौल्यवान माहिती कोणत्याही अनपेक्षित घटनांपासून संरक्षित आहे याची खात्री करून. खरोखर काय महत्त्वाचे आहे यावर लक्ष केंद्रित करा - तुमचा व्यवसाय वाढ."),
+            "तुमचा व्यवसाय डेटा सहजतेने सुरक्षित करा. आमच्या Pos Saas POS अमर्यादित अपग्रेडमध्ये विनामूल्य डेटा बॅकअप समाविष्ट आहे, आपली मौल्यवान माहिती कोणत्याही अनपेक्षित घटनांपासून संरक्षित आहे याची खात्री करून. खरोखर काय महत्त्वाचे आहे यावर लक्ष केंद्रित करा - तुमचा व्यवसाय वाढ."),
         "saleDetails": MessageLookupByLibrary.simpleMessage("विक्री तपशील"),
         "salePrice": MessageLookupByLibrary.simpleMessage("विक्री किंमत"),
         "saleReports": MessageLookupByLibrary.simpleMessage("विक्री अहवाल"),
@@ -494,7 +494,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch": MessageLookupByLibrary.simpleMessage(
             "शोधण्याच्या सुरुवाती टाइप करा"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "कोणत्याही अतिरिक्त खर्चाशिवाय तांत्रिक प्रगतीमध्ये आघाडीवर रहा. आमचे Pix Pos POS अमर्यादित अपग्रेड तुमच्याकडे नेहमीच नवीनतम साधने आणि वैशिष्ट्ये तुमच्या बोटांच्या टोकावर असल्याची खात्री देते, तुमचा व्यवसाय अत्याधुनिक राहील याची हमी देते."),
+            "कोणत्याही अतिरिक्त खर्चाशिवाय तांत्रिक प्रगतीमध्ये आघाडीवर रहा. आमचे Pos Saas POS अमर्यादित अपग्रेड तुमच्याकडे नेहमीच नवीनतम साधने आणि वैशिष्ट्ये तुमच्या बोटांच्या टोकावर असल्याची खात्री देते, तुमचा व्यवसाय अत्याधुनिक राहील याची हमी देते."),
         "stockList": MessageLookupByLibrary.simpleMessage("स्टॉक सूची"),
         "stocks": MessageLookupByLibrary.simpleMessage("स्टॉक्स"),
         "subTotal": MessageLookupByLibrary.simpleMessage("उपकुल"),
@@ -514,7 +514,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("आपल्या खरेदीसाठी धन्यवाद"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "नाव हे सर्व सांगते. Pix Pos POS Unlimited सह, तुमच्या वापरावर कोणतीही मर्यादा नाही. तुम्ही मूठभर व्यवहारांवर प्रक्रिया करत असाल किंवा ग्राहकांची गर्दी अनुभवत असाल, तुमच्यावर मर्यादा येत नाहीत हे जाणून तुम्ही आत्मविश्वासाने काम करू शकता"),
+            "नाव हे सर्व सांगते. Pos Saas POS Unlimited सह, तुमच्या वापरावर कोणतीही मर्यादा नाही. तुम्ही मूठभर व्यवहारांवर प्रक्रिया करत असाल किंवा ग्राहकांची गर्दी अनुभवत असाल, तुमच्यावर मर्यादा येत नाहीत हे जाणून तुम्ही आत्मविश्वासाने काम करू शकता"),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "वापरकर्ता हटवला जाईल आणि सर्व माहिती तुमच्या खात्यातून हटवली जाईल. तुम्ही खात्री आहे का की तुम्ही हे हटवू इच्छिता?"),
         "thirdPartyServices":
@@ -542,7 +542,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("अमर्यादित वापर"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "आमच्या तज्ञ टीमच्या नेतृत्वाखालील वैयक्तिक प्रशिक्षण सत्रांसह Pix Pos POS ची पूर्ण क्षमता अनलॉक करा. मूलभूत गोष्टींपासून ते प्रगत तंत्रांपर्यंत, आम्ही खात्री करतो की तुम्ही तुमच्या व्यवसाय प्रक्रियांना अनुकूल करण्यासाठी सिस्टमच्या प्रत्येक पैलूचा वापर करण्यात पारंगत आहात."),
+            "आमच्या तज्ञ टीमच्या नेतृत्वाखालील वैयक्तिक प्रशिक्षण सत्रांसह Pos Saas POS ची पूर्ण क्षमता अनलॉक करा. मूलभूत गोष्टींपासून ते प्रगत तंत्रांपर्यंत, आम्ही खात्री करतो की तुम्ही तुमच्या व्यवसाय प्रक्रियांना अनुकूल करण्यासाठी सिस्टमच्या प्रत्येक पैलूचा वापर करण्यात पारंगत आहात."),
         "update": MessageLookupByLibrary.simpleMessage("अद्यतनित करा"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("संपर्क अपडेट करा"),

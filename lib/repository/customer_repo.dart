@@ -7,7 +7,6 @@ import 'package:nb_utils/nb_utils.dart';
 import '../currency.dart';
 
 class CustomerRepo {
-
   Future<List<CustomerModel>> getAllCustomers() async {
     List<CustomerModel> customerList = [];
     await FirebaseDatabase.instance.ref(constUserId).child('Customers').orderByKey().get().then((value) {

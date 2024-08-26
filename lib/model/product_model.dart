@@ -1,5 +1,8 @@
+import '../Screens/tax report/tax_model.dart';
+
 class ProductModel {
   late String productName,
+      productDescription,
       productCategory,
       size,
       color,
@@ -20,14 +23,22 @@ class ProductModel {
       warehouseId,
       productPicture;
   String? expiringDate, manufacturingDate;
-  late int lowerStockAlert;
-  List<String> serialNumber = [];
+  late dynamic lowerStockAlert;
+  List<String> serialNumber= [];
+  late String taxType;
+  late dynamic margin;
+  late dynamic excTax;
+  late dynamic incTax;
+  late String groupTaxName;
+  late dynamic groupTaxRate;
+  late List<TaxModel> subTaxes;
 
   ProductModel({
     required this.productName,
     required this.productCategory,
     required this.size,
     required this.color,
+    required this.productDescription,
     required this.weight,
     required this.capacity,
     required this.type,
@@ -48,10 +59,18 @@ class ProductModel {
     this.expiringDate,
     required this.lowerStockAlert,
     this.manufacturingDate,
+    required this.taxType,
+    required this.margin,
+    required this.excTax,
+    required this.incTax,
+    required this.groupTaxName,
+    required this.groupTaxRate,
+    required this.subTaxes,
   });
 
   ProductModel.fromJson(Map<dynamic, dynamic> json) {
     productName = json['productName'] as String;
+    productDescription=json['productDescription'] ?? 'N/A';
     productCategory = json['productCategory'].toString();
     size = json['size'].toString();
     color = json['color'].toString();
@@ -80,10 +99,25 @@ class ProductModel {
     expiringDate = json['expiringDate'];
     manufacturingDate = json['manufacturingDate'];
     lowerStockAlert = json['lowerStockAlert'] ?? 5;
+    taxType = json['taxType'] ?? '';
+    margin = json['margin'] ?? '0';
+    excTax = json['excTax'] ?? '0';
+    incTax = json['incTax'] ?? '0';
+    groupTaxName = json['groupTaxName'] ?? '';
+    groupTaxRate = json['groupTaxRate'] ?? '0';
+    if (json['subTax'] != null) {
+      subTaxes = <TaxModel>[];
+      json['subTax'].forEach((v) {
+        subTaxes.add(TaxModel.fromJson(v));
+      });
+    } else {
+      subTaxes = [];
+    }
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'productName': productName,
+        'productDescription': productDescription,
         'productCategory': productCategory,
         'size': size,
         'color': color,
@@ -107,5 +141,12 @@ class ProductModel {
         'manufacturingDate': manufacturingDate,
         'expiringDate': expiringDate,
         'lowerStockAlert': lowerStockAlert,
+        'taxType': taxType,
+        'margin': margin,
+        'excTax': excTax,
+        'incTax': incTax,
+        'groupTaxName': groupTaxName,
+        'groupTaxRate': groupTaxRate,
+        'subTax': subTaxes.map((e) => e.toJson()).toList(),
       };
 }

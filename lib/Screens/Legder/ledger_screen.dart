@@ -94,6 +94,11 @@ class _LedgerScreenState extends State<LedgerScreen> {
                   children: [
                     TabBar(
                       indicatorColor: kMainColor,
+                      isScrollable: true,
+                      unselectedLabelColor: kGreyTextColor,
+                      labelPadding: const EdgeInsets.symmetric(horizontal: 23),
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      tabAlignment: TabAlignment.center,
                       indicator: UnderlineTabIndicator(
                         borderSide: const BorderSide(color: kMainColor, width: 4),
                         borderRadius: BorderRadius.only(
@@ -121,302 +126,362 @@ class _LedgerScreenState extends State<LedgerScreen> {
                       height: context.height(),
                       child: TabBarView(children: [
                         customer.isNotEmpty
-                            ? ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: customer.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      LedgerCustomerDetailsScreen(
-                                        customerModel: customer[index],
-                                      ).launch(context);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 50.0,
-                                            width: 50.0,
-                                            child: CircleAvatar(
-                                              foregroundColor: Colors.blue,
-                                              backgroundColor: kMainColor,
-                                              radius: 70.0,
-                                              child: Text(
-                                                customer[index].customerName.isNotEmpty ? customer[index].customerName.substring(0, 1) : '',
-                                                style: const TextStyle(color: Colors.white),
-                                              ),
+                            ? Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: customer.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            LedgerCustomerDetailsScreen(
+                                              customerModel: customer[index],
+                                            ).launch(context);
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  height: 50.0,
+                                                  width: 50.0,
+                                                  child: CircleAvatar(
+                                                    foregroundColor: Colors.blue,
+                                                    backgroundColor: kMainColor,
+                                                    radius: 70.0,
+                                                    child: Text(
+                                                      customer[index].customerName.isNotEmpty ? customer[index].customerName.substring(0, 1) : '',
+                                                      style: const TextStyle(color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 10.0),
+                                                SizedBox(
+                                                  width: 150,
+                                                  child: Text(
+                                                    customer[index].customerName.isNotEmpty ? customer[index].customerName : customer[index].phoneNumber,
+                                                    style: GoogleFonts.poppins(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 2,
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      '$currency ${myFormat.format(int.tryParse(customer[index].dueAmount) ?? 0)}',
+                                                      style: GoogleFonts.poppins(
+                                                        color: Colors.black,
+                                                        fontSize: 15.0,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      lang.S.of(context).due,
+                                                      style: GoogleFonts.poppins(
+                                                        color: const Color(0xFFff5f00),
+                                                        fontSize: 15.0,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ).visible(customer[index].dueAmount != '' && customer[index].dueAmount != '0'),
+                                                const SizedBox(width: 20),
+                                                const Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color: kGreyTextColor,
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          const SizedBox(width: 10.0),
-                                          SizedBox(
-                                            width: 180,
-                                            child: Text(
-                                              customer[index].customerName.isNotEmpty ? customer[index].customerName : customer[index].phoneNumber,
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.black,
-                                                fontSize: 15.0,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                            ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10.0,right: 10.0,bottom: 3,top: 2),
+                                          child: Divider(
+                                            height: 1,
+                                            thickness: 1.0,
+                                            color: kBorderColor.withOpacity(0.3),
                                           ),
-                                          const Spacer(),
-                                          Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                '$currency ${myFormat.format(int.tryParse(customer[index].dueAmount) ?? 0)}',
-                                                style: GoogleFonts.poppins(
-                                                  color: Colors.black,
-                                                  fontSize: 15.0,
-                                                ),
-                                              ),
-                                              Text(
-                                                lang.S.of(context).due,
-                                                style: GoogleFonts.poppins(
-                                                  color: const Color(0xFFff5f00),
-                                                  fontSize: 15.0,
-                                                ),
-                                              ),
-                                            ],
-                                          ).visible(customer[index].dueAmount != '' && customer[index].dueAmount != '0'),
-                                          const SizedBox(width: 20),
-                                          const Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: kGreyTextColor,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ).visible(customer[index].type == 'Retailer');
-                                },
-                              )
+                                        )
+                                      ],
+                                    ).visible(customer[index].type == 'Retailer');
+                                  },
+                                ),
+                            )
                             : const Padding(
                                 padding: EdgeInsets.all(60),
                                 child: EmptyScreenWidget(),
                               ),
                         customer.isNotEmpty
-                            ? ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: customer.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      LedgerCustomerDetailsScreen(
-                                        customerModel: customer[index],
-                                      ).launch(context);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 50.0,
-                                            width: 50.0,
-                                            child: CircleAvatar(
-                                              foregroundColor: Colors.blue,
-                                              backgroundColor: kMainColor,
-                                              radius: 70.0,
-                                              child: Text(
-                                                customer[index].customerName.isNotEmpty ? customer[index].customerName.substring(0, 1) : '',
-                                                style: const TextStyle(color: Colors.white),
-                                              ),
+                            ? Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: customer.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            LedgerCustomerDetailsScreen(
+                                              customerModel: customer[index],
+                                            ).launch(context);
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  height: 50.0,
+                                                  width: 50.0,
+                                                  child: CircleAvatar(
+                                                    foregroundColor: Colors.blue,
+                                                    backgroundColor: kMainColor,
+                                                    radius: 70.0,
+                                                    child: Text(
+                                                      customer[index].customerName.isNotEmpty ? customer[index].customerName.substring(0, 1) : '',
+                                                      style: const TextStyle(color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 10.0),
+                                                SizedBox(
+                                                  width: 150,
+                                                  child: Text(
+                                                    customer[index].customerName.isNotEmpty ? customer[index].customerName : customer[index].phoneNumber,
+                                                    style: GoogleFonts.poppins(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 2,
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      '$currency ${myFormat.format(int.tryParse(customer[index].dueAmount) ?? 0)}',
+                                                      style: GoogleFonts.poppins(
+                                                        color: Colors.black,
+                                                        fontSize: 15.0,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      lang.S.of(context).due,
+                                                      style: GoogleFonts.poppins(
+                                                        color: const Color(0xFFff5f00),
+                                                        fontSize: 15.0,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ).visible(customer[index].dueAmount != '' && customer[index].dueAmount != '0'),
+                                                const SizedBox(width: 20),
+                                                const Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color: kGreyTextColor,
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          const SizedBox(width: 10.0),
-                                          SizedBox(
-                                            width: 180,
-                                            child: Text(
-                                              customer[index].customerName.isNotEmpty ? customer[index].customerName : customer[index].phoneNumber,
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.black,
-                                                fontSize: 15.0,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                            ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10.0,right: 10.0,bottom: 3,top: 2),
+                                          child: Divider(
+                                            height: 1,
+                                            thickness: 1.0,
+                                            color: kBorderColor.withOpacity(0.3),
                                           ),
-                                          const Spacer(),
-                                          Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                '$currency ${myFormat.format(int.tryParse(customer[index].dueAmount) ?? 0)}',
-                                                style: GoogleFonts.poppins(
-                                                  color: Colors.black,
-                                                  fontSize: 15.0,
-                                                ),
-                                              ),
-                                              Text(
-                                                lang.S.of(context).due,
-                                                style: GoogleFonts.poppins(
-                                                  color: const Color(0xFFff5f00),
-                                                  fontSize: 15.0,
-                                                ),
-                                              ),
-                                            ],
-                                          ).visible(customer[index].dueAmount != '' && customer[index].dueAmount != '0'),
-                                          const SizedBox(width: 20),
-                                          const Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: kGreyTextColor,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ).visible(customer[index].type == 'Wholesaler');
-                                },
-                              )
+                                        )
+                                      ],
+                                    ).visible(customer[index].type == 'Wholesaler');
+                                  },
+                                ),
+                            )
                             : const Padding(padding: EdgeInsets.all(60), child: EmptyScreenWidget()),
                         customer.isNotEmpty
-                            ? ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: customer.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      LedgerCustomerDetailsScreen(
-                                        customerModel: customer[index],
-                                      ).launch(context);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 50.0,
-                                            width: 50.0,
-                                            child: CircleAvatar(
-                                              foregroundColor: Colors.blue,
-                                              backgroundColor: kMainColor,
-                                              radius: 70.0,
-                                              child: Text(
-                                                customer[index].customerName.isNotEmpty ? customer[index].customerName.substring(0, 1) : '',
-                                                style: const TextStyle(color: Colors.white),
-                                              ),
+                            ? Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: customer.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            LedgerCustomerDetailsScreen(
+                                              customerModel: customer[index],
+                                            ).launch(context);
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  height: 50.0,
+                                                  width: 50.0,
+                                                  child: CircleAvatar(
+                                                    foregroundColor: Colors.blue,
+                                                    backgroundColor: kMainColor,
+                                                    radius: 70.0,
+                                                    child: Text(
+                                                      customer[index].customerName.isNotEmpty ? customer[index].customerName.substring(0, 1) : '',
+                                                      style: const TextStyle(color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 10.0),
+                                                SizedBox(
+                                                  width: 150,
+                                                  child: Text(
+                                                    customer[index].customerName.isNotEmpty ? customer[index].customerName : customer[index].phoneNumber,
+                                                    style: GoogleFonts.poppins(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 2,
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      '$currency ${myFormat.format(int.tryParse(customer[index].dueAmount) ?? 0)}',
+                                                      style: GoogleFonts.poppins(
+                                                        color: Colors.black,
+                                                        fontSize: 15.0,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      lang.S.of(context).due,
+                                                      style: GoogleFonts.poppins(
+                                                        color: const Color(0xFFff5f00),
+                                                        fontSize: 15.0,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ).visible(customer[index].dueAmount != '' && customer[index].dueAmount != '0'),
+                                                const Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color: kGreyTextColor,
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          const SizedBox(width: 10.0),
-                                          SizedBox(
-                                            width: 180,
-                                            child: Text(
-                                              customer[index].customerName.isNotEmpty ? customer[index].customerName : customer[index].phoneNumber,
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.black,
-                                                fontSize: 15.0,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                            ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10.0,right: 10.0,bottom: 3,top: 2),
+                                          child: Divider(
+                                            height: 1,
+                                            thickness: 1.0,
+                                            color: kBorderColor.withOpacity(0.3),
                                           ),
-                                          const Spacer(),
-                                          Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                '$currency ${myFormat.format(int.tryParse(customer[index].dueAmount) ?? 0)}',
-                                                style: GoogleFonts.poppins(
-                                                  color: Colors.black,
-                                                  fontSize: 15.0,
-                                                ),
-                                              ),
-                                              Text(
-                                                lang.S.of(context).due,
-                                                style: GoogleFonts.poppins(
-                                                  color: const Color(0xFFff5f00),
-                                                  fontSize: 15.0,
-                                                ),
-                                              ),
-                                            ],
-                                          ).visible(customer[index].dueAmount != '' && customer[index].dueAmount != '0'),
-                                          const Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: kGreyTextColor,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ).visible(customer[index].type == 'Dealer');
-                                },
-                              )
+                                        )
+                                      ],
+                                    ).visible(customer[index].type == 'Dealer');
+                                  },
+                                ),
+                            )
                             : const Padding(padding: EdgeInsets.all(60), child: EmptyScreenWidget()),
                         customer.isNotEmpty
-                            ? ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: customer.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      LedgerCustomerDetailsScreen(
-                                        customerModel: customer[index],
-                                      ).launch(context);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 50.0,
-                                            width: 50.0,
-                                            child: CircleAvatar(
-                                              foregroundColor: Colors.blue,
-                                              backgroundColor: kMainColor,
-                                              radius: 70.0,
-                                              child: Text(
-                                                customer[index].customerName.isNotEmpty ? customer[index].customerName.substring(0, 1) : '',
-                                                style: const TextStyle(color: Colors.white),
-                                              ),
+                            ? Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: customer.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            LedgerCustomerDetailsScreen(
+                                              customerModel: customer[index],
+                                            ).launch(context);
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  height: 50.0,
+                                                  width: 50.0,
+                                                  child: CircleAvatar(
+                                                    foregroundColor: Colors.blue,
+                                                    backgroundColor: kMainColor,
+                                                    radius: 70.0,
+                                                    child: Text(
+                                                      customer[index].customerName.isNotEmpty ? customer[index].customerName.substring(0, 1) : '',
+                                                      style: const TextStyle(color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 10.0),
+                                                SizedBox(
+                                                  width: 150,
+                                                  child: Text(
+                                                    customer[index].customerName.isNotEmpty ? customer[index].customerName : customer[index].phoneNumber,
+                                                    style: GoogleFonts.poppins(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 2,
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      '$currency ${myFormat.format(int.tryParse(customer[index].dueAmount) ?? 0)}',
+                                                      style: GoogleFonts.poppins(
+                                                        color: Colors.black,
+                                                        fontSize: 15.0,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      lang.S.of(context).due,
+                                                      style: GoogleFonts.poppins(
+                                                        color: const Color(0xFFff5f00),
+                                                        fontSize: 15.0,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ).visible(customer[index].dueAmount != '' && customer[index].dueAmount != '0'),
+                                                const SizedBox(width: 20),
+                                                const Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color: kGreyTextColor,
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          const SizedBox(width: 10.0),
-                                          SizedBox(
-                                            width: 180,
-                                            child: Text(
-                                              customer[index].customerName.isNotEmpty ? customer[index].customerName : customer[index].phoneNumber,
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.black,
-                                                fontSize: 15.0,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                            ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10.0,right: 10.0,bottom: 3,top: 2),
+                                          child: Divider(
+                                            height: 1,
+                                            thickness: 1.0,
+                                            color: kBorderColor.withOpacity(0.3),
                                           ),
-                                          const Spacer(),
-                                          Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                '$currency ${myFormat.format(int.tryParse(customer[index].dueAmount) ?? 0)}',
-                                                style: GoogleFonts.poppins(
-                                                  color: Colors.black,
-                                                  fontSize: 15.0,
-                                                ),
-                                              ),
-                                              Text(
-                                                lang.S.of(context).due,
-                                                style: GoogleFonts.poppins(
-                                                  color: const Color(0xFFff5f00),
-                                                  fontSize: 15.0,
-                                                ),
-                                              ),
-                                            ],
-                                          ).visible(customer[index].dueAmount != '' && customer[index].dueAmount != '0'),
-                                          const SizedBox(width: 20),
-                                          const Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: kGreyTextColor,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ).visible(customer[index].type == 'Supplier');
-                                },
-                              )
+                                        )
+                                      ],
+                                    ).visible(customer[index].type == 'Supplier');
+                                  },
+                                ),
+                            )
                             : const Padding(padding: EdgeInsets.all(60), child: EmptyScreenWidget()),
                       ]),
                     ),

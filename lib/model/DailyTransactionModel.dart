@@ -5,7 +5,7 @@ import 'expense_model.dart';
 
 class DailyTransactionModel {
   late String name, date, type, id;
-  late num total, paymentIn, paymentOut, remainingBalance;
+  late dynamic total, paymentIn, paymentOut, remainingBalance;
   SalesTransitionModel? saleTransactionModel;
   PurchaseTransactionModel? purchaseTransactionModel;
   DueTransactionModel? dueTransactionModel;

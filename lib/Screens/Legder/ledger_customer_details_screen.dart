@@ -7,10 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_pos/Screens/Customers/Model/customer_model.dart';
+import 'package:mobile_pos/Widget/primary_button_widget.dart';
 import 'package:mobile_pos/const_commas.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
 import 'package:mobile_pos/model/personal_information_model.dart';
-import 'package:mobile_pos/widget/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../Provider/print_purchase_provider.dart';
@@ -104,7 +104,8 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
           body: widget.customerModel.type != 'Supplier'
               ? Container(
                   alignment: Alignment.topCenter,
-                  decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
+                  decoration:
+                      const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
                   child: providerData.when(data: (transaction) {
                     return SingleChildScrollView(
                       child: Column(
@@ -172,7 +173,7 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 20, right: 20.0),
+                            padding: const EdgeInsets.only(left: 20,right: 20.0),
                             child: Container(
                               height: 120,
                               width: double.infinity,
@@ -228,14 +229,15 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                     Container(
                                       height: 40,
                                       width: 40,
-                                      decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(80)), color: Colors.orange.withOpacity(0.2)),
+                                      decoration:
+                                          BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(80)), color: Colors.orange.withOpacity(0.2)),
                                       child: const Icon(
                                         Icons.notifications_none,
                                         color: Colors.orange,
                                       ),
                                     ),
                                   ]).visible(false),
-                                  subtitle: Text(lang.S.of(context).totalSale),
+                                  subtitle:  Text(lang.S.of(context).totalSale),
                                 ),
                               ),
                             ),
@@ -248,8 +250,10 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                               final reTransaction = transaction.reversed.toList();
 
                               return reTransaction[index].customerPhone == widget.customerModel.phoneNumber &&
-                                      (fromDate.isBefore(DateTime.parse(reTransaction[index].purchaseDate)) || DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(fromDate)) &&
-                                      (toDate.isAfter(DateTime.parse(reTransaction[index].purchaseDate)) || DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(toDate))
+                                      (fromDate.isBefore(DateTime.parse(reTransaction[index].purchaseDate)) ||
+                                          DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(fromDate)) &&
+                                      (toDate.isAfter(DateTime.parse(reTransaction[index].purchaseDate)) ||
+                                          DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(toDate))
                                   ? GestureDetector(
                                       onTap: () {
                                         SalesInvoiceDetails(
@@ -285,11 +289,14 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                                     Container(
                                                       padding: const EdgeInsets.all(8),
                                                       decoration: BoxDecoration(
-                                                          color: reTransaction[index].dueAmount! <= 0 ? const Color(0xff0dbf7d).withOpacity(0.1) : const Color(0xFFED1A3B).withOpacity(0.1),
+                                                          color: reTransaction[index].dueAmount! <= 0
+                                                              ? const Color(0xff0dbf7d).withOpacity(0.1)
+                                                              : const Color(0xFFED1A3B).withOpacity(0.1),
                                                           borderRadius: const BorderRadius.all(Radius.circular(10))),
                                                       child: Text(
                                                         reTransaction[index].dueAmount! <= 0 ? 'Paid' : 'Unpaid',
-                                                        style: TextStyle(color: reTransaction[index].dueAmount! <= 0 ? const Color(0xff0dbf7d) : const Color(0xFFED1A3B)),
+                                                        style: TextStyle(
+                                                            color: reTransaction[index].dueAmount! <= 0 ? const Color(0xff0dbf7d) : const Color(0xFFED1A3B)),
                                                       ),
                                                     ),
                                                     Column(
@@ -338,6 +345,7 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                                             children: [
                                                               IconButton(
                                                                   onPressed: () async {
+
                                                                     showDialog(
                                                                         context: context,
                                                                         builder: (_) {
@@ -396,6 +404,7 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                                                             ),
                                                                           );
                                                                         });
+
                                                                   },
                                                                   icon: const Icon(
                                                                     FeatherIcons.printer,
@@ -442,7 +451,7 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                   children: [
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
+                                      children:  [
                                         Text(
                                           lang.S.of(context).openingBalance,
                                           style: const TextStyle(fontSize: 16),
@@ -456,13 +465,17 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                         Container(
                                           padding: const EdgeInsets.all(8),
                                           decoration: BoxDecoration(
-                                              color: widget.customerModel.remainedBalance.toInt() <= 0 ? const Color(0xff0dbf7d).withOpacity(0.1) : const Color(0xFFED1A3B).withOpacity(0.1),
+                                              color: widget.customerModel.remainedBalance.toInt() <= 0
+                                                  ? const Color(0xff0dbf7d).withOpacity(0.1)
+                                                  : const Color(0xFFED1A3B).withOpacity(0.1),
                                               borderRadius: const BorderRadius.all(Radius.circular(10))),
                                           child: Text(
                                             widget.customerModel.remainedBalance.toInt() <= 0 ? 'Paid' : 'Unpaid',
-                                            style: TextStyle(color: widget.customerModel.remainedBalance.toInt() <= 0 ? const Color(0xff0dbf7d) : const Color(0xFFED1A3B)),
+                                            style: TextStyle(
+                                                color: widget.customerModel.remainedBalance.toInt() <= 0 ? const Color(0xff0dbf7d) : const Color(0xFFED1A3B)),
                                           ),
                                         ),
+
                                       ],
                                     ),
                                     Column(
@@ -475,17 +488,17 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  'Total : $currency ${myFormat.format(int.tryParse(widget.customerModel.openingBalance.toString()) ?? 0)}',
+                                                  'Total : $currency ${myFormat.format(int.tryParse(widget.customerModel.openingBalance.toString())??0)}',
                                                   style: const TextStyle(color: Colors.grey),
                                                 ),
                                                 const SizedBox(height: 3),
                                                 Text(
-                                                  'Paid : $currency ${myFormat.format(int.tryParse('${widget.customerModel.openingBalance.toInt() - widget.customerModel.remainedBalance.toInt()}') ?? 0)}',
+                                                  'Paid : $currency ${myFormat.format(int.tryParse('${widget.customerModel.openingBalance.toInt() - widget.customerModel.remainedBalance.toInt()}')??0)}',
                                                   style: const TextStyle(color: Colors.grey),
                                                 ),
                                                 const SizedBox(height: 3),
                                                 Text(
-                                                  'Due: $currency ${myFormat.format(int.tryParse(widget.customerModel.remainedBalance.toString()) ?? 0)}',
+                                                  'Due: $currency ${myFormat.format(int.tryParse(widget.customerModel.remainedBalance.toString())??0)}',
                                                   style: const TextStyle(fontSize: 16),
                                                 ),
                                               ],
@@ -515,7 +528,8 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                 )
               : Container(
                   alignment: Alignment.topCenter,
-                  decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
+                  decoration:
+                      const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
                   child: purchaseProviderData.when(data: (transaction) {
                     return SingleChildScrollView(
                       child: Column(
@@ -577,14 +591,15 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                     Container(
                                       height: 40,
                                       width: 40,
-                                      decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(80)), color: Colors.orange.withOpacity(0.2)),
+                                      decoration:
+                                          BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(80)), color: Colors.orange.withOpacity(0.2)),
                                       child: const Icon(
                                         Icons.notifications_none,
                                         color: Colors.orange,
                                       ),
                                     ),
                                   ]).visible(false),
-                                  subtitle: Text(lang.S.of(context).totalSale),
+                                  subtitle:  Text(lang.S.of(context).totalSale),
                                 ),
                               ),
                             ),
@@ -659,8 +674,10 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                               final reTransaction = transaction.reversed.toList();
 
                               return reTransaction[index].customerPhone == widget.customerModel.phoneNumber &&
-                                      (fromDate.isBefore(DateTime.parse(reTransaction[index].purchaseDate)) || DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(fromDate)) &&
-                                      (toDate.isAfter(DateTime.parse(reTransaction[index].purchaseDate)) || DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(toDate))
+                                      (fromDate.isBefore(DateTime.parse(reTransaction[index].purchaseDate)) ||
+                                          DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(fromDate)) &&
+                                      (toDate.isAfter(DateTime.parse(reTransaction[index].purchaseDate)) ||
+                                          DateTime.parse(reTransaction[index].purchaseDate).isAtSameMomentAs(toDate))
                                   ? GestureDetector(
                                       onTap: () {
                                         PurchaseInvoiceDetails(
@@ -693,11 +710,14 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                                     Container(
                                                       padding: const EdgeInsets.all(8),
                                                       decoration: BoxDecoration(
-                                                          color: reTransaction[index].dueAmount! <= 0 ? const Color(0xff0dbf7d).withOpacity(0.1) : const Color(0xFFED1A3B).withOpacity(0.1),
+                                                          color: reTransaction[index].dueAmount! <= 0
+                                                              ? const Color(0xff0dbf7d).withOpacity(0.1)
+                                                              : const Color(0xFFED1A3B).withOpacity(0.1),
                                                           borderRadius: const BorderRadius.all(Radius.circular(10))),
                                                       child: Text(
                                                         reTransaction[index].dueAmount! <= 0 ? 'Paid' : 'Unpaid',
-                                                        style: TextStyle(color: reTransaction[index].dueAmount! <= 0 ? const Color(0xff0dbf7d) : const Color(0xFFED1A3B)),
+                                                        style: TextStyle(
+                                                            color: reTransaction[index].dueAmount! <= 0 ? const Color(0xff0dbf7d) : const Color(0xFFED1A3B)),
                                                       ),
                                                     ),
                                                     Column(
@@ -744,6 +764,8 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                                         children: [
                                                           IconButton(
                                                               onPressed: () async {
+
+
                                                                 showDialog(
                                                                     context: context,
                                                                     builder: (_) {
@@ -802,6 +824,8 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                                                         ),
                                                                       );
                                                                     });
+
+
                                                               },
                                                               icon: const Icon(
                                                                 FeatherIcons.printer,
@@ -846,7 +870,7 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                   children: [
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
+                                      children:  [
                                         Text(
                                           lang.S.of(context).openingBalance,
                                           style: const TextStyle(fontSize: 16),
@@ -860,11 +884,14 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                                         Container(
                                           padding: const EdgeInsets.all(8),
                                           decoration: BoxDecoration(
-                                              color: widget.customerModel.remainedBalance.toInt() <= 0 ? const Color(0xff0dbf7d).withOpacity(0.1) : const Color(0xFFED1A3B).withOpacity(0.1),
+                                              color: widget.customerModel.remainedBalance.toInt() <= 0
+                                                  ? const Color(0xff0dbf7d).withOpacity(0.1)
+                                                  : const Color(0xFFED1A3B).withOpacity(0.1),
                                               borderRadius: const BorderRadius.all(Radius.circular(10))),
                                           child: Text(
                                             widget.customerModel.remainedBalance.toInt() <= 0 ? 'Paid' : 'Unpaid',
-                                            style: TextStyle(color: widget.customerModel.remainedBalance.toInt() <= 0 ? const Color(0xff0dbf7d) : const Color(0xFFED1A3B)),
+                                            style: TextStyle(
+                                                color: widget.customerModel.remainedBalance.toInt() <= 0 ? const Color(0xff0dbf7d) : const Color(0xFFED1A3B)),
                                           ),
                                         ),
                                       ],
@@ -926,65 +953,65 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
     connected
         ? printerData.printTicket(printTransactionModel: model, productList: model.transitionModel!.productList, printer58: peinter58)
         : showDialog(
-            context: context,
-            builder: (_) {
-              return WillPopScope(
-                onWillPop: () async => false,
-                child: Dialog(
-                  child: SizedBox(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: printerData.availableBluetoothDevices.isNotEmpty ? printerData.availableBluetoothDevices.length : 0,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              onTap: () async {
-                                String select = printerData.availableBluetoothDevices[index];
-                                List list = select.split("#");
-                                // String name = list[0];
-                                String mac = list[1];
-                                bool isConnect = await printerData.setConnect(mac);
-                                // ignore: use_build_context_synchronously
-                                isConnect
-                                    // ignore: use_build_context_synchronously
-                                    ? finish(context)
-                                    : toast('Try Again');
-                              },
-                              title: Text('${printerData.availableBluetoothDevices[index]}'),
-                              subtitle: Text(lang.S.of(context).clickToConnect),
-                            );
+        context: context,
+        builder: (_) {
+          return WillPopScope(
+            onWillPop: () async => false,
+            child: Dialog(
+              child: SizedBox(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: printerData.availableBluetoothDevices.isNotEmpty ? printerData.availableBluetoothDevices.length : 0,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          onTap: () async {
+                            String select = printerData.availableBluetoothDevices[index];
+                            List list = select.split("#");
+                            // String name = list[0];
+                            String mac = list[1];
+                            bool isConnect = await printerData.setConnect(mac);
+                            // ignore: use_build_context_synchronously
+                            isConnect
+                            // ignore: use_build_context_synchronously
+                                ? finish(context)
+                                : toast('Try Again');
                           },
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20, bottom: 10),
-                          child: Text(
-                            lang.S.of(context).pleaseConnectYourBluttothPrinter,
-                            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Container(height: 1, width: double.infinity, color: Colors.grey),
-                        const SizedBox(height: 15),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Center(
-                            child: Text(
-                              lang.S.of(context).cacel,
-                              style: const TextStyle(color: kMainColor),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 15),
-                      ],
+                          title: Text('${printerData.availableBluetoothDevices[index]}'),
+                          subtitle: Text(lang.S.of(context).clickToConnect),
+                        );
+                      },
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 10),
+                      child: Text(
+                        lang.S.of(context).pleaseConnectYourBluttothPrinter,
+                        style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(height: 1, width: double.infinity, color: Colors.grey),
+                    const SizedBox(height: 15),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Center(
+                        child: Text(
+                          lang.S.of(context).cacel,
+                          style: const TextStyle(color: kMainColor),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                  ],
                 ),
-              );
-            });
+              ),
+            ),
+          );
+        });
   }
 
   void printType(PersonalInformationModel data, bool printer58, AsyncValue<List<SalesTransitionModel>> providerData, PrinterPurchase purchasePrinterData, PurchaseTransactionModel reTransaction) async {
@@ -1016,7 +1043,7 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
                               String mac = list[1];
                               bool isConnect = await purchasePrinterData.setConnect(mac);
                               isConnect
-                                  // ignore: use_build_context_synchronously
+                              // ignore: use_build_context_synchronously
                                   ? finish(context)
                                   : toast('Try Again');
                             },
@@ -1055,4 +1082,5 @@ class _LedgerCustomerDetailsScreenState extends State<LedgerCustomerDetailsScree
           });
     }
   }
+
 }

@@ -8,11 +8,11 @@ import 'package:intl/intl.dart';
 import 'package:mobile_pos/Provider/printer_provider.dart';
 import 'package:mobile_pos/Provider/transactions_provider.dart';
 import 'package:mobile_pos/Screens/Loss_Profit/single_loss_profit_screen.dart';
+import 'package:mobile_pos/Widget/primary_button_widget.dart';
 import 'package:mobile_pos/const_commas.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
 import 'package:mobile_pos/model/personal_information_model.dart';
 import 'package:mobile_pos/model/print_transaction_model.dart';
-import 'package:mobile_pos/widget/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../../Provider/profile_provider.dart';
@@ -400,6 +400,7 @@ class _LossProfitReportState extends State<LossProfitReport> {
                                                                     onPressed: () async {
 
 
+
                                                                       showDialog(
                                                                           context: context,
                                                                           builder: (_) {
@@ -423,7 +424,7 @@ class _LossProfitReportState extends State<LossProfitReport> {
                                                                                       child: PrimaryButton(
                                                                                         label: "58 mm",
                                                                                         isDisabled: false,
-                                                                                        onPressed: () => rePrinter(printerData, true,providerData,data, showAbleSaleTransactions[index]),
+                                                                                        onPressed: () => rePrinter(printerData, true,providerData,data, reTransaction[index]),
                                                                                       ),
                                                                                     ),
                                                                                     Padding(
@@ -431,7 +432,7 @@ class _LossProfitReportState extends State<LossProfitReport> {
                                                                                       child: PrimaryButton(
                                                                                         label: "80 mm",
                                                                                         isDisabled: false,
-                                                                                        onPressed: () =>   rePrinter(printerData, false,providerData,data, showAbleSaleTransactions[index]),
+                                                                                        onPressed: () =>   rePrinter(printerData, false,providerData,data, reTransaction[index]),
                                                                                       ),
                                                                                     ),
                                                                                     GestureDetector(
@@ -454,7 +455,6 @@ class _LossProfitReportState extends State<LossProfitReport> {
                                                                               ),
                                                                             );
                                                                           });
-
 
                                                                     },
                                                                     icon: const Icon(
@@ -515,17 +515,18 @@ class _LossProfitReportState extends State<LossProfitReport> {
     });
   }
 
-  void rePrinter(Printer printerData, bool printer58, AsyncValue<List<SalesTransitionModel>> providerData, PersonalInformationModel data, SalesTransitionModel showAbleSaleTransactions)async {
+
+  void rePrinter(Printer printerData, bool printer58, AsyncValue<List<SalesTransitionModel>> providerData, PersonalInformationModel data, SalesTransitionModel reTransaction) async{
     totalProfit = 0;
     totalLoss = 0;
     await printerData.getBluetooth();
     PrintTransactionModel model = PrintTransactionModel(
-        transitionModel: showAbleSaleTransactions, personalInformationModel: data);
+        transitionModel: reTransaction, personalInformationModel: data);
     connected
         ? printerData.printTicket(
-      printTransactionModel: model,
-      productList: model.transitionModel!.productList,
-      printer58: printer58
+        printTransactionModel: model,
+        productList: model.transitionModel!.productList,
+        printer58: printer58
     )
         : showDialog(
         context: context,
@@ -545,14 +546,16 @@ class _LossProfitReportState extends State<LossProfitReport> {
                       itemBuilder: (context, index) {
                         return ListTile(
                           onTap: () async {
-                            String select = printerData.availableBluetoothDevices[index];
+                            String select =
+                            printerData.availableBluetoothDevices[index];
                             List list = select.split("#");
                             // String name = list[0];
                             String mac = list[1];
                             bool isConnect = await printerData.setConnect(mac);
                             isConnect ? finish(context) : toast('Try Again');
                           },
-                          title: Text('${printerData.availableBluetoothDevices[index]}'),
+                          title:
+                          Text('${printerData.availableBluetoothDevices[index]}'),
                           subtitle: Text(lang.S.of(context).clickToConnect),
                         );
                       },
@@ -586,5 +589,9 @@ class _LossProfitReportState extends State<LossProfitReport> {
             ),
           );
         });
+
   }
+
+
+
 }

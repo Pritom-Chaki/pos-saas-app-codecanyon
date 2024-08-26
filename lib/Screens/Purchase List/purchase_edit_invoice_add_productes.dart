@@ -404,7 +404,7 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
-  int quantity = 0;
+  num quantity = 0;
 
   @override
   Widget build(BuildContext context) {

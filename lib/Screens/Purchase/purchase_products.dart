@@ -1,5 +1,6 @@
 // ignore_for_file: unused_result, must_be_immutable
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -200,28 +201,41 @@ class _PurchaseProductsState extends State<PurchaseProducts> {
                                 torchEnabled: false,
                                 returnImage: false,
                               );
-                              return WillPopScope(
-                                onWillPop: () async => false,
-                                child: Container(
-                                  decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(6.0)),
-                                  child: MobileScanner(
-                                    fit: BoxFit.contain,
-                                    controller: controller,
-                                    onDetect: (capture) {
-                                      final List<Barcode> barcodes = capture.barcodes;
+                              return Container(
+                                decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(6.0)),
+                                child: Column(
+                                  children: [
+                                    AppBar(
+                                      backgroundColor: Colors.transparent,
+                                      iconTheme: const IconThemeData(color: Colors.white),
+                                      leading: IconButton(
+                                        icon: const Icon(Icons.arrow_back),
+                                        onPressed: () {
+                                          Navigator.pop(context1);
+                                        },
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: MobileScanner(
+                                        fit: BoxFit.contain,
+                                        controller: controller,
+                                        onDetect: (capture) {
+                                          final List<Barcode> barcodes = capture.barcodes;
 
-                                      if (barcodes.isNotEmpty) {
-                                        final Barcode barcode = barcodes.first;
-                                        debugPrint('Barcode found! ${barcode.rawValue}');
+                                          if (barcodes.isNotEmpty) {
+                                            final Barcode barcode = barcodes.first;
+                                            debugPrint('Barcode found! ${barcode.rawValue}');
 
-                                        productCode = barcode.rawValue!;
-                                        scarchController.text = productCode;
-                                        _key.currentState!.save();
+                                            productCode = barcode.rawValue!;
+                                            scarchController.text = productCode;
+                                            _key.currentState!.save();
 
-                                        Navigator.pop(context1);
-                                      }
-                                    },
-                                  ),
+                                            Navigator.pop(context1);
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               );
                             },
@@ -312,16 +326,14 @@ class _PurchaseProductsState extends State<PurchaseProducts> {
 
                     allWarehouseId.add(element.warehouseId);
                     if (!isRegularSelected) {
-                      if (((element.productName.removeAllWhiteSpace().toLowerCase().contains(productCode.toString().toLowerCase()) ||
-                              element.productName.contains(productCode.toString()))) &&
+                      if (((element.productName.removeAllWhiteSpace().toLowerCase().contains(productCode.toString().toLowerCase()) || element.productName.contains(productCode.toString()))) &&
                           element.expiringDate != null &&
                           ((DateTime.tryParse(element.expiringDate ?? '') ?? DateTime.now()).isBefore(DateTime.now().add(const Duration(days: 7))))) {
                         showAbleProducts.add(element);
                       }
                     } else {
                       if (productCode != '' &&
-                          (element.productName.removeAllWhiteSpace().toLowerCase().contains(productCode.toString().toLowerCase()) ||
-                              element.productName.contains(productCode.toString()))) {
+                          (element.productName.removeAllWhiteSpace().toLowerCase().contains(productCode.toString().toLowerCase()) || element.productName.contains(productCode.toString()))) {
                         showAbleProducts.add(element);
                       } else if (productCode == '') {
                         showAbleProducts.add(element);
@@ -372,6 +384,7 @@ class _PurchaseProductsState extends State<PurchaseProducts> {
                                         warehouseName: showAbleProducts[i].warehouseName,
                                         warehouseId: showAbleProducts[i].warehouseId,
                                         productName: showAbleProducts[i].productName,
+                                        productDescription: showAbleProducts[i].productDescription,
                                         productPicture: showAbleProducts[i].productPicture,
                                         productPurchasePrice: showAbleProducts[i].productPurchasePrice,
                                         productSalePrice: showAbleProducts[i].productSalePrice,
@@ -379,6 +392,13 @@ class _PurchaseProductsState extends State<PurchaseProducts> {
                                         productUnit: showAbleProducts[i].productUnit,
                                         productWholeSalePrice: showAbleProducts[i].productWholeSalePrice,
                                         serialNumber: showAbleProducts[i].serialNumber,
+                                        taxType: '',
+                                        margin: 0,
+                                        excTax: 0,
+                                        incTax: 0,
+                                        groupTaxName: '',
+                                        groupTaxRate: 0,
+                                        subTaxes: [],
                                       );
                                       // ProductModel tempProductModel = products[i];
                                       // tempProductModel.productStock = '0';
@@ -611,10 +631,9 @@ class _PurchaseProductsState extends State<PurchaseProducts> {
                                 stock: showAbleProducts[i].productStock,
                                 productImage: showAbleProducts[i].productPicture,
                                 warehouseName: showAbleProducts[i].warehouseName,
-                              ).visible(
-                                  productName.isEmptyOrNull
-                                      ? true
-                                      : showAbleProducts[i].productName.toUpperCase().contains(productName.toUpperCase()) ||
+                              ).visible(productName.isEmptyOrNull
+                                  ? true
+                                  : showAbleProducts[i].productName.toUpperCase().contains(productName.toUpperCase()) ||
                                       (productName.isEmpty || productCode.isEmpty || showAbleProducts[i].productCode.contains(productCode) || productCode == '0000' || productCode == '-1') &&
                                           productPrice != '0'),
                             );
@@ -637,8 +656,7 @@ class _PurchaseProductsState extends State<PurchaseProducts> {
 }
 
 class ProductCard extends StatefulWidget {
-  ProductCard(
-      {super.key, required this.productTitle, required this.productDescription, required this.stock, required this.productImage, required this.warehouseName});
+  ProductCard({super.key, required this.productTitle, required this.productDescription, required this.stock, required this.productImage, required this.warehouseName});
 
   // final Product product;
   String productImage, productTitle, productDescription, stock, warehouseName;
@@ -648,7 +666,7 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
-  int quantity = 0;
+  num quantity = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -726,6 +744,11 @@ class _ProductCardState extends State<ProductCard> {
               ],
             ),
           ),
+          Divider(
+            thickness: 1.0,
+            height: 1.0,
+            color: kBorderColor.withOpacity(0.3),
+          )
         ],
       );
     });

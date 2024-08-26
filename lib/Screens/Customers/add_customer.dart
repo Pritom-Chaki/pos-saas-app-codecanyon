@@ -1,5 +1,6 @@
 // ignore_for_file: unused_result
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
@@ -35,6 +36,7 @@ class _AddCustomerState extends State<AddCustomer> {
   GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   String radioItem = 'Retailer';
   String groupValue = 'Retailer';
+  String gst = '';
   bool expanded = false;
   String customerName = '';
   late String phoneNumber;
@@ -47,6 +49,8 @@ class _AddCustomerState extends State<AddCustomer> {
   XFile? pickedImage;
   File imageFile = File('No File');
   String imagePath = 'No Data';
+
+  String note='';
 
   Future<void> uploadFile(String filePath) async {
     File file = File(filePath);
@@ -87,7 +91,6 @@ class _AddCustomerState extends State<AddCustomer> {
         decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
         child: Consumer(builder: (context, ref, __) {
           final customerData = ref.watch(customerProvider);
-
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -425,6 +428,23 @@ class _AddCustomerState extends State<AddCustomer> {
                               padding: const EdgeInsets.all(8.0),
                               child: AppTextField(
                                 textFieldType: TextFieldType.NAME,
+                                onChanged: (value) {
+                                  setState(() {
+                                    gst = value;
+                                  });
+                                },
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  labelText: 'GST Number',
+                                  hintText: 'Enter customer gst number',
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: AppTextField(
+                                textFieldType: TextFieldType.NAME,
                                 maxLines: 2,
                                 onChanged: (value) {
                                   setState(() {
@@ -436,6 +456,24 @@ class _AddCustomerState extends State<AddCustomer> {
                                   floatingLabelBehavior: FloatingLabelBehavior.always,
                                   labelText: lang.S.of(context).address,
                                   hintText: lang.S.of(context).enterAddress,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                keyboardType: TextInputType.multiline,
+                                maxLines: 3,
+                                onChanged: (value) {
+                                  setState(() {
+                                    note = value;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  labelText: lang.S.of(context).note,
+                                  hintText: lang.S.of(context).enterNote,
                                 ),
                               ),
                             ),
@@ -463,7 +501,7 @@ class _AddCustomerState extends State<AddCustomer> {
                                     .child('Customers');
                                 _customerInformationRef.keepSynced(true);
                                 CustomerModel customerModel =
-                                CustomerModel(customerName, phoneNumber, radioItem, profilePicture, emailAddress, customerAddress, dueAmount, dueAmount, dueAmount);
+                                CustomerModel(customerName, phoneNumber, radioItem, profilePicture, emailAddress, customerAddress, dueAmount, dueAmount, dueAmount,note,gst: gst);
                                 _customerInformationRef.push().set(customerModel.toJson());
 
                                 ///________Subscription_____________________________________________________

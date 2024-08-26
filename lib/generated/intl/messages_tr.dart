@@ -258,7 +258,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Moda"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Özellikler, Pix Pos\'yı geleneksel çözümlerden farklı kılan önemli bir parçadır."),
+            "Özellikler, Pos Saas\'yı geleneksel çözümlerden farklı kılan önemli bir parçadır."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Geri Bildirim"),
         "firstName": MessageLookupByLibrary.simpleMessage("Ad"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Ön Yüz"),
@@ -326,9 +326,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("Mesaj"),
         "messageHistory": MessageLookupByLibrary.simpleMessage("Mesaj Geçmişi"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos uygulaması ücretsizdir, kolay kullanılır. Aslında, dünyanın en iyi POS sistemlerinden biridir."),
+            "Pos Saas uygulaması ücretsizdir, kolay kullanılır. Aslında, dünyanın en iyi POS sistemlerinden biridir."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos, stok, hesap, satış, gider ve kar/zarar ile tam bir iş çözümüdür."),
+            "Pos Saas, stok, hesap, satış, gider ve kar/zarar ile tam bir iş çözümüdür."),
         "monthly": MessageLookupByLibrary.simpleMessage("Aylık"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Daha Fazla Bilgi"),
         "name": MessageLookupByLibrary.simpleMessage("Adınızı Girin"),
@@ -398,7 +398,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Şifre sıfırlama bağlantısı almak için lütfen e-posta adresinizi girin."),
         "powerdedByMobiPos": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos tarafından desteklenmektedir"),
+            "Pos Saas tarafından desteklenmektedir"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Premium Müşteri Desteği"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Premium Plan"),
@@ -459,7 +459,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("İade Miktarı"),
         "revenue": MessageLookupByLibrary.simpleMessage("Gelir"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "İş verilerinizi kolayca koruyun. Pix Pos POS Sınırsız Güncelleme, değerli bilgilerinizi beklenmedik olaylara karşı koruyan ücretsiz veri yedeklemeyi içerir. Gerçekten önemli olan şeye odaklanın - iş büyümeniz."),
+            "İş verilerinizi kolayca koruyun. Pos Saas POS Sınırsız Güncelleme, değerli bilgilerinizi beklenmedik olaylara karşı koruyan ücretsiz veri yedeklemeyi içerir. Gerçekten önemli olan şeye odaklanın - iş büyümeniz."),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Satış Detayları"),
         "salePrice": MessageLookupByLibrary.simpleMessage("Satış Fiyatı"),
         "saleReports": MessageLookupByLibrary.simpleMessage("Satış Raporu"),
@@ -505,7 +505,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch": MessageLookupByLibrary.simpleMessage(
             "Aramak için yazmaya başlayın"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Ekstra maliyet olmadan teknolojik gelişmelerin önünde olun. Pix Pos POS Sınırsız Güncelleme, her zaman en son araçlara ve özelliklere sahip olduğunuzdan emin olarak işinizin son teknoloji olmasını garanti eder."),
+            "Ekstra maliyet olmadan teknolojik gelişmelerin önünde olun. Pos Saas POS Sınırsız Güncelleme, her zaman en son araçlara ve özelliklere sahip olduğunuzdan emin olarak işinizin son teknoloji olmasını garanti eder."),
         "stockList": MessageLookupByLibrary.simpleMessage("Stok Listesi"),
         "stocks": MessageLookupByLibrary.simpleMessage("Stoklar"),
         "subTotal": MessageLookupByLibrary.simpleMessage("Ara Toplam"),
@@ -526,7 +526,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase": MessageLookupByLibrary.simpleMessage(
             "Satın Alımınız İçin Teşekkür Ederiz"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "İsim her şeyi söyler. Pix Pos POS Sınırsız ile kullanımınıza bir sınırlama yok. Bir avuç işlemi işliyor ya da müşterilerin akınına uğruyorsanız, sınırlamalarla sınırlı olmadığınızı bilerek güvenle çalışabilirsiniz."),
+            "İsim her şeyi söyler. Pos Saas POS Sınırsız ile kullanımınıza bir sınırlama yok. Bir avuç işlemi işliyor ya da müşterilerin akınına uğruyorsanız, sınırlamalarla sınırlı olmadığınızı bilerek güvenle çalışabilirsiniz."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "Kullanıcı silinecek ve tüm veriler hesabınızdan silinecek. Bunun silmek istediğinizden emin misiniz?"),
         "thirdPartyServices":
@@ -554,7 +554,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Sınırsız Kullanım"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos POS\'un tam potansiyelini uzman ekibimizin yönettiği kişiselleştirilmiş eğitim oturumlarıyla açın. Temelden ileri tekniklere kadar, sistemin her yönünü kullanarak iş süreçlerinizi optimize etmek için iyi eğitim almış olduğunuzdan emin oluruz."),
+            "Pos Saas POS\'un tam potansiyelini uzman ekibimizin yönettiği kişiselleştirilmiş eğitim oturumlarıyla açın. Temelden ileri tekniklere kadar, sistemin her yönünü kullanarak iş süreçlerinizi optimize etmek için iyi eğitim almış olduğunuzdan emin oluruz."),
         "update": MessageLookupByLibrary.simpleMessage("Güncelle"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Kişiyi Güncelle"),
@@ -570,7 +570,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadDocument": MessageLookupByLibrary.simpleMessage("Belge Yükle"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("Dosya Yükle"),
         "useMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pix Pos\'yı Kullanın"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas\'yı Kullanın"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Sistemi Kullanım"),
         "userRole": MessageLookupByLibrary.simpleMessage("Kullanıcı Rolü"),
@@ -612,7 +612,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Bir E-Posta Aldınız"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Hesabınıza başarıyla giriş yaptınız. Pix Pos  ile kalın."),
+            "Hesabınıza başarıyla giriş yaptınız. Pos Saas  ile kalın."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Hesabınıza TEKRAR GİRİŞ yapmalısınız."),
         "youNeedToIdentityVerifyBeforeYouBuying":

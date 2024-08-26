@@ -1,6 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_cart/flutter_cart.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_pos/Provider/product_provider.dart';
 import 'package:mobile_pos/Screens/Customers/Model/customer_model.dart';
-import 'package:mobile_pos/Screens/Home/home.dart';
 import 'package:mobile_pos/const_commas.dart';
 import 'package:mobile_pos/constant.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
@@ -72,7 +70,6 @@ class _SaleProductsState extends State<SaleProducts> {
   TextEditingController scarchController = TextEditingController();
 
   final GlobalKey<FormState> _key = GlobalKey();
-
 
   // //_____________________Warehouse_list____________________________________________________________________
   // WareHouseModel? selectedWareHouse;
@@ -193,28 +190,41 @@ class _SaleProductsState extends State<SaleProducts> {
                               torchEnabled: false,
                               returnImage: false,
                             );
-                            return WillPopScope(
-                              onWillPop: () async => false,
-                              child: Container(
-                                decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(6.0)),
-                                child: MobileScanner(
-                                  fit: BoxFit.contain,
-                                  controller: controller,
-                                  onDetect: (capture) {
-                                    final List<Barcode> barcodes = capture.barcodes;
+                            return Container(
+                              decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(6.0)),
+                              child: Column(
+                                children: [
+                                  AppBar(
+                                    backgroundColor: Colors.transparent,
+                                    iconTheme: const IconThemeData(color: Colors.white),
+                                    leading: IconButton(
+                                      icon: const Icon(Icons.arrow_back),
+                                      onPressed: () {
+                                        Navigator.pop(context1);
+                                      },
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: MobileScanner(
+                                      fit: BoxFit.contain,
+                                      controller: controller,
+                                      onDetect: (capture) {
+                                        final List<Barcode> barcodes = capture.barcodes;
 
-                                    if (barcodes.isNotEmpty) {
-                                      final Barcode barcode = barcodes.first;
-                                      debugPrint('Barcode found! ${barcode.rawValue}');
+                                        if (barcodes.isNotEmpty) {
+                                          final Barcode barcode = barcodes.first;
+                                          debugPrint('Barcode found! ${barcode.rawValue}');
 
-                                      productCode = barcode.rawValue!;
-                                      scarchController.text = productCode;
-                                      _key.currentState!.save();
+                                          productCode = barcode.rawValue!;
+                                          scarchController.text = productCode;
+                                          _key.currentState!.save();
 
-                                      Navigator.pop(context1);
-                                    }
-                                  },
-                                ),
+                                          Navigator.pop(context1);
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
                             );
                           },
@@ -240,78 +250,22 @@ class _SaleProductsState extends State<SaleProducts> {
                   ],
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              //   child: wareHouseList.when(
-              //     data: (warehouse) {
-              //       List<WareHouseModel> wareHouseList = warehouse;
-              //       // List<WareHouseModel> wareHouseList = [];
-              //       return Row(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //         children: [
-              //           Text(
-              //             'Selected Warehouse:',
-              //             style: kTextStyle.copyWith(color: kGreyTextColor),
-              //           ),
-              //           DropdownButtonHideUnderline(
-              //             child: getName(list: warehouse ?? []),
-              //           ),
-              //         ],
-              //       );
-              //
-              //       //   FormField(
-              //       //   builder: (FormFieldState<dynamic> field) {
-              //       //     return InputDecorator(
-              //       //       decoration:  InputDecoration(
-              //       //         border: const OutlineInputBorder(),
-              //       //           contentPadding: const EdgeInsets.only(left: 8.0,right: 8.0),
-              //       //           ),
-              //       //       child: DropdownButtonHideUnderline(
-              //       //         child: getName(list: warehouse ?? []),
-              //       //       ),
-              //       //     );
-              //       //   },
-              //       // );
-              //     },
-              //     error: (e, stack) {
-              //       return Center(
-              //         child: Text(
-              //           e.toString(),
-              //         ),
-              //       );
-              //     },
-              //     loading: () {
-              //       return const Center(
-              //         child: CircularProgressIndicator(),
-              //       );
-              //     },
-              //   ),
-              // ),
-              // const Divider(
-              //   thickness: 1.0,
-              //   color: kBorderColorTextField,
-              //   height: 0,
-              // ),
               Expanded(
-                  child: productList.when(data: (products){
-                    List<ProductModel> showAbleProducts = [];
-                    for (var element in products) {
-                      // productNameList.add(element.productName.removeAllWhiteSpace().toLowerCase());
-                      // productCodeList.add(element.productCode.removeAllWhiteSpace().toLowerCase());
-                      warehouseBasedProductModel.add(WarehouseBasedProductModel(element.productName, element.warehouseId));
+                  child: productList.when(data: (products) {
+                List<ProductModel> showAbleProducts = [];
+                for (var element in products) {
+                  warehouseBasedProductModel.add(WarehouseBasedProductModel(element.productName, element.warehouseId));
 
-                      allWarehouseId.add(element.warehouseId);
-                      if (productCode != '' &&
-                          (element.productName.removeAllWhiteSpace().toLowerCase().contains(productName.toString().toLowerCase()) ||
-                              element.productCode.contains(productCode.toString()))) {
-                        showAbleProducts.add(element);
-                      } else if (productCode == '') {
-                        showAbleProducts.add(element);
-                      }
-                    }
-                    return showAbleProducts.isNotEmpty?
-                      ListView.builder(
+                  allWarehouseId.add(element.warehouseId);
+                  if (productCode != '' &&
+                      (element.productName.removeAllWhiteSpace().toLowerCase().contains(productName.toString().toLowerCase()) || element.productCode.contains(productCode.toString()))) {
+                    showAbleProducts.add(element);
+                  } else if (productCode == '') {
+                    showAbleProducts.add(element);
+                  }
+                }
+                return showAbleProducts.isNotEmpty
+                    ? ListView.builder(
                         padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
                         shrinkWrap: true,
                         physics: const AlwaysScrollableScrollPhysics(),
@@ -340,9 +294,11 @@ class _SaleProductsState extends State<SaleProducts> {
                           }
                           return GestureDetector(
                             onTap: () async {
-                              if (showAbleProducts[i].productStock.toInt() <= 0) {
+                              if ((num.tryParse(showAbleProducts[i].productStock)??0) <= 0) {
                                 EasyLoading.showError('Out of stock');
                               } else {
+                                debugPrint(">>>>>Stock Here");
+                                  
                                 if (widget.customerModel!.type.contains('Retailer')) {
                                   sentProductPrice = showAbleProducts[i].productSalePrice;
                                 } else if (widget.customerModel!.type.contains('Dealer')) {
@@ -355,21 +311,39 @@ class _SaleProductsState extends State<SaleProducts> {
                                   sentProductPrice = showAbleProducts[i].productSalePrice;
                                 }
 
+                                double totalTaxRate = 0;
+                                // if (showAbleProducts[i].taxRates != null) {
+                                //   for (var element in showAbleProducts[i].taxRates!) {
+                                //     totalTaxRate += element.taxRate;
+                                //   }
+                                // }
                                 AddToCartModel cartItem = AddToCartModel(
                                   productName: showAbleProducts[i].productName,
                                   warehouseName: showAbleProducts[i].warehouseName,
                                   warehouseId: showAbleProducts[i].warehouseId,
-                                  subTotal: sentProductPrice,
+                                  // subTotal: showAbleProducts[i].isTaxInclusive ?? true ? sentProductPrice : (double.tryParse(sentProductPrice) ?? 0.0) + (double.tryParse(sentProductPrice) ?? 0.0) * totalTaxRate / 100,
+                                  subTotal: num.parse(sentProductPrice.toString()),
                                   productImage: showAbleProducts[i].productPicture,
-                                  productPurchasePrice: showAbleProducts[i].productPurchasePrice,
+                                  productPurchasePrice:  num.parse(showAbleProducts[i].productPurchasePrice.toString()),
                                   productId: showAbleProducts[i].productCode,
                                   productBrandName: showAbleProducts[i].brandName,
-                                  stock: int.parse(showAbleProducts[i].productStock),
+                                  stock: num.parse(showAbleProducts[i].productStock.toString()),
                                   uuid: showAbleProducts[i].productCode,
+                                  subTaxes: showAbleProducts[i].subTaxes,
+                                  excTax: int.parse(showAbleProducts[i].excTax.toString()),
+                                  groupTaxName: showAbleProducts[i].groupTaxName,
+                                  groupTaxRate: num.parse(showAbleProducts[i].groupTaxRate.toString()),
+                                  incTax: num.parse(showAbleProducts[i].incTax.toString()),
+                                  margin: num.parse(showAbleProducts[i].margin.toString()),
+                                  taxType: showAbleProducts[i].taxType,
                                 );
+                                 debugPrint(">>>>>Stock Here 2");
                                 providerData.addToCartRiverPod(cartItem);
+                                 debugPrint(">>>>>Stock Here 3");
                                 providerData.addProductsInSales(showAbleProducts[i]);
+                                 debugPrint(">>>>>Stock Here 4");
                                 Navigator.pop(context);
+                                 debugPrint(">>>>>Stock Here 5");
                               }
                             },
                             child: ProductCard(
@@ -378,24 +352,23 @@ class _SaleProductsState extends State<SaleProducts> {
                               productPrice: productPrice,
                               productImage: showAbleProducts[i].productPicture,
                               stock: showAbleProducts[i].productStock,
-                              productId:  showAbleProducts[i].productCode,
-                              warehouseName:  showAbleProducts[i].warehouseName,
+                              productId: showAbleProducts[i].productCode,
+                              warehouseName: showAbleProducts[i].warehouseName,
                             ).visible(productName.isEmptyOrNull
                                 ? true
                                 : showAbleProducts[i].productName.toUpperCase().contains(productName.toUpperCase()) ||
-                                (productName.isEmpty || productCode.isEmpty || showAbleProducts[i].productCode.contains(productCode) || productCode == '0000' || productCode == '-1') &&
-                                    productPrice != '0'),
+                                    (productName.isEmpty || productCode.isEmpty || showAbleProducts[i].productCode.contains(productCode) || productCode == '0000' || productCode == '-1') &&
+                                        productPrice != '0'),
                           );
-                        })  : const Center(child: Text('No product Found'),);
-                  },  error: (e, stack) {
-                    return Text(e.toString());
-                  }, loading: () {
-                    return const Center(child: CircularProgressIndicator());
-                  })
-
-
-
-              )
+                        })
+                    : const Center(
+                        child: Text('No product Found'),
+                      );
+              }, error: (e, stack) {
+                return Text("Not Found");
+              }, loading: () {
+                return const Center(child: CircularProgressIndicator());
+              }))
             ],
           ),
         ),
@@ -421,17 +394,24 @@ class _SaleProductsState extends State<SaleProducts> {
 // ignore: must_be_immutable
 class ProductCard extends StatefulWidget {
   ProductCard(
-      {super.key, required this.productTitle, required this.productDescription, required this.productPrice, required this.productImage, required this.stock,required this.productId,required this.warehouseName});
+      {super.key,
+      required this.productTitle,
+      required this.productDescription,
+      required this.productPrice,
+      required this.productImage,
+      required this.stock,
+      required this.productId,
+      required this.warehouseName});
 
   // final Product product;
-  String productImage, productTitle, productDescription, productPrice, stock,productId,warehouseName;
+  String productImage, productTitle, productDescription, productPrice, stock, productId, warehouseName;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
 }
 
 class _ProductCardState extends State<ProductCard> {
-  int quantity = 0;
+  num quantity = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -442,62 +422,72 @@ class _ProductCardState extends State<ProductCard> {
           quantity = element.quantity;
         }
       }
-      return ListTile(
-        contentPadding: EdgeInsets.zero,
-        isThreeLine: false,
-        dense: false,
-        horizontalTitleGap: 10,
-        leading: Container(
-          height: 50,
-          width: 50,
-          decoration: BoxDecoration(
-              //image: DecorationImage(image: NetworkImage(widget.productImage), fit: BoxFit.cover),
-              borderRadius: BorderRadius.circular(90.0),
-              color: kMainColor),
-          child: Center(
-            child: Text(
-              widget.productTitle.substring(0, 1),
-              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-          ),
-        ),
-        title: Text(
-          widget.productTitle,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: GoogleFonts.jost(
-            fontSize: 16.0,
-            color: Colors.black,
-            height: 1.0,
-          ),
-        ),
-        subtitle: Text(
-          'Stock: ${widget.stock.toInt() - quantity}',
-          style: GoogleFonts.jost(
-            fontSize: 14.0,
-            color: kGreyTextColor,
-          ),
-        ),
-        trailing: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              '$currency${myFormat.format(double.tryParse(widget.productPrice.toString()) ?? 0.0)}',
-              style: GoogleFonts.jost(
-                fontSize: 18.0,
-                color: Colors.black,
+      return Column(
+        children: [
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            isThreeLine: false,
+            dense: false,
+            horizontalTitleGap: 10,
+            leading: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                  //image: DecorationImage(image: NetworkImage(widget.productImage), fit: BoxFit.cover),
+                  borderRadius: BorderRadius.circular(90.0),
+                  color: kMainColor),
+              child: Center(
+                child: Text(
+                  widget.productTitle.substring(0, 1),
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                ),
               ),
             ),
-            Text(
-              widget.warehouseName,maxLines: 1,
+            title: Text(
+              widget.productTitle,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.jost(
+                fontSize: 16.0,
+                color: Colors.black,
+                height: 1.0,
+              ),
+            ),
+            subtitle: Text(
+              'Stock: ${(num.tryParse(widget.stock)??0) - quantity}',
               style: GoogleFonts.jost(
                 fontSize: 14.0,
                 color: kGreyTextColor,
               ),
             ),
-          ],
-        ),
+            trailing: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  '$currency${myFormat.format(double.tryParse(widget.productPrice.toString()) ?? 0.0)}',
+                  style: GoogleFonts.jost(
+                    fontSize: 18.0,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  widget.warehouseName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.jost(
+                    fontSize: 14.0,
+                    color: kGreyTextColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(
+            thickness: 1.0,
+            height: 1.0,
+            color: kBorderColor.withOpacity(0.3),
+          )
+        ],
       );
     });
   }

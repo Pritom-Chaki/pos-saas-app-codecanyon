@@ -10,9 +10,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_pos/const_commas.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
-import 'package:mobile_pos/model/due_transaction_model.dart';
-import 'package:mobile_pos/model/personal_information_model.dart';
-import 'package:mobile_pos/widget/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../Provider/due_transaction_provider.dart';
@@ -51,15 +48,33 @@ class _DueReportScreenState extends State<DueReportScreen> {
   bool isDeviceConnected = false;
   bool isAlertSet = false;
 
-  getConnectivity() => subscription = Connectivity().onConnectivityChanged.listen(
-        (ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          if (!isDeviceConnected && isAlertSet == false) {
-            showDialogBox();
-            setState(() => isAlertSet = true);
-          }
-        },
-      );
+  // getConnectivity() => subscription = Connectivity().onConnectivityChanged.listen(
+  //       (ConnectivityResult result) async {
+  //         isDeviceConnected = await InternetConnectionChecker().hasConnection;
+  //         if (!isDeviceConnected && isAlertSet == false) {
+  //           showDialogBox();
+  //           setState(() => isAlertSet = true);
+  //         }
+  //       },
+  //     );
+
+  void connectivityCallback(List<ConnectivityResult> results) async {
+    // Since it's likely that only one result will be received,
+    // you can handle just the first one.
+    ConnectivityResult result = results.first;
+
+    isDeviceConnected = await InternetConnectionChecker().hasConnection;
+    if (!isDeviceConnected && !isAlertSet) {
+      showDialogBox();
+      setState(() => isAlertSet = true);
+    }
+  }
+
+  getConnectivity() {
+    subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> results) {
+      connectivityCallback(results);
+    });
+  }
 
   checkInternet() async {
     isDeviceConnected = await InternetConnectionChecker().hasConnection;
@@ -405,62 +420,75 @@ class _DueReportScreenState extends State<DueReportScreen> {
                                                               IconButton(
                                                                   onPressed: () async {
                                                                     ///________Print_______________________________________________________
-
-                                                                    showDialog(
-                                                                        context: context,
-                                                                        builder: (_) {
-                                                                          return Dialog(
-                                                                            child: SizedBox(
-                                                                              child: Column(
-                                                                                mainAxisSize: MainAxisSize.min,
-                                                                                children: [
-                                                                                  const Padding(
-                                                                                    padding: EdgeInsets.only(top: 20, bottom: 10),
-                                                                                    child: Text(
-                                                                                      "POS Printer",
-                                                                                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                                                                                    ),
-                                                                                  ),
-                                                                                  const SizedBox(height: 10),
-                                                                                  Container(height: 1, width: double.infinity, color: Colors.grey),
-                                                                                  const SizedBox(height: 15),
-                                                                                  Padding(
-                                                                                    padding: const EdgeInsets.all(8.0),
-                                                                                    child: PrimaryButton(
-                                                                                      label: "58 mm",
-                                                                                      isDisabled: false,
-                                                                                      onPressed: () => duePrinter(printerData, true,reTransaction[index],data),
-                                                                                    ),
-                                                                                  ),
-                                                                                  Padding(
-                                                                                    padding: const EdgeInsets.all(8.0),
-                                                                                    child: PrimaryButton(
-                                                                                      label: "80 mm",
-                                                                                      isDisabled: false,
-                                                                                      onPressed: () => duePrinter(printerData, false,reTransaction[index],data),
-                                                                                    ),
-                                                                                  ),
-                                                                                  GestureDetector(
-                                                                                    onTap: () {
-                                                                                      Navigator.pop(context);
-                                                                                    },
-                                                                                    child: Center(
-                                                                                      child: Padding(
-                                                                                        padding: const EdgeInsets.all(8.0),
+                                                                    await printerData.getBluetooth();
+                                                                    PrintDueTransactionModel model = PrintDueTransactionModel(
+                                                                        dueTransactionModel: reTransaction[index], personalInformationModel: data);
+                                                                    if (connected) {
+                                                                      await printerData.printTicket(printDueTransactionModel: model);
+                                                                    } else {
+                                                                      showDialog(
+                                                                          context: context,
+                                                                          builder: (_) {
+                                                                            return WillPopScope(
+                                                                              onWillPop: () async => false,
+                                                                              child: Dialog(
+                                                                                child: SizedBox(
+                                                                                  child: Column(
+                                                                                    mainAxisSize: MainAxisSize.min,
+                                                                                    children: [
+                                                                                      ListView.builder(
+                                                                                        shrinkWrap: true,
+                                                                                        itemCount: printerData.availableBluetoothDevices.isNotEmpty
+                                                                                            ? printerData.availableBluetoothDevices.length
+                                                                                            : 0,
+                                                                                        itemBuilder: (context, index) {
+                                                                                          return ListTile(
+                                                                                            onTap: () async {
+                                                                                              String select = printerData.availableBluetoothDevices[index];
+                                                                                              List list = select.split("#");
+                                                                                              // String name = list[0];
+                                                                                              String mac = list[1];
+                                                                                              bool isConnect = await printerData.setConnect(mac);
+                                                                                              isConnect
+                                                                                                  // ignore: use_build_context_synchronously
+                                                                                                  ? finish(context)
+                                                                                                  : toast('Try Again');
+                                                                                            },
+                                                                                            title: Text('${printerData.availableBluetoothDevices[index]}'),
+                                                                                            subtitle: Text(lang.S.of(context).clickToConnect),
+                                                                                          );
+                                                                                        },
+                                                                                      ),
+                                                                                      Padding(
+                                                                                        padding: const EdgeInsets.only(top: 20, bottom: 10),
                                                                                         child: Text(
-                                                                                          lang.S.of(context).cacel,
-                                                                                          style: const TextStyle(color: kMainColor),
+                                                                                          lang.S.of(context).pleaseConnectYourBluttothPrinter,
+                                                                                          style:
+                                                                                              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                                                                                         ),
                                                                                       ),
-                                                                                    ),
+                                                                                      const SizedBox(height: 10),
+                                                                                      Container(height: 1, width: double.infinity, color: Colors.grey),
+                                                                                      const SizedBox(height: 15),
+                                                                                      GestureDetector(
+                                                                                        onTap: () {
+                                                                                          Navigator.pop(context);
+                                                                                        },
+                                                                                        child: Center(
+                                                                                          child: Text(
+                                                                                            lang.S.of(context).cacel,
+                                                                                            style: const TextStyle(color: kMainColor),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                      const SizedBox(height: 15),
+                                                                                    ],
                                                                                   ),
-                                                                                  const SizedBox(height: 15),
-                                                                                ],
+                                                                                ),
                                                                               ),
-                                                                            ),
-                                                                          );
-                                                                        });
-
+                                                                            );
+                                                                          });
+                                                                    }
                                                                   },
                                                                   icon: const Icon(
                                                                     FeatherIcons.printer,
@@ -551,76 +579,4 @@ class _DueReportScreenState extends State<DueReportScreen> {
           ],
         ),
       );
-
-  void duePrinter(PrinterDue printerData, bool printer58, DueTransactionModel reTransaction, PersonalInformationModel data) async{
-    await printerData.getBluetooth();
-    PrintDueTransactionModel model = PrintDueTransactionModel(
-        dueTransactionModel: reTransaction, personalInformationModel: data);
-    if (connected) {
-      await printerData.printTicket(printDueTransactionModel: model,printer58:printer58 );
-    } else {
-      showDialog(
-          context: context,
-          builder: (_) {
-            return WillPopScope(
-              onWillPop: () async => false,
-              child: Dialog(
-                child: SizedBox(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: printerData.availableBluetoothDevices.isNotEmpty
-                            ? printerData.availableBluetoothDevices.length
-                            : 0,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            onTap: () async {
-                              String select = printerData.availableBluetoothDevices[index];
-                              List list = select.split("#");
-                              // String name = list[0];
-                              String mac = list[1];
-                              bool isConnect = await printerData.setConnect(mac);
-                              isConnect
-                              // ignore: use_build_context_synchronously
-                                  ? finish(context)
-                                  : toast('Try Again');
-                            },
-                            title: Text('${printerData.availableBluetoothDevices[index]}'),
-                            subtitle: Text(lang.S.of(context).clickToConnect),
-                          );
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20, bottom: 10),
-                        child: Text(
-                          lang.S.of(context).pleaseConnectYourBluttothPrinter,
-                          style:
-                          const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Container(height: 1, width: double.infinity, color: Colors.grey),
-                      const SizedBox(height: 15),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Center(
-                          child: Text(
-                            lang.S.of(context).cacel,
-                            style: const TextStyle(color: kMainColor),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    }
-  }
 }

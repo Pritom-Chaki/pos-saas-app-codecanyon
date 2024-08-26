@@ -11,6 +11,7 @@ import 'package:mobile_pos/constant.dart';
 import 'package:mobile_pos/model/product_model.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xls;
 
 import '../../GlobalComponents/Model/category_model.dart';
 import '../../currency.dart';
@@ -93,7 +94,7 @@ class _ExcelUploaderState extends State<ExcelUploader> {
     }
     const downloadsFolderPath = '/storage/emulated/0/Download/';
     Directory dir = Directory(downloadsFolderPath);
-    final file = File('${dir.path}/POS_SAAS_bulk_product_upload.xlsx');
+    final file = File('${dir.path}/${invoiceName}_bulk_product_upload.xlsx');
     if (await file.exists()) {
       EasyLoading.showSuccess('The Excel file has already been downloaded');
     } else {
@@ -165,6 +166,7 @@ class _ExcelUploaderState extends State<ExcelUploader> {
                     } else {
                       EasyLoading.show(status: 'Uploading...');
                       await uploadProducts(ref: ref, file: file!, context: context);
+                      EasyLoading.dismiss();
                     }
                   },
                   child: Text(file == null ? 'Pick and Upload File' : 'Upload', style: const TextStyle(color: Colors.white)),
@@ -195,37 +197,83 @@ class _ExcelUploaderState extends State<ExcelUploader> {
       });
     }
   }
+  // Future<void> uploadProductsNew({
+  //   required File file,
+  //   required WidgetRef ref,
+  //   required BuildContext context,
+  // }) async {
+  //   try {
+  //     // Read Excel data
+  //     final workbook = await xls.Workbook();
+  //     workbook.
+  //     final worksheet = workbook.worksheets[0];
+  //
+  //     for (int rowIndex = 1; rowIndex <= worksheet.rowCount; rowIndex++) {
+  //       final row = worksheet.rows[rowIndex];
+  //
+  //       // Create ProductModel object using the updated function
+  //       final productModel = await createProductModelFromExcelData(row: row, ref: ref);
+  //
+  //       if (productModel != null) {
+  //         final productInformationRef = FirebaseDatabase.instance.ref().child(constUserId).child('Products');
+  //         productInformationRef.keepSynced(true);
+  //         productInformationRef.push().set(productModel.toJson());
+  //         Subscription.decreaseSubscriptionLimits(itemType: 'products', context: null);
+  //       }
+  //     }
+  //
+  //     ref.refresh(productProvider);
+  //     ref.refresh(categoryProvider);
+  //
+  //     Future.delayed(const Duration(seconds: 1), () {
+  //       EasyLoading.showSuccess('Upload Done');
+  //       int count = 0;
+  //       Navigator.popUntil(context, (route) {
+  //         return count++ == 2;
+  //       });
+  //     });
+  //   }  catch (e) {
+  //     EasyLoading.showError(e.toString());
+  //   }}
 
   Future<void> uploadProducts({
     required File file,
     required WidgetRef ref,
     required BuildContext context,
   }) async {
-    // e.Excel.decodeBytes(file.readAsBytesSync() as List<int>)
-    e.Excel excel = e.Excel.decodeBytes(file.readAsBytesSync());
-// e.Excel excel= e.Excel.createExcel();
-    var sheet = excel.sheets.keys.first;
-    var table = excel.tables[sheet]!;
-    for (var row in table.rows) {
-      ProductModel? data = createProductModelFromExcelData(row: row, ref: ref);
+    // print(file.readAsBytesSync());
+    try {
+      // List<int> data =   file.readAsBytesSync();
+      // print(data);
+      e.Excel excel = e.Excel.decodeBytes(file.readAsBytesSync());
+      var sheet = excel.sheets.keys.first;
+      var table = excel.tables[sheet]!;
+      for (var row in table.rows) {
+        ProductModel? data = createProductModelFromExcelData(row: row, ref: ref);
 
-      if (data != null) {
-        final DatabaseReference productInformationRef = FirebaseDatabase.instance.ref().child(constUserId).child('Products');
-        productInformationRef.keepSynced(true);
-        productInformationRef.push().set(data.toJson());
-        Subscription.decreaseSubscriptionLimits(itemType: 'products', context: null);
+        if (data != null) {
+          final DatabaseReference productInformationRef = FirebaseDatabase.instance.ref().child(constUserId).child('Products');
+          productInformationRef.keepSynced(true);
+          productInformationRef.push().set(data.toJson());
+          Subscription.decreaseSubscriptionLimits(itemType: 'products', context: null);
+        }
       }
-    }
-    ref.refresh(productProvider);
-    ref.refresh(categoryProvider);
+      ref.refresh(productProvider);
+      ref.refresh(categoryProvider);
 
-    Future.delayed(const Duration(seconds: 1), () {
-      EasyLoading.showSuccess('Upload Done');
-      int count = 0;
-      Navigator.popUntil(context, (route) {
-        return count++ == 2;
+      Future.delayed(const Duration(seconds: 1), () {
+        EasyLoading.showSuccess('Upload Done');
+        int count = 0;
+        Navigator.popUntil(context, (route) {
+          return count++ == 2;
+        });
       });
-    });
+    } catch (e) {
+      EasyLoading.showError(e.toString());
+      return;
+      throw UnsupportedError('Excel format unsupported. Only .xlsx files are supported');
+    }
+// e.Excel excel= e.Excel.createExcel();
   }
 
   ProductModel? createProductModelFromExcelData({required List<e.Data?> row, required WidgetRef ref}) {
@@ -302,6 +350,7 @@ class _ExcelUploaderState extends State<ExcelUploader> {
 
     ProductModel productModel = ProductModel(
       productName: '',
+      productDescription: '',
       productCategory: '',
       size: '',
       color: '',
@@ -320,16 +369,21 @@ class _ExcelUploaderState extends State<ExcelUploader> {
       productManufacturer: '',
       warehouseName: '',
       warehouseId: '',
-      productPicture:
-          'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Customer%20Picture%2FNo_Image_Available.jpeg?alt=media&token=3de0d45e-0e4a-4a7b-b115-9d6722d5031f',
+      productPicture: 'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Customer%20Picture%2FNo_Image_Available.jpeg?alt=media&token=3de0d45e-0e4a-4a7b-b115-9d6722d5031f',
       serialNumber: [],
       lowerStockAlert: 0,
+      taxType: '',
+      margin: 0,
+      excTax: 0,
+      incTax: 0,
+      groupTaxName: '',
+      groupTaxRate: 0,
+      subTaxes: [],
     );
     for (var element in row) {
       if (element?.rowIndex == 0) {
         return null;
       }
-      print(element?.value);
       switch (element?.columnIndex) {
         case 1:
           if (element?.value == null || !isProductNameUnique(productName: element?.value.toString())) return null;

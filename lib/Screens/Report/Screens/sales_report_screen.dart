@@ -11,12 +11,12 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_pos/Provider/printer_provider.dart';
 import 'package:mobile_pos/Provider/transactions_provider.dart';
+import 'package:mobile_pos/Widget/primary_button_widget.dart';
 import 'package:mobile_pos/const_commas.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
 import 'package:mobile_pos/model/personal_information_model.dart';
 import 'package:mobile_pos/model/print_transaction_model.dart';
 import 'package:mobile_pos/model/transition_model.dart';
-import 'package:mobile_pos/widget/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -33,7 +33,6 @@ class SalesReportScreen extends StatefulWidget {
   const SalesReportScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _SalesReportScreenState createState() => _SalesReportScreenState();
 }
 
@@ -55,15 +54,23 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
   bool isDeviceConnected = false;
   bool isAlertSet = false;
 
-  getConnectivity() => subscription = Connectivity().onConnectivityChanged.listen(
-        (ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          if (!isDeviceConnected && isAlertSet == false) {
-            showDialogBox();
-            setState(() => isAlertSet = true);
-          }
-        },
-      );
+  void connectivityCallback(List<ConnectivityResult> results) async {
+    // Since it's likely that only one result will be received,
+    // you can handle just the first one.
+    ConnectivityResult result = results.first;
+
+    isDeviceConnected = await InternetConnectionChecker().hasConnection;
+    if (!isDeviceConnected && !isAlertSet) {
+      showDialogBox();
+      setState(() => isAlertSet = true);
+    }
+  }
+
+  getConnectivity() {
+    subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> results) {
+      connectivityCallback(results);
+    });
+  }
 
   checkInternet() async {
     isDeviceConnected = await InternetConnectionChecker().hasConnection;
@@ -390,6 +397,8 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
                                                                   onPressed: () async {
 
 
+
+
                                                                     showDialog(
                                                                         context: context,
                                                                         builder: (_) {
@@ -556,9 +565,9 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
     PrintTransactionModel(transitionModel: reTransaction, personalInformationModel: data);
     connected
         ? printerData.printTicket(
-      printTransactionModel: model,
-      productList: model.transitionModel!.productList,
-      printer58: printer58
+        printTransactionModel: model,
+        productList: model.transitionModel!.productList,
+        printer58: printer58
     )
         : showDialog(
         context: context,
@@ -619,4 +628,5 @@ class _SalesReportScreenState extends State<SalesReportScreen> {
           );
         });
   }
+
 }

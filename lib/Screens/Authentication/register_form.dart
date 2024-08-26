@@ -48,15 +48,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isDeviceConnected = false;
   bool isAlertSet = false;
 
-  getConnectivity() => subscription = Connectivity().onConnectivityChanged.listen(
-        (ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          if (!isDeviceConnected && isAlertSet == false) {
-            showDialogBox();
-            setState(() => isAlertSet = true);
-          }
-        },
-      );
+  // getConnectivity() => subscription = Connectivity().onConnectivityChanged.listen(
+  //       (ConnectivityResult result) async {
+  //         isDeviceConnected = await InternetConnectionChecker().hasConnection;
+  //         if (!isDeviceConnected && isAlertSet == false) {
+  //           showDialogBox();
+  //           setState(() => isAlertSet = true);
+  //         }
+  //       },
+  //     );
+
+  void connectivityCallback(List<ConnectivityResult> results) async {
+    ConnectivityResult result = results.first;
+    isDeviceConnected = await InternetConnectionChecker().hasConnection;
+    if (!isDeviceConnected && !isAlertSet) {
+      showDialogBox();
+      setState(() => isAlertSet = true);
+    }
+  }
+
+  getConnectivity() {
+    subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> results) {
+      connectivityCallback(results);
+    });
+  }
 
   checkInternet() async {
     isDeviceConnected = await InternetConnectionChecker().hasConnection;

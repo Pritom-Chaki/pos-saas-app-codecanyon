@@ -59,6 +59,7 @@ class _PurchaseListEditScreenState extends State<PurchaseListEditScreen> {
     customerName: widget.transitionModel.customerName,
     customerPhone: widget.transitionModel.customerPhone,
     customerType: widget.transitionModel.customerType,
+    customerGst: widget.transitionModel.customerGst,
     invoiceNumber: invoice.toString(),
     purchaseDate: DateTime.now().toString(),
   );
@@ -277,8 +278,9 @@ class _PurchaseListEditScreenState extends State<PurchaseListEditScreen> {
                       onTap: () {
                         EditPurchaseInvoiceSaleProducts(
                           catName: null,
-                          customerModel:
-                              CustomerModel(widget.transitionModel.customerName, widget.transitionModel.customerPhone, widget.transitionModel.customerType, '', '', '', '', '', ''),
+                          customerModel: CustomerModel(
+                              widget.transitionModel.customerName, widget.transitionModel.customerPhone, widget.transitionModel.customerType, '', '', '', '', '', '','',
+                              gst: widget.transitionModel.customerGst),
                           transitionModel: widget.transitionModel,
                         ).launch(context);
                       },
@@ -622,7 +624,7 @@ class _PurchaseListEditScreenState extends State<PurchaseListEditScreen> {
 
                                         ///_________DueUpdate______________________________________________________
                                         if (pastDue < transitionModel.dueAmount!) {
-                                          double due = pastDue - transitionModel.dueAmount!;
+                                          double due = double.parse(pastDue.toString()) - double.parse(transitionModel.dueAmount == null ?  '0' :transitionModel.dueAmount.toString() );
                                           getSpecificCustomersDueUpdate(phoneNumber: widget.transitionModel.customerPhone, isDuePaid: false, due: due.toInt());
                                         } else if (pastDue > transitionModel.dueAmount!) {
                                           double due = transitionModel.dueAmount! - pastDue;
@@ -691,9 +693,8 @@ class _PurchaseListEditScreenState extends State<PurchaseListEditScreen> {
         var data = jsonDecode(jsonEncode(element.value));
         if (data['productCode'] == productCode) {
           String? key = element.key;
-          int previousStock = element.child('productStock').value.toString().toInt();
-          print(previousStock);
-          int remainStock = previousStock + productModel.productStock.toInt();
+          num previousStock = num.tryParse(element.child('productStock').value.toString())??0;
+          num remainStock = previousStock + (num.tryParse(productModel.productStock)??0);
           ref.child(key!).update({
             'productSalePrice': productModel.productSalePrice,
             'productPurchasePrice': productModel.productPurchasePrice,
@@ -735,9 +736,9 @@ class _PurchaseListEditScreenState extends State<PurchaseListEditScreen> {
         var data = jsonDecode(jsonEncode(element.value));
         if (data['productCode'] == productCode) {
           String? key = element.key;
-          int previousStock = element.child('productStock').value.toString().toInt();
+          num previousStock = num.tryParse(element.child('productStock').value.toString())??0;
           print(previousStock);
-          int remainStock = previousStock - productModel.productStock.toInt();
+          num remainStock = previousStock - (num.tryParse(productModel.productStock)??0);
           ref.child(key!).update({
             'productSalePrice': productModel.productSalePrice,
             'productPurchasePrice': productModel.productPurchasePrice,

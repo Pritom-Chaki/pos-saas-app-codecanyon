@@ -1,14 +1,10 @@
 // ignore_for_file: unused_result, use_build_context_synchronously
-
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-// import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,13 +23,13 @@ import 'package:mobile_pos/generated/l10n.dart' as lang;
 import 'package:mobile_pos/model/product_model.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 import '../../GlobalComponents/Model/category_model.dart';
 import '../../Provider/product_provider.dart';
 import '../../constant.dart';
 import '../../currency.dart';
 import '../../subscription.dart';
 import '../Warehouse/warehouse_model.dart';
+import '../tax report/tax_model.dart';
 import 'excel_upload screen.dart';
 
 class AddProduct extends StatefulWidget {
@@ -111,11 +107,15 @@ class AddProductState extends State<AddProduct> {
   //   }
   // }
 
-  final TextEditingController purchaseController = TextEditingController();
-  final TextEditingController mrpController = TextEditingController();
-  final TextEditingController wholesaleController = TextEditingController();
-  final TextEditingController delaerController = TextEditingController();
+  final TextEditingController productPurchasePriceController = TextEditingController();
+  final TextEditingController productSalePriceController = TextEditingController();
+  final TextEditingController productWholesalePriceController = TextEditingController();
+  final TextEditingController productDealerPriceController = TextEditingController();
   final TextEditingController stockController = TextEditingController();
+  TextEditingController totalAmountController = TextEditingController();
+  TextEditingController incTaxController = TextEditingController();
+  TextEditingController excTaxController = TextEditingController();
+  TextEditingController marginController = TextEditingController();
 
   String mrpText = '';
   String purchaseText = '';
@@ -123,6 +123,7 @@ class AddProductState extends State<AddProduct> {
   String dealerText = '';
   String stockText = '';
   TextEditingController productNameController = TextEditingController();
+  TextEditingController productDescriptionController = TextEditingController();
 
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,
@@ -208,6 +209,128 @@ class AddProductState extends State<AddProduct> {
     return true;
   }
 
+  bool isIncludeTax = true;
+
+  GroupTaxModel? selectedGroupTaxModel;
+
+  //___________________________________tax_type____________________________________
+  List<String> status = [
+    'Inclusive',
+    'Exclusive',
+  ];
+
+  String selectedTaxType = 'Exclusive';
+  DropdownButton<String> getTaxType() {
+    List<DropdownMenuItem<String>> dropDownItems = [];
+    for (String des in status) {
+      var item = DropdownMenuItem(
+        value: des,
+        child: Text(des),
+      );
+      dropDownItems.add(item);
+    }
+    return DropdownButton(
+      hint: const Text('Select Tax type'),
+      items: dropDownItems,
+      value: selectedTaxType,
+      onChanged: (value) {
+        setState(() {
+          selectedTaxType = value!;
+          adjustSalesPrices();
+        });
+      },
+    );
+  }
+
+  //___________________________________calculate_total_with_tax____________________
+  double totalAmount = 0.0;
+  void calculateTotal() {
+    String saleAmountText = productPurchasePriceController.text.replaceAll(',', '');
+    double saleAmount = double.tryParse(saleAmountText) ?? 0.0;
+    if (selectedGroupTaxModel != null) {
+      double taxRate = double.parse(selectedGroupTaxModel!.taxRate.toString());
+      double totalAmount = calculateTotalAmount(saleAmount, taxRate);
+      setState(() {
+        totalAmountController.text = totalAmount.toStringAsFixed(2);
+        this.totalAmount = totalAmount;
+      });
+    }
+  }
+
+  double calculateTotalAmount(double saleAmount, double taxRate) {
+    double taxDecimal = taxRate / 100;
+    double totalAmount = saleAmount + (saleAmount * taxDecimal);
+    return totalAmount;
+  }
+
+  void adjustSalesPrices() {
+    // double taxAmount =
+    //     double.tryParse(selectedGroupTaxModel?.taxRate.toString() ?? '') ?? 0.0;
+    double margin = double.tryParse(marginController.text) ?? 0;
+    double purchasePrice = double.tryParse(purchaseText) ?? 0;
+    double salesPrice = 0;
+    double excPrice = 0;
+    double taxAmount = calculateAmountFromPercentage((selectedGroupTaxModel?.taxRate.toString() ?? '').toDouble(), purchasePrice);
+
+    if (selectedTaxType == 'Inclusive') {
+      salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice);
+      // salesPrice -= calculateAmountFromPercentage(double.parse(selectedGroupTaxModel!.taxRate.toString()), purchasePrice);
+      mrpText = salesPrice.toString();
+      dealerText = salesPrice.toString();
+      wholesaleText = salesPrice.toString();
+      incTaxAmount = salesPrice.toString();
+      excTaxAmount = salesPrice.toString();
+    } else {
+      salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice) + taxAmount;
+      excPrice = purchasePrice + taxAmount;
+      mrpText = salesPrice.toString();
+      dealerText = salesPrice.toString();
+      wholesaleText = salesPrice.toString();
+      incTaxAmount = salesPrice.toString();
+      excTaxAmount = excPrice.toString();
+    }
+
+    // Add margin to prices if margin is provided
+
+    // Update controllers with adjusted prices
+    productSalePriceController.text = salesPrice.toStringAsFixed(2);
+    productWholesalePriceController.text = salesPrice.toStringAsFixed(2);
+    productDealerPriceController.text = salesPrice.toStringAsFixed(2);
+    incTaxController.text = salesPrice.toStringAsFixed(2);
+    excTaxController.text = excPrice.toStringAsFixed(2);
+  }
+
+  // Function to calculate the amount from a given percentage
+  double calculateAmountFromPercentage(double percentage, double price) {
+    return price * (percentage / 100);
+  }
+
+  String excTaxAmount = '';
+  String incTaxAmount = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    productPurchasePriceController.addListener(calculateTotal);
+    marginController.addListener(() {
+      setState(() {
+        adjustSalesPrices();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    productPurchasePriceController.removeListener(calculateTotal);
+    productPurchasePriceController.dispose();
+    totalAmountController.dispose();
+    marginController.dispose();
+    productSalePriceController.dispose();
+    productDealerPriceController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -262,6 +385,7 @@ class AddProductState extends State<AddProduct> {
         decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
         child: Consumer(builder: (context, ref, __) {
           final wareHouseList = ref.watch(warehouseProvider);
+          final groupTax = ref.watch(groupTaxProvider);
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10),
@@ -476,37 +600,82 @@ class AddProductState extends State<AddProduct> {
                             child: GestureDetector(
                               onTap: () async {
                                 await showDialog(
-                                  barrierDismissible: true,
                                   context: context,
+                                  useSafeArea: true,
                                   builder: (context1) {
                                     MobileScannerController controller = MobileScannerController(
                                       torchEnabled: false,
                                       returnImage: false,
                                     );
-                                    return WillPopScope(
-                                      onWillPop: () async => false,
-                                      child: Container(
-                                        decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(6.0)),
-                                        child: MobileScanner(
-                                          fit: BoxFit.contain,
-                                          controller: controller,
-                                          onDetect: (capture) {
-                                            final List<Barcode> barcodes = capture.barcodes;
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadiusDirectional.circular(6.0),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          AppBar(
+                                            backgroundColor: Colors.transparent,
+                                            iconTheme: const IconThemeData(color: Colors.white),
+                                            leading: IconButton(
+                                              icon: const Icon(Icons.arrow_back),
+                                              onPressed: () {
+                                                Navigator.pop(context1);
+                                              },
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: MobileScanner(
+                                              fit: BoxFit.contain,
+                                              controller: controller,
+                                              onDetect: (capture) {
+                                                final List<Barcode> barcodes = capture.barcodes;
 
-                                            if (barcodes.isNotEmpty) {
-                                              final Barcode barcode = barcodes.first;
-                                              debugPrint('Barcode found! ${barcode.rawValue}');
-                                              productCode = barcode.rawValue!;
-                                              productCodeController.text = productCode;
-                                              globalKey.currentState!.save();
-                                              Navigator.pop(context1);
-                                            }
-                                          },
-                                        ),
+                                                if (barcodes.isNotEmpty) {
+                                                  final Barcode barcode = barcodes.first;
+                                                  debugPrint('Barcode found! ${barcode.rawValue}');
+                                                  productCode = barcode.rawValue!;
+                                                  productCodeController.text = productCode;
+                                                  globalKey.currentState!.save();
+                                                  Navigator.pop(context1);
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     );
                                   },
                                 );
+
+                                // await showDialog(
+                                //   context: context,
+                                //   useSafeArea: true,
+                                //   builder: (context1) {
+                                //     MobileScannerController controller = MobileScannerController(
+                                //       torchEnabled: false,
+                                //       returnImage: false,
+                                //     );
+                                //     return Container(
+                                //       decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(6.0)),
+                                //       child: MobileScanner(
+                                //         fit: BoxFit.contain,
+                                //         controller: controller,
+                                //         onDetect: (capture) {
+                                //           final List<Barcode> barcodes = capture.barcodes;
+                                //
+                                //           if (barcodes.isNotEmpty) {
+                                //             final Barcode barcode = barcodes.first;
+                                //             debugPrint('Barcode found! ${barcode.rawValue}');
+                                //             productCode = barcode.rawValue!;
+                                //             productCodeController.text = productCode;
+                                //             globalKey.currentState!.save();
+                                //             Navigator.pop(context1);
+                                //           }
+                                //         },
+                                //       ),
+                                //     );
+                                //   },
+                                // );
                               },
                               child: Container(
                                 height: 60.0,
@@ -586,134 +755,6 @@ class AddProductState extends State<AddProduct> {
                       ],
                     ),
 
-                    ///__________purchase & sale price_______________________________
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: TextFormField(
-                              controller: purchaseController,
-                              keyboardType: TextInputType.number,
-                              // initialValue: myFormat.format(purchaseController),
-                              onChanged: (value) {
-                                purchaseText = value.replaceAll(',', '');
-                                var formattedText = myFormat.format(int.parse(purchaseText));
-                                purchaseController.value = purchaseController.value.copyWith(
-                                  text: formattedText,
-                                  selection: TextSelection.collapsed(offset: formattedText.length),
-                                );
-                              },
-                              validator: (value) {
-                                if (value.isEmptyOrNull) {
-                                  return 'Purchase Price is required';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                purchaseController.text = value!;
-                              },
-                              decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                labelText: lang.S.of(context).purchasePrice,
-                                hintText: lang.S.of(context).enterPurchasePrice,
-                                border: const OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: TextFormField(
-                              controller: mrpController,
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                mrpText = value.replaceAll(',', '');
-                                var formattedText = myFormat.format(int.parse(mrpText));
-                                mrpController.value = mrpController.value.copyWith(
-                                  text: formattedText,
-                                  selection: TextSelection.collapsed(offset: formattedText.length),
-                                );
-                              },
-                              validator: (value) {
-                                if (value.isEmptyOrNull) {
-                                  return 'MRP is required';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                mrpController.text = value!;
-                              },
-                              decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                labelText: lang.S.of(context).MRP,
-                                hintText: lang.S.of(context).enterMrpOrRetailerPirce,
-                                border: const OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    ///___________wholeSale_DealerPrice____________________________
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: TextFormField(
-                              controller: wholesaleController,
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                wholesaleText = value.replaceAll(',', '');
-                                var formattedText = myFormat.format(int.parse(wholesaleText));
-                                wholesaleController.value = wholesaleController.value.copyWith(
-                                  text: formattedText,
-                                  selection: TextSelection.collapsed(offset: formattedText.length),
-                                );
-                              },
-                              onSaved: (value) {
-                                wholesaleController.text = value!;
-                              },
-                              decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                labelText: lang.S.of(context).wholeSalePrice,
-                                hintText: lang.S.of(context).enterWholeSalePrice,
-                                border: const OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: TextFormField(
-                              controller: delaerController,
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                dealerText = value.replaceAll(',', '');
-                                var formattedText = myFormat.format(int.parse(dealerText));
-                                delaerController.value = delaerController.value.copyWith(
-                                  text: formattedText,
-                                  selection: TextSelection.collapsed(offset: formattedText.length),
-                                );
-                              },
-                              onSaved: (value) {
-                                delaerController.text = value!;
-                              },
-                              decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                labelText: lang.S.of(context).dealerPrice,
-                                hintText: lang.S.of(context).enterDealerPrice,
-                                border: const OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     Row(
                       children: [
                         Expanded(
@@ -784,6 +825,287 @@ class AddProductState extends State<AddProduct> {
                               child: CircularProgressIndicator(),
                             );
                           },
+                        ),
+                      ],
+                    ),
+
+                    //______________________________________________________________Tax________________
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          groupTax.when(
+                            data: (groupTax) {
+                              // List<WareHouseModel> wareHouseList = [];
+                              return Expanded(
+                                child: FormField(
+                                  builder: (FormFieldState<dynamic> field) {
+                                    return InputDecorator(
+                                      decoration: const InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                            borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                          ),
+                                          contentPadding: EdgeInsets.all(8.0),
+                                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                                          labelText: 'Applicable Tax'),
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton<GroupTaxModel>(
+                                          hint: const Text('Select Tax'),
+                                          items: groupTax.map((e) {
+                                            return DropdownMenuItem<GroupTaxModel>(
+                                              value: e,
+                                              child: Text(e.name),
+                                            );
+                                          }).toList(),
+                                          value: selectedGroupTaxModel,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedGroupTaxModel = value;
+                                              calculateTotal();
+                                              adjustSalesPrices(); // Update total amount when tax changes
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            error: (e, stack) {
+                              return Center(
+                                child: Text(
+                                  e.toString(),
+                                ),
+                              );
+                            },
+                            loading: () {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Expanded(
+                            child: FormField(
+                              builder: (FormFieldState<dynamic> field) {
+                                return InputDecorator(
+                                  decoration: const InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                        borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                      ),
+                                      contentPadding: EdgeInsets.all(8.0),
+                                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                                      labelText: 'Tax Type'),
+                                  child: DropdownButtonHideUnderline(
+                                    child: getTaxType(),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                          // Checkbox(
+                          //   value: isIncludeTax,
+                          //   onChanged: (value) {
+                          //     setState(() {
+                          //       isIncludeTax = value!;
+                          //     });
+                          //   },
+                          // ),
+                          // Text('Included Tax'),
+                        ],
+                      ),
+                    ),
+
+                    //______________________________________________________________Tax_Amount________________
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: TextFormField(
+                              controller: marginController,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                labelText: 'Margin',
+                                hintText: '0',
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: selectedTaxType == 'Inclusive',
+                          child: Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextFormField(
+                                readOnly: true,
+                                controller: incTaxController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  labelText: 'Inc. tax:',
+                                  hintText: '0',
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: selectedTaxType == 'Exclusive',
+                          child: Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextFormField(
+                                controller: excTaxController,
+                                readOnly: true,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  labelText: 'Exc. Tax',
+                                  hintText: '0',
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    ///__________purchase & sale price_______________________________
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: TextFormField(
+                              controller: productPurchasePriceController,
+                              keyboardType: TextInputType.number,
+                              // initialValue: myFormat.format(purchaseController),
+                              onChanged: (value) {
+                                purchaseText = value.replaceAll(',', '');
+                                adjustSalesPrices();
+                                var formattedText = myFormat.format(int.parse(purchaseText));
+                                productPurchasePriceController.value = productPurchasePriceController.value.copyWith(
+                                  text: formattedText,
+                                  selection: TextSelection.collapsed(offset: formattedText.length),
+                                );
+                              },
+                              validator: (value) {
+                                if (value.isEmptyOrNull) {
+                                  return 'Purchase Price is required';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                productPurchasePriceController.text = value!;
+                              },
+                              decoration: InputDecoration(
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                labelText: lang.S.of(context).purchasePrice,
+                                hintText: lang.S.of(context).enterPurchasePrice,
+                                border: const OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: TextFormField(
+                              controller: productSalePriceController,
+                              keyboardType: TextInputType.number,
+                              onChanged: (value) {
+                                mrpText = value.replaceAll(',', '');
+                                var formattedText = myFormat.format(int.parse(mrpText));
+                                productSalePriceController.value = productSalePriceController.value.copyWith(
+                                  text: formattedText,
+                                  selection: TextSelection.collapsed(offset: formattedText.length),
+                                );
+                              },
+                              validator: (value) {
+                                if (value.isEmptyOrNull) {
+                                  return 'MRP is required';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                productSalePriceController.text = value!;
+                              },
+                              decoration: InputDecoration(
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                labelText: lang.S.of(context).MRP,
+                                hintText: lang.S.of(context).enterMrpOrRetailerPirce,
+                                border: const OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    ///___________wholeSale_DealerPrice____________________________
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: TextFormField(
+                              controller: productWholesalePriceController,
+                              keyboardType: TextInputType.number,
+                              onChanged: (value) {
+                                wholesaleText = value.replaceAll(',', '');
+                                var formattedText = myFormat.format(int.parse(wholesaleText));
+                                productWholesalePriceController.value = productWholesalePriceController.value.copyWith(
+                                  text: formattedText,
+                                  selection: TextSelection.collapsed(offset: formattedText.length),
+                                );
+                              },
+                              onSaved: (value) {
+                                productWholesalePriceController.text = value!;
+                              },
+                              decoration: InputDecoration(
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                labelText: lang.S.of(context).wholeSalePrice,
+                                hintText: lang.S.of(context).enterWholeSalePrice,
+                                border: const OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: TextFormField(
+                              controller: productDealerPriceController,
+                              keyboardType: TextInputType.number,
+                              onChanged: (value) {
+                                dealerText = value.replaceAll(',', '');
+                                var formattedText = myFormat.format(int.parse(dealerText));
+                                productDealerPriceController.value = productDealerPriceController.value.copyWith(
+                                  text: formattedText,
+                                  selection: TextSelection.collapsed(offset: formattedText.length),
+                                );
+                              },
+                              onSaved: (value) {
+                                productDealerPriceController.text = value!;
+                              },
+                              decoration: InputDecoration(
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                labelText: lang.S.of(context).dealerPrice,
+                                hintText: lang.S.of(context).enterDealerPrice,
+                                border: const OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -877,6 +1199,38 @@ class AddProductState extends State<AddProduct> {
                         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       ),
                     ),
+
+                    ///---------product description--------------------
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        maxLines: 3,
+                        keyboardType: TextInputType.multiline,
+                        decoration: const InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          border: OutlineInputBorder(),
+                          labelText: 'Description',
+                          hintText: 'Enter Description',
+                        ),
+                        // validator: (value) {
+                        //   if (value?.removeAllWhiteSpace().toLowerCase().isEmptyOrNull ?? true) {
+                        //     return 'Product name is required.';
+                        //   } else if (!checkProductName(name: value!, id: selectedWareHouse!.id)) {
+                        //     return 'Product Name already exists in this warehouse.';
+                        //   } else {
+                        //     return null; // Validation passes
+                        //   }
+                        // },
+                        controller: productDescriptionController,
+                        onSaved: (value) {
+                          productDescriptionController.text = value!;
+                        },
+                        // onSaved: (value) {
+                        //   productName = value!;
+                        // },
+                      ),
+                    ),
+
                     Column(
                       children: [
                         const SizedBox(height: 10),
@@ -1031,14 +1385,6 @@ class AddProductState extends State<AddProduct> {
                           : () async {
                               if (!isDemo) {
                                 if (validateAndSave()) {
-                                  final availableSubscription = await Subscription.availableSubscription(context: context);
-                                  final availableLimit = await Subscription.availableLimit(itemType: 'products', context: context);
-                                  if (!availableSubscription) {
-                                    return EasyLoading.showError("Please update your subscription. Subscription date is expired.");
-                                  } else if (!availableLimit) {
-                                    return EasyLoading.showError("Please Update Your Subscription. Your products limit is expired.");
-                                  }
-
                                   try {
                                     setState(() {
                                       saleButtonClicked = true;
@@ -1052,60 +1398,64 @@ class AddProductState extends State<AddProduct> {
                                             : await uploadFile(imagePath)
                                         : null;
                                     // ignore: no_leading_underscores_for_local_identifiers
+                                    final DatabaseReference _productInformationRef = FirebaseDatabase.instance.ref().child(constUserId).child('Products');
+                                    _productInformationRef.keepSynced(true);
+                                    ProductModel productModel = ProductModel(
+                                      productName: productNameController.text,
+                                      productCategory: productCategory,
+                                      productDescription: productDescriptionController.text,
+                                      size: size,
+                                      color: color,
+                                      weight: weight,
+                                      capacity: capacity,
+                                      type: type,
+                                      brandName: brandName,
+                                      productCode: productCode,
+                                      productStock: stockText,
+                                      productUnit: productUnit,
+                                      productSalePrice: mrpText,
+                                      productPurchasePrice: purchaseText,
+                                      productDiscount: productDiscount,
+                                      productWholeSalePrice: wholesaleText,
+                                      productDealerPrice: dealerText,
+                                      productManufacturer: productManufacturer,
+                                      warehouseName: selectedWareHouse!.warehouseName,
+                                      warehouseId: selectedWareHouse!.id,
+                                      productPicture: productPicture,
+                                      expiringDate: expireDate,
+                                      manufacturingDate: manufactureDate,
+                                      lowerStockAlert: lowerStockAlert,
+                                      serialNumber: [],
+                                      taxType: selectedTaxType,
+                                      margin: num.tryParse(marginController.text) ?? 0,
+                                      excTax: num.tryParse(excTaxAmount) ?? 0,
+                                      incTax: num.tryParse(incTaxAmount) ?? 0,
+                                      groupTaxName: selectedGroupTaxModel?.name ?? '',
+                                      groupTaxRate: selectedGroupTaxModel?.taxRate ?? 0,
+                                      subTaxes: selectedGroupTaxModel?.subTaxes ?? [],
+                                    );
+                                    print(productModel.toJson());
+                                    _productInformationRef.push().set(productModel.toJson());
 
-                                    // final availableSubscription = await Subscription.availableSubscription(context: context);
-                                    // final availableLimit = await Subscription.availableLimit(itemType: 'products', context: context);
-                                    print(availableLimit);
-                                    print(availableSubscription);
-                                    if (availableSubscription && availableLimit) {
-                                      final DatabaseReference _productInformationRef = FirebaseDatabase.instance
-                                          // ignore: deprecated_member_use
-                                          .reference()
-                                          .child(constUserId)
-                                          .child('Products');
-                                      _productInformationRef.keepSynced(true);
-                                      ProductModel productModel = ProductModel(
-                                        productName: productNameController.text,
-                                        productCategory: productCategory,
-                                        size: size,
-                                        color: color,
-                                        weight: weight,
-                                        capacity: capacity,
-                                        type: type,
-                                        brandName: brandName,
-                                        productCode: productCode,
-                                        productStock: stockText,
-                                        productUnit: productUnit,
-                                        productSalePrice: mrpText,
-                                        productPurchasePrice: purchaseText,
-                                        productDiscount: productDiscount,
-                                        productWholeSalePrice: wholesaleText,
-                                        productDealerPrice: dealerText,
-                                        productManufacturer: productManufacturer,
-                                        warehouseName: selectedWareHouse!.warehouseName,
-                                        warehouseId: selectedWareHouse!.id,
-                                        productPicture: productPicture,
-                                        expiringDate: expireDate,
-                                        manufacturingDate: manufactureDate,
-                                        lowerStockAlert: lowerStockAlert,
-                                        serialNumber: [],
-                                      );
-                                      _productInformationRef.push().set(productModel.toJson());
-                                      Subscription.decreaseSubscriptionLimits(itemType: 'products', context: context);
-                                      EasyLoading.dismiss();
-                                      _productInformationRef.onChildAdded.listen((event) {
-                                        ref.refresh(productProvider);
-                                        ref.refresh(categoryProvider);
-                                        ref.refresh(brandsProvider);
-                                      });
 
-                                      Future.delayed(const Duration(milliseconds: 100), () {
-                                        const ProductList().launch(context, isNewTask: true);
-                                      });
-                                    } else {
-                                      EasyLoading.dismiss();
-                                      EasyLoading.showError("Please Update Your Subscription");
-                                    }
+                                    // ref.refresh(productProvider);
+
+                                    // ref.refresh(brandsProvider);
+                                    Subscription.decreaseSubscriptionLimits(itemType: 'products', context: context);
+                                    EasyLoading.dismiss();
+                                    // ref.refresh(categoryProvider);
+                                    ref.refresh(productProvider);
+
+                                    // _productInformationRef.onChildAdded.listen((event) {
+                                    //   ref.refresh(productProvider);
+                                    //   ref.refresh(categoryProvider);
+                                    //   ref.refresh(brandsProvider);
+                                    // });
+                                    Navigator.pop(context, true);
+
+                                    // Future.delayed(const Duration(milliseconds: 100), () {
+                                    //   const ProductList().launch(context, isNewTask: true);
+                                    // });
                                   } catch (e) {
                                     setState(() {
                                       saleButtonClicked = false;

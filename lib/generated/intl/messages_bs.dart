@@ -262,7 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Moda"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Mogućnosti su važan dio koji čini Pix Pos drugačijim od tradicionalnih rješenja."),
+            "Mogućnosti su važan dio koji čini Pos Saas drugačijim od tradicionalnih rješenja."),
         "feedBack":
             MessageLookupByLibrary.simpleMessage("Povratne informacije"),
         "firstName": MessageLookupByLibrary.simpleMessage("Ime"),
@@ -332,9 +332,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("Istorija poruka"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos aplikacija je besplatna i jednostavna za korištenje. Zapravo, to je jedan od najboljih POS sistema širom sveta."),
+            "Pos Saas aplikacija je besplatna i jednostavna za korištenje. Zapravo, to je jedan od najboljih POS sistema širom sveta."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos je potpuno poslovno rješenje sa zalihama, računima, prodajom, troškovima i gubicima/prihodom."),
+            "Pos Saas je potpuno poslovno rješenje sa zalihama, računima, prodajom, troškovima i gubicima/prihodom."),
         "monthly": MessageLookupByLibrary.simpleMessage("Mjesečno"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Više informacija"),
         "name": MessageLookupByLibrary.simpleMessage("Unesite vaše ime."),
@@ -406,7 +406,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Molimo unesite vašu email adresu u nastavku kako biste primili vezu za resetiranje lozinke."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pokreće Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Pokreće Pos Saas"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Premium korisnička podrška"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Premium plan"),
@@ -465,7 +465,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("Iznos povrata"),
         "revenue": MessageLookupByLibrary.simpleMessage("Prihod"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Zaštitite podatke svog poslovanja bez napora. Naš Pix Pos POS Unlimited Upgrade uključuje besplatno sigurnosno kopiranje podataka, osiguravajući da su vaši dragocjeni podaci zaštićeni od neočekivanih događaja. Usredotočite se na ono što zaista vrijedi - rast vašeg poslovanja."),
+            "Zaštitite podatke svog poslovanja bez napora. Naš Pos Saas POS Unlimited Upgrade uključuje besplatno sigurnosno kopiranje podataka, osiguravajući da su vaši dragocjeni podaci zaštićeni od neočekivanih događaja. Usredotočite se na ono što zaista vrijedi - rast vašeg poslovanja."),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Detalji prodaje"),
         "salePrice": MessageLookupByLibrary.simpleMessage("Cijena prodaje"),
         "saleReports":
@@ -512,7 +512,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("Počnite kucati za pretragu"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Ostanite u samom vrhu tehnoloških dostignuća bez dodatnih troškova. Naš Pix Pos POS Unlimited Upgrade osigurava da uvijek imate najnovije alate i funkcionalnosti na dohvat ruke, čime se jamči da vaša tvrtka ostane najsuvremenija."),
+            "Ostanite u samom vrhu tehnoloških dostignuća bez dodatnih troškova. Naš Pos Saas POS Unlimited Upgrade osigurava da uvijek imate najnovije alate i funkcionalnosti na dohvat ruke, čime se jamči da vaša tvrtka ostane najsuvremenija."),
         "stockList": MessageLookupByLibrary.simpleMessage("Lista zaliha"),
         "stocks": MessageLookupByLibrary.simpleMessage("Zalihe"),
         "subTotal": MessageLookupByLibrary.simpleMessage("Međuzbir"),
@@ -532,7 +532,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("Hvala vam na vašoj kupovini"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Sve govori samo ime. S Pix Pos POS Unlimited nema ograničenja za vašu upotrebu. Bez obzira jesu li u pitanju nekoliko transakcija ili navala kupaca, možete raditi s povjerenjem, znajući da niste ograničeni limitima."),
+            "Sve govori samo ime. S Pos Saas POS Unlimited nema ograničenja za vašu upotrebu. Bez obzira jesu li u pitanju nekoliko transakcija ili navala kupaca, možete raditi s povjerenjem, znajući da niste ograničeni limitima."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "Korisnik će biti izbrisan i svi podaci će biti izbrisani s vašeg računa. Jeste li sigurni da želite izbrisati ovo?"),
         "thirdPartyServices":
@@ -561,7 +561,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Neograničena upotreba"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Otključajte puni potencijal Pix Pos POS-a uz personalizirane edukativne sesije koje vodi naš stručni tim. Od osnovnih do naprednih tehnika, osiguravamo da ste dobro upućeni u korištenje svakog aspekta sustava kako biste optimizirali svoje poslovne procese."),
+            "Otključajte puni potencijal Pos Saas POS-a uz personalizirane edukativne sesije koje vodi naš stručni tim. Od osnovnih do naprednih tehnika, osiguravamo da ste dobro upućeni u korištenje svakog aspekta sustava kako biste optimizirali svoje poslovne procese."),
         "update": MessageLookupByLibrary.simpleMessage("Ažuriraj"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Ažuriraj kontakt"),
@@ -580,7 +580,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadFile": MessageLookupByLibrary.simpleMessage("Učitajte datoteku"),
         "upplier": MessageLookupByLibrary.simpleMessage("Dobavljač"),
         "useMobiPos":
-            MessageLookupByLibrary.simpleMessage("Koristite Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Koristite Pos Saas"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Korištenje sistema"),
         "userRole": MessageLookupByLibrary.simpleMessage("Korisnička uloga"),
@@ -622,7 +622,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Dobili ste email"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Uspješno ste se prijavili na svoj račun. Ostanite s Pix Pos -om."),
+            "Uspješno ste se prijavili na svoj račun. Ostanite s Pos Saas -om."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Morate ponovno se prijaviti na svoj račun."),
         "youNeedToIdentityVerifyBeforeYouBuying":

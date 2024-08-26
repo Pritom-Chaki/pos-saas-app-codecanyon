@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +9,6 @@ import 'package:mobile_pos/Screens/Authentication/register_form.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
 import 'package:mobile_pos/repository/login_repo.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 import '../../constant.dart';
 import 'forgot_password.dart';
 
@@ -47,15 +45,32 @@ class _LoginFormState extends State<LoginForm> {
   bool isDeviceConnected = false;
   bool isAlertSet = false;
 
-  getConnectivity() => subscription = Connectivity().onConnectivityChanged.listen(
-        (ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          if (!isDeviceConnected && isAlertSet == false) {
-            showDialogBox();
-            setState(() => isAlertSet = true);
-          }
-        },
-      );
+  // getConnectivity() => subscription = Connectivity().onConnectivityChanged.listen(
+  //       (ConnectivityResult result) async {
+  //         isDeviceConnected = await InternetConnectionChecker().hasConnection;
+  //         if (!isDeviceConnected && isAlertSet == false) {
+  //           showDialogBox();
+  //           setState(() => isAlertSet = true);
+  //         }
+  //       },
+  //     );
+  void connectivityCallback(List<ConnectivityResult> results) async {
+    // Since it's likely that only one result will be received,
+    // you can handle just the first one.
+    ConnectivityResult result = results.first;
+
+    isDeviceConnected = await InternetConnectionChecker().hasConnection;
+    if (!isDeviceConnected && !isAlertSet) {
+      showDialogBox();
+      setState(() => isAlertSet = true);
+    }
+  }
+
+  getConnectivity() {
+    subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> results) {
+      connectivityCallback(results);
+    });
+  }
 
   checkInternet() async {
     isDeviceConnected = await InternetConnectionChecker().hasConnection;

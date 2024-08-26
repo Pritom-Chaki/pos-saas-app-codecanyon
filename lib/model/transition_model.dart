@@ -3,15 +3,15 @@ import 'package:mobile_pos/model/product_model.dart';
 import 'add_to_cart_model.dart';
 
 class SalesTransitionModel {
-  late String customerName, customerPhone, customerAddress, customerType, customerImage, invoiceNumber, purchaseDate;
-  double? totalAmount;
-  double? dueAmount;
-  double? returnAmount;
-  double? serviceCharge;
-  double? vat;
-  double? discountAmount;
-  double? lossProfit;
-  int? totalQuantity;
+  late String customerName, customerPhone, customerAddress, customerType,customerGst, customerImage, invoiceNumber, purchaseDate;
+  dynamic totalAmount;
+  dynamic dueAmount;
+  dynamic returnAmount;
+  dynamic serviceCharge;
+  dynamic vat;
+  dynamic discountAmount;
+  dynamic lossProfit;
+  dynamic totalQuantity;
   bool? isPaid;
   String? paymentType;
   List<AddToCartModel>? productList;
@@ -26,6 +26,7 @@ class SalesTransitionModel {
     required this.purchaseDate,
     required this.customerAddress,
     required this.customerImage,
+    required this.customerGst,
     this.dueAmount,
     this.totalAmount,
     this.returnAmount,
@@ -46,6 +47,7 @@ class SalesTransitionModel {
     customerPhone = json['customerPhone'].toString();
     invoiceNumber = json['invoiceNumber'].toString();
     customerAddress = json['customerAddress'] ?? '';
+    customerGst = json['customerGst'] ?? '';
     customerImage = json['customerImage'] ??
         'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Profile%20Picture%2Fblank-profile-picture-973460_1280.webp?alt=media&token=3578c1e0-7278-4c03-8b56-dd007a9befd3';
     customerType = json['customerType'].toString();
@@ -61,6 +63,7 @@ class SalesTransitionModel {
     isPaid = json['isPaid'];
     sellerName = json['sellerName'];
     paymentType = json['paymentType'].toString();
+   // productList = <AddToCartModel>[];
     if (json['productList'] != null) {
       productList = <AddToCartModel>[];
       json['productList'].forEach((v) {
@@ -71,6 +74,7 @@ class SalesTransitionModel {
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'customerName': customerName,
+    'customerGst':customerGst,
         'customerPhone': customerPhone,
         'customerType': customerType,
         'invoiceNumber': invoiceNumber,
@@ -93,11 +97,11 @@ class SalesTransitionModel {
 }
 
 class PurchaseTransactionModel {
-  late String customerName, customerPhone, customerAddress, customerType, invoiceNumber, purchaseDate;
-  double? totalAmount;
-  double? dueAmount;
-  double? returnAmount;
-  double? discountAmount;
+  late String customerName, customerPhone, customerAddress, customerType,customerGst, invoiceNumber, purchaseDate;
+  dynamic totalAmount;
+  dynamic dueAmount;
+  dynamic returnAmount;
+  dynamic discountAmount;
 
   bool? isPaid;
   String? paymentType;
@@ -106,6 +110,7 @@ class PurchaseTransactionModel {
 
   PurchaseTransactionModel({
     required this.customerName,
+    required this.customerGst,
     required this.customerType,
     required this.customerAddress,
     required this.customerPhone,
@@ -125,6 +130,7 @@ class PurchaseTransactionModel {
     customerName = json['customerName'] as String;
     customerPhone = json['customerPhone'].toString();
     customerAddress = json['customerAddress'] ?? '';
+    customerGst = json['customerGst'] ?? '';
     invoiceNumber = json['invoiceNumber'].toString();
     customerType = json['customerType'].toString();
     purchaseDate = json['purchaseDate'].toString();
@@ -144,6 +150,7 @@ class PurchaseTransactionModel {
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'customerName': customerName,
+        'customerGst': customerGst,
         'customerPhone': customerPhone,
         'customerType': customerType,
         'customerAddress': customerAddress,

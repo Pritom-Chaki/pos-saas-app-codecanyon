@@ -336,9 +336,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("செய்தி"),
         "messageHistory": MessageLookupByLibrary.simpleMessage("செய்தி வரலாறு"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos பயன்பாடு இலவசம், பயன்படுத்த எளிதாக உள்ளது. உலகில் அதிசிலவற்றில் ஒன்றாக இருக்கும்."),
+            "Pos Saas பயன்பாடு இலவசம், பயன்படுத்த எளிதாக உள்ளது. உலகில் அதிசிலவற்றில் ஒன்றாக இருக்கும்."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos மொத்த வணிக தீர்வாகும் - பங்கு, கணக்கு, விற்பனை, செலவு மற்றும் நஷ்ட/லாபம்."),
+            "Pos Saas மொத்த வணிக தீர்வாகும் - பங்கு, கணக்கு, விற்பனை, செலவு மற்றும் நஷ்ட/லாபம்."),
         "monthly": MessageLookupByLibrary.simpleMessage("மாதாந்திர"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("மேலும் தகவல்"),
         "name":
@@ -414,7 +414,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "கடவுச்சொல் மீட்டெடுப்பதற்காக தயவுசெய்து கீழே உங்கள் மின்னஞ்சல் முகவரியை உள்ளிடவும்."),
         "powerdedByMobiPos": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos மூலம் இயக்கப்பட்டது"),
+            "Pos Saas மூலம் இயக்கப்பட்டது"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("முதுவர் வாணிக ஆதரணம்"),
         "premiumPlan":
@@ -473,7 +473,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("திரும்ப வரும் தொகை"),
         "revenue": MessageLookupByLibrary.simpleMessage("வருமானம்"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "உங்கள் வணிகத் தரவை சிரமமின்றிப் பாதுகாக்கவும். எங்களின் Pix Pos POS அன்லிமிடெட் அப்கிரேடில் இலவச டேட்டா காப்புப்பிரதி அடங்கும், உங்கள் மதிப்புமிக்க தகவல் எதிர்பாராத நிகழ்வுகளுக்கு எதிராக பாதுகாக்கப்படுவதை உறுதி செய்கிறது. உண்மையில் முக்கியமானவற்றில் கவனம் செலுத்துங்கள் - உங்கள் வணிக வளர்ச்சி."),
+            "உங்கள் வணிகத் தரவை சிரமமின்றிப் பாதுகாக்கவும். எங்களின் Pos Saas POS அன்லிமிடெட் அப்கிரேடில் இலவச டேட்டா காப்புப்பிரதி அடங்கும், உங்கள் மதிப்புமிக்க தகவல் எதிர்பாராத நிகழ்வுகளுக்கு எதிராக பாதுகாக்கப்படுவதை உறுதி செய்கிறது. உண்மையில் முக்கியமானவற்றில் கவனம் செலுத்துங்கள் - உங்கள் வணிக வளர்ச்சி."),
         "saleDetails":
             MessageLookupByLibrary.simpleMessage("விற்பனை விவரங்கள்"),
         "salePrice": MessageLookupByLibrary.simpleMessage("விற்பனை விலை"),
@@ -521,7 +521,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("தேட தட்டச்சுக்கு தொடக்கவும்"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "கூடுதல் செலவுகள் இல்லாமல் தொழில்நுட்ப முன்னேற்றங்களில் முன்னணியில் இருங்கள். எங்களின் Pix Pos POS அன்லிமிடெட் மேம்படுத்தல், சமீபத்திய கருவிகள் மற்றும் அம்சங்களை எப்போதும் உங்கள் விரல் நுனியில் வைத்திருப்பதை உறுதிசெய்கிறது, உங்கள் வணிகம் அதிநவீனமாக இருக்கும்."),
+            "கூடுதல் செலவுகள் இல்லாமல் தொழில்நுட்ப முன்னேற்றங்களில் முன்னணியில் இருங்கள். எங்களின் Pos Saas POS அன்லிமிடெட் மேம்படுத்தல், சமீபத்திய கருவிகள் மற்றும் அம்சங்களை எப்போதும் உங்கள் விரல் நுனியில் வைத்திருப்பதை உறுதிசெய்கிறது, உங்கள் வணிகம் அதிநவீனமாக இருக்கும்."),
         "stockList": MessageLookupByLibrary.simpleMessage("பங்கு பட்டியல்"),
         "stocks": MessageLookupByLibrary.simpleMessage("பங்குகள்"),
         "subTotal": MessageLookupByLibrary.simpleMessage("கூட்டு விலை"),
@@ -542,7 +542,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("உங்கள் வாங்கலுக்கு நன்றி"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "பெயர் அனைத்தையும் கூறுகிறது. Pix Pos POS அன்லிமிடெட் மூலம், உங்கள் பயன்பாட்டிற்கு எந்த வரம்பும் இல்லை. நீங்கள் ஒரு சில பரிவர்த்தனைகளைச் செய்தாலும் அல்லது வாடிக்கையாளர்களின் அவசரத்தை அனுபவித்தாலும், நீங்கள் வரம்புகளால் கட்டுப்படுத்தப்படவில்லை என்பதை அறிந்து, நம்பிக்கையுடன் செயல்படலாம்"),
+            "பெயர் அனைத்தையும் கூறுகிறது. Pos Saas POS அன்லிமிடெட் மூலம், உங்கள் பயன்பாட்டிற்கு எந்த வரம்பும் இல்லை. நீங்கள் ஒரு சில பரிவர்த்தனைகளைச் செய்தாலும் அல்லது வாடிக்கையாளர்களின் அவசரத்தை அனுபவித்தாலும், நீங்கள் வரம்புகளால் கட்டுப்படுத்தப்படவில்லை என்பதை அறிந்து, நம்பிக்கையுடன் செயல்படலாம்"),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "பயனர் நீக்கப்படும் மற்றும் அனைத்து தரவுகளும் உங்கள் கணக்கில் நீக்கப்படும். இதை நீங்கள் நிச்சயமாக நீக்க விரும்புகின்றீர்களா?"),
         "thirdPartyServices":
@@ -572,7 +572,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "units": MessageLookupByLibrary.simpleMessage("யூனிட்கள்"),
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage("அவசர பயன்பாடு"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "எங்கள் நிபுணர் குழு தலைமையிலான தனிப்பயனாக்கப்பட்ட பயிற்சி அமர்வுகளுடன் Pix Pos POS இன் முழு திறனையும் திறக்கவும். அடிப்படைகள் முதல் மேம்பட்ட நுட்பங்கள் வரை, உங்கள் வணிகச் செயல்முறைகளை மேம்படுத்த கணினியின் ஒவ்வொரு அம்சத்தையும் பயன்படுத்துவதில் நீங்கள் நன்கு அறிந்திருப்பதை நாங்கள் உறுதிசெய்கிறோம்."),
+            "எங்கள் நிபுணர் குழு தலைமையிலான தனிப்பயனாக்கப்பட்ட பயிற்சி அமர்வுகளுடன் Pos Saas POS இன் முழு திறனையும் திறக்கவும். அடிப்படைகள் முதல் மேம்பட்ட நுட்பங்கள் வரை, உங்கள் வணிகச் செயல்முறைகளை மேம்படுத்த கணினியின் ஒவ்வொரு அம்சத்தையும் பயன்படுத்துவதில் நீங்கள் நன்கு அறிந்திருப்பதை நாங்கள் உறுதிசெய்கிறோம்."),
         "update": MessageLookupByLibrary.simpleMessage("புதுப்பி"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("தொடர்பை புதுப்பிக்கவும்"),
@@ -592,7 +592,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadFile": MessageLookupByLibrary.simpleMessage("கோபம் பதிவேற்று"),
         "upplier": MessageLookupByLibrary.simpleMessage("வழக்காளர்"),
         "useMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pix Pos ஐ பயன்படுத்து"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas ஐ பயன்படுத்து"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Use of the system"),
         "userRole": MessageLookupByLibrary.simpleMessage("பயனர் பங்கு"),

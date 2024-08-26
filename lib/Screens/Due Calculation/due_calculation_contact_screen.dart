@@ -137,6 +137,11 @@ class _DueCalculationContactScreenState extends State<DueCalculationContactScree
                                         ),
                                         contentPadding: const EdgeInsets.only(left: 8.0,right: 8.0),
                                       ),
+                                      Divider(
+                                        height: 1,
+                                        thickness: 1.0,
+                                        color: kBorderColor.withOpacity(0.3),
+                                      )
                                     ],
                                   ),
                                 )

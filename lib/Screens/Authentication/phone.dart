@@ -41,15 +41,33 @@ class _PhoneAuthState extends State<PhoneAuth> {
     checkInternet();
   }
 
-  getConnectivity() => subscription = Connectivity().onConnectivityChanged.listen(
-        (ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          if (!isDeviceConnected && isAlertSet == false) {
-            showDialogBox();
-            setState(() => isAlertSet = true);
-          }
-        },
-      );
+  // getConnectivity() => subscription = Connectivity().onConnectivityChanged.listen(
+  //       (ConnectivityResult result) async {
+  //         isDeviceConnected = await InternetConnectionChecker().hasConnection;
+  //         if (!isDeviceConnected && isAlertSet == false) {
+  //           showDialogBox();
+  //           setState(() => isAlertSet = true);
+  //         }
+  //       },
+  //     );
+
+  void connectivityCallback(List<ConnectivityResult> results) async {
+    // Since it's likely that only one result will be received,
+    // you can handle just the first one.
+    ConnectivityResult result = results.first;
+
+    isDeviceConnected = await InternetConnectionChecker().hasConnection;
+    if (!isDeviceConnected && !isAlertSet) {
+      showDialogBox();
+      setState(() => isAlertSet = true);
+    }
+  }
+
+  getConnectivity() {
+    subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> results) {
+      connectivityCallback(results);
+    });
+  }
 
   checkInternet() async {
     isDeviceConnected = await InternetConnectionChecker().hasConnection;

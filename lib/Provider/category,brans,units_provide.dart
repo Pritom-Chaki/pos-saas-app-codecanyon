@@ -9,10 +9,10 @@ import 'package:mobile_pos/repository/category,brans,units_repo.dart';
 import '../Screens/Products/Model/unit_model.dart';
 
 CategoryRepo categoryRepo = CategoryRepo();
-final categoryProvider = FutureProvider.autoDispose<List<CategoryModel>>((ref) => categoryRepo.getAllCategory());
+final categoryProvider = FutureProvider<List<CategoryModel>>((ref) => categoryRepo.getAllCategory());
 
 BrandsRepo brandsRepo = BrandsRepo();
-final brandsProvider = FutureProvider.autoDispose<List<BrandsModel>>((ref) => brandsRepo.getAllBrand());
+final brandsProvider = FutureProvider<List<BrandsModel>>((ref) => brandsRepo.getAllBrand());
 
 UnitsRepo unitsRepo = UnitsRepo();
-final unitsProvider = FutureProvider.autoDispose<List<UnitModel>>((ref) => unitsRepo.getAllUnits());
+final unitsProvider = FutureProvider<List<UnitModel>>((ref) => unitsRepo.getAllUnits());

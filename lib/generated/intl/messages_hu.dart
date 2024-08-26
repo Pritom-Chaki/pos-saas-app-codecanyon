@@ -275,7 +275,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Divat"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "A funkciók azok a fontos részek, amelyek megkülönböztetik a Pix Pos-t a hagyományos megoldásoktól."),
+            "A funkciók azok a fontos részek, amelyek megkülönböztetik a Pos Saas-t a hagyományos megoldásoktól."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Visszajelzés"),
         "firstName": MessageLookupByLibrary.simpleMessage("Keresztnév"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Előlap"),
@@ -347,9 +347,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("Üzenet Előzmények"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "A Pix Pos alkalmazás ingyenes és könnyen használható. Valójában ez az egyik legjobb POS rendszer a világon."),
+            "A Pos Saas alkalmazás ingyenes és könnyen használható. Valójában ez az egyik legjobb POS rendszer a világon."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "A Pix Pos teljes üzleti megoldás készlettel, számlával, értékesítéssel, költségekkel és veszteséggel / nyereséggel."),
+            "A Pos Saas teljes üzleti megoldás készlettel, számlával, értékesítéssel, költségekkel és veszteséggel / nyereséggel."),
         "monthly": MessageLookupByLibrary.simpleMessage("Havi"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("További információ"),
         "name": MessageLookupByLibrary.simpleMessage("Add meg a neved"),
@@ -423,7 +423,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Kérlek, add meg az e-mail címedet az alábbiakban a jelszó visszaállítási link megkapásához."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Powered By Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Powered By Pos Saas"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Prémium ügyféltámogatás"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Prémium Terv"),
@@ -482,7 +482,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Visszatérítés Összege"),
         "revenue": MessageLookupByLibrary.simpleMessage("Bevétel"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Védje vállalkozása adatait könnyedén. Pix Pos POS Korlátlan Frissítésünk tartalmazza az ingyenes adatmentést, amely biztosítja az értékes információk védelmét minden előre nem látható eseménnyel szemben. Koncentráljon arra, ami valóban fontos - vállalkozása növekedésére."),
+            "Védje vállalkozása adatait könnyedén. Pos Saas POS Korlátlan Frissítésünk tartalmazza az ingyenes adatmentést, amely biztosítja az értékes információk védelmét minden előre nem látható eseménnyel szemben. Koncentráljon arra, ami valóban fontos - vállalkozása növekedésére."),
         "saleDetails":
             MessageLookupByLibrary.simpleMessage("Értékesítés Részletei"),
         "salePrice": MessageLookupByLibrary.simpleMessage("Eladási ár"),
@@ -531,7 +531,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch": MessageLookupByLibrary.simpleMessage(
             "Kezdj el gépelni a kereséshez"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Maradjon a technológiai fejlesztések élén, további költségek nélkül. A Pix Pos POS Korlátlan Frissítés biztosítja, hogy mindig a legújabb eszközök és funkciók álljanak rendelkezésére, így vállalkozása mindig a legkorszerűbb marad."),
+            "Maradjon a technológiai fejlesztések élén, további költségek nélkül. A Pos Saas POS Korlátlan Frissítés biztosítja, hogy mindig a legújabb eszközök és funkciók álljanak rendelkezésére, így vállalkozása mindig a legkorszerűbb marad."),
         "stockList": MessageLookupByLibrary.simpleMessage("Készletlista"),
         "stocks": MessageLookupByLibrary.simpleMessage("Készletek"),
         "subTotal": MessageLookupByLibrary.simpleMessage("Részösszeg"),
@@ -551,7 +551,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("Köszönjük a vásárlást"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "A név mindent elmond. A Pix Pos POS Korlátlan lehetővé teszi az Ön használatának korlátlanítását. Legyen szó néhány tranzakció feldolgozásáról vagy ügyfelek rohamáról, magabiztosan működhet, tudva, hogy nincsenek korlátok."),
+            "A név mindent elmond. A Pos Saas POS Korlátlan lehetővé teszi az Ön használatának korlátlanítását. Legyen szó néhány tranzakció feldolgozásáról vagy ügyfelek rohamáról, magabiztosan működhet, tudva, hogy nincsenek korlátok."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "A felhasználó törlődik, és az összes adat törlődik a fiókodból. Biztosan törölni szeretnéd?"),
         "thirdPartyServices":
@@ -581,7 +581,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Korlátlan használat"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Oldja fel a Pix Pos POS teljes potenciálját személyre szabott tréningekkel, amelyeket szakértő csapatunk vezet. Az alapoktól az előrehaladott technikákig biztosítjuk, hogy jól felkészülten használja a rendszer minden részét a vállalkozási folyamatai optimalizálásához."),
+            "Oldja fel a Pos Saas POS teljes potenciálját személyre szabott tréningekkel, amelyeket szakértő csapatunk vezet. Az alapoktól az előrehaladott technikákig biztosítjuk, hogy jól felkészülten használja a rendszer minden részét a vállalkozási folyamatai optimalizálásához."),
         "update": MessageLookupByLibrary.simpleMessage("Frissítés"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Kapcsolat frissítése"),
@@ -599,7 +599,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dokumentum feltöltése"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("Fájl feltöltése"),
         "useMobiPos":
-            MessageLookupByLibrary.simpleMessage("Használja a Pix Pos-t"),
+            MessageLookupByLibrary.simpleMessage("Használja a Pos Saas-t"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("A rendszer használata"),
         "userRole": MessageLookupByLibrary.simpleMessage("Felhasználói szerep"),
@@ -641,7 +641,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Kaptál egy e-mailt"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Sikeresen bejelentkeztél a fiókodba. Maradj Pix Pos-szal."),
+            "Sikeresen bejelentkeztél a fiókodba. Maradj Pos Saas-szal."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Újra be kell jelentkeznie a fiókjába."),
         "youNeedToIdentityVerifyBeforeYouBuying":

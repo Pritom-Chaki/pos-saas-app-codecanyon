@@ -26,7 +26,6 @@ import '../../const_commas.dart';
 import '../../currency.dart';
 import '../../model/subscription_model.dart';
 import '../../subscription.dart';
-import '../About App/about_app.dart';
 import '../Shimmers/home_screen_appbar_shimmer.dart';
 import '../subscription/package_screen.dart';
 
@@ -66,22 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return false;
   }
 
-  // List<Color> color = [
-  //   const Color(0xffEDFAFF),
-  //   const Color(0xffFFF6ED),
-  //   const Color(0xffEAFFEA),
-  //   const Color(0xffEAFFEA),
-  //   const Color(0xffEDFAFF),
-  //   const Color(0xffFFF6ED),
-  //   const Color(0xffFFF3FB),
-  //   const Color(0xffFFF4F4),
-  //   const Color(0xffEDFAFF),
-  //   const Color(0xffEDFAFF),
-  //   const Color(0xffEAFFEA),
-  //   const Color(0xffFFF6ED),
-  //   // const Color(0xffFFF6ED),
-  // ];
-
   List<Color> color = [
     const Color(0xffEBD7FF),
     const Color(0xffFFD6E2),
@@ -95,7 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
     const Color(0xffBBFFC1),
     const Color(0xffD4ECFF),
     const Color(0xffFFE4C1),
+    const Color(0xffEBD7FF),
     const Color(0xffD9EEFF),
+    // const Color(0xffFFF6ED),
   ];
   TextEditingController fromDateTextEditingController = TextEditingController(text: DateFormat.yMMMd().format(DateTime(2021)));
   TextEditingController toDateTextEditingController = TextEditingController(text: DateFormat.yMMMd().format(DateTime.now()));
@@ -151,10 +136,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Consumer(builder: (_, ref, __) {
         final purchaseProviderData = ref.watch(purchaseTransitionProvider);
-        final dueProviderData = ref.watch(dueTransactionProvider);
         final userProfileDetails = ref.watch(profileDetailsProvider);
         final homePageImageProvider = ref.watch(homepageImageProvider);
-        final providerData = ref.watch(transitionProvider);
+        final salesProviderData = ref.watch(transitionProvider);
         return WillPopScope(
           onWillPop: () async => false,
           child: Scaffold(
@@ -200,52 +184,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: GoogleFonts.poppins(color: Colors.white),
                                   ),
                                 ],
-                              ),
-                              const Spacer(),
-                              // Container(
-                              //   height: 40.0,
-                              //   width: 86.0,
-                              //   decoration: BoxDecoration(
-                              //     borderRadius: BorderRadius.circular(10.0),
-                              //     color: Color(0xFFD9DDE3).withOpacity(0.5),
-                              //   ),
-                              //   child: Center(
-                              //     child: Text(
-                              //       '$currency 450',
-                              //       style: GoogleFonts.p(
-                              //         fontSize: 20.0,
-                              //         color: Colors.black,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // SizedBox(
-                              //   width: 10.0,
-                              // ),
-                              Container(
-                                height: 44.0,
-                                width: 44.0,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white.withOpacity(0.1),
-                                ),
-                                child: Center(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutApp()));
-                                    },
-                                    child: const Badge(
-                                      padding: EdgeInsets.only(top: -2),
-                                      alignment: Alignment.topRight,
-                                      backgroundColor: Colors.red,
-                                      child: Icon(
-                                        Icons.notifications_none_rounded,
-                                        color: Colors.white,
-                                        size: 25,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                               ),
                             ],
                           ),
@@ -356,11 +294,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
-                                                  providerData.when(data: (transaction) {
+                                                  salesProviderData.when(data: (transaction) {
                                                     totalSell = 0;
                                                     totalDue = 0;
                                                     final reTransaction = transaction.reversed.toList();
-                                                    for (var element in reTransaction) {
+                                                    for (var element in transaction) {
                                                       if ((fromDate.isBefore(DateTime.parse(element.purchaseDate)) ||
                                                               DateTime.parse(element.purchaseDate).isAtSameMomentAs(fromDate)) &&
                                                           (toDate.isAfter(DateTime.parse(element.purchaseDate)) ||
@@ -445,28 +383,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                       crossAxisAlignment: CrossAxisAlignment.center,
                                                       children: [
-                                                        dueProviderData.when(data: (transaction) {
-                                                          final reTransaction = transaction.reversed.toList();
-                                                          // totalDue = 0;
-                                                          // for (var element in reTransaction) {
-                                                          //   if ((fromDate.isBefore(DateTime.parse(element.purchaseDate)) ||
-                                                          //           DateTime.parse(element.purchaseDate).isAtSameMomentAs(fromDate)) &&
-                                                          //       (toDate.isAfter(DateTime.parse(element.purchaseDate)) ||
-                                                          //           DateTime.parse(element.purchaseDate).isAtSameMomentAs(toDate))) {
-                                                          //     totalDue = totalDue + element.totalDue!.toDouble();
-                                                          //   }
-                                                          // }
-                                                          return transaction.isNotEmpty
-                                                              ? Text('$currency${myFormat.format(totalDue)}',
-                                                                  style: kTextStyle.copyWith(fontWeight: FontWeight.bold, color: kTitleColor))
-                                                              : Text('$currency 0');
-                                                        }, error: (e, stack) {
-                                                          return Text(e.toString());
-                                                        }, loading: () {
-                                                          return const Center(
-                                                            child: CircularProgressIndicator(),
-                                                          );
-                                                        }),
+                                                        Text('$currency${myFormat.format(totalDue)}',
+                                                            style: kTextStyle.copyWith(fontWeight: FontWeight.bold, color: kTitleColor)),
                                                         const SizedBox(height: 5),
                                                         Text(
                                                           lang.S.of(context).due,
@@ -603,7 +521,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     }, loading: () {
                                       return const CircularProgressIndicator();
                                     }),
-
                                   ],
                                 ),
                         ],
@@ -622,6 +539,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class HomeGridCards extends StatefulWidget {
   const HomeGridCards({super.key, required this.gridItems, required this.color,this.svg = true});
+
 
   final GridItems gridItems;
   final Color color;
@@ -765,6 +683,7 @@ class _HomeGridCardsState extends State<HomeGridCards> {
                 allowDrawingOutsideViewBox: false,
                 fit: BoxFit.cover,
               ) : Image.asset(widget.gridItems.icon, width: 40,height: 40,fit: BoxFit.cover,),
+
             ),
           ),
           Text(

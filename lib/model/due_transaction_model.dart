@@ -1,8 +1,8 @@
 class DueTransactionModel {
-  late String customerName, customerPhone, customerAddress, customerType, invoiceNumber, purchaseDate;
-  double? totalDue;
-  double? dueAmountAfterPay;
-  double? payDueAmount;
+  late String customerName, customerPhone, customerAddress, customerType, invoiceNumber, purchaseDate,customerGst;
+  dynamic totalDue;
+  dynamic dueAmountAfterPay;
+  dynamic payDueAmount;
   bool? isPaid;
   String? paymentType;
 
@@ -13,6 +13,7 @@ class DueTransactionModel {
     required this.customerAddress,
     required this.invoiceNumber,
     required this.purchaseDate,
+    required this.customerGst,
     this.dueAmountAfterPay,
     this.totalDue,
     this.payDueAmount,
@@ -24,6 +25,7 @@ class DueTransactionModel {
     customerName = json['customerName'] as String;
     customerPhone = json['customerPhone'].toString();
     customerAddress = json['customerAddress'] ?? '';
+    customerGst = json['customerGst'] ?? '';
     invoiceNumber = json['invoiceNumber'].toString();
     customerType = json['customerType'].toString();
     purchaseDate = json['purchaseDate'].toString();
@@ -38,6 +40,7 @@ class DueTransactionModel {
         'customerName': customerName,
         'customerPhone': customerPhone,
         'customerAddress': customerAddress,
+        'customerGst': customerGst,
         'customerType': customerType,
         'invoiceNumber': invoiceNumber,
         'purchaseDate': purchaseDate,

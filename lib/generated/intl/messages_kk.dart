@@ -268,7 +268,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Мода"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Мүмкіндіктер біздің Pix Pos  түрліден айырылып келетін өнімдеріміздің маңызды бөлігі."),
+            "Мүмкіндіктер біздің Pos Saas  түрліден айырылып келетін өнімдеріміздің маңызды бөлігі."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Пікір"),
         "firstName": MessageLookupByLibrary.simpleMessage("Аты"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Алды тарап"),
@@ -337,9 +337,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("Хабарлама"),
         "messageHistory": MessageLookupByLibrary.simpleMessage("Хабар тарихы"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos  бағдарламасы тегін, пайдалануы жеңілді. Себебі, бұл ең жақсы POS жүйесінің бірі."),
+            "Pos Saas  бағдарламасы тегін, пайдалануы жеңілді. Себебі, бұл ең жақсы POS жүйесінің бірі."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos  барлық бизнес шешімі, есеп, сату, қақтығыш және кедергі/қаржы мені жеделдетеді."),
+            "Pos Saas  барлық бизнес шешімі, есеп, сату, қақтығыш және кедергі/қаржы мені жеделдетеді."),
         "monthly": MessageLookupByLibrary.simpleMessage("Айлық"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Толығырақ"),
         "name": MessageLookupByLibrary.simpleMessage("Атыңызды енгізіңіз."),
@@ -411,7 +411,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Құпия сөзді қалпына келтіру сілтемесін алу үшін төмендегі пошта мекенжайын енгізіңіз."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pix Pos жасалды"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas жасалды"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Премиум Тіркеу Қолдауы"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Премиум тақырып"),
@@ -469,7 +469,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("Айыппу сомасы"),
         "revenue": MessageLookupByLibrary.simpleMessage("Табыс"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Сіздің бизнес деректеріңізді жасау жаттығушы болады. Біздің Pix Pos POS Unlimited Upgrade-і тегін деректерді сақтау қосымшасы, сіздің маңызды ақпаратыңызды жарамсыз событиялармен қарсы қорқытуға қамтамасыз етеді. Сіздің бизнесіңізді жастар қалдыруға құлақ аударыңыз."),
+            "Сіздің бизнес деректеріңізді жасау жаттығушы болады. Біздің Pos Saas POS Unlimited Upgrade-і тегін деректерді сақтау қосымшасы, сіздің маңызды ақпаратыңызды жарамсыз событиялармен қарсы қорқытуға қамтамасыз етеді. Сіздің бизнесіңізді жастар қалдыруға құлақ аударыңыз."),
         "saleDetails":
             MessageLookupByLibrary.simpleMessage("Сатып алу толтырмалары"),
         "salePrice": MessageLookupByLibrary.simpleMessage("Сатып алу бағасы"),
@@ -519,7 +519,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("Іздеу бастау"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Толық технологиялық жетекшіліктердің қоршағанынан босқа қалмайтындай қалың қалу. Біздің Pix Pos POS Unlimited Upgrade, сізге қосымша төлемдер және мүмкіндіктердің соңғы нүсқаларының әрекеттерін жастауға әмірдейді, сіздің бизнесіңізді жаңа алқасын жарап тұртып қалады."),
+            "Толық технологиялық жетекшіліктердің қоршағанынан босқа қалмайтындай қалың қалу. Біздің Pos Saas POS Unlimited Upgrade, сізге қосымша төлемдер және мүмкіндіктердің соңғы нүсқаларының әрекеттерін жастауға әмірдейді, сіздің бизнесіңізді жаңа алқасын жарап тұртып қалады."),
         "stockList": MessageLookupByLibrary.simpleMessage("Өнім тізімі"),
         "stocks": MessageLookupByLibrary.simpleMessage("Тауар саны"),
         "subTotal": MessageLookupByLibrary.simpleMessage("Жалпы сома"),
@@ -539,7 +539,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("Сатып алу үшін рахмет"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Атау барлығын айтып қойады. Pix Pos POS Unlimited-де пайдаланушыдың пайдалануына шектеу жоқ. Сіз кейбір транзакцияларды өңдеу немесе клиенттердің асықтауын жасау қажет болса, сіз шектеулермен бағытталмаңызды қанауға болмайды деп біліп қаласыз."),
+            "Атау барлығын айтып қойады. Pos Saas POS Unlimited-де пайдаланушыдың пайдалануына шектеу жоқ. Сіз кейбір транзакцияларды өңдеу немесе клиенттердің асықтауын жасау қажет болса, сіз шектеулермен бағытталмаңызды қанауға болмайды деп біліп қаласыз."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "Пайдаланушы жойылады және барлық деректер аккаунттан жойылады. Сіз сенімдісіз бе, оларды жоюды растайсыз бе?"),
         "thirdPartyServices":
@@ -568,7 +568,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Шектеусіз пайдалану"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos POS-тың толық потенциалын ашу. Тәжірибелі құрамымыздың жүрегінен жеткізгі сессиялар арқылы қолданылу тәсілдеріне мастер жасау. Негіздерден кеңейтілген техникаларға дейін, біз сіздің құпия сөзді қолдану тәсілін жасау үшін жетісіп үйренуге кепілдік береміз."),
+            "Pos Saas POS-тың толық потенциалын ашу. Тәжірибелі құрамымыздың жүрегінен жеткізгі сессиялар арқылы қолданылу тәсілдеріне мастер жасау. Негіздерден кеңейтілген техникаларға дейін, біз сіздің құпия сөзді қолдану тәсілін жасау үшін жетісіп үйренуге кепілдік береміз."),
         "update": MessageLookupByLibrary.simpleMessage("Жаңарту"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Байланысты жаңарту"),
@@ -586,7 +586,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadFile": MessageLookupByLibrary.simpleMessage("Файлды жүктеу"),
         "upplier": MessageLookupByLibrary.simpleMessage("Тапсырыс беруші"),
         "useMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pix Pos  пайдалану"),
+            MessageLookupByLibrary.simpleMessage("Pos Saas  пайдалану"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Жүйені пайдалану"),
         "userRole": MessageLookupByLibrary.simpleMessage("Пайдаланушы Рөлі"),
@@ -627,7 +627,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Сізге хат келді"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Сіз сәтті тұрып, аккаунтыңызға кірдіңіз. Pix Pos менімен болыңыз."),
+            "Сіз сәтті тұрып, аккаунтыңызға кірдіңіз. Pos Saas менімен болыңыз."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Сіздің аккаунтыңызға қайта кіру қажет."),
         "youNeedToIdentityVerifyBeforeYouBuying":

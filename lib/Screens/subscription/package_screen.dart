@@ -184,7 +184,7 @@ class _PackageScreenState extends State<PackageScreen> {
                                 style: const TextStyle(fontSize: 14),
                               ),
                               Text(
-                                ' $initialSelectedPackage',
+                                '$initialSelectedPackage',
                                 style: const TextStyle(fontSize: 14, color: kMainColor, fontWeight: FontWeight.bold),
                               ),
                             ],
@@ -248,8 +248,8 @@ class _PackageScreenState extends State<PackageScreen> {
                                         initialPackageService?[i] == '-202' ? 'Unlimited' : '(${initialPackageService?[i] ?? ''}/50)',
                                         style: const TextStyle(color: Colors.grey),
                                       )
-                                    :  Text(
-                                  initialPackageService?[i] == '-202' ? 'Unlimited' : '(${initialPackageService?[i] ?? ''})',
+                                    : const Text(
+                                        'Unlimited',
                                         style: TextStyle(color: Colors.grey),
                                       ),
                               ),

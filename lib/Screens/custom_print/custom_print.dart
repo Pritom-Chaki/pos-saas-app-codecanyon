@@ -3,9 +3,9 @@ import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_pos/Provider/print_purchase_provider.dart';
+import 'package:mobile_pos/Widget/primary_button_widget.dart';
 import 'package:mobile_pos/constant.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
-import 'package:mobile_pos/widget/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 ///  PROJECT_NAME:-  pos-saas-app-codecanyon-master
@@ -35,6 +35,7 @@ class _CustomPrintState extends State<CustomPrint> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: const Text(
           "Custom Print",
           style: TextStyle(color: Colors.white),

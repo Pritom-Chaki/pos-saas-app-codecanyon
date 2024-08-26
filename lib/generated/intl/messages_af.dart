@@ -266,7 +266,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Mode"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Kenmerke is die belangrike deel wat Pix Pos van tradisionele oplossings onderskei."),
+            "Kenmerke is die belangrike deel wat Pos Saas van tradisionele oplossings onderskei."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Terugvoer"),
         "firstName": MessageLookupByLibrary.simpleMessage("Voornaam"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Voorkant"),
@@ -336,9 +336,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("Boodskap Geskiedenis"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos-app is gratis, maklik om te gebruik. In werklikheid is dit een van die beste POS-stelsels wêreldwyd."),
+            "Pos Saas-app is gratis, maklik om te gebruik. In werklikheid is dit een van die beste POS-stelsels wêreldwyd."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos is \'n volledige besigheidsoplossing met voorraad, rekening, verkope, uitgawes en verlies/wins."),
+            "Pos Saas is \'n volledige besigheidsoplossing met voorraad, rekening, verkope, uitgawes en verlies/wins."),
         "monthly": MessageLookupByLibrary.simpleMessage("Maandeliks"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Meer Inligting"),
         "name": MessageLookupByLibrary.simpleMessage("Voer Jou Naam In"),
@@ -410,7 +410,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Voer asseblief jou e-posadres hieronder in om \'n skakel vir wagwoordherstel te ontvang."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Aangedryf deur Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Aangedryf deur Pos Saas"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Premium Kliëntondersteuning"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Premium-plan"),
@@ -468,7 +468,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terugkeer Bedrag"),
         "revenue": MessageLookupByLibrary.simpleMessage("Inkomste"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Beveilig jou besigheidsdata moeiteloos. Ons Pix Pos POS Unlimited Upgrade sluit gratis datarugsteun in, wat verseker dat jou waardevolle inligting teen enige onvoorsiene gebeurtenisse beskerm word. Fokus op wat werklik saak maak – jou besigheidsgroei."),
+            "Beveilig jou besigheidsdata moeiteloos. Ons Pos Saas POS Unlimited Upgrade sluit gratis datarugsteun in, wat verseker dat jou waardevolle inligting teen enige onvoorsiene gebeurtenisse beskerm word. Fokus op wat werklik saak maak – jou besigheidsgroei."),
         "saleDetails":
             MessageLookupByLibrary.simpleMessage("Verkoop Besonderhede"),
         "salePrice": MessageLookupByLibrary.simpleMessage("Verkoopprys"),
@@ -583,7 +583,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Laai Dokument op"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("Laai Lêer op"),
         "upplier": MessageLookupByLibrary.simpleMessage("Verskaffer"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("Gebruik Pix Pos"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("Gebruik Pos Saas"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Gebruik van die Stelsel"),
         "userRole": MessageLookupByLibrary.simpleMessage("Gebruikersrol"),
@@ -625,7 +625,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Jy het \'n E-pos ontvang"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Jy het suksesvol ingeteken op jou rekening. Bly saam met Pix Pos."),
+            "Jy het suksesvol ingeteken op jou rekening. Bly saam met Pos Saas."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Jy moet HER-LOGIN op jou rekening."),
         "youNeedToIdentityVerifyBeforeYouBuying":

@@ -36,6 +36,7 @@ class _EditProfileState extends State<EditProfile> {
   String initialCountry = '';
   String dropdownValue = 'Fashion Store';
   String companyName = 'nodata', phoneNumber = 'nodata';
+  String gst = '';
   double progress = 0.0;
   int invoiceNumber = 0;
   bool showProgress = false;
@@ -406,6 +407,27 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
+                          child: SizedBox(
+                            height: 60.0,
+                            child: AppTextField(
+                              textFieldType: TextFieldType.NUMBER,
+                              initialValue: details.gst,
+                              onChanged: (value) {
+                                setState(() {
+                                  gst = value;
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                hintText: 'Enter Your GST Number',
+                                labelText: "GST Number",
+
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
                           child: AppTextField(
                             initialValue: details.countryName,
                             onChanged: (value) {
@@ -464,14 +486,6 @@ class _EditProfileState extends State<EditProfile> {
                               .child(constUserId)
                               .child('Personal Information');
                           _personalInformationRef.keepSynced(true);
-                          PersonalInformationModel personalInformation = PersonalInformationModel(
-                            businessCategory: dropdownValue,
-                            companyName: companyName,
-                            phoneNumber: phoneNumber,
-                            countryName: initialCountry,
-                            language: dropdownLangValue,
-                            pictureUrl: profilePicture,
-                          );
                           _personalInformationRef.update({
                             "businessCategory": dropdownValue,
                             'companyName': companyName,
@@ -479,6 +493,7 @@ class _EditProfileState extends State<EditProfile> {
                             'countryName': initialCountry,
                             'language': dropdownLangValue,
                             "pictureUrl": profilePicture,
+                            "gst":gst,
                           });
 
                           SellerInfoModel sellerInfo = SellerInfoModel(
@@ -488,6 +503,7 @@ class _EditProfileState extends State<EditProfile> {
                             countryName: initialCountry,
                             language: dropdownLangValue,
                             pictureUrl: profilePicture,
+                            gst: gst,
                           );
 
                           String? sellerDataRef = await getSaleID(id: constUserId);

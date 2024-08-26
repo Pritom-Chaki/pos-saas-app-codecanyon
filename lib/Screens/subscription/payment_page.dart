@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -9,7 +8,7 @@ import 'package:flutter_sslcommerz/model/SSLCTransactionInfoModel.dart';
 import 'package:flutter_sslcommerz/model/SSLCommerzInitialization.dart';
 import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
 import 'package:flutter_sslcommerz/sslcommerz.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutterwave_standard/core/flutterwave.dart';
 import 'package:flutterwave_standard/models/requests/customer.dart';
 import 'package:flutterwave_standard/models/requests/customizations.dart';
@@ -23,7 +22,6 @@ import 'package:mobile_pos/repository/bank_info_repo.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:pay_with_paystack/pay_with_paystack.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-
 import '../../const_commas.dart';
 import '../../currency.dart';
 import '../../model/subscription_model.dart';
@@ -485,9 +483,9 @@ class _PaymentPageState extends State<PaymentPage> {
     case 'Kkipay':
       _handleKkipayPayment(totalAmount, currency);
       break;
-      case 'Stripe':
-        _handleStripePayment(totalAmount, currency);
-        break;
+      // case 'Stripe':
+      //   _handleStripePayment(totalAmount, currency);
+      //   break;
       case 'Tap':
         _handleTapPayment(totalAmount, currency);
         break;
@@ -501,14 +499,15 @@ class _PaymentPageState extends State<PaymentPage> {
             customerEmail: "popekabu@gmail.com",
             reference: DateTime.now().microsecondsSinceEpoch.toString(),
             currency: "GHS",
-            paymentChannel:["mobile_money", "card"],
+            paymentChannel: ["mobile_money", "card"],
             amount: "20000",
             transactionCompleted: () {
               onSuccess();
             },
             transactionNotCompleted: () {
               widget.onError();
-            });
+            },
+            callbackUrl: '');
         break;
       default:
         _handlePaypalPayment(totalAmount, currency);
@@ -541,29 +540,29 @@ class _PaymentPageState extends State<PaymentPage> {
     }
   }
 
-  _handleStripePayment(String totalAmount, String currency) async {
-    try {
-      //STEP 1: Create Payment Intent
-      var paymentIntent = await createPaymentIntent((double.parse(totalAmount) * 100).round().toString(), widget.paymentModel.stripeInfoModel.stripeCurrency);
-      print(paymentIntent);
-      Stripe.publishableKey = widget.paymentModel.stripeInfoModel.stripePublishableKey;
-      //STEP 2: Initialize Payment Sheet
-      await Stripe.instance.initPaymentSheet(
-          paymentSheetParameters: SetupPaymentSheetParameters(
-              paymentIntentClientSecret: paymentIntent!['client_secret'], //Gotten from payment intent
-              style: ThemeMode.light,
-              merchantDisplayName: 'Prince mahmud'));
-
-      //STEP 3: Display Payment sheet
-      await Stripe.instance.presentPaymentSheet().then((value) {
-        onSuccess();
-        paymentIntent = null;
-      });
-    } on StripeException catch (e) {
-      print('Error is: ${e.toString()}');
-      widget.onError();
-    }
-  }
+  // _handleStripePayment(String totalAmount, String currency) async {
+  //   try {
+  //     //STEP 1: Create Payment Intent
+  //     var paymentIntent = await createPaymentIntent((double.parse(totalAmount) * 100).round().toString(), widget.paymentModel.stripeInfoModel.stripeCurrency);
+  //     print(paymentIntent);
+  //     Stripe.publishableKey = widget.paymentModel.stripeInfoModel.stripePublishableKey;
+  //     //STEP 2: Initialize Payment Sheet
+  //     await Stripe.instance.initPaymentSheet(
+  //         paymentSheetParameters: SetupPaymentSheetParameters(
+  //             paymentIntentClientSecret: paymentIntent!['client_secret'], //Gotten from payment intent
+  //             style: ThemeMode.light,
+  //             merchantDisplayName: 'Prince mahmud'));
+  //
+  //     //STEP 3: Display Payment sheet
+  //     await Stripe.instance.presentPaymentSheet().then((value) {
+  //       onSuccess();
+  //       paymentIntent = null;
+  //     });
+  //   } on StripeException catch (e) {
+  //     print('Error is: ${e.toString()}');
+  //     widget.onError();
+  //   }
+  // }
 
   Future<void> _handleSslCommerzPayment(String totalAmount, String currency) async {
 

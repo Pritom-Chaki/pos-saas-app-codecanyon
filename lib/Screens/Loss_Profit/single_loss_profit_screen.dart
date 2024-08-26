@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_pos/const_commas.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
+import 'package:nb_utils/nb_utils.dart';
 
 import '../../constant.dart';
 import '../../currency.dart';
@@ -24,7 +25,13 @@ class _SingleLossProfitScreenState extends State<SingleLossProfitScreen> {
   double getTotalProfit() {
     double totalProfit = 0;
     for (var element in widget.transactionModel.productList!) {
-      double purchasePrice = double.parse(element.productPurchasePrice.toString()) * double.parse(element.quantity.toString());
+      double purchasePrice;
+      if (element.taxType == 'Exclusive') {
+        double tax = calculateAmountFromPercentage((element.groupTaxRate.toString() ?? '').toDouble(), double.tryParse(element.productPurchasePrice.toString()) ?? 0);
+        purchasePrice = (double.parse(element.productPurchasePrice.toString()) + tax) * double.parse(element.quantity.toString());
+      } else {
+        purchasePrice = double.parse(element.productPurchasePrice.toString()) * double.parse(element.quantity.toString());
+      }
       double salePrice = double.parse(element.subTotal.toString()) * double.parse(element.quantity.toString());
 
       double profit = salePrice - purchasePrice;
@@ -40,7 +47,13 @@ class _SingleLossProfitScreenState extends State<SingleLossProfitScreen> {
   double getTotalLoss() {
     double totalLoss = 0;
     for (var element in widget.transactionModel.productList!) {
-      double purchasePrice = double.parse(element.productPurchasePrice.toString()) * double.parse(element.quantity.toString());
+      double purchasePrice;
+      if (element.taxType == 'Exclusive') {
+        double tax = calculateAmountFromPercentage((element.groupTaxRate.toString() ?? '').toDouble(), double.tryParse(element.productPurchasePrice.toString()) ?? 0);
+        purchasePrice = (double.parse(element.productPurchasePrice.toString()) + tax) * double.parse(element.quantity.toString());
+      } else {
+        purchasePrice = (double.parse(element.productPurchasePrice.toString())) * double.parse(element.quantity.toString());
+      }
       double salePrice = double.parse(element.subTotal.toString()) * double.parse(element.quantity.toString());
 
       double profit = salePrice - purchasePrice;
@@ -51,6 +64,11 @@ class _SingleLossProfitScreenState extends State<SingleLossProfitScreen> {
     }
 
     return totalLoss;
+  }
+
+  // Function to calculate the amount from a given percentage
+  double calculateAmountFromPercentage(double percentage, double price) {
+    return (percentage * price) / 100;
   }
 
   @override
@@ -149,8 +167,17 @@ class _SingleLossProfitScreenState extends State<SingleLossProfitScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      double purchasePrice = double.parse(widget.transactionModel.productList![index].productPurchasePrice.toString()) *
-                          double.parse(widget.transactionModel.productList![index].quantity.toString());
+                      double purchasePrice;
+                      if (widget.transactionModel.productList![index].taxType == 'Exclusive') {
+                        double tax = calculateAmountFromPercentage((widget.transactionModel.productList![index].groupTaxRate.toString() ?? '').toDouble(),
+                            double.tryParse(widget.transactionModel.productList![index].productPurchasePrice.toString()) ?? 0);
+                        purchasePrice = (double.parse(widget.transactionModel.productList![index].productPurchasePrice.toString()) + tax) *
+                            double.parse(widget.transactionModel.productList![index].quantity.toString());
+                      } else {
+                        purchasePrice = double.parse(widget.transactionModel.productList![index].productPurchasePrice.toString()) *
+                            double.parse(widget.transactionModel.productList![index].quantity.toString());
+                      }
+
                       double salePrice = double.parse(widget.transactionModel.productList![index].subTotal.toString()) *
                           double.parse(widget.transactionModel.productList![index].quantity.toString());
                       double profit = salePrice - purchasePrice;
@@ -236,13 +263,13 @@ class _SingleLossProfitScreenState extends State<SingleLossProfitScreen> {
                         Expanded(
                             flex: 2,
                             child: Text(
-                              "$currency${myFormat.format(int.tryParse('${getTotalProfit().toInt()}') ?? 0)}",
+                              "$currency${myFormat.format(getTotalProfit())}",
                               style: GoogleFonts.poppins(
                                 color: Colors.black,
                               ),
                             )),
                         Text(
-                          "$currency${myFormat.format(int.tryParse('${getTotalLoss().toInt()}') ?? 0)}",
+                          "$currency${myFormat.format(getTotalLoss())}",
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.poppins(
                             color: Colors.black,

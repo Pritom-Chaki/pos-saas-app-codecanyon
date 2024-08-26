@@ -51,6 +51,44 @@ class GeneratePdf1 {
                   ),
                 ),
 
+                ///______Phone________________________________________________________________
+                pw.Container(
+                  width: double.infinity,
+                  padding: const pw.EdgeInsets.all(1.0),
+                  child: pw.Center(
+                    child: pw.Text(
+                      'Phone: ${personalInformation.phoneNumber}',
+                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                    ),
+                  ),
+                ),
+
+                ///______Address________________________________________________________________
+                pw.Container(
+                  width: double.infinity,
+                  padding: const pw.EdgeInsets.all(1.0),
+                  child: pw.Center(
+                    child: pw.Text(
+                      'Address: ${personalInformation.countryName}',
+                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                    ),
+                  ),
+                ),
+
+                ///______Shop_GST________________________________________________________________
+                personalInformation.gst.trim().isNotEmpty
+                    ? pw.Container(
+                        width: double.infinity,
+                        padding: const pw.EdgeInsets.all(1.0),
+                        child: pw.Center(
+                          child: pw.Text(
+                            'Shop GST: ${personalInformation.gst}',
+                            style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                          ),
+                        ),
+                      )
+                    : pw.Container(),
+
                 ///________Bill/Invoice_________________________________________________________
                 pw.Container(
                   width: double.infinity,
@@ -75,10 +113,7 @@ class GeneratePdf1 {
                   ///_________Left_Side__________________________________________________________
                   pw.Column(children: [
                     ///_____Name_______________________________________
-                    pw.Row(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        mainAxisAlignment: pw.MainAxisAlignment.start,
-                        children: [
+                    pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, mainAxisAlignment: pw.MainAxisAlignment.start, children: [
                       pw.SizedBox(
                         width: 60.0,
                         child: pw.Text(
@@ -153,6 +188,34 @@ class GeneratePdf1 {
                         ),
                       ),
                     ]),
+
+                    ///_____Party GST_______________________________________
+                    pw.SizedBox(height: transactions.customerGst.trim().isNotEmpty ? 2 : 0),
+                    transactions.customerGst.trim().isNotEmpty
+                        ? pw.Row(children: [
+                            pw.SizedBox(
+                              width: 60.0,
+                              child: pw.Text(
+                                'Party GST',
+                                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                            pw.SizedBox(
+                              width: 10.0,
+                              child: pw.Text(
+                                ':',
+                                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                            pw.SizedBox(
+                              width: 140.0,
+                              child: pw.Text(
+                                transactions.customerGst,
+                                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                          ])
+                        : pw.Container(),
 
                     ///_____Remarks_______________________________________
                     // pw.SizedBox(height: 2),
@@ -424,8 +487,7 @@ class GeneratePdf1 {
                         (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).productStock.toString()) ?? 0)),
                         (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).productPurchasePrice.toString()) ?? 0)),
                         (myFormat.format(double.tryParse(
-                                (double.parse(transactions.productList!.elementAt(i).productPurchasePrice) * double.parse(transactions.productList!.elementAt(i).productStock))
-                                    .toStringAsFixed(2)) ??
+                                (double.parse(transactions.productList!.elementAt(i).productPurchasePrice) * double.parse(transactions.productList!.elementAt(i).productStock)).toStringAsFixed(2)) ??
                             0))
                       ],
                   ],
@@ -487,30 +549,30 @@ class GeneratePdf1 {
                             pw.SizedBox(height: 2),
 
                             ///________vat_______________________________________________
-                            pw.Row(children: [
-                              pw.SizedBox(
-                                width: 100.0,
-                                child: pw.Text(
-                                  'Vat',
-                                  style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                                        color: PdfColors.black,
-                                        fontSize: 11,
-                                      ),
-                                ),
-                              ),
-                              pw.Container(
-                                alignment: pw.Alignment.centerRight,
-                                width: 150.0,
-                                child: pw.Text(
-                                  '0',
-                                  style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                                        color: PdfColors.black,
-                                        fontSize: 11,
-                                      ),
-                                ),
-                              ),
-                            ]),
-                            pw.SizedBox(height: 2),
+                            // pw.Row(children: [
+                            //   pw.SizedBox(
+                            //     width: 100.0,
+                            //     child: pw.Text(
+                            //       'Vat',
+                            //       style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                            //             color: PdfColors.black,
+                            //             fontSize: 11,
+                            //           ),
+                            //     ),
+                            //   ),
+                            //   pw.Container(
+                            //     alignment: pw.Alignment.centerRight,
+                            //     width: 150.0,
+                            //     child: pw.Text(
+                            //       '0',
+                            //       style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                            //             color: PdfColors.black,
+                            //             fontSize: 11,
+                            //           ),
+                            //     ),
+                            //   ),
+                            // ]),
+                            // pw.SizedBox(height: 2),
 
                             ///________Service/Shipping__________________________________
                             pw.Row(children: [
@@ -696,7 +758,7 @@ class GeneratePdf1 {
     if (Platform.isIOS) {
       EasyLoading.show(status: 'Generating PDF');
       final dir = await getApplicationDocumentsDirectory();
-      final file = File('${dir.path}/${'POS_SAAS_purchase_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
+      final file = File('${dir.path}/${'${invoiceName}_purchase_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
 
       final byteData = await doc.save();
       try {
@@ -705,7 +767,7 @@ class GeneratePdf1 {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PDFViewerPage(path: '${dir.path}/${'POS_SAAS_purchase_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
+            builder: (context) => PDFViewerPage(path: '${dir.path}/${'${invoiceName}_purchase_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
           ),
         );
         // OpenFile.open("${dir.path}/${'SalesPRO-${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf");
@@ -719,7 +781,7 @@ class GeneratePdf1 {
       EasyLoading.show(status: 'Generating PDF');
       const downloadsFolderPath = '/storage/emulated/0/Download/';
       Directory dir = Directory(downloadsFolderPath);
-      final file = File('${dir.path}/${'POS_SAAS_purchase_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
+      final file = File('${dir.path}/${'${invoiceName}_purchase_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
 
       final byteData = await doc.save();
       try {
@@ -728,7 +790,7 @@ class GeneratePdf1 {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PDFViewerPage(path: '${dir.path}/${'POS_SAAS_purchase_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
+            builder: (context) => PDFViewerPage(path: '${dir.path}/${'${invoiceName}_purchase_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
           ),
         );
         // OpenFile.open("/storage/emulated/0/download/${'SalesPRO-${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf");
@@ -745,7 +807,7 @@ class GeneratePdf1 {
       double amount = 0;
 
       for (var element in transactions.productList!) {
-        amount = amount + double.parse(element.subTotal) * double.parse(element.quantity.toString());
+        amount = amount + double.parse(element.subTotal.toString()) * double.parse(element.quantity.toString());
       }
 
       return double.parse(amount.toStringAsFixed(2));
@@ -774,6 +836,44 @@ class GeneratePdf1 {
                   ),
                 ),
 
+                ///______Phone________________________________________________________________
+                pw.Container(
+                  width: double.infinity,
+                  padding: const pw.EdgeInsets.all(1.0),
+                  child: pw.Center(
+                    child: pw.Text(
+                      'Phone: ${personalInformation.phoneNumber}',
+                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                    ),
+                  ),
+                ),
+
+                ///______Address________________________________________________________________
+                pw.Container(
+                  width: double.infinity,
+                  padding: const pw.EdgeInsets.all(1.0),
+                  child: pw.Center(
+                    child: pw.Text(
+                      'Address: ${personalInformation.countryName}',
+                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                    ),
+                  ),
+                ),
+
+                ///______Shop_GST________________________________________________________________
+                personalInformation.gst.trim().isNotEmpty
+                    ? pw.Container(
+                        width: double.infinity,
+                        padding: const pw.EdgeInsets.all(1.0),
+                        child: pw.Center(
+                          child: pw.Text(
+                            'Shop GST: ${personalInformation.gst}',
+                            style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                          ),
+                        ),
+                      )
+                    : pw.Container(),
+
                 ///________Bill/Invoice_________________________________________________________
                 pw.Container(
                   width: double.infinity,
@@ -798,10 +898,7 @@ class GeneratePdf1 {
                   ///_________Left_Side__________________________________________________________
                   pw.Column(children: [
                     ///_____Name_______________________________________
-                    pw.Row(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        mainAxisAlignment: pw.MainAxisAlignment.start,
-                        children: [
+                    pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, mainAxisAlignment: pw.MainAxisAlignment.start, children: [
                       pw.SizedBox(
                         width: 60.0,
                         child: pw.Text(
@@ -876,6 +973,34 @@ class GeneratePdf1 {
                         ),
                       ),
                     ]),
+
+                    ///_____Party GST_______________________________________
+                    pw.SizedBox(height: transactions.customerGst.trim().isNotEmpty ? 2 : 0),
+                    transactions.customerGst.trim().isNotEmpty
+                        ? pw.Row(children: [
+                            pw.SizedBox(
+                              width: 60.0,
+                              child: pw.Text(
+                                'Party GST',
+                                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                            pw.SizedBox(
+                              width: 10.0,
+                              child: pw.Text(
+                                ':',
+                                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                            pw.SizedBox(
+                              width: 140.0,
+                              child: pw.Text(
+                                transactions.customerGst,
+                                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                          ])
+                        : pw.Container(),
 
                     ///_____Remarks_______________________________________
                     // pw.SizedBox(height: 2),
@@ -1111,11 +1236,12 @@ class GeneratePdf1 {
                   // headerDecoration: pw.BoxDecoration(color: PdfColor.fromHex('#D5D8DC')),
                   columnWidths: <int, pw.TableColumnWidth>{
                     0: const pw.FlexColumnWidth(1),
-                    1: const pw.FlexColumnWidth(6),
+                    1: const pw.FlexColumnWidth(4.5),
                     2: const pw.FlexColumnWidth(1.5),
                     3: const pw.FlexColumnWidth(1.5),
                     4: const pw.FlexColumnWidth(1.7),
                     5: const pw.FlexColumnWidth(1.5),
+                    6: const pw.FlexColumnWidth(1.5),
                   },
                   headerStyle: pw.TextStyle(color: PdfColors.black, fontSize: 11, fontWeight: pw.FontWeight.bold),
                   rowDecoration: const pw.BoxDecoration(color: PdfColors.white),
@@ -1127,6 +1253,7 @@ class GeneratePdf1 {
                     3: pw.Alignment.center,
                     4: pw.Alignment.centerRight,
                     5: pw.Alignment.centerRight,
+                    6: pw.Alignment.centerRight,
                   },
                   cellAlignments: <int, pw.Alignment>{
                     0: pw.Alignment.center,
@@ -1135,9 +1262,10 @@ class GeneratePdf1 {
                     3: pw.Alignment.center,
                     4: pw.Alignment.centerRight,
                     5: pw.Alignment.centerRight,
+                    6: pw.Alignment.centerRight,
                   },
                   data: <List<String>>[
-                    <String>['SL', 'Product Description', 'Warranty', 'Quantity', 'Unit Price', 'Price'],
+                    <String>['SL', 'Product Description', 'Warranty', 'Quantity', 'Unit Price', 'TAX', 'Price'],
                     for (int i = 0; i < transactions.productList!.length; i++)
                       <String>[
                         ('${i + 1}'),
@@ -1145,9 +1273,9 @@ class GeneratePdf1 {
                         (''),
                         (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).quantity.toString()) ?? 0)),
                         (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).subTotal.toString()) ?? 0)),
-                        (myFormat.format(double.tryParse(
-                                (double.parse(transactions.productList!.elementAt(i).subTotal) * transactions.productList!.elementAt(i).quantity.toInt()).toStringAsFixed(2)) ??
-                            0))
+                        (calculateProductVat(product: transactions.productList!.elementAt(i))),
+                        (myFormat
+                            .format(double.tryParse((double.parse(transactions.productList!.elementAt(i).subTotal.toString()) * transactions.productList!.elementAt(i).quantity.toInt()).toStringAsFixed(2)) ?? 0))
                       ],
                   ],
                 ),
@@ -1208,30 +1336,34 @@ class GeneratePdf1 {
                             pw.SizedBox(height: 2),
 
                             ///________vat_______________________________________________
-                            pw.Row(children: [
-                              pw.SizedBox(
-                                width: 100.0,
-                                child: pw.Text(
-                                  'VAT/GST',
-                                  style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                                        color: PdfColors.black,
-                                        fontSize: 11,
-                                      ),
-                                ),
-                              ),
-                              pw.Container(
-                                alignment: pw.Alignment.centerRight,
-                                width: 150.0,
-                                child: pw.Text(
-                                  myFormat.format(double.tryParse(transactions.vat.toString()) ?? 0),
-                                  style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                                        color: PdfColors.black,
-                                        fontSize: 11,
-                                      ),
-                                ),
-                              ),
-                            ]),
-                            pw.SizedBox(height: 2),
+                            pw.ListView.builder(
+                              itemCount: getAllTaxFromCartList(cart: transactions.productList ?? []).length,
+                              itemBuilder: (context, index) {
+                                return pw.Row(children: [
+                                  pw.SizedBox(
+                                    width: 100.0,
+                                    child: pw.Text(
+                                      getAllTaxFromCartList(cart: transactions.productList ?? [])[index].name,
+                                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 11,
+                                          ),
+                                    ),
+                                  ),
+                                  pw.Container(
+                                    alignment: pw.Alignment.centerRight,
+                                    width: 150.0,
+                                    child: pw.Text(
+                                      '${getAllTaxFromCartList(cart: transactions.productList ?? [])[index].taxRate.toString()}%',
+                                      style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                            color: PdfColors.black,
+                                            fontSize: 11,
+                                          ),
+                                    ),
+                                  ),
+                                ]);
+                              },
+                            ),
 
                             ///________Service/Shipping__________________________________
                             pw.Row(children: [
@@ -1279,9 +1411,7 @@ class GeneratePdf1 {
                                 alignment: pw.Alignment.centerRight,
                                 width: 150.0,
                                 child: pw.Text(
-                                  myFormat.format(double.tryParse(
-                                          (transactions.vat!.toDouble() + transactions.serviceCharge!.toDouble() + totalAmount(transactions: transactions)).toString()) ??
-                                      0),
+                                  myFormat.format(double.tryParse((transactions.vat!.toDouble() + transactions.serviceCharge!.toDouble() + totalAmount(transactions: transactions)).toString()) ?? 0),
                                   style: pw.Theme.of(context).defaultTextStyle.copyWith(
                                         color: PdfColors.black,
                                         fontSize: 11,
@@ -1419,7 +1549,7 @@ class GeneratePdf1 {
     if (Platform.isIOS) {
       EasyLoading.show(status: 'Generating PDF');
       final dir = await getApplicationDocumentsDirectory();
-      final file = File('${dir.path}/${'POS_SAAS_sale${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
+      final file = File('${dir.path}/${'${invoiceName}_sale${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
 
       final byteData = await doc.save();
       try {
@@ -1428,7 +1558,7 @@ class GeneratePdf1 {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PDFViewerPage(path: '${dir.path}/${'POS_SAAS_sale${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
+            builder: (context) => PDFViewerPage(path: '${dir.path}/${'${invoiceName}_sale${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
           ),
         );
         // OpenFile.open("${dir.path}/${'SalesPRO-${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf");
@@ -1442,7 +1572,7 @@ class GeneratePdf1 {
       EasyLoading.show(status: 'Generating PDF');
       const downloadsFolderPath = '/storage/emulated/0/Download/';
       Directory dir = Directory(downloadsFolderPath);
-      final file = File('${dir.path}/${'POS_SAAS_sale_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
+      final file = File('${dir.path}/${'${invoiceName}_sale_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
 
       final byteData = await doc.save();
       try {
@@ -1451,7 +1581,7 @@ class GeneratePdf1 {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PDFViewerPage(path: '${dir.path}/${'POS_SAAS_Sale_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
+            builder: (context) => PDFViewerPage(path: '${dir.path}/${'${invoiceName}_Sale_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
           ),
         );
         // OpenFile.open("/storage/emulated/0/download/${'SalesPRO-${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf");
@@ -1494,6 +1624,44 @@ class GeneratePdf1 {
                   ),
                 ),
 
+                ///______Phone________________________________________________________________
+                pw.Container(
+                  width: double.infinity,
+                  padding: const pw.EdgeInsets.all(1.0),
+                  child: pw.Center(
+                    child: pw.Text(
+                      'Phone: ${personalInformation.phoneNumber}',
+                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                    ),
+                  ),
+                ),
+
+                ///______Address________________________________________________________________
+                pw.Container(
+                  width: double.infinity,
+                  padding: const pw.EdgeInsets.all(1.0),
+                  child: pw.Center(
+                    child: pw.Text(
+                      'Address: ${personalInformation.countryName}',
+                      style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                    ),
+                  ),
+                ),
+
+                ///______Shop_GST________________________________________________________________
+                personalInformation.gst.trim().isNotEmpty
+                    ? pw.Container(
+                        width: double.infinity,
+                        padding: const pw.EdgeInsets.all(1.0),
+                        child: pw.Center(
+                          child: pw.Text(
+                            'Shop GST: ${personalInformation.gst}',
+                            style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                          ),
+                        ),
+                      )
+                    : pw.Container(),
+
                 ///________Bill/Invoice_________________________________________________________
                 pw.Container(
                   width: double.infinity,
@@ -1518,10 +1686,7 @@ class GeneratePdf1 {
                   ///_________Left_Side__________________________________________________________
                   pw.Column(children: [
                     ///_____Name_______________________________________
-                    pw.Row(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        mainAxisAlignment: pw.MainAxisAlignment.start,
-                        children: [
+                    pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, mainAxisAlignment: pw.MainAxisAlignment.start, children: [
                       pw.SizedBox(
                         width: 60.0,
                         child: pw.Text(
@@ -1596,6 +1761,34 @@ class GeneratePdf1 {
                         ),
                       ),
                     ]),
+
+                    ///_____Party GST_______________________________________
+                    pw.SizedBox(height: transactions.customerGst.trim().isNotEmpty ? 2 : 0),
+                    transactions.customerGst.trim().isNotEmpty
+                        ? pw.Row(children: [
+                            pw.SizedBox(
+                              width: 60.0,
+                              child: pw.Text(
+                                'Party GST',
+                                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                            pw.SizedBox(
+                              width: 10.0,
+                              child: pw.Text(
+                                ':',
+                                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                            pw.SizedBox(
+                              width: 140.0,
+                              child: pw.Text(
+                                transactions.customerGst,
+                                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                              ),
+                            ),
+                          ])
+                        : pw.Container(),
 
                     ///_____Remarks_______________________________________
                     // pw.SizedBox(height: 2),
@@ -2118,7 +2311,7 @@ class GeneratePdf1 {
     if (Platform.isIOS) {
       EasyLoading.show(status: 'Generating PDF');
       final dir = await getApplicationDocumentsDirectory();
-      final file = File('${dir.path}/${'POS_SAAS_due${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
+      final file = File('${dir.path}/${'${invoiceName}_due${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
 
       final byteData = await doc.save();
       try {
@@ -2127,7 +2320,7 @@ class GeneratePdf1 {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PDFViewerPage(path: '${dir.path}/${'POS_SAAS_due${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
+            builder: (context) => PDFViewerPage(path: '${dir.path}/${'${invoiceName}_due${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
           ),
         );
         // OpenFile.open("${dir.path}/${'SalesPRO-${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf");
@@ -2141,7 +2334,7 @@ class GeneratePdf1 {
       EasyLoading.show(status: 'Generating PDF');
       const downloadsFolderPath = '/storage/emulated/0/Download/';
       Directory dir = Directory(downloadsFolderPath);
-      final file = File('${dir.path}/${'POS_SAAS_due_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
+      final file = File('${dir.path}/${'${invoiceName}_due_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
 
       final byteData = await doc.save();
       try {
@@ -2150,7 +2343,7 @@ class GeneratePdf1 {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PDFViewerPage(path: '${dir.path}/${'POS_SAAS_due_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
+            builder: (context) => PDFViewerPage(path: '${dir.path}/${'${invoiceName}_due_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
           ),
         );
         // OpenFile.open("/storage/emulated/0/download/${'SalesPRO-${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf");
@@ -2161,13 +2354,14 @@ class GeneratePdf1 {
     }
   }
 
-  Future<void> viewLossProfitPDf(PersonalInformationModel personalInformationModel, List<SalesTransitionModel> saleTransactionModel, fromDate,toDate,saleAmount,profit,loss, BuildContext? context) async {
+  Future<void> viewLossProfitPDf(
+      PersonalInformationModel personalInformationModel, List<SalesTransitionModel> saleTransactionModel, fromDate, toDate, saleAmount, profit, loss, BuildContext? context) async {
     final pw.Document doc = pw.Document();
     double totalAmount({required SalesTransitionModel transactions}) {
       double amount = 0;
 
       for (var element in transactions.productList!) {
-        amount = amount + double.parse(element.subTotal) * double.parse(element.quantity.toString());
+        amount = amount + double.parse(element.subTotal.toString()) * double.parse(element.quantity.toString());
       }
 
       return double.parse(amount.toStringAsFixed(2));
@@ -2208,9 +2402,9 @@ class GeneratePdf1 {
               pw.SizedBox(height: 10),
               pw.Center(
                   child: pw.Text(
-                    'Duration: From ${DateFormat.yMd().format(DateTime.parse(fromDate))} to ${DateFormat.yMd().format(DateTime.parse(toDate))}',
-                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 11.0),
-                  ))
+                'Duration: From ${DateFormat.yMd().format(DateTime.parse(fromDate))} to ${DateFormat.yMd().format(DateTime.parse(toDate))}',
+                style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 11.0),
+              ))
             ],
           );
         },
@@ -2289,12 +2483,8 @@ class GeneratePdf1 {
                       (saleTransactionModel.elementAt(i).invoiceNumber),
                       (saleTransactionModel.elementAt(i).customerName),
                       (myFormat.format(double.tryParse(saleTransactionModel.elementAt(i).totalAmount.toString()) ?? 0)),
-                      (myFormat.format(
-                          double.tryParse(saleTransactionModel.elementAt(i).lossProfit!.isNegative ? ' 0' : saleTransactionModel.elementAt(i).lossProfit!.toStringAsFixed(2)) ??
-                              0)),
-                      (myFormat.format(
-                          double.tryParse(saleTransactionModel.elementAt(i).lossProfit!.isNegative ? saleTransactionModel.elementAt(i).lossProfit!.toStringAsFixed(2) : ' 0') ??
-                              0)),
+                      (myFormat.format(double.tryParse(saleTransactionModel.elementAt(i).lossProfit!.isNegative ? ' 0' : saleTransactionModel.elementAt(i).lossProfit!.toStringAsFixed(2)) ?? 0)),
+                      (myFormat.format(double.tryParse(saleTransactionModel.elementAt(i).lossProfit!.isNegative ? saleTransactionModel.elementAt(i).lossProfit!.toStringAsFixed(2) : ' 0') ?? 0)),
                     ],
                   <String>['', '', '', 'Sub Total:', '${saleAmount.toString()}', '${profit.toString()}', '${loss.toString()}'],
                 ],
@@ -2307,7 +2497,7 @@ class GeneratePdf1 {
     if (Platform.isIOS) {
       EasyLoading.show(status: 'Generating PDF');
       final dir = await getApplicationDocumentsDirectory();
-      final file = File('${dir.path}/${'POS_SAAS_sale${personalInformationModel.companyName}-${saleTransactionModel.first.invoiceNumber}'}.pdf');
+      final file = File('${dir.path}/${'${invoiceName}_sale${personalInformationModel.companyName}-${saleTransactionModel.first.invoiceNumber}'}.pdf');
 
       final byteData = await doc.save();
       try {
@@ -2316,7 +2506,7 @@ class GeneratePdf1 {
         Navigator.push(
           context!,
           MaterialPageRoute(
-            builder: (context) => PDFViewerPage(path: '${dir.path}/${'POS_SAAS_sale${personalInformationModel.companyName}'}.pdf'),
+            builder: (context) => PDFViewerPage(path: '${dir.path}/${'${invoiceName}_sale${personalInformationModel.companyName}'}.pdf'),
           ),
         );
         // OpenFile.open("${dir.path}/${'SalesPRO-${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf");

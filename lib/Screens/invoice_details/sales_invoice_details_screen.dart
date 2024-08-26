@@ -1,16 +1,19 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_pos/Provider/product_provider.dart';
+import 'package:mobile_pos/Widget/primary_button_widget.dart';
 import 'package:mobile_pos/const_commas.dart';
 import 'package:mobile_pos/generated/l10n.dart' as lang;
-import 'package:mobile_pos/widget/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../Provider/printer_provider.dart';
 import '../../constant.dart' as mainConstant;
+import '../../constant.dart' as c;
 import '../../currency.dart';
 import '../../invoice_constant.dart';
 import '../../model/personal_information_model.dart';
@@ -34,7 +37,9 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, __) {
       ref.refresh(productProvider);
+
       final printerData = ref.watch(printerProviderNotifier);
+      bool isTaxonInvoice = c.isVatAdded(products: widget.transitionModel.productList ?? []);
       return SafeArea(
         child: WillPopScope(
           onWillPop: () async {
@@ -77,6 +82,12 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                           ),
                           Text(
                             widget.personalInformationModel.phoneNumber.toString(),
+                            style: kTextStyle.copyWith(
+                              color: kGreyTextColor,
+                            ),
+                          ),
+                          Text(
+                            'Shop GST: ${widget.personalInformationModel.gst}',
                             style: kTextStyle.copyWith(
                               color: kGreyTextColor,
                             ),
@@ -142,8 +153,8 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                     Row(
                       children: [
                         Text(
-                          '',
-                          style: kTextStyle.copyWith(color: kTitleColor),
+                          'Party GST: ${widget.transitionModel.customerGst}',
+                          style: kTextStyle.copyWith(color: kGreyTextColor),
                         ),
                         const Spacer(),
                         Text(
@@ -163,7 +174,7 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
-                            width: context.width() / 2.4,
+                            width: context.width() / (isTaxonInvoice ? 4.2 : 2.4),
                             child: Text(
                               lang.S.of(context).product,
                               maxLines: 2,
@@ -186,6 +197,19 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Visibility(
+                            visible: isTaxonInvoice,
+                            child: SizedBox(
+                              width: (context.width() - (context.width() / 2.4 + 20)) / 3,
+                              child: Text(
+                                "TAX",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -219,7 +243,7 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
-                                    width: context.width() / 2.4,
+                                    width: context.width() / (isTaxonInvoice ? 4.2 : 2.4),
                                     child: Text(
                                       widget.transitionModel.productList![i].productName.toString(),
                                       maxLines: 2,
@@ -240,17 +264,32 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                                   SizedBox(
                                     width: (context.width() - (context.width() / 2.4 + 20)) / 3,
                                     child: Text(
-                                      '$currency ${myFormat.format(int.tryParse(widget.transitionModel.productList![i].subTotal) ?? 0)}',
+                                      '$currency ${myFormat.format(double.tryParse(widget.transitionModel.productList![i].subTotal.toString())?.round() ?? 0)}',
                                       maxLines: 1,
                                       textAlign: TextAlign.center,
                                       overflow: TextOverflow.ellipsis,
                                       style: kTextStyle.copyWith(color: kGreyTextColor),
                                     ),
                                   ),
+                                  Visibility(
+                                    visible: isTaxonInvoice,
+                                    child: SizedBox(
+                                      width: (context.width() - (context.width() / 2.4 + 20)) / 3,
+                                      child: Text(
+                                        c.calculateProductVat(product: widget.transitionModel.productList![i]).isNotEmpty
+                                            ? '$currency ${c.calculateProductVat(product: widget.transitionModel.productList![i])}'
+                                            : '$currency 0',
+                                        maxLines: 1,
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: kTextStyle.copyWith(color: kGreyTextColor),
+                                      ),
+                                    ),
+                                  ),
                                   SizedBox(
                                     width: (context.width() - (context.width() / 2.4 + 20)) / 3,
                                     child: Text(
-                                      '$currency ${myFormat.format(double.parse(widget.transitionModel.productList![i].subTotal) * widget.transitionModel.productList![i].quantity)}',
+                                      '$currency ${myFormat.format((double.tryParse(widget.transitionModel.productList![i].subTotal.toString()) ?? 0) * widget.transitionModel.productList![i].quantity)}',
                                       maxLines: 1,
                                       textAlign: TextAlign.center,
                                       overflow: TextOverflow.ellipsis,
@@ -266,25 +305,55 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                       thickness: 1.0,
                       color: kGreyTextColor.withOpacity(0.1),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          lang.S.of(context).totalVat,
-                          maxLines: 1,
-                          style: kTextStyle.copyWith(color: kGreyTextColor),
-                        ),
-                        const SizedBox(width: 20.0),
-                        SizedBox(
-                          width: 120,
-                          child: Text(
-                            '$currency ${widget.transitionModel.vat}',
-                            maxLines: 2,
-                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.end,
-                          ),
-                        ),
-                      ],
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     Text(
+                    //       lang.S.of(context).totalVat,
+                    //       maxLines: 1,
+                    //       style: kTextStyle.copyWith(color: kGreyTextColor),
+                    //     ),
+                    //     const SizedBox(width: 20.0),
+                    //     SizedBox(
+                    //       width: 120,
+                    //       child: Text(
+                    //         '$currency ${widget.transitionModel.vat}',
+                    //         maxLines: 2,
+                    //         style: kTextStyle.copyWith(
+                    //             color: kTitleColor,
+                    //             fontWeight: FontWeight.bold),
+                    //         textAlign: TextAlign.end,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+
+                    ///________vat_______________________________________________
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: c.getAllTaxFromCartList(cart: widget.transitionModel.productList ?? []).length,
+                      itemBuilder: (context, index) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              c.getAllTaxFromCartList(cart: widget.transitionModel.productList ?? [])[index].name,
+                              maxLines: 1,
+                              style: kTextStyle.copyWith(color: kGreyTextColor),
+                            ),
+                            const SizedBox(width: 20.0),
+                            SizedBox(
+                              width: 120,
+                              child: Text(
+                                '${c.getAllTaxFromCartList(cart: widget.transitionModel.productList ?? [])[index].taxRate.toString()}%',
+                                maxLines: 2,
+                                style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.end,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                     const SizedBox(height: 5.0),
                     Row(
@@ -469,6 +538,7 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                   child: GestureDetector(
                     onTap: () async {
 
+
                       showDialog(
                           context: context,
                           builder: (_) {
@@ -523,7 +593,6 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                               ),
                             );
                           });
-
 
                     },
                     child: Container(
@@ -611,9 +680,9 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
     PrintTransactionModel model = PrintTransactionModel(transitionModel: widget.transitionModel, personalInformationModel: widget.personalInformationModel);
     mainConstant.connected
         ? printerData.printTicket(
-      printTransactionModel: model,
-      productList: model.transitionModel!.productList,
-      printer58: printer58
+        printTransactionModel: model,
+        productList: model.transitionModel!.productList,
+        printer58: printer58
     )
         : showDialog(
         context: context,
@@ -666,4 +735,6 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
           );
         });
   }
+
+
 }

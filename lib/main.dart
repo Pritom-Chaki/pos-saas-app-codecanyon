@@ -30,7 +30,6 @@ import 'package:mobile_pos/Screens/custom_print/custom_print.dart';
 import 'package:mobile_pos/Screens/stock_list/stock_list.dart';
 import 'package:mobile_pos/constant.dart';
 import 'package:provider/provider.dart' as pro;
-
 import 'Screens/Authentication/profile_setup.dart';
 import 'Screens/Due Calculation/due_calculation_contact_screen.dart';
 import 'Screens/Legder/ledger_screen.dart';
@@ -38,6 +37,7 @@ import 'Screens/Purchase List/purchase_list_screen.dart';
 import 'Screens/Purchase/choose_supplier_screen.dart';
 import 'Screens/Sales List/sales_list_screen.dart';
 import 'Screens/Warranty/warranty_screen.dart';
+import 'Screens/tax report/tax_report.dart';
 import 'generated/l10n.dart';
 
 void configLoading() {
@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
                     GlobalCupertinoLocalizations.delegate,
                   ],
                   supportedLocales: S.delegate.supportedLocales,
-                  title: 'Pix Pos',
+                  title: 'POSBHARAT',
                   initialRoute: '/',
                   builder: EasyLoading.init(),
                   routes: {
@@ -105,10 +105,8 @@ class MyApp extends StatelessWidget {
                     '/profile': (context) => const ProfileScreen(),
                     // '/SMS': (context) => const SendSms(),
                     // ignore: missing_required_param
-
                     // '/AddProducts': (context) => AddProduct(),
                     // '/UpdateProducts': (context) => const UpdateProduct(),
-
                     '/Product': (context) => const ProductList(),
                     '/Sale List': (context) => const SalesListScreen(),
                     // ignore: missing_required_param
@@ -133,8 +131,9 @@ class MyApp extends StatelessWidget {
                     '/Purchase List': (context) => const PurchaseListScreen(),
                     '/Loss/Profit': (context) => const LossProfitScreen(),
                     '/Ledger': (context) => const LedgerScreen(),
-                    '/CustomPrint': (context) => const CustomPrint(),
                     '/Warranty': (context) => const WarrantyScreen(),
+                    '/taxReport': (context) => const TaxReport(),
+                    '/CustomPrint': (context) => const CustomPrint(),
                   },
                 )));
   }

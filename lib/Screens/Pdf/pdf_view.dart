@@ -32,6 +32,7 @@ class PDFViewerPageState extends State<PDFViewerPage> {
         children: <Widget>[
           Expanded(
             child: PDFView(
+
               filePath: widget.path,
             ),
           ),

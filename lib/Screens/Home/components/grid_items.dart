@@ -12,11 +12,9 @@ class GridItems {
 List<GridItems> getFreeIcons({required BuildContext context}){
   List<GridItems> freeIcons = [
     GridItems(
-
       title: lang.S.of(context).sales,
       route: 'Sales',
       icon: 'images/sales.svg',
-
     ),
 
     GridItems(
@@ -76,26 +74,15 @@ List<GridItems> getFreeIcons({required BuildContext context}){
       route: 'Expense'
     ),
     GridItems(
+        title: 'Tax Report',
+        icon: 'images/saleslist.svg',
+        route: 'taxReport'
+    ),
+    GridItems(
       title: lang.S.of(context).customPrint,
       icon: 'images/printer.png',
       route: 'CustomPrint',
     ),
-    // GridItems(
-    //   title: 'Warranty',
-    //   icon: 'images/warranty.png',
-    // ),
-    // GridItems(
-    //   title: 'Delivery',
-    //   icon: 'images/delivery.png',
-    // ),
-    // GridItems(
-    //   title: 'Calculator',
-    //   icon: 'images/calculator.png',
-    // ),
-    // GridItems(
-    //   title: 'Expense',
-    //   icon: 'images/expenses.png',
-    // )
   ];
   return freeIcons;
 }

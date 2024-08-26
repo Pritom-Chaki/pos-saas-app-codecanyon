@@ -1,12 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:share_plus/share_plus.dart';
 
+import '../Screens/Pdf/pdf_view.dart';
 import '../const_commas.dart';
 import '../constant.dart';
 import '../generate_pdf.dart';
@@ -19,7 +22,7 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
     double amount = 0;
 
     for (var element in transactions.productList!) {
-      amount = amount + double.parse(element.subTotal) * double.parse(element.quantity.toString());
+      amount = amount + double.parse(element.subTotal.toString()) * double.parse(element.quantity.toString());
     }
 
     return double.parse(amount.toStringAsFixed(2));
@@ -48,23 +51,63 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
                 ),
               ),
 
+              ///______Phone________________________________________________________________
+              pw.Container(
+                width: double.infinity,
+                padding: const pw.EdgeInsets.all(1.0),
+                child: pw.Center(
+                  child: pw.Text(
+                    'Phone: ${personalInformation.phoneNumber}',
+                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                  ),
+                ),
+              ),
+
+              ///______Address________________________________________________________________
+              pw.Container(
+                width: double.infinity,
+                padding: const pw.EdgeInsets.all(1.0),
+                child: pw.Center(
+                  child: pw.Text(
+                    'Address: ${personalInformation.countryName}',
+                    style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                  ),
+                ),
+              ),
+
+              ///______Shop_GST________________________________________________________________
+              personalInformation.gst.trim().isNotEmpty
+                  ? pw.Container(
+                      width: double.infinity,
+                      padding: const pw.EdgeInsets.all(1.0),
+                      child: pw.Center(
+                        child: pw.Text(
+                          'Shop GST: ${personalInformation.gst}',
+                          style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 14.0),
+                        ),
+                      ),
+                    )
+                  : pw.Container(),
+
               ///________Bill/Invoice_________________________________________________________
               pw.Container(
                 width: double.infinity,
                 padding: const pw.EdgeInsets.all(10.0),
                 child: pw.Center(
-                    child: pw.Container(
-                        decoration: pw.BoxDecoration(
-                          border: pw.Border.all(color: PdfColors.black, width: 0.5),
-                          borderRadius: const pw.BorderRadius.all(pw.Radius.circular(10)),
-                        ),
-                        child: pw.Padding(
-                          padding: const pw.EdgeInsets.only(top: 2.0, bottom: 2, left: 5, right: 5),
-                          child: pw.Text(
-                            'Bill/Invoice',
-                            style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 16.0, fontWeight: pw.FontWeight.bold),
-                          ),
-                        ),),),
+                  child: pw.Container(
+                    decoration: pw.BoxDecoration(
+                      border: pw.Border.all(color: PdfColors.black, width: 0.5),
+                      borderRadius: const pw.BorderRadius.all(pw.Radius.circular(10)),
+                    ),
+                    child: pw.Padding(
+                      padding: const pw.EdgeInsets.only(top: 2.0, bottom: 2, left: 5, right: 5),
+                      child: pw.Text(
+                        'Bill/Invoice',
+                        style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black, fontSize: 16.0, fontWeight: pw.FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
               ),
 
               ///___________price_section_____________________________________________________
@@ -73,7 +116,6 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
                 pw.Column(children: [
                   ///_____Name_______________________________________
                   pw.Row(children: [
-
                     pw.SizedBox(
                       width: 60.0,
                       child: pw.Text(
@@ -91,13 +133,12 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
                     pw.SizedBox(
                       width: 140.0,
                       child: pw.Text(
-                        transactions.customerName,maxLines: 2,
+                        transactions.customerName,
+                        maxLines: 2,
                         style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
                       ),
                     ),
-                  ],crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  mainAxisAlignment: pw.MainAxisAlignment.start
-                  ),
+                  ], crossAxisAlignment: pw.CrossAxisAlignment.start, mainAxisAlignment: pw.MainAxisAlignment.start),
 
                   ///_____Phone_______________________________________
                   pw.SizedBox(height: 2),
@@ -150,6 +191,34 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
                       ),
                     ),
                   ]),
+
+                  ///_____Party GST_______________________________________
+                  pw.SizedBox(height: transactions.customerGst.trim().isNotEmpty ? 2 : 0),
+                  transactions.customerGst.trim().isNotEmpty
+                      ? pw.Row(children: [
+                          pw.SizedBox(
+                            width: 60.0,
+                            child: pw.Text(
+                              'Party GST',
+                              style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                            ),
+                          ),
+                          pw.SizedBox(
+                            width: 10.0,
+                            child: pw.Text(
+                              ':',
+                              style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                            ),
+                          ),
+                          pw.SizedBox(
+                            width: 140.0,
+                            child: pw.Text(
+                              transactions.customerGst,
+                              style: pw.Theme.of(context).defaultTextStyle.copyWith(color: PdfColors.black),
+                            ),
+                          ),
+                        ])
+                      : pw.Container(),
 
                   ///_____Remarks_______________________________________
                   // pw.SizedBox(height: 2),
@@ -385,11 +454,12 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
                 // headerDecoration: pw.BoxDecoration(color: PdfColor.fromHex('#D5D8DC')),
                 columnWidths: <int, pw.TableColumnWidth>{
                   0: const pw.FlexColumnWidth(1),
-                  1: const pw.FlexColumnWidth(6),
+                  1: const pw.FlexColumnWidth(4.5),
                   2: const pw.FlexColumnWidth(1.5),
                   3: const pw.FlexColumnWidth(1.5),
                   4: const pw.FlexColumnWidth(1.7),
                   5: const pw.FlexColumnWidth(1.5),
+                  6: const pw.FlexColumnWidth(1.5),
                 },
                 headerStyle: pw.TextStyle(color: PdfColors.black, fontSize: 11, fontWeight: pw.FontWeight.bold),
                 rowDecoration: const pw.BoxDecoration(color: PdfColors.white),
@@ -401,6 +471,7 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
                   3: pw.Alignment.center,
                   4: pw.Alignment.centerRight,
                   5: pw.Alignment.centerRight,
+                  6: pw.Alignment.centerRight,
                 },
                 cellAlignments: <int, pw.Alignment>{
                   0: pw.Alignment.center,
@@ -409,9 +480,10 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
                   3: pw.Alignment.center,
                   4: pw.Alignment.centerRight,
                   5: pw.Alignment.centerRight,
+                  6: pw.Alignment.centerRight,
                 },
                 data: <List<String>>[
-                  <String>['SL', 'Product Description', 'Warranty', 'Quantity', 'Unit Price', 'Price'],
+                  <String>['SL', 'Product Description', 'Warranty', 'Quantity', 'Unit Price', 'TAX', 'Price'],
                   for (int i = 0; i < transactions.productList!.length; i++)
                     <String>[
                       ('${i + 1}'),
@@ -419,9 +491,9 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
                       (''),
                       (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).quantity.toString()) ?? 0)),
                       (myFormat.format(double.tryParse(transactions.productList!.elementAt(i).subTotal.toString()) ?? 0)),
-                      (myFormat.format(double.tryParse(
-                              (double.parse(transactions.productList!.elementAt(i).subTotal) * transactions.productList!.elementAt(i).quantity.toInt()).toStringAsFixed(2)) ??
-                          0))
+                      (calculateProductVat(product: transactions.productList!.elementAt(i))),
+                      (myFormat
+                          .format(double.tryParse((double.parse(transactions.productList!.elementAt(i).subTotal.toString()) * transactions.productList!.elementAt(i).quantity.toInt()).toStringAsFixed(2)) ?? 0))
                     ],
                 ],
               ),
@@ -482,29 +554,59 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
                           pw.SizedBox(height: 2),
 
                           ///________vat_______________________________________________
-                          pw.Row(children: [
-                            pw.SizedBox(
-                              width: 100.0,
-                              child: pw.Text(
-                                'VAT/GST',
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                                      color: PdfColors.black,
-                                      fontSize: 11,
-                                    ),
-                              ),
-                            ),
-                            pw.Container(
-                              alignment: pw.Alignment.centerRight,
-                              width: 150.0,
-                              child: pw.Text(
-                                myFormat.format(double.tryParse(transactions.vat.toString()) ?? 0),
-                                style: pw.Theme.of(context).defaultTextStyle.copyWith(
-                                      color: PdfColors.black,
-                                      fontSize: 11,
-                                    ),
-                              ),
-                            ),
-                          ]),
+                          pw.ListView.builder(
+                            itemCount: getAllTaxFromCartList(cart: transactions.productList ?? []).length,
+                            itemBuilder: (context, index) {
+                              return pw.Row(children: [
+                                pw.SizedBox(
+                                  width: 100.0,
+                                  child: pw.Text(
+                                    getAllTaxFromCartList(cart: transactions.productList ?? [])[index].name,
+                                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                          color: PdfColors.black,
+                                          fontSize: 11,
+                                        ),
+                                  ),
+                                ),
+                                pw.Container(
+                                  alignment: pw.Alignment.centerRight,
+                                  width: 150.0,
+                                  child: pw.Text(
+                                    '${getAllTaxFromCartList(cart: transactions.productList ?? [])[index].taxRate.toString()}%',
+                                    style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                                          color: PdfColors.black,
+                                          fontSize: 11,
+                                        ),
+                                  ),
+                                ),
+                              ]);
+                            },
+                          ),
+
+                          ///________vat_______________________________________________
+                          // pw.Row(children: [
+                          //   pw.SizedBox(
+                          //     width: 100.0,
+                          //     child: pw.Text(
+                          //       'VAT/GST',
+                          //       style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                          //             color: PdfColors.black,
+                          //             fontSize: 11,
+                          //           ),
+                          //     ),
+                          //   ),
+                          //   pw.Container(
+                          //     alignment: pw.Alignment.centerRight,
+                          //     width: 150.0,
+                          //     child: pw.Text(
+                          //       myFormat.format(double.tryParse(transactions.vat.toString()) ?? 0),
+                          //       style: pw.Theme.of(context).defaultTextStyle.copyWith(
+                          //             color: PdfColors.black,
+                          //             fontSize: 11,
+                          //           ),
+                          //     ),
+                          //   ),
+                          // ]),
                           pw.SizedBox(height: 2),
 
                           ///________Service/Shipping__________________________________
@@ -553,9 +655,7 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
                               alignment: pw.Alignment.centerRight,
                               width: 150.0,
                               child: pw.Text(
-                                myFormat.format(
-                                    double.tryParse((transactions.vat!.toDouble() + transactions.serviceCharge!.toDouble() + totalAmount(transactions: transactions)).toString()) ??
-                                        0),
+                                myFormat.format(double.tryParse((transactions.vat!.toDouble() + transactions.serviceCharge!.toDouble() + totalAmount(transactions: transactions)).toString()) ?? 0),
                                 style: pw.Theme.of(context).defaultTextStyle.copyWith(
                                       color: PdfColors.black,
                                       fontSize: 11,
@@ -692,7 +792,7 @@ Future<File> createAndSaveSalePDF({required SalesTransitionModel transactions, r
   );
 
   final output = await getTemporaryDirectory();
-  final file = File('${output.path}/POS_SAAS_sale_${transactions.invoiceNumber}.pdf');
+  final file = File('${output.path}/${invoiceName}_sale_${transactions.invoiceNumber}.pdf');
   await file.writeAsBytes(await pdf.save());
 
   return file;
@@ -702,3 +802,57 @@ void shareSalePDF({required SalesTransitionModel transactions, required Personal
   final pdfFile = await createAndSaveSalePDF(context: context, personalInformation: personalInformation, transactions: transactions);
   Share.shareFiles([pdfFile.path], text: 'Share PDF');
 }
+
+// Future<void> showSalesPDF({required SalesTransitionModel transactions, required PersonalInformationModel personalInformation, required BuildContext context}) async {
+//   if (Platform.isIOS) {
+//     EasyLoading.show(status: 'Generating PDF');
+//     final dir = await getApplicationDocumentsDirectory();
+//     final file = File('${dir.path}/${'POS_Bharat_sale${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
+//
+//     final byteData = await doc.save();
+//     try {
+//       await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+//       EasyLoading.showSuccess('Done');
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => PDFViewerPage(path: '${dir.path}/${'POS_Bharat_sale${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
+//         ),
+//       );
+//       // OpenFile.open("${dir.path}/${'SalesPRO-${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf");
+//     } on FileSystemException catch (err) {
+//       EasyLoading.showError(err.message);
+//       // handle error
+//     }
+//   }
+//
+//   if (Platform.isAndroid) {
+//     EasyLoading.show(status: 'Generating PDF');
+//     const downloadsFolderPath = '/storage/emulated/0/Download/';
+//     Directory dir = Directory(downloadsFolderPath);
+//     final file = File('${dir.path}/${'POS_Bharat_sale_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf');
+//
+//     final byteData = await doc.save();
+//     try {
+//       await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+//       EasyLoading.showSuccess('Created and Saved');
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => PDFViewerPage(path: '${dir.path}/${'POS_Bharat_Sale_${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf'),
+//         ),
+//       );
+//       // OpenFile.open("/storage/emulated/0/download/${'SalesPRO-${personalInformation.companyName}-${transactions.invoiceNumber}'}.pdf");
+//     } on FileSystemException catch (err) {
+//       EasyLoading.showError(err.message);
+//       // handle error
+//     }
+//     // var status = await Permission.storage.status;
+//     // if (status != PermissionStatus.granted) {
+//     //   status = await Permission.storage.request();
+//     // }
+//     // if (status.isGranted) {
+//     //
+//     // }
+//   }
+// }

@@ -249,7 +249,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("ເຟຣມບັນພະຄົມ"),
         "fashion": MessageLookupByLibrary.simpleMessage("ຕົວແທນ"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "ຄວາມຄືບັນຫາແມ່ນພາຍຫລັງທີ່ຈະໃຊ້ການ Pix Pos ຈັດຕະນີຈາກວິດີໂອຂອງການສະເຫນີຕາມພວກເຮົາ."),
+            "ຄວາມຄືບັນຫາແມ່ນພາຍຫລັງທີ່ຈະໃຊ້ການ Pos Saas ຈັດຕະນີຈາກວິດີໂອຂອງການສະເຫນີຕາມພວກເຮົາ."),
         "feedBack": MessageLookupByLibrary.simpleMessage("ຄຳແນະນຳ"),
         "firstName": MessageLookupByLibrary.simpleMessage("ຊື່ແທ້"),
         "fontSide": MessageLookupByLibrary.simpleMessage("ຖົງໂລກ"),
@@ -317,9 +317,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("ປະຫວັດການສົ່ງຂໍ້ຄວາມ"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "ລະບົບ Pix Pos ຟຣີດ, ຄໍາຮ້ອງທາງໄວ້ງ່າຍ. ນີ້ແມ່ນລະຫວ່າງການນາຍພາສາຂອງການຂາຍພາຍໃນໂລກປະຈຳຕົວຕະລາງທີ່ມີໂມດູນຫຼາຍທີ່ປະສົງຂະນະໃນສົມບັດຂອງທ່ານໄດ້."),
+            "ລະບົບ Pos Saas ຟຣີດ, ຄໍາຮ້ອງທາງໄວ້ງ່າຍ. ນີ້ແມ່ນລະຫວ່າງການນາຍພາສາຂອງການຂາຍພາຍໃນໂລກປະຈຳຕົວຕະລາງທີ່ມີໂມດູນຫຼາຍທີ່ປະສົງຂະນະໃນສົມບັດຂອງທ່ານໄດ້."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "ລະບົບ Pix Pos ຄວາມສາມາດເປັນການປະສານທັງຫມົດຂອງທ່ານດ້ວຍການນຳພາຍ, ບັດປະຈຳຕົວຕະລາງ, ການຂາຍ, ການຈ່າຍຄ່າ & ການໃຫ້ລູກຢູ່/ລາວລົງຂອງທ່ານ."),
+            "ລະບົບ Pos Saas ຄວາມສາມາດເປັນການປະສານທັງຫມົດຂອງທ່ານດ້ວຍການນຳພາຍ, ບັດປະຈຳຕົວຕະລາງ, ການຂາຍ, ການຈ່າຍຄ່າ & ການໃຫ້ລູກຢູ່/ລາວລົງຂອງທ່ານ."),
         "monthly": MessageLookupByLibrary.simpleMessage("ເດືອນ"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("ຂໍ້ມູນເພີ່ມເຕີມ"),
         "name": MessageLookupByLibrary.simpleMessage("ປ້ອນຊື່ຂອງທ່ານ"),
@@ -389,7 +389,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "ກະລຸນາປ້ອນອີເມລຂອງທ່ານລອງທີ່ຈະຮູ້ສຶກສາລະຫັດລະຫັດຜ່ານ."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("ຮູບແບບຂະຫນາດໂດຍ Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("ຮູບແບບຂະຫນາດໂດຍ Pos Saas"),
         "premiumCustomerSupport": MessageLookupByLibrary.simpleMessage(
             "ການສະຫນັບລວບລວມຂອງລູກທໍາອ້ອມ"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("ເອກະສານນິຍົມ"),
@@ -445,7 +445,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("ຈຳນວນເງິນຄືນ"),
         "revenue": MessageLookupByLibrary.simpleMessage("ລາຍຮັບ"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "ປົກປ້ອງຂໍ້ມູນທຸລະກິດຂອງທ່ານຢ່າງງ່າຍດາຍ. Pix Pos POS Unlimited Upgrade ຂອງພວກເຮົາປະກອບມີການສໍາຮອງຂໍ້ມູນຟຣີ, ໃຫ້ແນ່ໃຈວ່າຂໍ້ມູນທີ່ມີຄຸນຄ່າຂອງທ່ານຖືກປົກປ້ອງຈາກເຫດການທີ່ບໍ່ໄດ້ຄາດຄິດ. ສຸມໃສ່ສິ່ງທີ່ສໍາຄັນແທ້ໆ - ການເຕີບໂຕຂອງທຸລະກິດຂອງທ່ານ."),
+            "ປົກປ້ອງຂໍ້ມູນທຸລະກິດຂອງທ່ານຢ່າງງ່າຍດາຍ. Pos Saas POS Unlimited Upgrade ຂອງພວກເຮົາປະກອບມີການສໍາຮອງຂໍ້ມູນຟຣີ, ໃຫ້ແນ່ໃຈວ່າຂໍ້ມູນທີ່ມີຄຸນຄ່າຂອງທ່ານຖືກປົກປ້ອງຈາກເຫດການທີ່ບໍ່ໄດ້ຄາດຄິດ. ສຸມໃສ່ສິ່ງທີ່ສໍາຄັນແທ້ໆ - ການເຕີບໂຕຂອງທຸລະກິດຂອງທ່ານ."),
         "saleDetails": MessageLookupByLibrary.simpleMessage("ລາຍລະອຽດການຂາຍ"),
         "salePrice": MessageLookupByLibrary.simpleMessage("ລາຄາຂາຍ"),
         "saleReports": MessageLookupByLibrary.simpleMessage("ລາຍງານການຂາຍ"),
@@ -488,7 +488,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("ເລີ່ມຕົວຢ່າງເພື່ອຄົ້ນຫາ"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "ຢືນໃຈຢູ່ໃບພັກພິເກຊ້ານຕາມການການແບ່ງ່າຍໂດຍບໍ່ມີຄ່າເພີ່ມເຕີ. Pix Pos POS Unlimited Upgrade ການປັບປຸງທ່ານຄືນມີຂະຫວີແຫຼ່ນດ້ວຍມີຄ່າໂດຍນຳມາ, ການກອກຕອນແລະຄາວວ່າການສະບັບຂອງທ່ານຄວນກັບການສະຖິງຂຶ້ງ."),
+            "ຢືນໃຈຢູ່ໃບພັກພິເກຊ້ານຕາມການການແບ່ງ່າຍໂດຍບໍ່ມີຄ່າເພີ່ມເຕີ. Pos Saas POS Unlimited Upgrade ການປັບປຸງທ່ານຄືນມີຂະຫວີແຫຼ່ນດ້ວຍມີຄ່າໂດຍນຳມາ, ການກອກຕອນແລະຄາວວ່າການສະບັບຂອງທ່ານຄວນກັບການສະຖິງຂຶ້ງ."),
         "stockList": MessageLookupByLibrary.simpleMessage("ລາຍການສະຕັອກ"),
         "stocks": MessageLookupByLibrary.simpleMessage("ຈຳນວນສິນຄ້າ"),
         "subTotal": MessageLookupByLibrary.simpleMessage("ລວມລາຄາຍົວກວ່າ"),
@@ -509,7 +509,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("ຂໍຂອບໃຈທ່ານສິນຄ້າໃນການຊື້"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "ຊື່ເວົ້າວ່າມັນທັງຫມົດ. ດ້ວຍ Pix Pos POS Unlimited, ບໍ່ມີຂີດຈຳກັດໃນການນຳໃຊ້ຂອງທ່ານ. ບໍ່ວ່າທ່ານກໍາລັງດໍາເນີນທຸລະກໍາຈໍານວນຫນຶ່ງຫຼືປະສົບກັບລູກຄ້າທີ່ຮີບຮ້ອນ, ທ່ານສາມາດດໍາເນີນການດ້ວຍຄວາມຫມັ້ນໃຈ, ໂດຍຮູ້ວ່າທ່ານບໍ່ໄດ້ຖືກຈໍາກັດໂດຍຂໍ້ຈໍາກັດ."),
+            "ຊື່ເວົ້າວ່າມັນທັງຫມົດ. ດ້ວຍ Pos Saas POS Unlimited, ບໍ່ມີຂີດຈຳກັດໃນການນຳໃຊ້ຂອງທ່ານ. ບໍ່ວ່າທ່ານກໍາລັງດໍາເນີນທຸລະກໍາຈໍານວນຫນຶ່ງຫຼືປະສົບກັບລູກຄ້າທີ່ຮີບຮ້ອນ, ທ່ານສາມາດດໍາເນີນການດ້ວຍຄວາມຫມັ້ນໃຈ, ໂດຍຮູ້ວ່າທ່ານບໍ່ໄດ້ຖືກຈໍາກັດໂດຍຂໍ້ຈໍາກັດ."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "ຜູ້ໃຊ້ງານຈະຖືກລົບແລ້ວເລື່ອງທີ່ຂ້ອຍຈະຖືກລົບລາຍການທັງຫມົດຈາກບັນຊີຂອງທ່ານ. ທ່ານແນ່ໃຈບໍ່ທີ່ຈະລົບອີເມລແນວໃດນີ້?"),
         "thirdPartyServices":
@@ -540,7 +540,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("ການນໍາໃຊ້ທົ່ວໂລກ"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "ປົດລັອກທ່າແຮງອັນເຕັມທີ່ຂອງ Pix Pos POS ດ້ວຍການຝຶກອົບຮົມສ່ວນບຸກຄົນທີ່ນໍາພາໂດຍທີມງານຜູ້ຊ່ຽວຊານຂອງພວກເຮົາ. ຈາກພື້ນຖານໄປສູ່ເຕັກນິກຂັ້ນສູງ, ພວກເຮົາຮັບປະກັນວ່າທ່ານມີຄວາມຊໍານິຊໍານານໃນການນໍາໃຊ້ທຸກໆດ້ານຂອງລະບົບເພື່ອເພີ່ມປະສິດທິພາບຂະບວນການທຸລະກິດຂອງທ່ານ."),
+            "ປົດລັອກທ່າແຮງອັນເຕັມທີ່ຂອງ Pos Saas POS ດ້ວຍການຝຶກອົບຮົມສ່ວນບຸກຄົນທີ່ນໍາພາໂດຍທີມງານຜູ້ຊ່ຽວຊານຂອງພວກເຮົາ. ຈາກພື້ນຖານໄປສູ່ເຕັກນິກຂັ້ນສູງ, ພວກເຮົາຮັບປະກັນວ່າທ່ານມີຄວາມຊໍານິຊໍານານໃນການນໍາໃຊ້ທຸກໆດ້ານຂອງລະບົບເພື່ອເພີ່ມປະສິດທິພາບຂະບວນການທຸລະກິດຂອງທ່ານ."),
         "update": MessageLookupByLibrary.simpleMessage("ປັບປຸງ"),
         "updateContact": MessageLookupByLibrary.simpleMessage("ປັບປຸງຕິດຕໍ່"),
         "updateNow":
@@ -558,7 +558,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ອັບໂຫຼດເອກະສານ"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("ອັບໂຫຼດໄຟລ"),
         "upplier": MessageLookupByLibrary.simpleMessage("ຜູ້ສະໜອງ"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("ໃຊ້ລະບົບ Pix Pos"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("ໃຊ້ລະບົບ Pos Saas"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Use of the system"),
         "userRole": MessageLookupByLibrary.simpleMessage("ບັນຊີຜູ້ໃຊ້"),
@@ -597,7 +597,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("ທ່ານມີອີເມລທີ່"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "ທ່ານໄດ້ເຂົ້າລະບົບສົມບູນ. ປ້ອນຕົວຕົນດຽວກັນກັບ Pix Pos."),
+            "ທ່ານໄດ້ເຂົ້າລະບົບສົມບູນ. ປ້ອນຕົວຕົນດຽວກັນກັບ Pos Saas."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "ທ່ານຕ້ອງເຂົ້າລະບົບສົ່ງສຳນັກສຳຮອງໃຫ້ທ່ານ."),
         "youNeedToIdentityVerifyBeforeYouBuying":

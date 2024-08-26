@@ -271,7 +271,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Мода"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Функции являются важной частью, которая делает Pix Pos отличной от традиционных решений."),
+            "Функции являются важной частью, которая делает Pos Saas отличной от традиционных решений."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Обратная связь"),
         "firstName": MessageLookupByLibrary.simpleMessage("Имя"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Лицевая сторона"),
@@ -340,9 +340,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("История сообщений"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Приложение Pix Pos бесплатно и просто в использовании. Фактически, это одна из лучших POS-систем во всем мире."),
+            "Приложение Pos Saas бесплатно и просто в использовании. Фактически, это одна из лучших POS-систем во всем мире."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pix Pos - это полное бизнес-решение с учетом товаров, учетом, продажами, расходами и прибылью/убытками."),
+            "Pos Saas - это полное бизнес-решение с учетом товаров, учетом, продажами, расходами и прибылью/убытками."),
         "monthly": MessageLookupByLibrary.simpleMessage("Ежемесячно"),
         "moreInfo":
             MessageLookupByLibrary.simpleMessage("Дополнительная информация"),
@@ -416,7 +416,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Пожалуйста, введите ваш адрес электронной почты ниже, чтобы получить ссылку для сброса пароля."),
         "powerdedByMobiPos": MessageLookupByLibrary.simpleMessage(
-            "Работает на платформе Pix Pos"),
+            "Работает на платформе Pos Saas"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Премиум поддержка клиентов"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Премиум план"),
@@ -525,7 +525,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("Начните вводить для поиска"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Оставайтесь на переднем крае технологических достижений без дополнительных затрат. Наше бесплатное обновление Pix Pos POS гарантирует, что у вас всегда есть доступ к последним инструментам и функциям, обеспечивая актуальность вашего бизнеса."),
+            "Оставайтесь на переднем крае технологических достижений без дополнительных затрат. Наше бесплатное обновление Pos Saas POS гарантирует, что у вас всегда есть доступ к последним инструментам и функциям, обеспечивая актуальность вашего бизнеса."),
         "stockList": MessageLookupByLibrary.simpleMessage("Список товаров"),
         "stocks": MessageLookupByLibrary.simpleMessage("Запасы"),
         "subTotal": MessageLookupByLibrary.simpleMessage("Итого"),
@@ -546,7 +546,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("Спасибо за вашу покупку"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Название говорит само за себя. С Pix Pos POS Unlimited у вас нет ограничений в использовании. Независимо от того, обрабатываете ли вы небольшое количество транзакций или сталкиваетесь с резким увеличением клиентов, вы можете работать с уверенностью, зная, что вас не ограничивают никакие рамки."),
+            "Название говорит само за себя. С Pos Saas POS Unlimited у вас нет ограничений в использовании. Независимо от того, обрабатываете ли вы небольшое количество транзакций или сталкиваетесь с резким увеличением клиентов, вы можете работать с уверенностью, зная, что вас не ограничивают никакие рамки."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "Пользователь будет удален, и все данные будут удалены из вашего аккаунта. Вы уверены, что хотите удалить это?"),
         "thirdPartyServices":
@@ -575,7 +575,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage(
             "Неограниченное использование"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Разблокируйте полный потенциал Pix Pos POS с персонализированными тренировочными сессиями, проводимыми нашей командой экспертов. Мы обучим вас от основ до продвинутых техник, чтобы вы могли оптимизировать свои бизнес-процессы."),
+            "Разблокируйте полный потенциал Pos Saas POS с персонализированными тренировочными сессиями, проводимыми нашей командой экспертов. Мы обучим вас от основ до продвинутых техник, чтобы вы могли оптимизировать свои бизнес-процессы."),
         "update": MessageLookupByLibrary.simpleMessage("Обновить"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Обновить контакт"),
@@ -593,7 +593,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Загрузить документ"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("Загрузить файл"),
         "useMobiPos":
-            MessageLookupByLibrary.simpleMessage("Используйте Pix Pos"),
+            MessageLookupByLibrary.simpleMessage("Используйте Pos Saas"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Использование системы"),
         "userRole": MessageLookupByLibrary.simpleMessage("Роль пользователя"),
@@ -635,7 +635,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("У вас есть письмо"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Вы успешно вошли в свой аккаунт. Оставайтесь с Pix Pos."),
+            "Вы успешно вошли в свой аккаунт. Оставайтесь с Pos Saas."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Вы должны ПЕРЕВОЙТИ в свою учетную запись."),
         "youNeedToIdentityVerifyBeforeYouBuying":
