@@ -33,6 +33,7 @@ import 'package:nb_utils/nb_utils.dart';
 import '../../Provider/printer_provider.dart';
 import '../../Provider/product_provider.dart';
 import '../../Provider/seles_report_provider.dart';
+import '../../Widget/primary_button_widget.dart';
 import '../../constant.dart';
 import '../../currency.dart';
 import '../../model/DailyTransactionModel.dart';
@@ -1533,7 +1534,7 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                           setState(() {
                                             saleButtonClicked = true;
                                           });
-                                          
+
                                           dueAmount <= 0
                                               ? transitionModel.isPaid = true
                                               : transitionModel.isPaid = false;
@@ -1561,14 +1562,13 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                               : null;
                                           transitionModel.invoiceNumber =
                                               invoice.toString();
-                                  
+
                                           num totalQuantity = 0;
                                           double lossProfit = 0;
                                           double totalPurchasePrice = 0;
                                           double totalSalePrice = 0;
                                           for (var element
                                               in transitionModel.productList!) {
-                                        
                                             if (element.taxType ==
                                                 'Exclusive') {
                                               double tax =
@@ -1586,7 +1586,6 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                                                   .toString()) +
                                                               tax) *
                                                           element.quantity);
-                                        
                                             } else {
                                               totalPurchasePrice =
                                                   totalPurchasePrice +
@@ -1594,17 +1593,15 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                                               .productPurchasePrice
                                                               .toString()) *
                                                           element.quantity);
-                                          
                                             }
-                                          
+
                                             totalSalePrice = totalSalePrice +
-                                                (double.parse(
-                                                        element.subTotal.toString()) *
+                                                (double.parse(element.subTotal
+                                                        .toString()) *
                                                     element.quantity);
-                                     
+
                                             totalQuantity = totalQuantity +
                                                 element.quantity;
-                                       
                                           }
                                           lossProfit = ((totalSalePrice -
                                                   totalPurchasePrice
@@ -1612,7 +1609,7 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                               double.parse(transitionModel
                                                   .discountAmount
                                                   .toString()));
-                                  
+
                                           transitionModel.totalQuantity =
                                               totalQuantity;
                                           transitionModel.lossProfit =
@@ -1624,7 +1621,6 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                           ref
                                               .push()
                                               .set(transitionModel.toJson());
-                                  
 
                                           ///__________StockMange_________________________________________________-
 
@@ -1633,7 +1629,6 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                             decreaseStock(element.productId,
                                                 element.quantity);
                                           }
-                                     
 
                                           ///_______invoice_Update_____________________________________________
                                           final DatabaseReference
@@ -1649,7 +1644,6 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                           personalInformationRef.update({
                                             'saleInvoiceCounter': invoice + 1
                                           });
-                                     
 
                                           ///________Subscription_____________________________________________________
 
@@ -1657,7 +1651,6 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                               .decreaseSubscriptionLimits(
                                                   itemType: 'saleNumber',
                                                   context: context);
-                                   
 
                                           ///_________DueUpdate______________________________________________________
                                           getSpecificCustomers(
@@ -1667,7 +1660,7 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                                   .toInt());
 
                                           ///________daily_transactionModel_________________________________________________________________________
-                                          
+
                                           DailyTransactionModel
                                               dailyTransaction =
                                               DailyTransactionModel(
@@ -1738,64 +1731,43 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                                                   Colors.grey),
                                                           const SizedBox(
                                                               height: 15),
-                                                          TextButton(
-                                                            style: TextButton
-                                                                .styleFrom(
-                                                              backgroundColor:
-                                                                  Colors.green,
-                                                              textStyle:
-                                                                  TextStyle(
-                                                                height: 1.2,
-                                                                fontFamily:
-                                                                    'Dubai',
-                                                                fontSize: 13,
-                                                                color:
-                                                                    Colors.blue,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child:
+                                                                PrimaryButton(
+                                                              label: "58 mm",
+                                                              isDisabled: false,
+                                                              onPressed: () =>
+                                                                  rePrinter(
+                                                                      printerData,
+                                                                      true,
+                                                                      model,
+                                                                      providerData,
+                                                                      consumerRef,
+                                                                      data),
                                                             ),
-                                                            onPressed: () {
-                                                              rePrinter(
-                                                                  printerData,
-                                                                  true,
-                                                                  model,
-                                                                  providerData,
-                                                                  consumerRef,
-                                                                  data);
-                                                            },
-                                                            child: const Text(
-                                                                '58 mm'),
                                                           ),
-                                                          TextButton(
-                                                            style: TextButton
-                                                                .styleFrom(
-                                                              backgroundColor:
-                                                                  Colors.green,
-                                                              textStyle:
-                                                                  TextStyle(
-                                                                height: 1.2,
-                                                                fontSize: 13,
-                                                                color:
-                                                                    Colors.blue,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child:
+                                                                PrimaryButton(
+                                                              label: "80 mm",
+                                                              isDisabled: false,
+                                                              onPressed: () =>
+                                                                  rePrinter(
+                                                                      printerData,
+                                                                      false,
+                                                                      model,
+                                                                      providerData,
+                                                                      consumerRef,
+                                                                      data),
                                                             ),
-                                                            onPressed: () {
-                                                              rePrinter(
-                                                                  printerData,
-                                                                  false,
-                                                                  model,
-                                                                  providerData,
-                                                                  consumerRef,
-                                                                  data);
-                                                            },
-                                                            child: const Text(
-                                                                '80 mm'),
                                                           ),
+                                         
                                                           GestureDetector(
                                                             onTap: () {
                                                               Navigator.pop(

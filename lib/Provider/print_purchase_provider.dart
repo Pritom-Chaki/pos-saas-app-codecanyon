@@ -96,7 +96,7 @@ class PrinterPurchase extends ChangeNotifier {
     //   PosColumn(text: 'Total', width: 3, styles: const PosStyles(align: PosAlign.right, bold: true)),
     // ]);
     bytes += generator.hr();
-    bytes += await productTable(productList:[],purchaseProduct: printTransactionModel.purchaseTransitionModel?.productList??[], isFour: false);
+    bytes += await productTable(true, productList:[],purchaseProduct: printTransactionModel.purchaseTransitionModel?.productList??[], isFour: false);
     // List.generate(productList?.length ?? 1, (index) {
     //   return bytes += generator.row([
     //     PosColumn(text: productList?[index].productName ?? 'Not Defined', width: 5, styles: const PosStyles(align: PosAlign.left)),

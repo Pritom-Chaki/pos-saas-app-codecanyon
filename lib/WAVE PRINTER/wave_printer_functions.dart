@@ -4,43 +4,133 @@ import 'package:mobile_pos/model/product_model.dart';
 import '../constant.dart';
 import '../model/add_to_cart_model.dart';
 
-Future<List<int>> productTable({required List<AddToCartModel> productList,required List<ProductModel>? purchaseProduct, required bool isFour}) async {
+Future<List<int>> productTable(bool printer58,
+    {required List<AddToCartModel> productList,
+    required List<ProductModel>? purchaseProduct,
+    required bool isFour}) async {
   List<int> data = [];
-  if(purchaseProduct!=null){
+  if (purchaseProduct != null) {
     for (var element in purchaseProduct) {
       data += await tableItem(
+        printer58,
         items: [
           element.productName ?? '',
-          (double.tryParse(element.productPurchasePrice) ?? 0).round().toString(),
+          (double.tryParse(element.productPurchasePrice) ?? 0)
+              .round()
+              .toString(),
           element.productStock,
           "${(double.tryParse(element.productPurchasePrice) ?? 0) * (double.tryParse(element.productStock) ?? 0)}",
         ],
         isFour: true,
       );
     }
-
-  }else{
+  } else {
     for (var element in productList) {
       data += isFour
           ? await tableItem(
-        items: [
-          element.productName ?? '',
-          (double.tryParse(element.subTotal.toString()) ?? 0).toStringAsFixed(0),
-          element.quantity.toString(),
-          "${double.parse(element.subTotal.toString()) * int.parse(element.quantity.toString())}",
-        ],
-        isFour: true,
-      )
+              printer58,
+              items: [
+                element.productName ?? '',
+                (double.tryParse(element.subTotal.toString()) ?? 0)
+                    .toStringAsFixed(0),
+                element.quantity.toString(),
+                "${double.parse(element.subTotal.toString()) * int.parse(element.quantity.toString())}",
+              ],
+              isFour: true,
+            )
           : await tableItem(
-        items: [
-          element.productName ?? '',
-          (double.tryParse(element.subTotal) ?? 0).round().toString(),
-          element.quantity.toString(),
-          calculateProductVat(product: element),
-          "${double.parse(element.subTotal) * element.quantity.toInt()}",
-        ],
-        isFour: false,
-      );
+              printer58,
+              items: [
+                element.productName ?? '',
+                (double.tryParse(element.subTotal) ?? 0).round().toString(),
+                element.quantity.toString(),
+                calculateProductVat(product: element),
+                "${double.parse(element.subTotal) * element.quantity.toInt()}",
+              ],
+              isFour: false,
+            );
+    }
+  }
+
+  return data;
+}
+
+Future<List<int>> productTable2(Generator generator,
+    {required List<AddToCartModel> productList,
+    required List<ProductModel>? purchaseProduct,
+    required bool isFour}) async {
+  List<int> data = [];
+  if (purchaseProduct != null) {
+    for (var element in purchaseProduct) {
+      data += generator.row([
+        PosColumn(
+            text: element.productName ?? '',
+            width: 4,
+            styles: const PosStyles(align: PosAlign.left, bold: true)),
+        PosColumn(
+            text: (double.tryParse(element.productPurchasePrice) ?? 0)
+                .round()
+                .toString(),
+            width: 2,
+            styles: const PosStyles(align: PosAlign.right, bold: true)),
+        PosColumn(
+            text: element.productStock,
+            width: 2,
+            styles: const PosStyles(align: PosAlign.right, bold: true)),
+        PosColumn(
+            text:
+                "${(double.tryParse(element.productPurchasePrice) ?? 0) * (double.tryParse(element.productStock) ?? 0)}",
+            width: 4,
+            styles: const PosStyles(align: PosAlign.right, bold: true)),
+      ]);
+    }
+  } else {
+    for (var element in productList) {
+      data += isFour
+          ? generator.row([
+              PosColumn(
+                  text: element.productName ?? '',
+                  width: 4,
+                  styles: const PosStyles(align: PosAlign.left, bold: true)),
+              PosColumn(
+                  text: (double.tryParse(element.subTotal.toString()) ?? 0)
+                      .toStringAsFixed(0),
+                  width: 2,
+                  styles: const PosStyles(align: PosAlign.right, bold: true)),
+              PosColumn(
+                  text: element.quantity.toString(),
+                  width: 2,
+                  styles: const PosStyles(align: PosAlign.right, bold: true)),
+              PosColumn(
+                  text:
+                      "${double.parse(element.subTotal.toString()) * int.parse(element.quantity.toString())}",
+                  width: 4,
+                  styles: const PosStyles(align: PosAlign.right, bold: true)),
+            ])
+          : generator.row([
+              PosColumn(
+                  text: element.productName ?? '',
+                  width: 3,
+                  styles: const PosStyles(align: PosAlign.left, bold: true)),
+              PosColumn(
+                  text: (double.tryParse(element.subTotal.toString()) ?? 0)
+                      .toStringAsFixed(0),
+                  width: 2,
+                  styles: const PosStyles(align: PosAlign.right, bold: true)),
+              PosColumn(
+                  text: element.quantity.toString(),
+                  width: 2,
+                  styles: const PosStyles(align: PosAlign.right, bold: true)),
+              PosColumn(
+                  text: calculateProductVat(product: element),
+                  width: 2,
+                  styles: const PosStyles(align: PosAlign.right, bold: true)),
+              PosColumn(
+                  text:
+                      "${double.parse(element.subTotal.toString()) * int.parse(element.quantity.toString())}",
+                  width: 3,
+                  styles: const PosStyles(align: PosAlign.right, bold: true)),
+            ]);
     }
   }
 
@@ -67,18 +157,46 @@ List<String> largeTextSplit({required String text, required int letterCount}) {
   return lines;
 }
 
-Future<List<int>> tableItem({required List<String> items, required bool isFour}) async {
+Future<List<int>> tableItem(bool printer58,
+    {required List<String> items, required bool isFour}) async {
   CapabilityProfile profile = await CapabilityProfile.load();
   final generator = Generator(PaperSize.mm58, profile);
   List<int> data = [];
   List<String> lines = largeTextSplit(text: items.first, letterCount: 10);
 
   for (var eachLine in lines) {
-    if (eachLine == lines.first) {
-      items[0] = eachLine;
-      data += isFour ? generator.text(generateLine(items: items, spacing: [12, 6, 5, 6])) : generator.text(generateLine(items: items, spacing: [10, 5, 4, 4, 5]));
+    if (printer58) {
+      if (eachLine == lines.first) {
+        items[0] = eachLine;
+        data += isFour
+            ? generator.text(
+                generateLine(items: items, spacing: [12, 6, 5, 6]),
+              )
+            : generator
+                .text(generateLine(items: items, spacing: [10, 5, 4, 4, 5]));
+      } else {
+        data += isFour
+            ? generator
+                .text(generateLine(items: [eachLine], spacing: [12, 6, 5, 6]))
+            : generator.text(
+                generateLine(items: [eachLine], spacing: [10, 5, 4, 4, 5]));
+      }
     } else {
-      data += isFour ? generator.text(generateLine(items: [eachLine], spacing: [12, 6, 5, 6])) : generator.text(generateLine(items: [eachLine], spacing: [10, 5, 4, 4, 5]));
+      if (eachLine == lines.first) {
+        items[0] = eachLine;
+        data += isFour
+            ? generator.text(
+                generateLine(items: items, spacing: [16, 9, 7, 9]),
+              )
+            : generator
+                .text(generateLine(items: items, spacing: [15, 7, 6, 6, 7]));
+      } else {
+        data += isFour
+            ? generator
+                .text(generateLine(items: [eachLine], spacing: [16, 9, 7, 9]))
+            : generator.text(
+                generateLine(items: [eachLine], spacing: [15, 7, 6, 6, 7]));
+      }
     }
   }
   return data;

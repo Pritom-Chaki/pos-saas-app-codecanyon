@@ -104,6 +104,7 @@ dependencies:
   syncfusion_flutter_xlsio: ^25.1.40
   esc_pos_printer: ^4.1.0
   iconly: ^1.0.1
+  flutter_bkash: ^0.2.0
 
 
 
