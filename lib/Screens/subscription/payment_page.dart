@@ -9,10 +9,10 @@ import 'package:flutter_sslcommerz/model/SSLCommerzInitialization.dart';
 import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
 import 'package:flutter_sslcommerz/sslcommerz.dart';
 // import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:flutterwave_standard/core/flutterwave.dart';
-import 'package:flutterwave_standard/models/requests/customer.dart';
-import 'package:flutterwave_standard/models/requests/customizations.dart';
-import 'package:flutterwave_standard/models/responses/charge_response.dart';
+// import 'package:flutterwave_standard/core/flutterwave.dart';
+//import 'package:flutterwave_standard/models/requests/customer.dart';
+//import 'package:flutterwave_standard/models/requests/customizations.dart';
+//import 'package:flutterwave_standard/models/responses/charge_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:kkiapay_flutter_sdk/kkiapay_flutter_sdk.dart';
 import 'package:mobile_pos/Functions/webview_screen.dart';
@@ -500,7 +500,7 @@ class _PaymentPageState extends State<PaymentPage> {
             reference: DateTime.now().microsecondsSinceEpoch.toString(),
             currency: "GHS",
             paymentChannel: ["mobile_money", "card"],
-            amount: "20000",
+            amount: 20000,
             transactionCompleted: () {
               onSuccess();
             },
@@ -821,28 +821,28 @@ class _PaymentPageState extends State<PaymentPage> {
 
   //Flutterwave payment
   _handleFlutterwavePayment(String totalAmount, String currency) async {
-    final Customer customer = Customer(
-      name: "Test Test",
-      phoneNumber: '567546457456',
-      email: 'test@test.com',
-    );
-    final Flutterwave flutterwave = Flutterwave(
-        context: context,
-        publicKey: flutterwavePublicKey,
-        currency: flutterwaveCurrency,
-        redirectUrl: 'https://facebook.com',
-        txRef: DateTime.now().millisecondsSinceEpoch.toString(),
-        amount: totalAmount,
-        customer: customer,
-        paymentOptions: "card, payattitude, barter, bank transfer, ussd",
-        customization: Customization(title: "Test Payment"),
-        isTestMode: sandbox);
-    final ChargeResponse response = await flutterwave.charge();
-    if (response.success == true) {
-      onSuccess();
-    } else {
-      widget.onError();
-    }
+    // final Customer customer = Customer(
+    //   name: "Test Test",
+    //   phoneNumber: '567546457456',
+    //   email: 'test@test.com',
+    // );
+    // final Flutterwave flutterwave = Flutterwave(
+    //     context: context,
+    //     publicKey: flutterwavePublicKey,
+    //     currency: flutterwaveCurrency,
+    //     redirectUrl: 'https://facebook.com',
+    //     txRef: DateTime.now().millisecondsSinceEpoch.toString(),
+    //     amount: totalAmount,
+    //     customer: customer,
+    //     paymentOptions: "card, payattitude, barter, bank transfer, ussd",
+    //     customization: Customization(title: "Test Payment"),
+    //     isTestMode: sandbox);
+    // final ChargeResponse response = await flutterwave.charge();
+    // if (response.success == true) {
+    //   onSuccess();
+    // } else {
+    //   widget.onError();
+    // }
   }
 
 

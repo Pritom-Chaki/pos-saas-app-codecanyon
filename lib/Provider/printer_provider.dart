@@ -254,7 +254,7 @@ if(printer58){
           )),
       PosColumn(
           text: printTransactionModel.transitionModel?.discountAmount
-                  .toString() ??
+                  .toStringAsFixed(2) ??
               '',
           width: 4,
           styles: const PosStyles(

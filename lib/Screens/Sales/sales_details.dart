@@ -61,7 +61,7 @@ class _SalesDetailsState extends State<SalesDetails> {
                 const PopupMenuItem(value: "/settings", child: Text('Vat Doesn\'t Apply')),
               ],
               onSelected: (value) {
-                Navigator.pushNamed(context, value);
+                Navigator.pushNamed(context, value.toString());
               },
             ),
           ],

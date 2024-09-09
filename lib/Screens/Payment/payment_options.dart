@@ -40,7 +40,7 @@ class _PaymentOptionsState extends State<PaymentOptions> {
               const PopupMenuItem(value: "/settings", child: Text('Vat Doesn\'t Apply')),
             ],
             onSelected: (value) {
-              Navigator.pushNamed(context, value);
+              Navigator.pushNamed(context, value.toString());
             },
           ),
         ],

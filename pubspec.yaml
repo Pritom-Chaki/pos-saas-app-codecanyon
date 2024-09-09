@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.9.4+19
 
 environment:
-  sdk: '>=3.1.3 <4.0.0'
+  sdk: '>=2.17.0 <=3.22.3'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -78,9 +78,9 @@ dependencies:
   flag: ^7.0.0
   currency_picker: ^2.0.21
   path_provider: ^2.1.3
-  http:
+  http: ^1.0.0
   flutter_pdfview:
-  flutterwave_standard:
+  #flutterwave_standard:
   #  flutter_stripe: ^9.2.0
   paytm_allinonesdk: ^1.2.4
   flutter_sslcommerz: ^2.2.2-nullsafety.0

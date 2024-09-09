@@ -33,6 +33,7 @@ Future<List<int>> productTable(bool printer58,
                 element.productName ?? '',
                 (double.tryParse(element.subTotal.toString()) ?? 0)
                     .toStringAsFixed(0),
+                    // '#','*'
                 element.quantity.toString(),
                 "${double.parse(element.subTotal.toString()) * int.parse(element.quantity.toString())}",
               ],
@@ -186,16 +187,16 @@ Future<List<int>> tableItem(bool printer58,
         items[0] = eachLine;
         data += isFour
             ? generator.text(
-                generateLine(items: items, spacing: [16, 9, 7, 9]),
+                generateLine(items: items, spacing: [16, 9, 7, 2]),
               )
             : generator
-                .text(generateLine(items: items, spacing: [15, 7, 6, 6, 7]));
+                .text(generateLine(items: items, spacing: [14, 8, 6, 6, 2]));
       } else {
         data += isFour
             ? generator
-                .text(generateLine(items: [eachLine], spacing: [16, 9, 7, 9]))
+                .text(generateLine(items: [eachLine], spacing: [16, 9, 7, 2]))
             : generator.text(
-                generateLine(items: [eachLine], spacing: [15, 7, 6, 6, 7]));
+                generateLine(items: [eachLine], spacing: [14, 8, 5, 5, 1]));
       }
     }
   }
