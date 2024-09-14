@@ -43,9 +43,9 @@ class _SalesReturnState extends State<SalesReturn> {
   num getTotalReturnAmount() {
     num returnAmount = 0;
     for (var element in returnList) {
-      if (element.quantity > 0) {
-        returnAmount +=
-            element.quantity * (num.tryParse(element.subTotal.toString()) ?? 0);
+      if (int.parse(element.quantity.toString()) > 0) {
+        returnAmount += int.parse(element.quantity.toString()) *
+            (num.tryParse(element.subTotal.toString()) ?? 0);
       }
     }
     return returnAmount;
@@ -78,7 +78,7 @@ class _SalesReturnState extends State<SalesReturn> {
 
         var data1 = await stockRef.child('$productPath/productStock').once();
         num stock = num.parse(data1.snapshot.value.toString());
-        num remainStock = stock + element.quantity;
+        num remainStock = stock + int.parse(element.quantity.toString());
 
         stockRef.child(productPath).update({'productStock': '$remainStock'});
 
@@ -140,7 +140,12 @@ class _SalesReturnState extends State<SalesReturn> {
         var data1 = await dueUpdateRef.child('$key/due').once();
         int previousDue = data1.snapshot.value.toString().toInt();
 
-        num dueNow = (orginal.dueAmount ?? 0) - (salesModel.totalAmount ?? 0);
+    int dueNow = int.parse(orginal.dueAmount != null
+                ? orginal.dueAmount.toString()
+                : '0') -
+            int.parse(salesModel.totalAmount != null
+                ? salesModel.totalAmount.toString()
+                : '0');
 
         int totalDue = int.parse(dueNow.toString()) < 0
             ? 0
@@ -403,8 +408,9 @@ class _SalesReturnState extends State<SalesReturn> {
                                                 GestureDetector(
                                                   onTap: () {
                                                     setState(() {
-                                                      returnList[index]
-                                                                  .quantity >
+                                                      int.parse(returnList[
+                                                                      index]
+                                                                  .quantity) >
                                                               0
                                                           ? returnList[index]
                                                               .quantity--
@@ -691,19 +697,21 @@ class _SalesReturnState extends State<SalesReturn> {
                                       .toString()) ??
                                   0);
                           totalPurchasePrice = totalPurchasePrice +
-                              ((double.parse(element.productPurchasePrice) +
+                              ((double.parse(element.productPurchasePrice.toString()) +
                                       tax) *
-                                  element.quantity);
+                                  double.parse(element.quantity.toString()));
                         } else {
                           totalPurchasePrice = totalPurchasePrice +
-                              (double.parse(element.productPurchasePrice) *
-                                  element.quantity);
+                              (double.parse(element.productPurchasePrice.toString()) *
+                                  int.parse(element.quantity.toString()));
                         }
 
                         totalSalePrice = totalSalePrice +
-                            (double.parse(element.subTotal) * element.quantity);
+                            (double.parse(element.subTotal) *
+                                 int.parse(element.quantity.toString()));
 
-                        totalQuantity = totalQuantity + element.quantity;
+                        totalQuantity = totalQuantity +
+                            int.parse(element.quantity.toString());
                       }
                       lossProfit = ((totalSalePrice -
                               totalPurchasePrice.toDouble()) -

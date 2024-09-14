@@ -3,7 +3,14 @@ import 'package:mobile_pos/model/product_model.dart';
 import 'add_to_cart_model.dart';
 
 class SalesTransitionModel {
-  late String customerName, customerPhone, customerAddress, customerType,customerGst, customerImage, invoiceNumber, purchaseDate;
+  late String customerName,
+      customerPhone,
+      customerAddress,
+      customerType,
+      customerGst,
+      customerImage,
+      invoiceNumber,
+      purchaseDate;
   dynamic totalAmount;
   dynamic dueAmount;
   dynamic returnAmount;
@@ -43,38 +50,40 @@ class SalesTransitionModel {
   });
 
   SalesTransitionModel.fromJson(Map<dynamic, dynamic> json) {
-    customerName = json['customerName'] as String;
-    customerPhone = json['customerPhone'].toString();
-    invoiceNumber = json['invoiceNumber'].toString();
+    customerName = json['customerName']?? "Guest";
+    customerPhone = json['customerPhone']?? "";
     customerAddress = json['customerAddress'] ?? '';
     customerGst = json['customerGst'] ?? '';
-    customerImage = json['customerImage'] ??
+    customerImage =json['customerImage'] ??
         'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Profile%20Picture%2Fblank-profile-picture-973460_1280.webp?alt=media&token=3578c1e0-7278-4c03-8b56-dd007a9befd3';
-    customerType = json['customerType'].toString();
-    purchaseDate = json['purchaseDate'].toString();
-    totalAmount = double.parse(json['totalAmount'].toString());
-    serviceCharge = double.parse(json['serviceCharge'].toString());
-    vat = double.parse(json['vat'].toString());
-    discountAmount = double.parse(json['discountAmount'].toString());
-    lossProfit = double.parse(json['lossProfit'].toString());
-    totalQuantity = json['totalQuantity'];
-    dueAmount = double.parse(json['dueAmount'].toString());
-    returnAmount = double.parse(json['returnAmount'].toString());
-    isPaid = json['isPaid'];
+    invoiceNumber = json['invoiceNumber'] ?? "";
+    customerType = json['customerType']?? "";
+    purchaseDate = json['purchaseDate']?? "";
+    totalAmount = double.parse(json['totalAmount'] != null ? json['totalAmount'].toString() : "0");
+    discountAmount = double.parse(json['discountAmount']!= null ? json['discountAmount'].toString() : "0");
+    serviceCharge = double.parse(json['serviceCharge']!= null ? json['serviceCharge'].toString() : "0");
+    vat =double.parse(json['vat']!= null ? json['vat'].toString() : "0");
+    lossProfit = double.parse(json['lossProfit']!= null ? json['lossProfit'].toString() : "0");
+    totalQuantity = json['totalQuantity'] ?? 0;
     sellerName = json['sellerName'];
-    paymentType = json['paymentType'].toString();
-   // productList = <AddToCartModel>[];
+    dueAmount = double.parse(json['dueAmount']!= null ? json['dueAmount'].toString() : "0");
+    returnAmount = double.parse(json['returnAmount']!= null ? json['returnAmount'].toString() : "0");
+    isPaid = json['isPaid'] ?? false;
+    paymentType = json['paymentType']?? '';
+       
     if (json['productList'] != null) {
       productList = <AddToCartModel>[];
       json['productList'].forEach((v) {
         productList!.add(AddToCartModel.fromJson(v));
       });
+    } else {
+      productList = [];
     }
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'customerName': customerName,
-    'customerGst':customerGst,
+        'customerGst': customerGst,
         'customerPhone': customerPhone,
         'customerType': customerType,
         'invoiceNumber': invoiceNumber,
@@ -92,12 +101,18 @@ class SalesTransitionModel {
         'totalQuantity': totalQuantity,
         'isPaid': isPaid,
         'paymentType': paymentType,
-        'productList': productList?.map((e) => e.toJson()).toList(),
+         'productList':productList== null || productList!.isEmpty ?[] : productList?.map((e) => e.toJson()).toList() ,
       };
 }
 
 class PurchaseTransactionModel {
-  late String customerName, customerPhone, customerAddress, customerType,customerGst, invoiceNumber, purchaseDate;
+  late String customerName,
+      customerPhone,
+      customerAddress,
+      customerType,
+      customerGst,
+      invoiceNumber,
+      purchaseDate;
   dynamic totalAmount;
   dynamic dueAmount;
   dynamic returnAmount;

@@ -72,7 +72,7 @@ class AddToCartModel {
         quantity: json["quantity"]?? '0',
         productImage: json["productImage"] ??
             'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Product%20No%20Image%2Fno-image-found-360x250.png?alt=media&token=9299964e-22b3-4d88-924e-5eeb285ae672',
-        productDetails: json["product_details"],
+        productDetails: json["product_details"] ?? '',
         itemCartIndex: json["item_cart_index"],
         stock: json["stock"],
         productPurchasePrice: json["productPurchasePrice"],
@@ -83,7 +83,9 @@ class AddToCartModel {
         incTax: json['incTax'] ?? '0',
         groupTaxName: json['groupTaxName'] ?? '',
         groupTaxRate: json['groupTaxRate'] ?? '0',
-        subTaxes: json['subTax'] != null ? List<TaxModel>.from(json['subTax'].map((x) => TaxModel.fromJson(x))) : [],
+         subTaxes: json['subTax'] != null
+            ? List<TaxModel>.from(json['subTax'].map((x) => TaxModel.fromJson(x)))
+            : [],
       );
 
   Map<String, dynamic> toMap() => {
@@ -99,9 +101,8 @@ class AddToCartModel {
         "quantity": quantity == 0 ? null : quantity,
         "item_cart_index": itemCartIndex,
         "stock": stock,
-        "productPurchasePrice": productPurchasePrice,
-        // ignore: prefer_null_aware_operators
-        "product_details": productDetails == null ? null : productDetails.toJson(),
+        "productPurchasePrice": productPurchasePrice ?? 0,
+        "product_details": productDetails ?? '',
         'productImage': productImage,
         'serialNumber': serialNumber?.map((e) => e).toList(),
         'taxType': taxType,
@@ -110,6 +111,6 @@ class AddToCartModel {
         'incTax': incTax,
         'groupTaxName': groupTaxName,
         'groupTaxRate': groupTaxRate,
-        'subTax': subTaxes.map((e) => e.toJson()).toList(),
+         'subTax': subTaxes.map((e) => e.toJson()).toList(),
       };
 }
