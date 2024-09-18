@@ -33,7 +33,11 @@ import '../tax report/tax_model.dart';
 import 'excel_upload screen.dart';
 
 class AddProduct extends StatefulWidget {
-  const AddProduct({super.key, required this.productNameList, required this.productCodeList, required this.warehouseBasedProductModel});
+  const AddProduct(
+      {super.key,
+      required this.productNameList,
+      required this.productCodeList,
+      required this.warehouseBasedProductModel});
 
   final List<WarehouseBasedProductModel> warehouseBasedProductModel;
   final List<String> productNameList;
@@ -46,14 +50,19 @@ class AddProduct extends StatefulWidget {
 class AddProductState extends State<AddProduct> {
   bool saleButtonClicked = false;
   GlobalKey<FormState> globalKey = GlobalKey<FormState>();
-  GetCategoryAndVariationModel data = GetCategoryAndVariationModel(variations: [], categoryName: '');
+  GetCategoryAndVariationModel data =
+      GetCategoryAndVariationModel(variations: [], categoryName: '');
   String productCategory = '';
   String productCategoryHint = 'Select Product Category';
   String brandName = '';
   String brandNameHint = 'Select Brand';
   String productUnit = '';
   String productUnitHint = 'Select Unit';
-  late String productName, productStock, productSalePrice, productPurchasePrice, productCode;
+  late String productName,
+      productStock,
+      productSalePrice,
+      productPurchasePrice,
+      productCode;
   String productWholeSalePrice = '0';
   String productDealerPrice = '0';
   String productManufacturer = '';
@@ -63,7 +72,8 @@ class AddProductState extends State<AddProduct> {
   String weight = '';
   String capacity = '';
   String type = '';
-  String productPicture = 'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Customer%20Picture%2FNo_Image_Available.jpeg?alt=media&token=3de0d45e-0e4a-4a7b-b115-9d6722d5031f';
+  String productPicture =
+      'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Customer%20Picture%2FNo_Image_Available.jpeg?alt=media&token=3de0d45e-0e4a-4a7b-b115-9d6722d5031f';
   String productDiscount = '';
   final ImagePicker _picker = ImagePicker();
   XFile? pickedImage;
@@ -78,7 +88,9 @@ class AddProductState extends State<AddProduct> {
         status: 'Uploading... ',
         dismissOnTap: false,
       );
-      var snapshot = await FirebaseStorage.instance.ref('Product Picture/${DateTime.now().millisecondsSinceEpoch}').putFile(file);
+      var snapshot = await FirebaseStorage.instance
+          .ref('Product Picture/${DateTime.now().millisecondsSinceEpoch}')
+          .putFile(file);
       var url = await snapshot.ref.getDownloadURL();
 
       setState(() {
@@ -86,7 +98,8 @@ class AddProductState extends State<AddProduct> {
       });
     } on firebase_core.FirebaseException catch (e) {
       EasyLoading.dismiss();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.code.toString())));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.code.toString())));
     }
   }
 
@@ -107,10 +120,14 @@ class AddProductState extends State<AddProduct> {
   //   }
   // }
 
-  final TextEditingController productPurchasePriceController = TextEditingController();
-  final TextEditingController productSalePriceController = TextEditingController();
-  final TextEditingController productWholesalePriceController = TextEditingController();
-  final TextEditingController productDealerPriceController = TextEditingController();
+  final TextEditingController productPurchasePriceController =
+      TextEditingController();
+  final TextEditingController productSalePriceController =
+      TextEditingController();
+  final TextEditingController productWholesalePriceController =
+      TextEditingController();
+  final TextEditingController productDealerPriceController =
+      TextEditingController();
   final TextEditingController stockController = TextEditingController();
   TextEditingController totalAmountController = TextEditingController();
   TextEditingController incTaxController = TextEditingController();
@@ -152,8 +169,10 @@ class AddProductState extends State<AddProduct> {
   }
 
   String _formatNumber(String s) => myFormat.format(int.parse(s));
-  TextEditingController expireDateTextEditingController = TextEditingController();
-  TextEditingController manufactureDateTextEditingController = TextEditingController();
+  TextEditingController expireDateTextEditingController =
+      TextEditingController();
+  TextEditingController manufactureDateTextEditingController =
+      TextEditingController();
 
   String? expireDate;
   String? manufactureDate;
@@ -201,7 +220,8 @@ class AddProductState extends State<AddProduct> {
   bool checkProductName({required String name, required String id}) {
     for (var element in widget.warehouseBasedProductModel) {
       print('name: ${element.productName}, id: ${element.productID}');
-      if (element.productName.toLowerCase() == name.toLowerCase() && element.productID == id) {
+      if (element.productName.toLowerCase() == name.toLowerCase() &&
+          element.productID == id) {
         return false;
       }
     }
@@ -245,7 +265,8 @@ class AddProductState extends State<AddProduct> {
   //___________________________________calculate_total_with_tax____________________
   double totalAmount = 0.0;
   void calculateTotal() {
-    String saleAmountText = productPurchasePriceController.text.replaceAll(',', '');
+    String saleAmountText =
+        productPurchasePriceController.text.replaceAll(',', '');
     double saleAmount = double.tryParse(saleAmountText) ?? 0.0;
     if (selectedGroupTaxModel != null) {
       double taxRate = double.parse(selectedGroupTaxModel!.taxRate.toString());
@@ -270,10 +291,13 @@ class AddProductState extends State<AddProduct> {
     double purchasePrice = double.tryParse(purchaseText) ?? 0;
     double salesPrice = 0;
     double excPrice = 0;
-    double taxAmount = calculateAmountFromPercentage((selectedGroupTaxModel?.taxRate.toString() ?? '').toDouble(), purchasePrice);
+    double taxAmount = calculateAmountFromPercentage(
+        (selectedGroupTaxModel?.taxRate.toString() ?? '').toDouble(),
+        purchasePrice);
 
     if (selectedTaxType == 'Inclusive') {
-      salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice);
+      salesPrice =
+          purchasePrice + calculateAmountFromPercentage(margin, purchasePrice);
       // salesPrice -= calculateAmountFromPercentage(double.parse(selectedGroupTaxModel!.taxRate.toString()), purchasePrice);
       mrpText = salesPrice.toString();
       dealerText = salesPrice.toString();
@@ -281,7 +305,9 @@ class AddProductState extends State<AddProduct> {
       incTaxAmount = salesPrice.toString();
       excTaxAmount = salesPrice.toString();
     } else {
-      salesPrice = purchasePrice + calculateAmountFromPercentage(margin, purchasePrice) + taxAmount;
+      salesPrice = purchasePrice +
+          calculateAmountFromPercentage(margin, purchasePrice) +
+          taxAmount;
       excPrice = purchasePrice + taxAmount;
       mrpText = salesPrice.toString();
       dealerText = salesPrice.toString();
@@ -356,7 +382,9 @@ class AddProductState extends State<AddProduct> {
                               previousProductName: widget.productNameList,
                             )));
               },
-              style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(kMainColor.withOpacity(0.2))),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStatePropertyAll(kMainColor.withOpacity(0.2))),
               icon: const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -382,7 +410,10 @@ class AddProductState extends State<AddProduct> {
       ),
       body: Container(
         alignment: Alignment.topCenter,
-        decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30), topLeft: Radius.circular(30))),
         child: Consumer(builder: (context, ref, __) {
           final wareHouseList = ref.watch(warehouseProvider);
           final groupTax = ref.watch(groupTaxProvider);
@@ -404,9 +435,14 @@ class AddProductState extends State<AddProduct> {
                           hintText: lang.S.of(context).enterProductName,
                         ),
                         validator: (value) {
-                          if (value?.removeAllWhiteSpace().toLowerCase().isEmptyOrNull ?? true) {
+                          if (value
+                                  ?.removeAllWhiteSpace()
+                                  .toLowerCase()
+                                  .isEmptyOrNull ??
+                              true) {
                             return 'Product name is required.';
-                          } else if (!checkProductName(name: value!, id: selectedWareHouse!.id)) {
+                          } else if (!checkProductName(
+                              name: value!, id: selectedWareHouse!.id)) {
                             return 'Product Name already exists in this warehouse.';
                           } else {
                             return null; // Validation passes
@@ -463,7 +499,8 @@ class AddProductState extends State<AddProduct> {
                                 size = value!;
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).size,
                                 hintText: lang.S.of(context).enterSize,
                                 border: const OutlineInputBorder(),
@@ -479,7 +516,8 @@ class AddProductState extends State<AddProduct> {
                                 color = value!;
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).color,
                                 hintText: lang.S.of(context).enterColor,
                                 border: const OutlineInputBorder(),
@@ -501,7 +539,8 @@ class AddProductState extends State<AddProduct> {
                                 weight = value!;
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).weight,
                                 hintText: lang.S.of(context).enterWeight,
                                 border: const OutlineInputBorder(),
@@ -517,7 +556,8 @@ class AddProductState extends State<AddProduct> {
                                 capacity = value!;
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).capacity,
                                 hintText: lang.S.of(context).enterCapacity,
                                 border: const OutlineInputBorder(),
@@ -548,7 +588,8 @@ class AddProductState extends State<AddProduct> {
                       child: TextFormField(
                         readOnly: true,
                         onTap: () async {
-                          String data = await const BrandsList().launch(context);
+                          String data =
+                              await const BrandsList().launch(context);
                           setState(() {
                             brandName = data;
                             brandNameHint = data;
@@ -576,7 +617,9 @@ class AddProductState extends State<AddProduct> {
                               validator: (value) {
                                 if (value.isEmptyOrNull) {
                                   return 'Product Code is Required';
-                                } else if (widget.productCodeList.contains(value?.toLowerCase().removeAllWhiteSpace())) {
+                                } else if (widget.productCodeList.contains(value
+                                    ?.toLowerCase()
+                                    .removeAllWhiteSpace())) {
                                   return 'This Product Already added!';
                                 }
                                 return null;
@@ -585,9 +628,11 @@ class AddProductState extends State<AddProduct> {
                                 productCode = value!;
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).productCode,
-                                hintText: lang.S.of(context).enterProductCodeOrScan,
+                                hintText:
+                                    lang.S.of(context).enterProductCodeOrScan,
                                 border: const OutlineInputBorder(),
                               ),
                             ),
@@ -603,21 +648,26 @@ class AddProductState extends State<AddProduct> {
                                   context: context,
                                   useSafeArea: true,
                                   builder: (context1) {
-                                    MobileScannerController controller = MobileScannerController(
+                                    MobileScannerController controller =
+                                        MobileScannerController(
                                       torchEnabled: false,
                                       returnImage: false,
                                     );
                                     return Container(
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadiusDirectional.circular(6.0),
+                                        borderRadius:
+                                            BorderRadiusDirectional.circular(
+                                                6.0),
                                       ),
                                       child: Column(
                                         children: [
                                           AppBar(
                                             backgroundColor: Colors.transparent,
-                                            iconTheme: const IconThemeData(color: Colors.white),
+                                            iconTheme: const IconThemeData(
+                                                color: Colors.white),
                                             leading: IconButton(
-                                              icon: const Icon(Icons.arrow_back),
+                                              icon:
+                                                  const Icon(Icons.arrow_back),
                                               onPressed: () {
                                                 Navigator.pop(context1);
                                               },
@@ -628,14 +678,20 @@ class AddProductState extends State<AddProduct> {
                                               fit: BoxFit.contain,
                                               controller: controller,
                                               onDetect: (capture) {
-                                                final List<Barcode> barcodes = capture.barcodes;
+                                                final List<Barcode> barcodes =
+                                                    capture.barcodes;
 
                                                 if (barcodes.isNotEmpty) {
-                                                  final Barcode barcode = barcodes.first;
-                                                  debugPrint('Barcode found! ${barcode.rawValue}');
-                                                  productCode = barcode.rawValue!;
-                                                  productCodeController.text = productCode;
-                                                  globalKey.currentState!.save();
+                                                  final Barcode barcode =
+                                                      barcodes.first;
+                                                  debugPrint(
+                                                      'Barcode found! ${barcode.rawValue}');
+                                                  productCode =
+                                                      barcode.rawValue!;
+                                                  productCodeController.text =
+                                                      productCode;
+                                                  globalKey.currentState!
+                                                      .save();
                                                   Navigator.pop(context1);
                                                 }
                                               },
@@ -706,10 +762,13 @@ class AddProductState extends State<AddProduct> {
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 stockText = value.replaceAll(',', '');
-                                var formattedText = myFormat.format(int.parse(stockText));
-                                stockController.value = stockController.value.copyWith(
+                                var formattedText =
+                                    myFormat.format(int.parse(stockText));
+                                stockController.value =
+                                    stockController.value.copyWith(
                                   text: formattedText,
-                                  selection: TextSelection.collapsed(offset: formattedText.length),
+                                  selection: TextSelection.collapsed(
+                                      offset: formattedText.length),
                                 );
                               },
                               validator: (value) {
@@ -722,7 +781,8 @@ class AddProductState extends State<AddProduct> {
                                 productStock = value!;
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).stocks,
                                 hintText: lang.S.of(context).enterStocks,
                                 border: const OutlineInputBorder(),
@@ -736,18 +796,21 @@ class AddProductState extends State<AddProduct> {
                             child: TextFormField(
                               readOnly: true,
                               onTap: () async {
-                                String data = await const UnitList().launch(context);
+                                String data =
+                                    await const UnitList().launch(context);
                                 setState(() {
                                   productUnit = data;
                                   productUnitHint = data;
                                 });
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 hintText: productUnitHint,
                                 labelText: lang.S.of(context).units,
                                 border: const OutlineInputBorder(),
-                                suffixIcon: const Icon(Icons.keyboard_arrow_down),
+                                suffixIcon:
+                                    const Icon(Icons.keyboard_arrow_down),
                               ),
                             ),
                           ),
@@ -766,7 +829,8 @@ class AddProductState extends State<AddProduct> {
                               productDiscount = value!;
                             },
                             decoration: InputDecoration(
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
                               labelText: lang.S.of(context).discount,
                               hintText: lang.S.of(context).enterDiscount,
                               border: const OutlineInputBorder(),
@@ -781,7 +845,8 @@ class AddProductState extends State<AddProduct> {
                                 productManufacturer = value!;
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).menufeturer,
                                 hintText: lang.S.of(context).enterManufacturer,
                                 border: const OutlineInputBorder(),
@@ -799,11 +864,15 @@ class AddProductState extends State<AddProduct> {
                                   return InputDecorator(
                                     decoration: const InputDecoration(
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                          borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8.0)),
+                                          borderSide: BorderSide(
+                                              color: kBorderColorTextField,
+                                              width: 2),
                                         ),
                                         contentPadding: EdgeInsets.all(8.0),
-                                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.always,
                                         labelText: 'Warehouse'),
                                     child: DropdownButtonHideUnderline(
                                       child: getName(list: warehouse ?? []),
@@ -843,17 +912,22 @@ class AddProductState extends State<AddProduct> {
                                     return InputDecorator(
                                       decoration: const InputDecoration(
                                           enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                            borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8.0)),
+                                            borderSide: BorderSide(
+                                                color: kBorderColorTextField,
+                                                width: 2),
                                           ),
                                           contentPadding: EdgeInsets.all(8.0),
-                                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                                          floatingLabelBehavior:
+                                              FloatingLabelBehavior.always,
                                           labelText: 'Applicable Tax'),
                                       child: DropdownButtonHideUnderline(
                                         child: DropdownButton<GroupTaxModel>(
                                           hint: const Text('Select Tax'),
                                           items: groupTax.map((e) {
-                                            return DropdownMenuItem<GroupTaxModel>(
+                                            return DropdownMenuItem<
+                                                GroupTaxModel>(
                                               value: e,
                                               child: Text(e.name),
                                             );
@@ -895,11 +969,15 @@ class AddProductState extends State<AddProduct> {
                                 return InputDecorator(
                                   decoration: const InputDecoration(
                                       enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                        borderSide: BorderSide(color: kBorderColorTextField, width: 2),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8.0)),
+                                        borderSide: BorderSide(
+                                            color: kBorderColorTextField,
+                                            width: 2),
                                       ),
                                       contentPadding: EdgeInsets.all(8.0),
-                                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
                                       labelText: 'Tax Type'),
                                   child: DropdownButtonHideUnderline(
                                     child: getTaxType(),
@@ -931,7 +1009,8 @@ class AddProductState extends State<AddProduct> {
                               controller: marginController,
                               keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: 'Margin',
                                 hintText: '0',
                                 border: OutlineInputBorder(),
@@ -949,7 +1028,8 @@ class AddProductState extends State<AddProduct> {
                                 controller: incTaxController,
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
-                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
                                   labelText: 'Inc. tax:',
                                   hintText: '0',
                                   border: OutlineInputBorder(),
@@ -968,7 +1048,8 @@ class AddProductState extends State<AddProduct> {
                                 readOnly: true,
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
-                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
                                   labelText: 'Exc. Tax',
                                   hintText: '0',
                                   border: OutlineInputBorder(),
@@ -993,10 +1074,14 @@ class AddProductState extends State<AddProduct> {
                               onChanged: (value) {
                                 purchaseText = value.replaceAll(',', '');
                                 adjustSalesPrices();
-                                var formattedText = myFormat.format(int.parse(purchaseText));
-                                productPurchasePriceController.value = productPurchasePriceController.value.copyWith(
+                                var formattedText =
+                                    myFormat.format(int.parse(purchaseText));
+                                productPurchasePriceController.value =
+                                    productPurchasePriceController.value
+                                        .copyWith(
                                   text: formattedText,
-                                  selection: TextSelection.collapsed(offset: formattedText.length),
+                                  selection: TextSelection.collapsed(
+                                      offset: formattedText.length),
                                 );
                               },
                               validator: (value) {
@@ -1009,7 +1094,8 @@ class AddProductState extends State<AddProduct> {
                                 productPurchasePriceController.text = value!;
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).purchasePrice,
                                 hintText: lang.S.of(context).enterPurchasePrice,
                                 border: const OutlineInputBorder(),
@@ -1025,10 +1111,13 @@ class AddProductState extends State<AddProduct> {
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 mrpText = value.replaceAll(',', '');
-                                var formattedText = myFormat.format(int.parse(mrpText));
-                                productSalePriceController.value = productSalePriceController.value.copyWith(
+                                var formattedText =
+                                    myFormat.format(int.parse(mrpText));
+                                productSalePriceController.value =
+                                    productSalePriceController.value.copyWith(
                                   text: formattedText,
-                                  selection: TextSelection.collapsed(offset: formattedText.length),
+                                  selection: TextSelection.collapsed(
+                                      offset: formattedText.length),
                                 );
                               },
                               validator: (value) {
@@ -1041,9 +1130,11 @@ class AddProductState extends State<AddProduct> {
                                 productSalePriceController.text = value!;
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).MRP,
-                                hintText: lang.S.of(context).enterMrpOrRetailerPirce,
+                                hintText:
+                                    lang.S.of(context).enterMrpOrRetailerPirce,
                                 border: const OutlineInputBorder(),
                               ),
                             ),
@@ -1063,19 +1154,25 @@ class AddProductState extends State<AddProduct> {
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 wholesaleText = value.replaceAll(',', '');
-                                var formattedText = myFormat.format(int.parse(wholesaleText));
-                                productWholesalePriceController.value = productWholesalePriceController.value.copyWith(
+                                var formattedText =
+                                    myFormat.format(int.parse(wholesaleText));
+                                productWholesalePriceController.value =
+                                    productWholesalePriceController.value
+                                        .copyWith(
                                   text: formattedText,
-                                  selection: TextSelection.collapsed(offset: formattedText.length),
+                                  selection: TextSelection.collapsed(
+                                      offset: formattedText.length),
                                 );
                               },
                               onSaved: (value) {
                                 productWholesalePriceController.text = value!;
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).wholeSalePrice,
-                                hintText: lang.S.of(context).enterWholeSalePrice,
+                                hintText:
+                                    lang.S.of(context).enterWholeSalePrice,
                                 border: const OutlineInputBorder(),
                               ),
                             ),
@@ -1089,17 +1186,21 @@ class AddProductState extends State<AddProduct> {
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 dealerText = value.replaceAll(',', '');
-                                var formattedText = myFormat.format(int.parse(dealerText));
-                                productDealerPriceController.value = productDealerPriceController.value.copyWith(
+                                var formattedText =
+                                    myFormat.format(int.parse(dealerText));
+                                productDealerPriceController.value =
+                                    productDealerPriceController.value.copyWith(
                                   text: formattedText,
-                                  selection: TextSelection.collapsed(offset: formattedText.length),
+                                  selection: TextSelection.collapsed(
+                                      offset: formattedText.length),
                                 );
                               },
                               onSaved: (value) {
                                 productDealerPriceController.text = value!;
                               },
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: lang.S.of(context).dealerPrice,
                                 hintText: lang.S.of(context).enterDealerPrice,
                                 border: const OutlineInputBorder(),
@@ -1124,20 +1225,28 @@ class AddProductState extends State<AddProduct> {
                               },
                               controller: manufactureDateTextEditingController,
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: "Manufacture Date",
                                 border: const OutlineInputBorder(),
                                 suffixIcon: IconButton(
                                   onPressed: () async {
-                                    final DateTime? picked = await showDatePicker(
+                                    final DateTime? picked =
+                                        await showDatePicker(
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(2015, 8),
                                       lastDate: DateTime(2101),
                                       context: context,
                                     );
                                     setState(() {
-                                      picked != null ? manufactureDateTextEditingController.text = DateFormat.yMMMd().format(picked) : null;
-                                      picked != null ? manufactureDate = picked.toString() : null;
+                                      picked != null
+                                          ? manufactureDateTextEditingController
+                                                  .text =
+                                              DateFormat.yMMMd().format(picked)
+                                          : null;
+                                      picked != null
+                                          ? manufactureDate = picked.toString()
+                                          : null;
                                     });
                                   },
                                   icon: const Icon(FeatherIcons.calendar),
@@ -1157,20 +1266,28 @@ class AddProductState extends State<AddProduct> {
                               },
                               controller: expireDateTextEditingController,
                               decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 labelText: 'Expire Date',
                                 border: const OutlineInputBorder(),
                                 suffixIcon: IconButton(
                                   onPressed: () async {
-                                    final DateTime? picked = await showDatePicker(
+                                    final DateTime? picked =
+                                        await showDatePicker(
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(2015, 8),
                                       lastDate: DateTime(2101),
                                       context: context,
                                     );
                                     setState(() {
-                                      picked != null ? expireDateTextEditingController.text = DateFormat.yMMMd().format(picked) : null;
-                                      picked != null ? expireDate = picked.toString() : null;
+                                      picked != null
+                                          ? expireDateTextEditingController
+                                                  .text =
+                                              DateFormat.yMMMd().format(picked)
+                                          : null;
+                                      picked != null
+                                          ? expireDate = picked.toString()
+                                          : null;
                                     });
                                   },
                                   icon: const Icon(FeatherIcons.calendar),
@@ -1196,7 +1313,9 @@ class AddProductState extends State<AddProduct> {
                           hintText: 'Enter Low Stock Alert Quantity',
                           border: OutlineInputBorder(),
                         ),
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                       ),
                     ),
 
@@ -1230,156 +1349,160 @@ class AddProductState extends State<AddProduct> {
                         // },
                       ),
                     ),
+//image upload
+                    // Column(
+                    //   children: [
+                    //     const SizedBox(height: 10),
+                    //     GestureDetector(
+                    //       onTap: () {
+                    //         showDialog(
+                    //             context: context,
+                    //             builder: (BuildContext context) {
+                    //               return Dialog(
+                    //                 shape: RoundedRectangleBorder(
+                    //                   borderRadius: BorderRadius.circular(12.0),
+                    //                 ),
+                    //                 // ignore: sized_box_for_whitespace
+                    //                 child: Container(
+                    //                   height: 200.0,
+                    //                   width: MediaQuery.of(context).size.width - 80,
+                    //                   child: Center(
+                    //                     child: Row(
+                    //                       mainAxisAlignment: MainAxisAlignment.center,
+                    //                       children: [
+                    //                         GestureDetector(
+                    //                           onTap: () async {
+                    //                             pickedImage = await _picker.pickImage(source: ImageSource.gallery);
 
-                    Column(
-                      children: [
-                        const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Dialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    // ignore: sized_box_for_whitespace
-                                    child: Container(
-                                      height: 200.0,
-                                      width: MediaQuery.of(context).size.width - 80,
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () async {
-                                                pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+                    //                             setState(() {
+                    //                               imageFile = File(pickedImage!.path);
+                    //                               imagePath = pickedImage!.path;
+                    //                             });
 
-                                                setState(() {
-                                                  imageFile = File(pickedImage!.path);
-                                                  imagePath = pickedImage!.path;
-                                                });
+                    //                             Future.delayed(const Duration(milliseconds: 100), () {
+                    //                               Navigator.pop(context);
+                    //                             });
+                    //                           },
+                    //                           child: Column(
+                    //                             mainAxisAlignment: MainAxisAlignment.center,
+                    //                             children: [
+                    //                               const Icon(
+                    //                                 Icons.photo_library_rounded,
+                    //                                 size: 60.0,
+                    //                                 color: kMainColor,
+                    //                               ),
+                    //                               Text(
+                    //                                 lang.S.of(context).gallary,
+                    //                                 style: GoogleFonts.poppins(
+                    //                                   fontSize: 20.0,
+                    //                                   color: kMainColor,
+                    //                                 ),
+                    //                               ),
+                    //                             ],
+                    //                           ),
+                    //                         ),
+                    //                         const SizedBox(
+                    //                           width: 40.0,
+                    //                         ),
+                    //                         GestureDetector(
+                    //                           onTap: () async {
+                    //                             pickedImage = await _picker.pickImage(source: ImageSource.camera);
+                    //                             setState(() {
+                    //                               imageFile = File(pickedImage!.path);
+                    //                               imagePath = pickedImage!.path;
+                    //                             });
+                    //                             Future.delayed(const Duration(milliseconds: 100), () {
+                    //                               Navigator.pop(context);
+                    //                             });
+                    //                           },
+                    //                           child: Column(
+                    //                             mainAxisAlignment: MainAxisAlignment.center,
+                    //                             children: [
+                    //                               const Icon(
+                    //                                 Icons.camera,
+                    //                                 size: 60.0,
+                    //                                 color: kGreyTextColor,
+                    //                               ),
+                    //                               Text(
+                    //                                 lang.S.of(context).camera,
+                    //                                 style: GoogleFonts.poppins(
+                    //                                   fontSize: 20.0,
+                    //                                   color: kGreyTextColor,
+                    //                                 ),
+                    //                               ),
+                    //                             ],
+                    //                           ),
+                    //                         ),
+                    //                       ],
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               );
+                    //             });
+                    //       },
+                    //       child: Stack(
+                    //         children: [
+                    //           Container(
+                    //             height: 120,
+                    //             width: 120,
+                    //             decoration: BoxDecoration(
+                    //               border: Border.all(color: Colors.black54, width: 1),
+                    //               borderRadius: const BorderRadius.all(Radius.circular(120)),
+                    //               image: imagePath == 'No Data'
+                    //                   ? DecorationImage(
+                    //                       image: NetworkImage(productPicture),
+                    //                       fit: BoxFit.cover,
+                    //                     )
+                    //                   : DecorationImage(
+                    //                       image: FileImage(imageFile),
+                    //                       fit: BoxFit.cover,
+                    //                     ),
+                    //             ),
+                    //           ),
+                    //           Container(
+                    //             height: 120,
+                    //             width: 120,
+                    //             decoration: BoxDecoration(
+                    //               border: Border.all(color: Colors.black54, width: 1),
+                    //               borderRadius: const BorderRadius.all(Radius.circular(120)),
+                    //               image: DecorationImage(
+                    //                 image: FileImage(imageFile),
+                    //                 fit: BoxFit.cover,
+                    //               ),
+                    //             ),
+                    //             // child: imageFile.path == 'No File' ? null : Image.file(imageFile),
+                    //           ),
+                    //           Positioned(
+                    //             bottom: 0,
+                    //             right: 0,
+                    //             child: Container(
+                    //               height: 35,
+                    //               width: 35,
+                    //               decoration: BoxDecoration(
+                    //                 border: Border.all(color: Colors.white, width: 2),
+                    //                 borderRadius: const BorderRadius.all(Radius.circular(120)),
+                    //                 color: kMainColor,
+                    //               ),
+                    //               child: const Icon(
+                    //                 Icons.camera_alt_outlined,
+                    //                 size: 20,
+                    //                 color: Colors.white,
+                    //               ),
+                    //             ),
+                    //           )
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     const SizedBox(height: 10),
+                    //   ],
+                    // ),
 
-                                                Future.delayed(const Duration(milliseconds: 100), () {
-                                                  Navigator.pop(context);
-                                                });
-                                              },
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  const Icon(
-                                                    Icons.photo_library_rounded,
-                                                    size: 60.0,
-                                                    color: kMainColor,
-                                                  ),
-                                                  Text(
-                                                    lang.S.of(context).gallary,
-                                                    style: GoogleFonts.poppins(
-                                                      fontSize: 20.0,
-                                                      color: kMainColor,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 40.0,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () async {
-                                                pickedImage = await _picker.pickImage(source: ImageSource.camera);
-                                                setState(() {
-                                                  imageFile = File(pickedImage!.path);
-                                                  imagePath = pickedImage!.path;
-                                                });
-                                                Future.delayed(const Duration(milliseconds: 100), () {
-                                                  Navigator.pop(context);
-                                                });
-                                              },
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  const Icon(
-                                                    Icons.camera,
-                                                    size: 60.0,
-                                                    color: kGreyTextColor,
-                                                  ),
-                                                  Text(
-                                                    lang.S.of(context).camera,
-                                                    style: GoogleFonts.poppins(
-                                                      fontSize: 20.0,
-                                                      color: kGreyTextColor,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                });
-                          },
-                          child: Stack(
-                            children: [
-                              Container(
-                                height: 120,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black54, width: 1),
-                                  borderRadius: const BorderRadius.all(Radius.circular(120)),
-                                  image: imagePath == 'No Data'
-                                      ? DecorationImage(
-                                          image: NetworkImage(productPicture),
-                                          fit: BoxFit.cover,
-                                        )
-                                      : DecorationImage(
-                                          image: FileImage(imageFile),
-                                          fit: BoxFit.cover,
-                                        ),
-                                ),
-                              ),
-                              Container(
-                                height: 120,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black54, width: 1),
-                                  borderRadius: const BorderRadius.all(Radius.circular(120)),
-                                  image: DecorationImage(
-                                    image: FileImage(imageFile),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                // child: imageFile.path == 'No File' ? null : Image.file(imageFile),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Container(
-                                  height: 35,
-                                  width: 35,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.white, width: 2),
-                                    borderRadius: const BorderRadius.all(Radius.circular(120)),
-                                    color: kMainColor,
-                                  ),
-                                  child: const Icon(
-                                    Icons.camera_alt_outlined,
-                                    size: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                      ],
-                    ),
                     ButtonGlobalWithoutIcon(
                       buttontext: lang.S.of(context).saveAndPublish,
-                      buttonDecoration: kButtonDecoration.copyWith(color: kMainColor, borderRadius: const BorderRadius.all(Radius.circular(30))),
+                      buttonDecoration: kButtonDecoration.copyWith(
+                          color: kMainColor,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(30))),
                       onPressed: saleButtonClicked
                           ? () {}
                           : () async {
@@ -1389,8 +1512,12 @@ class AddProductState extends State<AddProduct> {
                                     setState(() {
                                       saleButtonClicked = true;
                                     });
-                                    EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-                                    bool result = await InternetConnectionChecker().hasConnection;
+                                    EasyLoading.show(
+                                        status: 'Loading...',
+                                        dismissOnTap: false);
+                                    bool result =
+                                        await InternetConnectionChecker()
+                                            .hasConnection;
 
                                     result
                                         ? imagePath == 'No Data'
@@ -1398,12 +1525,18 @@ class AddProductState extends State<AddProduct> {
                                             : await uploadFile(imagePath)
                                         : null;
                                     // ignore: no_leading_underscores_for_local_identifiers
-                                    final DatabaseReference _productInformationRef = FirebaseDatabase.instance.ref().child(constUserId).child('Products');
+                                    final DatabaseReference
+                                        _productInformationRef =
+                                        FirebaseDatabase.instance
+                                            .ref()
+                                            .child(constUserId)
+                                            .child('Products');
                                     _productInformationRef.keepSynced(true);
                                     ProductModel productModel = ProductModel(
                                       productName: productNameController.text,
                                       productCategory: productCategory,
-                                      productDescription: productDescriptionController.text,
+                                      productDescription:
+                                          productDescriptionController.text,
                                       size: size,
                                       color: color,
                                       weight: weight,
@@ -1419,7 +1552,8 @@ class AddProductState extends State<AddProduct> {
                                       productWholeSalePrice: wholesaleText,
                                       productDealerPrice: dealerText,
                                       productManufacturer: productManufacturer,
-                                      warehouseName: selectedWareHouse!.warehouseName,
+                                      warehouseName:
+                                          selectedWareHouse!.warehouseName,
                                       warehouseId: selectedWareHouse!.id,
                                       productPicture: productPicture,
                                       expiringDate: expireDate,
@@ -1427,21 +1561,28 @@ class AddProductState extends State<AddProduct> {
                                       lowerStockAlert: lowerStockAlert,
                                       serialNumber: [],
                                       taxType: selectedTaxType,
-                                      margin: num.tryParse(marginController.text) ?? 0,
+                                      margin:
+                                          num.tryParse(marginController.text) ??
+                                              0,
                                       excTax: num.tryParse(excTaxAmount) ?? 0,
                                       incTax: num.tryParse(incTaxAmount) ?? 0,
-                                      groupTaxName: selectedGroupTaxModel?.name ?? '',
-                                      groupTaxRate: selectedGroupTaxModel?.taxRate ?? 0,
-                                      subTaxes: selectedGroupTaxModel?.subTaxes ?? [],
+                                      groupTaxName:
+                                          selectedGroupTaxModel?.name ?? '',
+                                      groupTaxRate:
+                                          selectedGroupTaxModel?.taxRate ?? 0,
+                                      subTaxes:
+                                          selectedGroupTaxModel?.subTaxes ?? [],
                                     );
                                     print(productModel.toJson());
-                                    _productInformationRef.push().set(productModel.toJson());
-
+                                    _productInformationRef
+                                        .push()
+                                        .set(productModel.toJson());
 
                                     // ref.refresh(productProvider);
 
                                     // ref.refresh(brandsProvider);
-                                    Subscription.decreaseSubscriptionLimits(itemType: 'products', context: context);
+                                    Subscription.decreaseSubscriptionLimits(
+                                        itemType: 'products', context: context);
                                     EasyLoading.dismiss();
                                     // ref.refresh(categoryProvider);
                                     ref.refresh(productProvider);
@@ -1461,7 +1602,8 @@ class AddProductState extends State<AddProduct> {
                                       saleButtonClicked = false;
                                     });
                                     EasyLoading.dismiss();
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(e.toString())));
                                   }
                                 }
                               } else {

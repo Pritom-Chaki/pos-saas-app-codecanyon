@@ -1026,131 +1026,133 @@ class UpdateProductState extends State<UpdateProduct> {
                         },
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Dialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                // ignore: sized_box_for_whitespace
-                                child: Container(
-                                  height: 200.0,
-                                  width: MediaQuery.of(context).size.width - 80,
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () async {
-                                            pickedImage = await _picker.pickImage(source: ImageSource.gallery);
-                                            setState(() {
-                                              imageFile = File(pickedImage!.path);
-                                              imagePath = pickedImage!.path;
-                                            });
-                                            Future.delayed(const Duration(milliseconds: 100), () {
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              const Icon(
-                                                Icons.photo_library_rounded,
-                                                size: 60.0,
-                                                color: kMainColor,
-                                              ),
-                                              Text(
-                                                lang.S.of(context).gallary,
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: 20.0,
-                                                  color: kMainColor,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 40.0,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            pickedImage = await _picker.pickImage(source: ImageSource.camera);
-                                            setState(() {
-                                              imageFile = File(pickedImage!.path);
-                                              imagePath = pickedImage!.path;
-                                            });
-                                            Future.delayed(const Duration(milliseconds: 100), () {
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              const Icon(
-                                                Icons.camera,
-                                                size: 60.0,
-                                                color: kGreyTextColor,
-                                              ),
-                                              Text(
-                                                lang.S.of(context).camera,
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: 20.0,
-                                                  color: kGreyTextColor,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            });
-                      },
-                      child: Stack(
-                        children: [
-                          Container(
-                            height: 120,
-                            width: 120,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black54, width: 1),
-                              borderRadius: const BorderRadius.all(Radius.circular(120)),
-                              image: imagePath == 'No Data'
-                                  ? DecorationImage(
-                                      image: NetworkImage(widget.productModel.productPicture),
-                                      fit: BoxFit.cover,
-                                    )
-                                  : DecorationImage(
-                                      image: FileImage(imageFile),
-                                      fit: BoxFit.cover,
-                                    ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              height: 35,
-                              width: 35,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white, width: 2),
-                                borderRadius: const BorderRadius.all(Radius.circular(120)),
-                                color: kMainColor,
-                              ),
-                              child: const Icon(
-                                Icons.camera_alt_outlined,
-                                size: 20,
-                                color: Colors.white,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                    //image section
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     showDialog(
+                    //         context: context,
+                    //         builder: (BuildContext context) {
+                    //           return Dialog(
+                    //             shape: RoundedRectangleBorder(
+                    //               borderRadius: BorderRadius.circular(12.0),
+                    //             ),
+                    //             // ignore: sized_box_for_whitespace
+                    //             child: Container(
+                    //               height: 200.0,
+                    //               width: MediaQuery.of(context).size.width - 80,
+                    //               child: Center(
+                    //                 child: Row(
+                    //                   mainAxisAlignment: MainAxisAlignment.center,
+                    //                   children: [
+                    //                     GestureDetector(
+                    //                       onTap: () async {
+                    //                         pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+                    //                         setState(() {
+                    //                           imageFile = File(pickedImage!.path);
+                    //                           imagePath = pickedImage!.path;
+                    //                         });
+                    //                         Future.delayed(const Duration(milliseconds: 100), () {
+                    //                           Navigator.pop(context);
+                    //                         });
+                    //                       },
+                    //                       child: Column(
+                    //                         mainAxisAlignment: MainAxisAlignment.center,
+                    //                         children: [
+                    //                           const Icon(
+                    //                             Icons.photo_library_rounded,
+                    //                             size: 60.0,
+                    //                             color: kMainColor,
+                    //                           ),
+                    //                           Text(
+                    //                             lang.S.of(context).gallary,
+                    //                             style: GoogleFonts.poppins(
+                    //                               fontSize: 20.0,
+                    //                               color: kMainColor,
+                    //                             ),
+                    //                           ),
+                    //                         ],
+                    //                       ),
+                    //                     ),
+                    //                     const SizedBox(
+                    //                       width: 40.0,
+                    //                     ),
+                    //                     GestureDetector(
+                    //                       onTap: () async {
+                    //                         pickedImage = await _picker.pickImage(source: ImageSource.camera);
+                    //                         setState(() {
+                    //                           imageFile = File(pickedImage!.path);
+                    //                           imagePath = pickedImage!.path;
+                    //                         });
+                    //                         Future.delayed(const Duration(milliseconds: 100), () {
+                    //                           Navigator.pop(context);
+                    //                         });
+                    //                       },
+                    //                       child: Column(
+                    //                         mainAxisAlignment: MainAxisAlignment.center,
+                    //                         children: [
+                    //                           const Icon(
+                    //                             Icons.camera,
+                    //                             size: 60.0,
+                    //                             color: kGreyTextColor,
+                    //                           ),
+                    //                           Text(
+                    //                             lang.S.of(context).camera,
+                    //                             style: GoogleFonts.poppins(
+                    //                               fontSize: 20.0,
+                    //                               color: kGreyTextColor,
+                    //                             ),
+                    //                           ),
+                    //                         ],
+                    //                       ),
+                    //                     ),
+                    //                   ],
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           );
+                    //         });
+                    //   },
+                    //   child: Stack(
+                    //     children: [
+                    //       Container(
+                    //         height: 120,
+                    //         width: 120,
+                    //         decoration: BoxDecoration(
+                    //           border: Border.all(color: Colors.black54, width: 1),
+                    //           borderRadius: const BorderRadius.all(Radius.circular(120)),
+                    //           image: imagePath == 'No Data'
+                    //               ? DecorationImage(
+                    //                   image: NetworkImage(widget.productModel.productPicture),
+                    //                   fit: BoxFit.cover,
+                    //                 )
+                    //               : DecorationImage(
+                    //                   image: FileImage(imageFile),
+                    //                   fit: BoxFit.cover,
+                    //                 ),
+                    //         ),
+                    //       ),
+                    //       Positioned(
+                    //         bottom: 0,
+                    //         right: 0,
+                    //         child: Container(
+                    //           height: 35,
+                    //           width: 35,
+                    //           decoration: BoxDecoration(
+                    //             border: Border.all(color: Colors.white, width: 2),
+                    //             borderRadius: const BorderRadius.all(Radius.circular(120)),
+                    //             color: kMainColor,
+                    //           ),
+                    //           child: const Icon(
+                    //             Icons.camera_alt_outlined,
+                    //             size: 20,
+                    //             color: Colors.white,
+                    //           ),
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
+                 
                     const SizedBox(height: 20),
                     ButtonGlobalWithoutIcon(
                       buttontext: lang.S.of(context).saveAndPublish,
