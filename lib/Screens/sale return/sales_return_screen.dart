@@ -140,7 +140,7 @@ class _SalesReturnState extends State<SalesReturn> {
         var data1 = await dueUpdateRef.child('$key/due').once();
         int previousDue = data1.snapshot.value.toString().toInt();
 
-    int dueNow = int.parse(orginal.dueAmount != null
+        int dueNow = int.parse(orginal.dueAmount != null
                 ? orginal.dueAmount.toString()
                 : '0') -
             int.parse(salesModel.totalAmount != null
@@ -381,11 +381,18 @@ class _SalesReturnState extends State<SalesReturn> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(returnList[index]
-                                          .productName
-                                          .toString()),
-                                      const SizedBox(width: 5.0),
-                                      const Text('Return QTY'),
+                                      SizedBox(
+                                        width: 280,
+                                        child: Text(
+                                          returnList[index]
+                                              .productName
+                                              .toString(),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      // const SizedBox(width: 5.0),
+                                      // const Text('Return QTY'),
                                     ],
                                   ),
                                   subtitle: Row(
@@ -393,7 +400,7 @@ class _SalesReturnState extends State<SalesReturn> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        '${returnList[index].stock.toString()} X ${returnList[index].subTotal} = ${myFormat.format(double.tryParse((double.parse(returnList[index].subTotal) * ((returnList[index].stock ?? 0) - returnList[index].quantity)).toStringAsFixed(2)) ?? 0)}',
+                                        '${returnList[index].stock.toString()} X ${returnList[index].subTotal} = ${myFormat.format(double.tryParse((double.parse(returnList[index].subTotal.toString()) * ((returnList[index].stock ?? 0) - returnList[index].quantity)).toStringAsFixed(2)) ?? 0)}',
                                       ),
                                       Row(
                                         mainAxisSize: MainAxisSize.min,
@@ -697,18 +704,20 @@ class _SalesReturnState extends State<SalesReturn> {
                                       .toString()) ??
                                   0);
                           totalPurchasePrice = totalPurchasePrice +
-                              ((double.parse(element.productPurchasePrice.toString()) +
+                              ((double.parse(element.productPurchasePrice
+                                          .toString()) +
                                       tax) *
                                   double.parse(element.quantity.toString()));
                         } else {
                           totalPurchasePrice = totalPurchasePrice +
-                              (double.parse(element.productPurchasePrice.toString()) *
+                              (double.parse(
+                                      element.productPurchasePrice.toString()) *
                                   int.parse(element.quantity.toString()));
                         }
 
                         totalSalePrice = totalSalePrice +
-                            (double.parse(element.subTotal) *
-                                 int.parse(element.quantity.toString()));
+                            (double.parse(element.subTotal.toString()) *
+                                int.parse(element.quantity.toString()));
 
                         totalQuantity = totalQuantity +
                             int.parse(element.quantity.toString());
