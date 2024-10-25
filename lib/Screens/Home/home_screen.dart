@@ -55,9 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
       return true;
     } else if (item == 'Sales List' && finalUserRoleModel.salesListPermission) {
       return true;
-    } else if (item == 'Purchase List' && finalUserRoleModel.purchaseListPermission) {
+    } else if (item == 'Purchase List' &&
+        finalUserRoleModel.purchaseListPermission) {
       return true;
-    } else if (item == 'Loss/Profit' && finalUserRoleModel.lossProfitPermission) {
+    } else if (item == 'Loss/Profit' &&
+        finalUserRoleModel.lossProfitPermission) {
       return true;
     } else if (item == 'Expense' && finalUserRoleModel.addExpensePermission) {
       return true;
@@ -82,9 +84,12 @@ class _HomeScreenState extends State<HomeScreen> {
     const Color(0xffD9EEFF),
     // const Color(0xffFFF6ED),
   ];
-  TextEditingController fromDateTextEditingController = TextEditingController(text: DateFormat.yMMMd().format(DateTime(2021)));
-  TextEditingController toDateTextEditingController = TextEditingController(text: DateFormat.yMMMd().format(DateTime.now()));
-  DateTime fromDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  TextEditingController fromDateTextEditingController =
+      TextEditingController(text: DateFormat.yMMMd().format(DateTime(2021)));
+  TextEditingController toDateTextEditingController =
+      TextEditingController(text: DateFormat.yMMMd().format(DateTime.now()));
+  DateTime fromDate =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   DateTime toDate = DateTime.now();
   DateTime selectedDate = DateTime.now();
   double totalProfit = 0;
@@ -159,15 +164,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  isSubUser ? null : const ProfileDetails().launch(context);
+                                  isSubUser
+                                      ? null
+                                      : const ProfileDetails().launch(context);
                                 },
                                 child: Container(
                                   height: 50,
                                   width: 50,
                                   decoration: BoxDecoration(
-                                      image: DecorationImage(image: NetworkImage(details.pictureUrl ?? ''), fit: BoxFit.cover),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              details.pictureUrl ?? ''),
+                                          fit: BoxFit.cover),
                                       borderRadius: BorderRadius.circular(50),
-                                      border: Border.all(color: kBorderColorTextField)),
+                                      border: Border.all(
+                                          color: kBorderColorTextField)),
                                 ),
                               ),
                               const SizedBox(width: 15.0),
@@ -176,12 +187,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    isSubUser ? '${details.companyName ?? ''} [$subUserTitle]' : details.companyName ?? '',
-                                    style: GoogleFonts.poppins(fontSize: 20.0, fontWeight: FontWeight.w600, color: Colors.white),
+                                    isSubUser
+                                        ? '${details.companyName ?? ''} [$subUserTitle]'
+                                        : details.companyName ?? '',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white),
                                   ),
                                   Text(
                                     '${Subscription.selectedItem} Plan',
-                                    style: GoogleFonts.poppins(color: Colors.white),
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -198,8 +215,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     color: kMainColor,
                     child: Container(
-                      decoration:
-                          const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(25), topLeft: Radius.circular(25))),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(25),
+                              topLeft: Radius.circular(25))),
                       child: Column(
                         children: [
                           Container(
@@ -210,12 +230,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 color: kDarkWhite),
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                              padding: const EdgeInsets.only(
+                                  left: 15, top: 10, bottom: 10),
                               child: Row(
                                 children: [
                                   Text(
                                     lang.S.of(context).dashBoardOverView,
-                                    style: kTextStyle.copyWith(fontWeight: FontWeight.bold, color: kTitleColor),
+                                    style: kTextStyle.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: kTitleColor),
                                   ),
                                   const Spacer(),
                                   Transform.scale(
@@ -245,41 +268,84 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  lang.S.of(context).salesAndPurchaseReports,
-                                                  style: kTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16, color: kTitleColor),
+                                                  lang.S
+                                                      .of(context)
+                                                      .salesAndPurchaseReports,
+                                                  style: kTextStyle.copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 16,
+                                                      color: kTitleColor),
                                                 ),
                                                 const Spacer(),
                                                 DropdownButtonHideUnderline(
                                                     child: DropdownButton(
                                                         icon: const Icon(
-                                                          Icons.keyboard_arrow_down_sharp,
+                                                          Icons
+                                                              .keyboard_arrow_down_sharp,
                                                           color: kGreyTextColor,
                                                           size: 18,
                                                         ),
                                                         value: selectedDay,
                                                         items: dayList
                                                             .map(
-                                                              (e) => DropdownMenuItem(
+                                                              (e) =>
+                                                                  DropdownMenuItem(
                                                                 value: e,
                                                                 child: Text(
                                                                   e,
-                                                                  style: kTextStyle.copyWith(color: kTitleColor, fontSize: 14),
+                                                                  style: kTextStyle
+                                                                      .copyWith(
+                                                                          color:
+                                                                              kTitleColor,
+                                                                          fontSize:
+                                                                              14),
                                                                 ),
                                                               ),
                                                             )
                                                             .toList(),
-                                                        onChanged: (String? newValue) {
+                                                        onChanged:
+                                                            (String? newValue) {
                                                           setState(() {
-                                                            selectedDay = newValue!;
-                                                            if (newValue == 'Today') {
-                                                              fromDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-                                                            } else if (newValue == 'Weekly') {
-                                                              fromDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
-                                                                  .subtract(const Duration(days: 7));
-                                                            } else if (newValue == 'Monthly') {
-                                                              fromDate = DateTime(DateTime.now().year, DateTime.now().month, 1);
-                                                            } else if (newValue == 'Yearly') {
-                                                              fromDate = DateTime(DateTime.now().year, 1, 1);
+                                                            selectedDay =
+                                                                newValue!;
+                                                            if (newValue ==
+                                                                'Today') {
+                                                              fromDate = DateTime(
+                                                                  DateTime.now()
+                                                                      .year,
+                                                                  DateTime.now()
+                                                                      .month,
+                                                                  DateTime.now()
+                                                                      .day);
+                                                            } else if (newValue ==
+                                                                'Weekly') {
+                                                              fromDate = DateTime(
+                                                                      DateTime.now()
+                                                                          .year,
+                                                                      DateTime.now()
+                                                                          .month,
+                                                                      DateTime.now()
+                                                                          .day)
+                                                                  .subtract(
+                                                                      const Duration(
+                                                                          days:
+                                                                              7));
+                                                            } else if (newValue ==
+                                                                'Monthly') {
+                                                              fromDate = DateTime(
+                                                                  DateTime.now()
+                                                                      .year,
+                                                                  DateTime.now()
+                                                                      .month,
+                                                                  1);
+                                                            } else if (newValue ==
+                                                                'Yearly') {
+                                                              fromDate = DateTime(
+                                                                  DateTime.now()
+                                                                      .year,
+                                                                  1,
+                                                                  1);
                                                             }
                                                           });
                                                         }))
@@ -289,41 +355,75 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Container(
                                               alignment: Alignment.center,
                                               height: 64,
-                                              decoration: BoxDecoration(color: const Color(0xffCEFFE2), borderRadius: BorderRadius.circular(8)),
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xffCEFFE2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8)),
                                               child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                                 children: [
-                                                  salesProviderData.when(data: (transaction) {
+                                                  salesProviderData.when(
+                                                      data: (transaction) {
                                                     totalSell = 0;
                                                     totalDue = 0;
-                                                    final reTransaction = transaction.reversed.toList();
-                                                    for (var element in transaction) {
-                                                      if ((fromDate.isBefore(DateTime.parse(element.purchaseDate)) ||
-                                                              DateTime.parse(element.purchaseDate).isAtSameMomentAs(fromDate)) &&
-                                                          (toDate.isAfter(DateTime.parse(element.purchaseDate)) ||
-                                                              DateTime.parse(element.purchaseDate).isAtSameMomentAs(toDate))) {
-                                                        totalSell = totalSell + element.totalAmount!.toDouble();
-                                                        totalDue = totalDue + element.dueAmount!.toDouble();
+                                                    final reTransaction =
+                                                        transaction.reversed
+                                                            .toList();
+                                                    for (var element
+                                                        in transaction) {
+                                                      if ((fromDate.isBefore(
+                                                                  DateTime.parse(
+                                                                      element
+                                                                          .purchaseDate)) ||
+                                                              DateTime.parse(element
+                                                                      .purchaseDate)
+                                                                  .isAtSameMomentAs(
+                                                                      fromDate)) &&
+                                                          (toDate.isAfter(
+                                                                  DateTime.parse(
+                                                                      element
+                                                                          .purchaseDate)) ||
+                                                              DateTime.parse(element
+                                                                      .purchaseDate)
+                                                                  .isAtSameMomentAs(
+                                                                      toDate))) {
+                                                        totalSell = totalSell +
+                                                            element.totalAmount!
+                                                                .toDouble();
+                                                        totalDue = totalDue +
+                                                            element.dueAmount!
+                                                                .toDouble();
                                                       }
                                                     }
-                                                    return reTransaction.isNotEmpty
+                                                    return reTransaction
+                                                            .isNotEmpty
                                                         ? Text(
                                                             '$currency${myFormat.format(totalSell)}',
-                                                            style: kTextStyle.copyWith(fontWeight: FontWeight.bold, color: kTitleColor),
+                                                            style: kTextStyle.copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    kTitleColor),
                                                           )
                                                         : Text('$currency 0');
                                                   }, error: (e, stack) {
                                                     return Text(e.toString());
                                                   }, loading: () {
                                                     return const Center(
-                                                      child: CircularProgressIndicator(),
+                                                      child:
+                                                          CircularProgressIndicator(),
                                                     );
                                                   }),
                                                   const SizedBox(
                                                     height: 5,
                                                   ),
-                                                  Text(lang.S.of(context).sales),
+                                                  Text(
+                                                      lang.S.of(context).sales),
                                                 ],
                                               ),
                                             ),
@@ -336,39 +436,79 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   child: Container(
                                                     alignment: Alignment.center,
                                                     height: 64,
-                                                    decoration: BoxDecoration(color: const Color(0xffDFD3FF), borderRadius: BorderRadius.circular(8)),
+                                                    decoration: BoxDecoration(
+                                                        color: const Color(
+                                                            0xffDFD3FF),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8)),
                                                     child: Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
                                                       children: [
-                                                        purchaseProviderData.when(data: (transaction) {
-                                                          final reTransaction = transaction.reversed.toList();
+                                                        purchaseProviderData
+                                                            .when(data:
+                                                                (transaction) {
+                                                          final reTransaction =
+                                                              transaction
+                                                                  .reversed
+                                                                  .toList();
                                                           totalPurchase = 0;
-                                                          for (var element in reTransaction) {
-                                                            if ((fromDate.isBefore(DateTime.parse(element.purchaseDate)) ||
-                                                                    DateTime.parse(element.purchaseDate).isAtSameMomentAs(fromDate)) &&
-                                                                (toDate.isAfter(DateTime.parse(element.purchaseDate)) ||
-                                                                    DateTime.parse(element.purchaseDate).isAtSameMomentAs(toDate))) {
-                                                              totalPurchase = totalPurchase + element.totalAmount!.toDouble();
+                                                          for (var element
+                                                              in reTransaction) {
+                                                            if ((fromDate.isBefore(
+                                                                        DateTime.parse(element
+                                                                            .purchaseDate)) ||
+                                                                    DateTime.parse(element
+                                                                            .purchaseDate)
+                                                                        .isAtSameMomentAs(
+                                                                            fromDate)) &&
+                                                                (toDate.isAfter(
+                                                                        DateTime.parse(element
+                                                                            .purchaseDate)) ||
+                                                                    DateTime.parse(element
+                                                                            .purchaseDate)
+                                                                        .isAtSameMomentAs(
+                                                                            toDate))) {
+                                                              totalPurchase =
+                                                                  totalPurchase +
+                                                                      element
+                                                                          .totalAmount!
+                                                                          .toDouble();
                                                             }
                                                           }
-                                                          return reTransaction.isNotEmpty
+                                                          return reTransaction
+                                                                  .isNotEmpty
                                                               ? Text(
                                                                   '$currency${myFormat.format(totalPurchase)}',
-                                                                  style: kTextStyle.copyWith(fontWeight: FontWeight.bold, color: kTitleColor),
+                                                                  style: kTextStyle.copyWith(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color:
+                                                                          kTitleColor),
                                                                 )
-                                                              : Text('$currency 0');
+                                                              : Text(
+                                                                  '$currency 0');
                                                         }, error: (e, stack) {
-                                                          return Text(e.toString());
+                                                          return Text(
+                                                              e.toString());
                                                         }, loading: () {
                                                           return const Center(
-                                                            child: CircularProgressIndicator(),
+                                                            child:
+                                                                CircularProgressIndicator(),
                                                           );
                                                         }),
                                                         const SizedBox(
                                                           height: 5,
                                                         ),
-                                                        Text(lang.S.of(context).purchase),
+                                                        Text(lang.S
+                                                            .of(context)
+                                                            .purchase),
                                                       ],
                                                     ),
                                                   ),
@@ -378,16 +518,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   child: Container(
                                                     alignment: Alignment.center,
                                                     height: 64,
-                                                    decoration: BoxDecoration(color: const Color(0xffFFDBDB), borderRadius: BorderRadius.circular(8)),
+                                                    decoration: BoxDecoration(
+                                                        color: const Color(
+                                                            0xffFFDBDB),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8)),
                                                     child: Column(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
                                                       children: [
-                                                        Text('$currency${myFormat.format(totalDue)}',
-                                                            style: kTextStyle.copyWith(fontWeight: FontWeight.bold, color: kTitleColor)),
-                                                        const SizedBox(height: 5),
                                                         Text(
-                                                          lang.S.of(context).due,
+                                                            '$currency${myFormat.format(totalDue)}',
+                                                            style: kTextStyle.copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    kTitleColor)),
+                                                        const SizedBox(
+                                                            height: 5),
+                                                        Text(
+                                                          lang.S
+                                                              .of(context)
+                                                              .due,
                                                         ),
                                                       ],
                                                     ),
@@ -406,7 +564,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Container(
                                       padding: const EdgeInsets.all(10.0),
                                       child: GridView.count(
-                                        physics: const NeverScrollableScrollPhysics(),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         childAspectRatio: 1.0,
                                         crossAxisSpacing: 0,
@@ -417,7 +576,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           (index) => HomeGridCards(
                                             gridItems: freeIcons[index],
                                             color: color[index],
-                                            svg: freeIcons[index].icon.contains('svg'),
+                                            svg: freeIcons[index]
+                                                .icon
+                                                .contains('svg'),
                                           ),
                                         ),
                                       ),
@@ -429,13 +590,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                       color: Colors.grey.shade300,
                                     ),
                                     const SizedBox(height: 10),
-
                                     homePageImageProvider.when(data: (images) {
                                       if (images.isNotEmpty) {
                                         return SizedBox(
                                           width: double.infinity,
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                             children: [
                                               Text(
                                                 lang.S.of(context).whatsNew,
@@ -446,45 +607,76 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                               ),
                                               Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
                                                 children: [
                                                   GestureDetector(
-                                                    child: const Icon(Icons.keyboard_arrow_left),
+                                                    child: const Icon(Icons
+                                                        .keyboard_arrow_left),
                                                     onTap: () {
-                                                      pageController.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.linear);
+                                                      pageController.previousPage(
+                                                          duration:
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      300),
+                                                          curve: Curves.linear);
                                                     },
                                                   ),
                                                   Container(
                                                     height: 180,
                                                     width: 310,
-                                                    padding: const EdgeInsets.all(10),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
                                                     child: PageView.builder(
                                                       pageSnapping: true,
                                                       itemCount: images.length,
-                                                      controller: pageController,
+                                                      controller:
+                                                          pageController,
                                                       itemBuilder: (_, index) {
-                                                        if (images[index].imageUrl.contains('https://firebasestorage.googleapis.com')) {
+                                                        if (images[index]
+                                                            .imageUrl
+                                                            .contains(
+                                                                'https://firebasestorage.googleapis.com')) {
                                                           return GestureDetector(
                                                             onTap: () {
-                                                              const PackageScreen().launch(context);
+                                                              const PackageScreen()
+                                                                  .launch(
+                                                                      context);
                                                             },
                                                             child: Container(
                                                               decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.circular(8),
-                                                                  image: DecorationImage(fit: BoxFit.fill, image: NetworkImage(images[index].imageUrl))),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8),
+                                                                  image: DecorationImage(
+                                                                      fit: BoxFit
+                                                                          .fill,
+                                                                      image: NetworkImage(
+                                                                          images[index]
+                                                                              .imageUrl))),
                                                             ),
                                                           );
                                                         } else {
-                                                          YoutubePlayerController videoController = YoutubePlayerController(
-                                                            flags: const YoutubePlayerFlags(
+                                                          YoutubePlayerController
+                                                              videoController =
+                                                              YoutubePlayerController(
+                                                            flags:
+                                                                const YoutubePlayerFlags(
                                                               autoPlay: false,
                                                               mute: false,
                                                             ),
-                                                            initialVideoId: images[index].imageUrl,
+                                                            initialVideoId:
+                                                                images[index]
+                                                                    .imageUrl,
                                                           );
                                                           return YoutubePlayer(
-                                                            controller: videoController,
-                                                            showVideoProgressIndicator: true,
+                                                            controller:
+                                                                videoController,
+                                                            showVideoProgressIndicator:
+                                                                true,
                                                             onReady: () {},
                                                           );
                                                         }
@@ -492,9 +684,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ),
                                                   ),
                                                   GestureDetector(
-                                                    child: const Icon(Icons.keyboard_arrow_right),
+                                                    child: const Icon(Icons
+                                                        .keyboard_arrow_right),
                                                     onTap: () {
-                                                      pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.linear);
+                                                      pageController.nextPage(
+                                                          duration:
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      300),
+                                                          curve: Curves.linear);
                                                     },
                                                   ),
                                                 ],
@@ -508,7 +706,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                           padding: const EdgeInsets.all(10),
                                           height: 180,
                                           width: 320,
-                                          decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('image/banner1.png'))),
+                                          decoration: const BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'image/banner1.png'))),
                                         );
                                       }
                                     }, error: (e, stack) {
@@ -516,7 +717,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding: const EdgeInsets.all(10),
                                         height: 180,
                                         width: 320,
-                                        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('image/banner1.png'))),
+                                        decoration: const BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    'image/banner1.png'))),
                                       );
                                     }, loading: () {
                                       return const CircularProgressIndicator();
@@ -538,8 +742,11 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class HomeGridCards extends StatefulWidget {
-  const HomeGridCards({super.key, required this.gridItems, required this.color,this.svg = true});
-
+  const HomeGridCards(
+      {super.key,
+      required this.gridItems,
+      required this.color,
+      this.svg = true});
 
   final GridItems gridItems;
   final Color color;
@@ -553,37 +760,47 @@ class _HomeGridCardsState extends State<HomeGridCards> {
   Future<bool> subscriptionChecker({
     required String item,
   }) async {
-    final DatabaseReference subscriptionRef = FirebaseDatabase.instance.ref().child(constUserId).child('Subscription');
-    DatabaseReference ref = FirebaseDatabase.instance.ref('$constUserId/Subscription');
-    ref.keepSynced(true);
-    subscriptionRef.keepSynced(true);
+    // final DatabaseReference subscriptionRef = FirebaseDatabase.instance.ref().child(constUserId).child('Subscription');
+    // DatabaseReference ref = FirebaseDatabase.instance.ref('$constUserId/Subscription');
+    // ref.keepSynced(true);
+    // subscriptionRef.keepSynced(true);
 
     bool boolValue = true;
 
-    ref.get().then((value) async {
-      final dataModel = SubscriptionModel.fromJson(jsonDecode(jsonEncode(value.value)));
-      final remainTime = DateTime.parse(dataModel.subscriptionDate).difference(DateTime.now());
-      for (var element in Subscription.subscriptionPlan) {
-        if (dataModel.subscriptionName == element.subscriptionName) {
-          if (remainTime.inHours.abs() > element.duration * 24) {
-            Subscription.freeSubscriptionModel.subscriptionDate = DateTime.now().toString();
-            subscriptionRef.set(Subscription.freeSubscriptionModel.toJson());
-            final prefs = await SharedPreferences.getInstance();
-            await prefs.setBool('isFiveDayRemainderShown', true);
-          } else if (item == 'Sales' && dataModel.saleNumber <= 0 && dataModel.saleNumber != -202) {
-            boolValue = false;
-          } else if (item == 'Parties' && dataModel.partiesNumber <= 0 && dataModel.partiesNumber != -202) {
-            boolValue = false;
-          } else if (item == 'Purchase' && dataModel.purchaseNumber <= 0 && dataModel.purchaseNumber != -202) {
-            boolValue = false;
-          } else if (item == 'Products' && dataModel.products <= 0 && dataModel.products != -202) {
-            boolValue = false;
-          } else if (item == 'Due List' && dataModel.dueNumber <= 0 && dataModel.dueNumber != -202) {
-            boolValue = false;
-          }
-        }
-      }
-    });
+    // ref.get().then((value) async {
+    //   final dataModel = SubscriptionModel.fromJson(jsonDecode(jsonEncode(value.value)));
+    //   final remainTime = DateTime.parse(dataModel.subscriptionDate).difference(DateTime.now());
+    //   for (var element in Subscription.subscriptionPlan) {
+    //     if (dataModel.subscriptionName == element.subscriptionName) {
+    //       if (remainTime.inHours.abs() > element.duration * 24) {
+    //         Subscription.freeSubscriptionModel.subscriptionDate = DateTime.now().toString();
+    //         subscriptionRef.set(Subscription.freeSubscriptionModel.toJson());
+    //         final prefs = await SharedPreferences.getInstance();
+    //         await prefs.setBool('isFiveDayRemainderShown', true);
+    //       } else if (item == 'Sales' && dataModel.saleNumber <= 0 && dataModel.saleNumber != -202) {
+    //         boolValue = false;
+    //       } else if (item == 'Parties' && dataModel.partiesNumber <= 0 && dataModel.partiesNumber != -202) {
+    //         boolValue = false;
+    //       } else if (item == 'Purchase' && dataModel.purchaseNumber <= 0 && dataModel.purchaseNumber != -202) {
+    //         boolValue = false;
+    //       } else if (item == 'Products' && dataModel.products <= 0 && dataModel.products != -202) {
+    //         boolValue = false;
+    //       } else if (item == 'Due List' && dataModel.dueNumber <= 0 && dataModel.dueNumber != -202) {
+    //         boolValue = false;
+    //       }
+    //     }
+    //   }
+    // });
+
+    final availableSubscription =
+        await Subscription.availableSubscription(context: context);
+    final availableLimit = await Subscription.subscriptionChecker(item: item);
+    debugPrint("availableSubscription === $availableSubscription");
+    debugPrint("availableLimit === $availableLimit");
+    if (!availableSubscription || !availableLimit) {
+    
+      boolValue = false;
+    }
     return boolValue;
   }
 
@@ -667,23 +884,36 @@ class _HomeGridCardsState extends State<HomeGridCards> {
                 ref.refresh(purchaseTransitionProvider);
                 ref.refresh(transitionProvider);
                 isSubUser
-                    ? await checkUserRolePermission(type: widget.gridItems.route)
-                        ? await subscriptionChecker(item: widget.gridItems.route)
-                            ? Navigator.of(context).pushNamed('/${widget.gridItems.route}')
-                            : EasyLoading.showError('Update your plan first,\nyour limit is over.')
-                        : EasyLoading.showError('Sorry, you have no permission to access this service')
+                    ? await checkUserRolePermission(
+                            type: widget.gridItems.route)
+                        ? await subscriptionChecker(
+                                item: widget.gridItems.route)
+                            ? Navigator.of(context)
+                                .pushNamed('/${widget.gridItems.route}')
+                            : EasyLoading.showError(
+                                'Update your plan first,\nyour limit is over.')
+                        : EasyLoading.showError(
+                            'Sorry, you have no permission to access this service')
                     : await subscriptionChecker(item: widget.gridItems.route)
-                        ? Navigator.of(context).pushNamed('/${widget.gridItems.route}')
-                        : EasyLoading.showError('Update your plan first,\nyour limit is over.');
+                        ? Navigator.of(context)
+                            .pushNamed('/${widget.gridItems.route}')
+                        : EasyLoading.showError(
+                            'Update your plan first,\nyour limit is over.');
               },
-              child: widget.svg ? SvgPicture.asset(
-                widget.gridItems.icon,
-                height: 40.0,
-                width: 40.0,
-                allowDrawingOutsideViewBox: false,
-                fit: BoxFit.cover,
-              ) : Image.asset(widget.gridItems.icon, width: 40,height: 40,fit: BoxFit.cover,),
-
+              child: widget.svg
+                  ? SvgPicture.asset(
+                      widget.gridItems.icon,
+                      height: 40.0,
+                      width: 40.0,
+                      allowDrawingOutsideViewBox: false,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      widget.gridItems.icon,
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
           Text(

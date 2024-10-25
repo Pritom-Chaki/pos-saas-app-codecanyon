@@ -273,18 +273,16 @@ class Subscription {
   static Future<bool> availableSubscription(
       {required BuildContext? context}) async {
     final ref =
-        await FirebaseDatabase.instance.ref(constUserId).child('Subscription');
+        FirebaseDatabase.instance.ref(constUserId).child('Subscription');
     ref.keepSynced(true);
     late DateTime subscriptionDate;
     DateTime currentDate = DateTime.now();
     int duration = 0;
     await ref.child("subscriptionDate").get().then((value) {
-      print(value.value);
       subscriptionDate = DateTime.parse(value.value.toString());
     });
 
     await ref.child("duration").get().then((value) {
-      print(value.value);
       duration = int.parse(value.value.toString());
     });
 
@@ -292,7 +290,7 @@ class Subscription {
         subscriptionDate.year, subscriptionDate.month, subscriptionDate.day);
     var to = DateTime(currentDate.year, currentDate.month, currentDate.day);
     int value = (to.difference(from).inHours / 24).round();
-    print(value);
+
     if (value > duration) return false;
     // print(subscriptionDate);
     // print(value.value);
