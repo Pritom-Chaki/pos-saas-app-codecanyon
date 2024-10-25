@@ -23,7 +23,10 @@ import '../../pdf/sales_pdf.dart';
 import '../Home/home.dart';
 
 class SalesInvoiceDetails extends StatefulWidget {
-  const SalesInvoiceDetails({super.key, required this.transitionModel, required this.personalInformationModel});
+  const SalesInvoiceDetails(
+      {super.key,
+      required this.transitionModel,
+      required this.personalInformationModel});
 
   final SalesTransitionModel transitionModel;
   final PersonalInformationModel personalInformationModel;
@@ -39,7 +42,8 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
       ref.refresh(productProvider);
 
       final printerData = ref.watch(printerProviderNotifier);
-      bool isTaxonInvoice = c.isVatAdded(products: widget.transitionModel.productList ?? []);
+      bool isTaxonInvoice =
+          c.isVatAdded(products: widget.transitionModel.productList ?? []);
       return SafeArea(
         child: WillPopScope(
           onWillPop: () async {
@@ -69,19 +73,24 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                       ),
                       title: Text(
                         widget.personalInformationModel.companyName.toString(),
-                        style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold, fontSize: 18.0),
+                        style: kTextStyle.copyWith(
+                            color: kTitleColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0),
                       ),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.personalInformationModel.countryName.toString(),
+                            widget.personalInformationModel.countryName
+                                .toString(),
                             style: kTextStyle.copyWith(
                               color: kGreyTextColor,
                             ),
                           ),
                           Text(
-                            widget.personalInformationModel.phoneNumber.toString(),
+                            widget.personalInformationModel.phoneNumber
+                                .toString(),
                             style: kTextStyle.copyWith(
                               color: kGreyTextColor,
                             ),
@@ -105,12 +114,14 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                       children: [
                         Text(
                           lang.S.of(context).billTo,
-                          style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                          style: kTextStyle.copyWith(
+                              color: kTitleColor, fontWeight: FontWeight.bold),
                         ),
                         const Spacer(),
                         Text(
                           'Invoice# ${widget.transitionModel.invoiceNumber}',
-                          style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                          style: kTextStyle.copyWith(
+                              color: kTitleColor, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -128,7 +139,8 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          DateFormat.yMMMd().format(DateTime.parse(widget.transitionModel.purchaseDate)),
+                          DateFormat.yMMMd().format(DateTime.parse(
+                              widget.transitionModel.purchaseDate)),
                           textAlign: TextAlign.end,
                           style: kTextStyle.copyWith(color: kGreyTextColor),
                         ),
@@ -174,51 +186,70 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
-                            width: context.width() / (isTaxonInvoice ? 4.2 : 2.4),
+                            width:
+                                context.width() / (isTaxonInvoice ? 4.2 : 2.4),
                             child: Text(
                               lang.S.of(context).product,
                               maxLines: 2,
-                              style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                              style: kTextStyle.copyWith(
+                                  color: kTitleColor,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           SizedBox(
-                            width: (context.width() - (context.width() / 2.4 + 20)) / 3,
+                            width: (context.width() -
+                                    (context.width() / 2.4 + 20)) /
+                                3,
                             child: Text(
                               lang.S.of(context).quantity,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                              style: kTextStyle.copyWith(
+                                  color: kTitleColor,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           SizedBox(
-                            width: (context.width() - (context.width() / 2.4 + 20)) / 3,
+                            width: (context.width() -
+                                    (context.width() / 2.4 + 20)) /
+                                3,
                             child: Text(
                               lang.S.of(context).unitPirce,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                              style: kTextStyle.copyWith(
+                                  color: kTitleColor,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           Visibility(
                             visible: isTaxonInvoice,
                             child: SizedBox(
-                              width: (context.width() - (context.width() / 2.4 + 20)) / 3,
+                              width: (context.width() -
+                                      (context.width() / 2.4 + 20)) /
+                                  3,
                               child: Text(
                                 "TAX",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.center,
-                                style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                style: kTextStyle.copyWith(
+                                    color: kTitleColor,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
                           SizedBox(
-                            width: (context.width() - (context.width() / 2.4 + 20)) / 3,
+                            width: (context.width() -
+                                    (context.width() / 2.4 + 20)) /
+                                3,
                             child: Text(
                               lang.S.of(context).totalPrice,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                              style: kTextStyle.copyWith(
+                                  color: kTitleColor,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -235,65 +266,90 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                         itemCount: widget.transitionModel.productList!.length,
                         itemBuilder: (_, i) {
                           return Padding(
-                            padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                            padding:
+                                const EdgeInsets.only(top: 5.0, bottom: 5.0),
                             child: SizedBox(
                               width: context.width(),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
-                                    width: context.width() / (isTaxonInvoice ? 4.2 : 2.4),
+                                    width: context.width() /
+                                        (isTaxonInvoice ? 4.2 : 2.4),
                                     child: Text(
-                                      widget.transitionModel.productList![i].productName.toString(),
+                                      widget.transitionModel.productList![i]
+                                          .productName
+                                          .toString(),
                                       maxLines: 2,
-                                      style: kTextStyle.copyWith(color: kGreyTextColor),
+                                      style: kTextStyle.copyWith(
+                                          color: kGreyTextColor),
                                     ),
                                   ),
                                   // const Spacer(),
                                   SizedBox(
-                                    width: (context.width() - (context.width() / 2.4 + 20)) / 3,
+                                    width: (context.width() -
+                                            (context.width() / 2.4 + 20)) /
+                                        3,
                                     child: Text(
-                                      widget.transitionModel.productList![i].quantity.toString(),
+                                      widget.transitionModel.productList![i]
+                                          .quantity
+                                          .toString(),
                                       maxLines: 1,
                                       textAlign: TextAlign.center,
                                       overflow: TextOverflow.ellipsis,
-                                      style: kTextStyle.copyWith(color: kGreyTextColor),
+                                      style: kTextStyle.copyWith(
+                                          color: kGreyTextColor),
                                     ),
                                   ),
                                   SizedBox(
-                                    width: (context.width() - (context.width() / 2.4 + 20)) / 3,
+                                    width: (context.width() -
+                                            (context.width() / 2.4 + 20)) /
+                                        3,
                                     child: Text(
                                       '$currency ${myFormat.format(double.tryParse(widget.transitionModel.productList![i].subTotal.toString())?.round() ?? 0)}',
                                       maxLines: 1,
                                       textAlign: TextAlign.center,
                                       overflow: TextOverflow.ellipsis,
-                                      style: kTextStyle.copyWith(color: kGreyTextColor),
+                                      style: kTextStyle.copyWith(
+                                          color: kGreyTextColor),
                                     ),
                                   ),
                                   Visibility(
                                     visible: isTaxonInvoice,
                                     child: SizedBox(
-                                      width: (context.width() - (context.width() / 2.4 + 20)) / 3,
+                                      width: (context.width() -
+                                              (context.width() / 2.4 + 20)) /
+                                          3,
                                       child: Text(
-                                        c.calculateProductVat(product: widget.transitionModel.productList![i]).isNotEmpty
+                                        c
+                                                .calculateProductVat(
+                                                    product: widget
+                                                        .transitionModel
+                                                        .productList![i])
+                                                .isNotEmpty
                                             ? '$currency ${c.calculateProductVat(product: widget.transitionModel.productList![i])}'
                                             : '$currency 0',
                                         maxLines: 1,
                                         textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
-                                        style: kTextStyle.copyWith(color: kGreyTextColor),
+                                        style: kTextStyle.copyWith(
+                                            color: kGreyTextColor),
                                       ),
                                     ),
                                   ),
                                   SizedBox(
-                                    width: (context.width() - (context.width() / 2.4 + 20)) / 3,
+                                    width: (context.width() -
+                                            (context.width() / 2.4 + 20)) /
+                                        3,
                                     child: Text(
                                       '$currency ${myFormat.format((double.tryParse(widget.transitionModel.productList![i].subTotal.toString()) ?? 0) * widget.transitionModel.productList![i].quantity)}',
                                       maxLines: 1,
                                       textAlign: TextAlign.center,
                                       overflow: TextOverflow.ellipsis,
-                                      style: kTextStyle.copyWith(color: kTitleColor),
+                                      style: kTextStyle.copyWith(
+                                          color: kTitleColor),
                                     ),
                                   ),
                                 ],
@@ -331,13 +387,21 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                     ///________vat_______________________________________________
                     ListView.builder(
                       shrinkWrap: true,
-                      itemCount: c.getAllTaxFromCartList(cart: widget.transitionModel.productList ?? []).length,
+                      itemCount: c
+                          .getAllTaxFromCartList(
+                              cart: widget.transitionModel.productList ?? [])
+                          .length,
                       itemBuilder: (context, index) {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              c.getAllTaxFromCartList(cart: widget.transitionModel.productList ?? [])[index].name,
+                              c
+                                  .getAllTaxFromCartList(
+                                      cart:
+                                          widget.transitionModel.productList ??
+                                              [])[index]
+                                  .name,
                               maxLines: 1,
                               style: kTextStyle.copyWith(color: kGreyTextColor),
                             ),
@@ -347,7 +411,9 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                               child: Text(
                                 '${c.getAllTaxFromCartList(cart: widget.transitionModel.productList ?? [])[index].taxRate.toString()}%',
                                 maxLines: 2,
-                                style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                                style: kTextStyle.copyWith(
+                                    color: kTitleColor,
+                                    fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.end,
                               ),
                             ),
@@ -370,7 +436,9 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                           child: Text(
                             '$currency ${myFormat.format(widget.transitionModel.totalAmount!.toDouble() + widget.transitionModel.discountAmount!.toDouble())}',
                             maxLines: 2,
-                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                            style: kTextStyle.copyWith(
+                                color: kTitleColor,
+                                fontWeight: FontWeight.bold),
                             textAlign: TextAlign.end,
                           ),
                         ),
@@ -391,7 +459,9 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                           child: Text(
                             '$currency ${myFormat.format(widget.transitionModel.discountAmount)}',
                             maxLines: 2,
-                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                            style: kTextStyle.copyWith(
+                                color: kTitleColor,
+                                fontWeight: FontWeight.bold),
                             textAlign: TextAlign.end,
                           ),
                         ),
@@ -412,7 +482,9 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                           child: Text(
                             '$currency 0.00',
                             maxLines: 2,
-                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                            style: kTextStyle.copyWith(
+                                color: kTitleColor,
+                                fontWeight: FontWeight.bold),
                             textAlign: TextAlign.end,
                           ),
                         ),
@@ -425,7 +497,8 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                         Text(
                           lang.S.of(context).totalPayable,
                           maxLines: 1,
-                          style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                          style: kTextStyle.copyWith(
+                              color: kTitleColor, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(width: 20.0),
                         SizedBox(
@@ -433,7 +506,9 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                           child: Text(
                             '$currency ${myFormat.format(widget.transitionModel.totalAmount)}',
                             maxLines: 2,
-                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                            style: kTextStyle.copyWith(
+                                color: kTitleColor,
+                                fontWeight: FontWeight.bold),
                             textAlign: TextAlign.end,
                           ),
                         ),
@@ -454,7 +529,9 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                           child: Text(
                             '$currency ${myFormat.format(widget.transitionModel.totalAmount! - widget.transitionModel.dueAmount!.toDouble())}',
                             maxLines: 2,
-                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                            style: kTextStyle.copyWith(
+                                color: kTitleColor,
+                                fontWeight: FontWeight.bold),
                             textAlign: TextAlign.end,
                           ),
                         ),
@@ -475,7 +552,9 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                           child: Text(
                             '$currency ${myFormat.format(widget.transitionModel.dueAmount)}',
                             maxLines: 2,
-                            style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                            style: kTextStyle.copyWith(
+                                color: kTitleColor,
+                                fontWeight: FontWeight.bold),
                             textAlign: TextAlign.end,
                           ),
                         ),
@@ -490,7 +569,8 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                       child: Text(
                         lang.S.of(context).thankYouForYourPurchase,
                         maxLines: 1,
-                        style: kTextStyle.copyWith(color: kTitleColor, fontWeight: FontWeight.bold),
+                        style: kTextStyle.copyWith(
+                            color: kTitleColor, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -537,8 +617,6 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () async {
-
-
                       showDialog(
                           context: context,
                           builder: (_) {
@@ -548,21 +626,28 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const Padding(
-                                      padding: EdgeInsets.only(top: 20, bottom: 10),
+                                      padding:
+                                          EdgeInsets.only(top: 20, bottom: 10),
                                       child: Text(
                                         "POS Printer",
-                                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     const SizedBox(height: 10),
-                                    Container(height: 1, width: double.infinity, color: Colors.grey),
+                                    Container(
+                                        height: 1,
+                                        width: double.infinity,
+                                        color: Colors.grey),
                                     const SizedBox(height: 15),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: PrimaryButton(
                                         label: "58 mm",
                                         isDisabled: false,
-                                        onPressed: () =>  rePrinter(printerData, true),
+                                        onPressed: () =>
+                                            rePrinter(printerData, true),
                                       ),
                                     ),
                                     Padding(
@@ -570,7 +655,8 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                                       child: PrimaryButton(
                                         label: "80 mm",
                                         isDisabled: false,
-                                        onPressed: () =>  rePrinter(printerData, false),
+                                        onPressed: () =>
+                                            rePrinter(printerData, false),
                                       ),
                                     ),
                                     GestureDetector(
@@ -582,7 +668,8 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
                                             lang.S.of(context).cacel,
-                                            style: const TextStyle(color: kMainColor),
+                                            style: const TextStyle(
+                                                color: kMainColor),
                                           ),
                                         ),
                                       ),
@@ -593,7 +680,6 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                               ),
                             );
                           });
-
                     },
                     child: Container(
                       height: 60,
@@ -668,73 +754,85 @@ class _SalesInvoiceDetailsState extends State<SalesInvoiceDetails> {
                 ),
               ]),
             ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
           ),
         ),
       );
     });
   }
 
-  void rePrinter(Printer printerData, bool printer58) async{
+  void rePrinter(Printer printerData, bool printer58) async {
     await printerData.getBluetooth();
-    PrintTransactionModel model = PrintTransactionModel(transitionModel: widget.transitionModel, personalInformationModel: widget.personalInformationModel);
+    PrintTransactionModel model = PrintTransactionModel(
+        transitionModel: widget.transitionModel,
+        personalInformationModel: widget.personalInformationModel);
     mainConstant.connected
         ? printerData.printTicket(
-        printTransactionModel: model,
-        productList: model.transitionModel!.productList,
-        printer58: printer58
-    )
+            printTransactionModel: model,
+            productList: model.transitionModel!.productList,
+            printer58: printer58)
         : showDialog(
-        context: context,
-        builder: (_) {
-          return WillPopScope(
-            onWillPop: () async => false,
-            child: Dialog(
-              child: SizedBox(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: printerData.availableBluetoothDevices.isNotEmpty ? printerData.availableBluetoothDevices.length : 0,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          onTap: () async {
-                            String select = printerData.availableBluetoothDevices[index];
-                            List list = select.split("#");
-                            // String name = list[0];
-                            String mac = list[1];
-                            bool isConnect = await printerData.setConnect(mac);
-                            // ignore: use_build_context_synchronously
-                            isConnect ? finish(context) : toast('Try Again');
+            context: context,
+            builder: (_) {
+              return WillPopScope(
+                onWillPop: () async => false,
+                child: Dialog(
+                  child: SizedBox(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount:
+                              printerData.availableBluetoothDevices.isNotEmpty
+                                  ? printerData.availableBluetoothDevices.length
+                                  : 0,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              onTap: () async {
+                                String select = printerData
+                                    .availableBluetoothDevices[index];
+                                List list = select.split("#");
+                                // String name = list[0];
+                                String mac = list[1];
+                                bool isConnect =
+                                    await printerData.setConnect(mac);
+                                // ignore: use_build_context_synchronously
+                                isConnect
+                                    ? finish(context)
+                                    : toast('Try Again');
+                              },
+                              title: Text(
+                                  '${printerData.availableBluetoothDevices[index]}'),
+                              subtitle: Text(lang.S.of(context).clickToConnect),
+                            );
                           },
-                          title: Text('${printerData.availableBluetoothDevices[index]}'),
-                          subtitle: Text(lang.S.of(context).clickToConnect),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    Container(height: 1, width: double.infinity, color: Colors.grey),
-                    const SizedBox(height: 15),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Center(
-                        child: Text(
-                          lang.S.of(context).cacel,
-                          style: const TextStyle(color: mainConstant.kMainColor),
                         ),
-                      ),
+                        const SizedBox(height: 10),
+                        Container(
+                            height: 1,
+                            width: double.infinity,
+                            color: Colors.grey),
+                        const SizedBox(height: 15),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Center(
+                            child: Text(
+                              lang.S.of(context).cacel,
+                              style: const TextStyle(
+                                  color: mainConstant.kMainColor),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                      ],
                     ),
-                    const SizedBox(height: 15),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          );
-        });
+              );
+            });
   }
-
-
 }

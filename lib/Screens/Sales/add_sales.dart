@@ -1525,299 +1525,321 @@ class _AddSalesScreenState extends State<AddSalesScreen> {
                                   : () async {
                                       if (providerData
                                           .cartItemList.isNotEmpty) {
-                                        // if (widget.customerModel.type == 'Guest'){
-                                        //   paidAmount = subTotal;
-                                        //
-                                        // }
+                                        if (widget.customerModel.type ==
+                                                'Guest' &&
+                                            dueAmount > 0) {
+                                          EasyLoading.showError(
+                                              'Due is not available For Guest');
+                                        } else {
+                                          final availableSubscription =
+                                              await Subscription
+                                                  .availableSubscription(
+                                                      context: context);
+                                          final availableLimit =
+                                              await Subscription
+                                                  .subscriptionChecker(
+                                                      item: 'Sales');
+                                          if (!availableSubscription) {
+                                            return EasyLoading.showError(
+                                                "Please update your subscription. Subscription date is expired.");
+                                          } else if (!availableLimit) {
+                                            return EasyLoading.showError(
+                                                "Please Update Your Subscription. Your Sale limit is expired.");
+                                          }
+                                          try {
+                                            setState(() {
+                                              saleButtonClicked = true;
+                                            });
 
-                                        try {
-                                          setState(() {
-                                            saleButtonClicked = true;
-                                          });
+                                            dueAmount <= 0
+                                                ? transitionModel.isPaid = true
+                                                : transitionModel.isPaid =
+                                                    false;
+                                            dueAmount <= 0
+                                                ? transitionModel.dueAmount = 0
+                                                : transitionModel.dueAmount =
+                                                    dueAmount;
+                                            returnAmount < 0
+                                                ? transitionModel.returnAmount =
+                                                    returnAmount.abs()
+                                                : transitionModel.returnAmount =
+                                                    0;
+                                            transitionModel.discountAmount =
+                                                discountAmount;
+                                            transitionModel.totalAmount =
+                                                subTotal;
+                                            transitionModel.vat = 0;
+                                            transitionModel.productList =
+                                                providerData.cartItemList;
+                                            transitionModel.paymentType =
+                                                dropdownValue;
+                                            isSubUser
+                                                ? transitionModel.sellerName =
+                                                    subUserTitle
+                                                : null;
+                                            transitionModel.invoiceNumber =
+                                                invoice.toString();
 
-                                          dueAmount <= 0
-                                              ? transitionModel.isPaid = true
-                                              : transitionModel.isPaid = false;
-                                          dueAmount <= 0
-                                              ? transitionModel.dueAmount = 0
-                                              : transitionModel.dueAmount =
-                                                  dueAmount;
-                                          returnAmount < 0
-                                              ? transitionModel.returnAmount =
-                                                  returnAmount.abs()
-                                              : transitionModel.returnAmount =
-                                                  0;
-                                          transitionModel.discountAmount =
-                                              discountAmount;
-                                          transitionModel.totalAmount =
-                                              subTotal;
-                                          transitionModel.vat = 0;
-                                          transitionModel.productList =
-                                              providerData.cartItemList;
-                                          transitionModel.paymentType =
-                                              dropdownValue;
-                                          isSubUser
-                                              ? transitionModel.sellerName =
-                                                  subUserTitle
-                                              : null;
-                                          transitionModel.invoiceNumber =
-                                              invoice.toString();
+                                            num totalQuantity = 0;
+                                            double lossProfit = 0;
+                                            double totalPurchasePrice = 0;
+                                            double totalSalePrice = 0;
+                                            for (var element in transitionModel
+                                                .productList!) {
+                                              if (element.taxType ==
+                                                  'Exclusive') {
+                                                double tax =
+                                                    calculateAmountFromPercentage(
+                                                        element.groupTaxRate
+                                                            .toDouble(),
+                                                        double.tryParse(element
+                                                                .productPurchasePrice
+                                                                .toString()) ??
+                                                            0);
+                                                totalPurchasePrice =
+                                                    totalPurchasePrice +
+                                                        ((double.parse(element
+                                                                    .productPurchasePrice
+                                                                    .toString()) +
+                                                                tax) *
+                                                            element.quantity);
+                                              } else {
+                                                totalPurchasePrice =
+                                                    totalPurchasePrice +
+                                                        (double.parse(element
+                                                                .productPurchasePrice
+                                                                .toString()) *
+                                                            element.quantity);
+                                              }
 
-                                          num totalQuantity = 0;
-                                          double lossProfit = 0;
-                                          double totalPurchasePrice = 0;
-                                          double totalSalePrice = 0;
-                                          for (var element
-                                              in transitionModel.productList!) {
-                                            if (element.taxType ==
-                                                'Exclusive') {
-                                              double tax =
-                                                  calculateAmountFromPercentage(
-                                                      element.groupTaxRate
-                                                          .toDouble(),
-                                                      double.tryParse(element
-                                                              .productPurchasePrice
-                                                              .toString()) ??
-                                                          0);
-                                              totalPurchasePrice =
-                                                  totalPurchasePrice +
-                                                      ((double.parse(element
-                                                                  .productPurchasePrice
-                                                                  .toString()) +
-                                                              tax) *
-                                                          element.quantity);
-                                            } else {
-                                              totalPurchasePrice =
-                                                  totalPurchasePrice +
-                                                      (double.parse(element
-                                                              .productPurchasePrice
-                                                              .toString()) *
-                                                          element.quantity);
+                                              totalSalePrice = totalSalePrice +
+                                                  (double.parse(element.subTotal
+                                                          .toString()) *
+                                                      element.quantity);
+
+                                              totalQuantity = totalQuantity +
+                                                  element.quantity;
+                                            }
+                                            lossProfit = ((totalSalePrice -
+                                                    totalPurchasePrice
+                                                        .toDouble()) -
+                                                double.parse(transitionModel
+                                                    .discountAmount
+                                                    .toString()));
+
+                                            transitionModel.totalQuantity =
+                                                totalQuantity;
+                                            transitionModel.lossProfit =
+                                                lossProfit;
+                                            DatabaseReference ref =
+                                                FirebaseDatabase.instance.ref(
+                                                    "$constUserId/Sales Transition");
+                                            ref.keepSynced(true);
+                                            ref
+                                                .push()
+                                                .set(transitionModel.toJson());
+
+                                            ///__________StockMange_________________________________________________-
+
+                                            for (var element
+                                                in providerData.cartItemList) {
+                                              decreaseStock(element.productId,
+                                                  element.quantity);
                                             }
 
-                                            totalSalePrice = totalSalePrice +
-                                                (double.parse(element.subTotal
-                                                        .toString()) *
-                                                    element.quantity);
+                                            ///_______invoice_Update_____________________________________________
+                                            final DatabaseReference
+                                                personalInformationRef =
+                                                // ignore: deprecated_member_use
+                                                FirebaseDatabase.instance
+                                                    .ref()
+                                                    .child(constUserId)
+                                                    .child(
+                                                        'Personal Information');
+                                            personalInformationRef
+                                                .keepSynced(true);
+                                            personalInformationRef.update({
+                                              'saleInvoiceCounter': invoice + 1
+                                            });
 
-                                            totalQuantity = totalQuantity +
-                                                element.quantity;
-                                          }
-                                          lossProfit = ((totalSalePrice -
-                                                  totalPurchasePrice
-                                                      .toDouble()) -
-                                              double.parse(transitionModel
-                                                  .discountAmount
-                                                  .toString()));
+                                            ///________Subscription_____________________________________________________
 
-                                          transitionModel.totalQuantity =
-                                              totalQuantity;
-                                          transitionModel.lossProfit =
-                                              lossProfit;
-                                          DatabaseReference ref =
-                                              FirebaseDatabase.instance.ref(
-                                                  "$constUserId/Sales Transition");
-                                          ref.keepSynced(true);
-                                          ref
-                                              .push()
-                                              .set(transitionModel.toJson());
+                                            Subscription
+                                                .decreaseSubscriptionLimits(
+                                                    itemType: 'saleNumber',
+                                                    context: context);
 
-                                          ///__________StockMange_________________________________________________-
+                                            ///_________DueUpdate______________________________________________________
+                                            getSpecificCustomers(
+                                                phoneNumber: widget
+                                                    .customerModel.phoneNumber,
+                                                due: transitionModel.dueAmount!
+                                                    .toInt());
 
-                                          for (var element
-                                              in providerData.cartItemList) {
-                                            decreaseStock(element.productId,
-                                                element.quantity);
-                                          }
+                                            ///________daily_transactionModel_________________________________________________________________________
 
-                                          ///_______invoice_Update_____________________________________________
-                                          final DatabaseReference
-                                              personalInformationRef =
-                                              // ignore: deprecated_member_use
-                                              FirebaseDatabase.instance
-                                                  .ref()
-                                                  .child(constUserId)
-                                                  .child(
-                                                      'Personal Information');
-                                          personalInformationRef
-                                              .keepSynced(true);
-                                          personalInformationRef.update({
-                                            'saleInvoiceCounter': invoice + 1
-                                          });
+                                            DailyTransactionModel
+                                                dailyTransaction =
+                                                DailyTransactionModel(
+                                              name:
+                                                  transitionModel.customerName,
+                                              date:
+                                                  transitionModel.purchaseDate,
+                                              type: 'Sale',
+                                              total: transitionModel
+                                                  .totalAmount!
+                                                  .toDouble(),
+                                              paymentIn: transitionModel
+                                                      .totalAmount!
+                                                      .toDouble() -
+                                                  transitionModel.dueAmount!
+                                                      .toDouble(),
+                                              paymentOut: 0,
+                                              remainingBalance: transitionModel
+                                                      .totalAmount!
+                                                      .toDouble() -
+                                                  transitionModel.dueAmount!
+                                                      .toDouble(),
+                                              id: transitionModel.invoiceNumber,
+                                              saleTransactionModel:
+                                                  transitionModel,
+                                            );
+                                            postDailyTransaction(
+                                                dailyTransactionModel:
+                                                    dailyTransaction);
 
-                                          ///________Subscription_____________________________________________________
+                                            ///________Print_______________________________________________________
 
-                                          Subscription
-                                              .decreaseSubscriptionLimits(
-                                                  itemType: 'saleNumber',
-                                                  context: context);
-
-                                          ///_________DueUpdate______________________________________________________
-                                          getSpecificCustomers(
-                                              phoneNumber: widget
-                                                  .customerModel.phoneNumber,
-                                              due: transitionModel.dueAmount!
-                                                  .toInt());
-
-                                          ///________daily_transactionModel_________________________________________________________________________
-
-                                          DailyTransactionModel
-                                              dailyTransaction =
-                                              DailyTransactionModel(
-                                            name: transitionModel.customerName,
-                                            date: transitionModel.purchaseDate,
-                                            type: 'Sale',
-                                            total: transitionModel.totalAmount!
-                                                .toDouble(),
-                                            paymentIn: transitionModel
-                                                    .totalAmount!
-                                                    .toDouble() -
-                                                transitionModel.dueAmount!
-                                                    .toDouble(),
-                                            paymentOut: 0,
-                                            remainingBalance: transitionModel
-                                                    .totalAmount!
-                                                    .toDouble() -
-                                                transitionModel.dueAmount!
-                                                    .toDouble(),
-                                            id: transitionModel.invoiceNumber,
-                                            saleTransactionModel:
-                                                transitionModel,
-                                          );
-                                          postDailyTransaction(
-                                              dailyTransactionModel:
-                                                  dailyTransaction);
-
-                                          ///________Print_______________________________________________________
-
-                                          PrintTransactionModel model =
-                                              PrintTransactionModel(
-                                                  transitionModel:
-                                                      transitionModel,
-                                                  personalInformationModel:
-                                                      data);
-                                          if (isPrintEnable) {
-                                            showDialog(
-                                                context: context,
-                                                builder: (_) {
-                                                  return Dialog(
-                                                    child: SizedBox(
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          const Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 20,
-                                                                    bottom: 10),
-                                                            child: Text(
-                                                              "POS Printer",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 10),
-                                                          Container(
-                                                              height: 1,
-                                                              width: double
-                                                                  .infinity,
-                                                              color:
-                                                                  Colors.grey),
-                                                          const SizedBox(
-                                                              height: 15),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child:
-                                                                PrimaryButton(
-                                                              label: "58 mm",
-                                                              isDisabled: false,
-                                                              onPressed: () =>
-                                                                  rePrinter(
-                                                                      printerData,
-                                                                      true,
-                                                                      model,
-                                                                      providerData,
-                                                                      consumerRef,
-                                                                      data),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child:
-                                                                PrimaryButton(
-                                                              label: "80 mm",
-                                                              isDisabled: false,
-                                                              onPressed: () =>
-                                                                  rePrinter(
-                                                                      printerData,
-                                                                      false,
-                                                                      model,
-                                                                      providerData,
-                                                                      consumerRef,
-                                                                      data),
-                                                            ),
-                                                          ),
-                                         
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: Center(
+                                            PrintTransactionModel model =
+                                                PrintTransactionModel(
+                                                    transitionModel:
+                                                        transitionModel,
+                                                    personalInformationModel:
+                                                        data);
+                                            if (isPrintEnable) {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (_) {
+                                                    return Dialog(
+                                                      child: SizedBox(
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            const Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 20,
+                                                                      bottom:
+                                                                          10),
                                                               child: Text(
-                                                                lang.S
-                                                                    .of(context)
-                                                                    .cacel,
-                                                                style: const TextStyle(
-                                                                    color:
-                                                                        kMainColor),
+                                                                "POS Printer",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
                                                               ),
                                                             ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 15),
-                                                        ],
+                                                            const SizedBox(
+                                                                height: 10),
+                                                            Container(
+                                                                height: 1,
+                                                                width: double
+                                                                    .infinity,
+                                                                color: Colors
+                                                                    .grey),
+                                                            const SizedBox(
+                                                                height: 15),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child:
+                                                                  PrimaryButton(
+                                                                label: "58 mm",
+                                                                isDisabled:
+                                                                    false,
+                                                                onPressed: () => rePrinter(
+                                                                    printerData,
+                                                                    true,
+                                                                    model,
+                                                                    providerData,
+                                                                    consumerRef,
+                                                                    data),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child:
+                                                                  PrimaryButton(
+                                                                label: "80 mm",
+                                                                isDisabled:
+                                                                    false,
+                                                                onPressed: () => rePrinter(
+                                                                    printerData,
+                                                                    false,
+                                                                    model,
+                                                                    providerData,
+                                                                    consumerRef,
+                                                                    data),
+                                                              ),
+                                                            ),
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child: Center(
+                                                                child: Text(
+                                                                  lang.S
+                                                                      .of(context)
+                                                                      .cacel,
+                                                                  style: const TextStyle(
+                                                                      color:
+                                                                          kMainColor),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 15),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  );
-                                                });
-                                          } else {
-                                            consumerRef
-                                                .refresh(customerProvider);
-                                            consumerRef
-                                                .refresh(productProvider);
-                                            consumerRef
-                                                .refresh(salesReportProvider);
-                                            consumerRef
-                                                .refresh(transitionProvider);
-                                            consumerRef.refresh(
-                                                profileDetailsProvider);
-                                            EasyLoading.dismiss();
-                                            await Future.delayed(const Duration(
-                                                    milliseconds: 500))
-                                                .then((value) =>
-                                                    SalesInvoiceDetails(
-                                                            transitionModel:
-                                                                transitionModel,
-                                                            personalInformationModel:
-                                                                data)
-                                                        .launch(context));
+                                                    );
+                                                  });
+                                            } else {
+                                              consumerRef
+                                                  .refresh(customerProvider);
+                                              consumerRef
+                                                  .refresh(productProvider);
+                                              consumerRef
+                                                  .refresh(salesReportProvider);
+                                              consumerRef
+                                                  .refresh(transitionProvider);
+                                              consumerRef.refresh(
+                                                  profileDetailsProvider);
+                                              EasyLoading.dismiss();
+                                              await Future.delayed(
+                                                      const Duration(
+                                                          milliseconds: 500))
+                                                  .then((value) =>
+                                                      SalesInvoiceDetails(
+                                                              transitionModel:
+                                                                  transitionModel,
+                                                              personalInformationModel:
+                                                                  data)
+                                                          .launch(context));
+                                            }
+                                          } catch (e) {
+                                            setState(() {
+                                              saleButtonClicked = false;
+                                            });
+                                            EasyLoading.showError(e.toString());
                                           }
-                                        } catch (e) {
-                                          setState(() {
-                                            saleButtonClicked = false;
-                                          });
-                                          EasyLoading.showError(e.toString());
                                         }
                                       } else {
                                         EasyLoading.showError(
