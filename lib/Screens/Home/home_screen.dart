@@ -797,10 +797,16 @@ class _HomeGridCardsState extends State<HomeGridCards> {
     final availableLimit = await Subscription.subscriptionChecker(item: item);
     debugPrint("availableSubscription === $availableSubscription");
     debugPrint("availableLimit === $availableLimit");
-    if (!availableSubscription || !availableLimit) {
-    
-      boolValue = false;
+    if (item == 'Sales' ||
+        item == 'Parties' ||
+        item == 'Purchase' ||
+        item == 'Products' ||
+        item == 'Due List') {
+      if (!availableSubscription || !availableLimit) {
+        boolValue = false;
+      }
     }
+
     return boolValue;
   }
 
