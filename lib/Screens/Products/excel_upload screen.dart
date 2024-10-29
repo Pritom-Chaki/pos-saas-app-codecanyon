@@ -18,7 +18,10 @@ import '../../currency.dart';
 import '../../subscription.dart';
 
 class ExcelUploader extends StatefulWidget {
-  const ExcelUploader({super.key, required this.previousProductName, required this.previousProductCode});
+  const ExcelUploader(
+      {super.key,
+      required this.previousProductName,
+      required this.previousProductCode});
 
   final List<String> previousProductName;
   final List<String> previousProductCode;
@@ -56,27 +59,28 @@ class _ExcelUploaderState extends State<ExcelUploader> {
 
   Future<void> createExcelFile() async {
     if (!await requestStoragePermission()) {
-      EasyLoading.showError('Storage permission is required to create Excel file!');
+      EasyLoading.showError(
+          'Storage permission is required to create Excel file!');
       return;
     }
     EasyLoading.show();
     final List<e.CellValue> excelData = [
-       e.TextCellValue('SL'),
-       e.TextCellValue('Product Name*'),
-       e.TextCellValue('Product Code*'),
-       e.TextCellValue('Product Stock*'),
-       e.TextCellValue('Purchase Price*'),
-       e.TextCellValue('Sale Price*'),
-       e.TextCellValue('Wholesale Price'),
-       e.TextCellValue('Dealer Price'),
-       e.TextCellValue('Category*'),
-       e.TextCellValue('Brand'),
-       e.TextCellValue('Units'),
-       e.TextCellValue('Manufacturer'),
-       e.TextCellValue('Manufacture Date (ex: Month/Day/Year)'),
-       e.TextCellValue('Expire Data (ex: Month/Day/Year)'),
-       e.TextCellValue('Low Stock Alert'),
-       e.TextCellValue('Serial Numbers (ex. TFD3763, 34384SJHG)'),
+      e.TextCellValue('SL'),
+      e.TextCellValue('Product Name*'),
+      e.TextCellValue('Product Code*'),
+      e.TextCellValue('Product Stock*'),
+      e.TextCellValue('Purchase Price*'),
+      e.TextCellValue('Sale Price*'),
+      e.TextCellValue('Wholesale Price'),
+      e.TextCellValue('Dealer Price'),
+      e.TextCellValue('Category*'),
+      e.TextCellValue('Brand'),
+      e.TextCellValue('Units'),
+      e.TextCellValue('Manufacturer'),
+      e.TextCellValue('Manufacture Date (ex: Month/Day/Year)'),
+      e.TextCellValue('Expire Data (ex: Month/Day/Year)'),
+      e.TextCellValue('Low Stock Alert'),
+      e.TextCellValue('Serial Numbers (ex. TFD3763, 34384SJHG)'),
     ];
     e.CellStyle cellStyle = e.CellStyle(
       bold: true,
@@ -89,7 +93,8 @@ class _ExcelUploaderState extends State<ExcelUploader> {
     sheet.appendRow(excelData);
 
     for (int i = 0; i < excelData.length; i++) {
-      var cell = sheet.cell(e.CellIndex.indexByColumnRow(columnIndex: i, rowIndex: 0));
+      var cell =
+          sheet.cell(e.CellIndex.indexByColumnRow(columnIndex: i, rowIndex: 0));
       cell.cellStyle = cellStyle;
     }
     const downloadsFolderPath = '/storage/emulated/0/Download/';
@@ -131,9 +136,11 @@ class _ExcelUploaderState extends State<ExcelUploader> {
                                 padding: const EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                   border: Border.all(color: Colors.grey),
-                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
                                 ),
-                                child: const Image(image: AssetImage('images/excel.png'))),
+                                child: const Image(
+                                    image: AssetImage('images/excel.png'))),
                             title: Text(
                               getFileExtension(file?.path ?? ''),
                               maxLines: 2,
@@ -159,17 +166,20 @@ class _ExcelUploaderState extends State<ExcelUploader> {
                       )),
                 ),
                 ElevatedButton(
-                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(kMainColor)),
+                  style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(kMainColor)),
                   onPressed: () async {
                     if (file == null) {
                       await pickAndUploadFile(ref: ref);
                     } else {
                       EasyLoading.show(status: 'Uploading...');
-                      await uploadProducts(ref: ref, file: file!, context: context);
+                      await uploadProducts(
+                          ref: ref, file: file!, context: context);
                       EasyLoading.dismiss();
                     }
                   },
-                  child: Text(file == null ? 'Pick and Upload File' : 'Upload', style: const TextStyle(color: Colors.white)),
+                  child: Text(file == null ? 'Pick and Upload File' : 'Upload',
+                      style: const TextStyle(color: Colors.white)),
                 ),
                 TextButton(
                   // onPressed: () async => await downloadFile('excel_file.xlsx'),
@@ -249,13 +259,19 @@ class _ExcelUploaderState extends State<ExcelUploader> {
       var sheet = excel.sheets.keys.first;
       var table = excel.tables[sheet]!;
       for (var row in table.rows) {
-        ProductModel? data = createProductModelFromExcelData(row: row, ref: ref);
+        ProductModel? data =
+            createProductModelFromExcelData(row: row, ref: ref);
 
         if (data != null) {
-          final DatabaseReference productInformationRef = FirebaseDatabase.instance.ref().child(constUserId).child('Products');
+          final DatabaseReference productInformationRef = FirebaseDatabase
+              .instance
+              .ref()
+              .child(constUserId)
+              .child('Products');
           productInformationRef.keepSynced(true);
           productInformationRef.push().set(data.toJson());
-          Subscription.decreaseSubscriptionLimits(itemType: 'products', context: null);
+          Subscription.decreaseSubscriptionLimits(
+              itemType: 'products', context: null);
         }
       }
       ref.refresh(productProvider);
@@ -271,12 +287,14 @@ class _ExcelUploaderState extends State<ExcelUploader> {
     } catch (e) {
       EasyLoading.showError(e.toString());
       return;
-      throw UnsupportedError('Excel format unsupported. Only .xlsx files are supported');
+      throw UnsupportedError(
+          'Excel format unsupported. Only .xlsx files are supported');
     }
 // e.Excel excel= e.Excel.createExcel();
   }
 
-  ProductModel? createProductModelFromExcelData({required List<e.Data?> row, required WidgetRef ref}) {
+  ProductModel? createProductModelFromExcelData(
+      {required List<e.Data?> row, required WidgetRef ref}) {
     bool isProductNameUnique({required String? productName}) {
       for (var name in widget.previousProductName) {
         if (name.toLowerCase().trim() == productName?.trim().toLowerCase()) {
@@ -311,19 +329,22 @@ class _ExcelUploaderState extends State<ExcelUploader> {
       return true;
     }
 
-    String getCategoryFromDatabase({required WidgetRef ref, required String givenCategoryName}) {
+    String getCategoryFromDatabase(
+        {required WidgetRef ref, required String givenCategoryName}) {
       final categoryData = ref.watch(categoryProvider);
       categoryData.when(
         data: (categories) {
           bool pos = true;
           for (var element in categories) {
-            if (element.categoryName.toLowerCase().trim() == givenCategoryName.toLowerCase().trim()) {
+            if (element.categoryName.toLowerCase().trim() ==
+                givenCategoryName.toLowerCase().trim()) {
               pos = false;
               break;
             }
           }
           for (var element in allCategory) {
-            if (element.toLowerCase().trim() == givenCategoryName.toLowerCase().trim()) {
+            if (element.toLowerCase().trim() ==
+                givenCategoryName.toLowerCase().trim()) {
               pos = false;
               break;
             }
@@ -369,7 +390,8 @@ class _ExcelUploaderState extends State<ExcelUploader> {
       productManufacturer: '',
       warehouseName: '',
       warehouseId: '',
-      productPicture: 'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Customer%20Picture%2FNo_Image_Available.jpeg?alt=media&token=3de0d45e-0e4a-4a7b-b115-9d6722d5031f',
+      productPicture:
+          'https://firebasestorage.googleapis.com/v0/b/maanpos.appspot.com/o/Customer%20Picture%2FNo_Image_Available.jpeg?alt=media&token=3de0d45e-0e4a-4a7b-b115-9d6722d5031f',
       serialNumber: [],
       lowerStockAlert: 0,
       taxType: '',
@@ -386,57 +408,86 @@ class _ExcelUploaderState extends State<ExcelUploader> {
       }
       switch (element?.columnIndex) {
         case 1:
-          if (element?.value == null || !isProductNameUnique(productName: element?.value.toString())) return null;
+          if (element?.value == null ||
+              !isProductNameUnique(productName: element?.value.toString()))
+            return null;
           productModel.productName = element?.value.toString() ?? '';
           break;
         case 2:
-          if (element?.value == null || !isProductCodeUnique(productCode: element?.value.toString())) return null;
+          if (element?.value == null ||
+              !isProductCodeUnique(productCode: element?.value.toString()))
+            return null;
           productModel.productCode = element?.value.toString() ?? '';
           break;
         case 3:
-          if (element?.value == null && num.tryParse(element?.value.toString() ?? '') != null) return null;
+          if (element?.value == null &&
+              num.tryParse(element?.value.toString() ?? '') != null)
+            return null;
           productModel.productStock = element?.value.toString() ?? '';
           break;
         case 5:
-          if (element?.value == null && num.tryParse(element?.value.toString() ?? '') != null) return null;
+          if (element?.value == null &&
+              num.tryParse(element?.value.toString() ?? '') != null)
+            return null;
           productModel.productSalePrice = element?.value.toString() ?? '';
           break;
         case 4:
-          if (element?.value == null && num.tryParse(element?.value.toString() ?? '') != null) return null;
+          if (element?.value == null &&
+              num.tryParse(element?.value.toString() ?? '') != null)
+            return null;
           productModel.productPurchasePrice = element?.value.toString() ?? '';
           break;
         case 6:
-          element?.value != null ? productModel.productWholeSalePrice = element!.value.toString() : null;
+          element?.value != null
+              ? productModel.productWholeSalePrice = element!.value.toString()
+              : null;
           break;
         case 7:
-          element?.value != null ? productModel.productDealerPrice = element!.value.toString() : null;
+          element?.value != null
+              ? productModel.productDealerPrice = element!.value.toString()
+              : null;
           break;
         case 8:
           if (element?.value == null) return null;
-          productModel.productCategory = getCategoryFromDatabase(ref: ref, givenCategoryName: element!.value.toString());
+          productModel.productCategory = getCategoryFromDatabase(
+              ref: ref, givenCategoryName: element!.value.toString());
           break;
         case 9:
           // productModel.brandName = getBrandsFromDatabase(ref: ref, givenBrandName: element?.value.toString()) ?? '';
-          element?.value != null ? productModel.brandName = element!.value.toString() : null;
+          element?.value != null
+              ? productModel.brandName = element!.value.toString()
+              : null;
           break;
         case 10:
           // productModel.productUnit = getUnitFromDatabase(ref: ref, givenUnitName: element?.value.toString()) ?? '';
-          element?.value != null ? productModel.productUnit = element!.value.toString() : null;
+          element?.value != null
+              ? productModel.productUnit = element!.value.toString()
+              : null;
           break;
         case 11:
-          element?.value != null ? productModel.productManufacturer = element!.value.toString() : null;
+          element?.value != null
+              ? productModel.productManufacturer = element!.value.toString()
+              : null;
           break;
         case 12:
-          element?.value != null ? productModel.manufacturingDate = element?.value.toString() : null;
+          element?.value != null
+              ? productModel.manufacturingDate = element?.value.toString()
+              : null;
           break;
         case 13:
-          element?.value != null ? productModel.expiringDate = element?.value.toString() : null;
+          element?.value != null
+              ? productModel.expiringDate = element?.value.toString()
+              : null;
           break;
         case 14:
-          productModel.lowerStockAlert = int.tryParse(element?.value.toString() ?? '') ?? 0;
+          productModel.lowerStockAlert =
+              int.tryParse(element?.value.toString() ?? '') ?? 0;
           break;
         case 15:
-          element?.value != null ? productModel.serialNumber = getSerialNumbers(element?.value.toString()) : null;
+          element?.value != null
+              ? productModel.serialNumber =
+                  getSerialNumbers(element?.value.toString())
+              : null;
           break;
       }
     }
@@ -444,7 +495,8 @@ class _ExcelUploaderState extends State<ExcelUploader> {
   }
 
   void addCategory({required String categoryName}) {
-    final DatabaseReference categoryInformationRef = FirebaseDatabase.instance.ref().child(constUserId).child('Categories');
+    final DatabaseReference categoryInformationRef =
+        FirebaseDatabase.instance.ref().child(constUserId).child('Categories');
     categoryInformationRef.keepSynced(true);
     CategoryModel categoryModel = CategoryModel(
       categoryName: categoryName,

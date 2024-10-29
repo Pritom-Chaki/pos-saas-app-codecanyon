@@ -43,7 +43,9 @@ class _SaleProductsState extends State<SaleProducts> {
 
   @override
   void initState() {
-    widget.catName == null ? dropdownValue = 'Fashion' : dropdownValue = widget.catName;
+    widget.catName == null
+        ? dropdownValue = 'Fashion'
+        : dropdownValue = widget.catName;
     super.initState();
   }
 
@@ -142,7 +144,10 @@ class _SaleProductsState extends State<SaleProducts> {
         ),
         body: Container(
           alignment: Alignment.topCenter,
-          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30))),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(30), topLeft: Radius.circular(30))),
           child: Column(
             children: [
               Padding(
@@ -170,9 +175,12 @@ class _SaleProductsState extends State<SaleProducts> {
                               });
                             },
                             decoration: InputDecoration(
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
                               labelText: 'Product code/Name',
-                              hintText: productCode.isEmpty ? 'Search by product code or name' : productCode,
+                              hintText: productCode.isEmpty
+                                  ? 'Search by product code or name'
+                                  : productCode,
                               border: const OutlineInputBorder(),
                             ),
                           ),
@@ -186,17 +194,21 @@ class _SaleProductsState extends State<SaleProducts> {
                           barrierDismissible: true,
                           context: context,
                           builder: (context1) {
-                            MobileScannerController controller = MobileScannerController(
+                            MobileScannerController controller =
+                                MobileScannerController(
                               torchEnabled: false,
                               returnImage: false,
                             );
                             return Container(
-                              decoration: BoxDecoration(borderRadius: BorderRadiusDirectional.circular(6.0)),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadiusDirectional.circular(6.0)),
                               child: Column(
                                 children: [
                                   AppBar(
                                     backgroundColor: Colors.transparent,
-                                    iconTheme: const IconThemeData(color: Colors.white),
+                                    iconTheme: const IconThemeData(
+                                        color: Colors.white),
                                     leading: IconButton(
                                       icon: const Icon(Icons.arrow_back),
                                       onPressed: () {
@@ -209,11 +221,14 @@ class _SaleProductsState extends State<SaleProducts> {
                                       fit: BoxFit.contain,
                                       controller: controller,
                                       onDetect: (capture) {
-                                        final List<Barcode> barcodes = capture.barcodes;
+                                        final List<Barcode> barcodes =
+                                            capture.barcodes;
 
                                         if (barcodes.isNotEmpty) {
-                                          final Barcode barcode = barcodes.first;
-                                          debugPrint('Barcode found! ${barcode.rawValue}');
+                                          final Barcode barcode =
+                                              barcodes.first;
+                                          debugPrint(
+                                              'Barcode found! ${barcode.rawValue}');
 
                                           productCode = barcode.rawValue!;
                                           scarchController.text = productCode;
@@ -254,11 +269,17 @@ class _SaleProductsState extends State<SaleProducts> {
                   child: productList.when(data: (products) {
                 List<ProductModel> showAbleProducts = [];
                 for (var element in products) {
-                  warehouseBasedProductModel.add(WarehouseBasedProductModel(element.productName, element.warehouseId));
+                  warehouseBasedProductModel.add(WarehouseBasedProductModel(
+                      element.productName, element.warehouseId));
 
                   allWarehouseId.add(element.warehouseId);
                   if (productCode != '' &&
-                      (element.productName.removeAllWhiteSpace().toLowerCase().contains(productName.toString().toLowerCase()) || element.productCode.contains(productCode.toString()))) {
+                      (element.productName
+                              .removeAllWhiteSpace()
+                              .toLowerCase()
+                              .contains(productName.toString().toLowerCase()) ||
+                          element.productCode
+                              .contains(productCode.toString()))) {
                     showAbleProducts.add(element);
                   } else if (productCode == '') {
                     showAbleProducts.add(element);
@@ -266,7 +287,8 @@ class _SaleProductsState extends State<SaleProducts> {
                 }
                 return showAbleProducts.isNotEmpty
                     ? ListView.builder(
-                        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
                         shrinkWrap: true,
                         physics: const AlwaysScrollableScrollPhysics(),
                         itemCount: showAbleProducts.length,
@@ -275,40 +297,61 @@ class _SaleProductsState extends State<SaleProducts> {
                           // productNameList.add(showAbleProducts[i].productName.replaceAll(' ', '').toLowerCase());
                           if (widget.customerModel!.type.contains('Retailer')) {
                             productPrice = showAbleProducts[i].productSalePrice;
-                          } else if (widget.customerModel!.type.contains('Dealer')) {
+                          } else if (widget.customerModel!.type
+                              .contains('Dealer')) {
                             if (showAbleProducts[i].productDealerPrice == '') {
                               productPrice = '0';
                             } else {
-                              productPrice = showAbleProducts[i].productDealerPrice;
+                              productPrice =
+                                  showAbleProducts[i].productDealerPrice;
                             }
-                          } else if (widget.customerModel!.type.contains('Wholesaler')) {
-                            if (showAbleProducts[i].productWholeSalePrice == '') {
+                          } else if (widget.customerModel!.type
+                              .contains('Wholesaler')) {
+                            if (showAbleProducts[i].productWholeSalePrice ==
+                                '') {
                               productPrice = '0';
                             } else {
-                              productPrice = showAbleProducts[i].productWholeSalePrice;
+                              productPrice =
+                                  showAbleProducts[i].productWholeSalePrice;
                             }
-                          } else if (widget.customerModel!.type.contains('Supplier')) {
-                            productPrice = showAbleProducts[i].productPurchasePrice;
-                          } else if (widget.customerModel!.type.contains('Guest')) {
+                          } else if (widget.customerModel!.type
+                              .contains('Supplier')) {
+                            productPrice =
+                                showAbleProducts[i].productPurchasePrice;
+                          } else if (widget.customerModel!.type
+                              .contains('Guest')) {
                             productPrice = showAbleProducts[i].productSalePrice;
                           }
                           return GestureDetector(
                             onTap: () async {
-                              if ((num.tryParse(showAbleProducts[i].productStock)??0) <= 0) {
+                              if ((num.tryParse(
+                                          showAbleProducts[i].productStock) ??
+                                      0) <=
+                                  0) {
                                 EasyLoading.showError('Out of stock');
                               } else {
                                 debugPrint(">>>>>Stock Here");
-                                  
-                                if (widget.customerModel!.type.contains('Retailer')) {
-                                  sentProductPrice = showAbleProducts[i].productSalePrice;
-                                } else if (widget.customerModel!.type.contains('Dealer')) {
-                                  sentProductPrice = showAbleProducts[i].productDealerPrice;
-                                } else if (widget.customerModel!.type.contains('Wholesaler')) {
-                                  sentProductPrice = showAbleProducts[i].productWholeSalePrice;
-                                } else if (widget.customerModel!.type.contains('Supplier')) {
-                                  sentProductPrice = showAbleProducts[i].productPurchasePrice;
-                                } else if (widget.customerModel!.type.contains('Guest')) {
-                                  sentProductPrice = showAbleProducts[i].productSalePrice;
+
+                                if (widget.customerModel!.type
+                                    .contains('Retailer')) {
+                                  sentProductPrice =
+                                      showAbleProducts[i].productSalePrice;
+                                } else if (widget.customerModel!.type
+                                    .contains('Dealer')) {
+                                  sentProductPrice =
+                                      showAbleProducts[i].productDealerPrice;
+                                } else if (widget.customerModel!.type
+                                    .contains('Wholesaler')) {
+                                  sentProductPrice =
+                                      showAbleProducts[i].productWholeSalePrice;
+                                } else if (widget.customerModel!.type
+                                    .contains('Supplier')) {
+                                  sentProductPrice =
+                                      showAbleProducts[i].productPurchasePrice;
+                                } else if (widget.customerModel!.type
+                                    .contains('Guest')) {
+                                  sentProductPrice =
+                                      showAbleProducts[i].productSalePrice;
                                 }
 
                                 double totalTaxRate = 0;
@@ -317,33 +360,81 @@ class _SaleProductsState extends State<SaleProducts> {
                                 //     totalTaxRate += element.taxRate;
                                 //   }
                                 // }
+                                debugPrint(">>>>>Stock Here 111");
+                                debugPrint(
+                                    "1 ${showAbleProducts[i].productName}");
+                                debugPrint(
+                                    "2 ${showAbleProducts[i].warehouseName}");
+                                debugPrint(
+                                    "3 ${showAbleProducts[i].warehouseId}");
+                                debugPrint("4 ${sentProductPrice}");
+                                debugPrint(
+                                    "5 ${showAbleProducts[i].productPicture}");
+                                debugPrint(
+                                    "6 ${showAbleProducts[i].productPurchasePrice}");
+                                debugPrint(
+                                    "7 ${showAbleProducts[i].productCode}");
+
+                                debugPrint(
+                                    "8 ${showAbleProducts[i].brandName}");
+                                debugPrint(
+                                    "9 ${showAbleProducts[i].productStock}");
+                                debugPrint(
+                                    "10 ${showAbleProducts[i].subTaxes}");
+                                debugPrint("11 ${showAbleProducts[i].excTax}");
+                                debugPrint(
+                                    "12 ${showAbleProducts[i].groupTaxName}");
+
+                                debugPrint(
+                                    "13 ${showAbleProducts[i].groupTaxRate}");
+                                debugPrint("14 ${showAbleProducts[i].incTax}");
+                                debugPrint("15 ${showAbleProducts[i].margin}");
+                                debugPrint(
+                                    "16 ${showAbleProducts[i].groupTaxRate}");
+
                                 AddToCartModel cartItem = AddToCartModel(
                                   productName: showAbleProducts[i].productName,
-                                  warehouseName: showAbleProducts[i].warehouseName,
+                                  warehouseName:
+                                      showAbleProducts[i].warehouseName,
                                   warehouseId: showAbleProducts[i].warehouseId,
                                   // subTotal: showAbleProducts[i].isTaxInclusive ?? true ? sentProductPrice : (double.tryParse(sentProductPrice) ?? 0.0) + (double.tryParse(sentProductPrice) ?? 0.0) * totalTaxRate / 100,
-                                  subTotal: num.parse(sentProductPrice.toString()),
-                                  productImage: showAbleProducts[i].productPicture,
-                                  productPurchasePrice:  num.parse(showAbleProducts[i].productPurchasePrice.toString()),
+                                  subTotal:
+                                      double.parse(sentProductPrice.toString()),
+                                  productImage:
+                                      showAbleProducts[i].productPicture,
+                                  productPurchasePrice: double.parse(
+                                      showAbleProducts[i]
+                                          .productPurchasePrice
+                                          .toString()),
                                   productId: showAbleProducts[i].productCode,
-                                  productBrandName: showAbleProducts[i].brandName,
-                                  stock: num.parse(showAbleProducts[i].productStock.toString()),
+                                  productBrandName:
+                                      showAbleProducts[i].brandName,
+                                  stock: num.parse(showAbleProducts[i]
+                                      .productStock
+                                      .toString()),
                                   uuid: showAbleProducts[i].productCode,
                                   subTaxes: showAbleProducts[i].subTaxes,
-                                  excTax: int.parse(showAbleProducts[i].excTax.toString()),
-                                  groupTaxName: showAbleProducts[i].groupTaxName,
-                                  groupTaxRate: num.parse(showAbleProducts[i].groupTaxRate.toString()),
-                                  incTax: num.parse(showAbleProducts[i].incTax.toString()),
-                                  margin: num.parse(showAbleProducts[i].margin.toString()),
+                                  excTax: double.parse(
+                                      showAbleProducts[i].excTax.toString()),
+                                  groupTaxName:
+                                      showAbleProducts[i].groupTaxName,
+                                  groupTaxRate: double.parse(showAbleProducts[i]
+                                      .groupTaxRate
+                                      .toString()),
+                                  incTax: double.parse(
+                                      showAbleProducts[i].incTax.toString()),
+                                  margin: int.parse(
+                                      showAbleProducts[i].margin.toString()),
                                   taxType: showAbleProducts[i].taxType,
                                 );
-                                 debugPrint(">>>>>Stock Here 2");
+                                debugPrint(">>>>>Stock Here 2");
                                 providerData.addToCartRiverPod(cartItem);
-                                 debugPrint(">>>>>Stock Here 3");
-                                providerData.addProductsInSales(showAbleProducts[i]);
-                                 debugPrint(">>>>>Stock Here 4");
+                                debugPrint(">>>>>Stock Here 3");
+                                providerData
+                                    .addProductsInSales(showAbleProducts[i]);
+                                debugPrint(">>>>>Stock Here 4");
                                 Navigator.pop(context);
-                                 debugPrint(">>>>>Stock Here 5");
+                                debugPrint(">>>>>Stock Here 5");
                               }
                             },
                             child: ProductCard(
@@ -356,8 +447,17 @@ class _SaleProductsState extends State<SaleProducts> {
                               warehouseName: showAbleProducts[i].warehouseName,
                             ).visible(productName.isEmptyOrNull
                                 ? true
-                                : showAbleProducts[i].productName.toUpperCase().contains(productName.toUpperCase()) ||
-                                    (productName.isEmpty || productCode.isEmpty || showAbleProducts[i].productCode.contains(productCode) || productCode == '0000' || productCode == '-1') &&
+                                : showAbleProducts[i]
+                                        .productName
+                                        .toUpperCase()
+                                        .contains(productName.toUpperCase()) ||
+                                    (productName.isEmpty ||
+                                            productCode.isEmpty ||
+                                            showAbleProducts[i]
+                                                .productCode
+                                                .contains(productCode) ||
+                                            productCode == '0000' ||
+                                            productCode == '-1') &&
                                         productPrice != '0'),
                           );
                         })
@@ -404,7 +504,13 @@ class ProductCard extends StatefulWidget {
       required this.warehouseName});
 
   // final Product product;
-  String productImage, productTitle, productDescription, productPrice, stock, productId, warehouseName;
+  String productImage,
+      productTitle,
+      productDescription,
+      productPrice,
+      stock,
+      productId,
+      warehouseName;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -439,7 +545,10 @@ class _ProductCardState extends State<ProductCard> {
               child: Center(
                 child: Text(
                   widget.productTitle.substring(0, 1),
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
                 ),
               ),
             ),
@@ -454,7 +563,7 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ),
             subtitle: Text(
-              'Stock: ${(num.tryParse(widget.stock)??0) - quantity}',
+              'Stock: ${(num.tryParse(widget.stock) ?? 0) - quantity}',
               style: GoogleFonts.jost(
                 fontSize: 14.0,
                 color: kGreyTextColor,

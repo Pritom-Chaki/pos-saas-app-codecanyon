@@ -88,7 +88,7 @@ dependencies:
   share_plus: ^8.0.3
   pay_with_paystack:
 #  flutter_stripe:
-  file_picker:
+  file_picker: ^8.0.3
   connectivity_plus: ^6.0.2
 #  whatsapp_share2: ^2.0.2
   mailer: ^6.1.0
