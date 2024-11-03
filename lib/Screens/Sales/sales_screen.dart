@@ -359,38 +359,7 @@ class _SaleProductsState extends State<SaleProducts> {
                                 //   for (var element in showAbleProducts[i].taxRates!) {
                                 //     totalTaxRate += element.taxRate;
                                 //   }
-                                // }
-                                debugPrint(">>>>>Stock Here 111");
-                                debugPrint(
-                                    "1 ${showAbleProducts[i].productName}");
-                                debugPrint(
-                                    "2 ${showAbleProducts[i].warehouseName}");
-                                debugPrint(
-                                    "3 ${showAbleProducts[i].warehouseId}");
-                                debugPrint("4 ${sentProductPrice}");
-                                debugPrint(
-                                    "5 ${showAbleProducts[i].productPicture}");
-                                debugPrint(
-                                    "6 ${showAbleProducts[i].productPurchasePrice}");
-                                debugPrint(
-                                    "7 ${showAbleProducts[i].productCode}");
-
-                                debugPrint(
-                                    "8 ${showAbleProducts[i].brandName}");
-                                debugPrint(
-                                    "9 ${showAbleProducts[i].productStock}");
-                                debugPrint(
-                                    "10 ${showAbleProducts[i].subTaxes}");
-                                debugPrint("11 ${showAbleProducts[i].excTax}");
-                                debugPrint(
-                                    "12 ${showAbleProducts[i].groupTaxName}");
-
-                                debugPrint(
-                                    "13 ${showAbleProducts[i].groupTaxRate}");
-                                debugPrint("14 ${showAbleProducts[i].incTax}");
-                                debugPrint("15 ${showAbleProducts[i].margin}");
-                                debugPrint(
-                                    "16 ${showAbleProducts[i].groupTaxRate}");
+                                //}
 
                                 AddToCartModel cartItem = AddToCartModel(
                                   productName: showAbleProducts[i].productName,
@@ -427,14 +396,13 @@ class _SaleProductsState extends State<SaleProducts> {
                                       showAbleProducts[i].margin.toString()),
                                   taxType: showAbleProducts[i].taxType,
                                 );
-                                debugPrint(">>>>>Stock Here 2");
+
                                 providerData.addToCartRiverPod(cartItem);
-                                debugPrint(">>>>>Stock Here 3");
+
                                 providerData
                                     .addProductsInSales(showAbleProducts[i]);
-                                debugPrint(">>>>>Stock Here 4");
+
                                 Navigator.pop(context);
-                                debugPrint(">>>>>Stock Here 5");
                               }
                             },
                             child: ProductCard(

@@ -25,7 +25,7 @@ import 'model/add_to_cart_model.dart';
 const kMainColor = Color(0xfffc0440);
 const kGreyTextColor = Color(0xFF828282);
 const kBorderColorTextField = Color(0xFFC2C2C2);
-const kBorderColor=Color(0xff7D7D7D);
+const kBorderColor = Color(0xff7D7D7D);
 const kDarkWhite = Color(0xFFF1F7F7);
 const kTitleColor = Color(0xFF000000);
 const kWhite = Color(0xFFFFFFFF);
@@ -37,12 +37,32 @@ List<String> selectedNumbers = [];
 String calculateProductVat({required AddToCartModel product}) {
   if (product.taxType == 'Inclusive') {
     double taxRate = double.parse(product.groupTaxRate.toString()) / 100;
-    return (((double.tryParse(product.productPurchasePrice.toString()) ?? 0) / (taxRate + 1) * taxRate) * product.quantity) > 0
-        ? (((double.tryParse(product.productPurchasePrice.toString()) ?? 0) / (taxRate + 1) * taxRate) * product.quantity).toStringAsFixed(2)
+    return (((double.tryParse(product.productPurchasePrice.toString()) ?? 0) /
+                    (taxRate + 1) *
+                    taxRate) *
+                product.quantity) >
+            0
+        ? (((double.tryParse(product.productPurchasePrice.toString()) ?? 0) /
+                    (taxRate + 1) *
+                    taxRate) *
+                product.quantity)
+            .toStringAsFixed(2)
         : '';
   } else {
-    return (((double.parse(product.groupTaxRate.toString()) * (double.tryParse(product.productPurchasePrice.toString()) ?? 0)) / 100) * int.parse(product.quantity.toString())) > 0
-        ? (((double.parse(product.groupTaxRate.toString()) * (double.tryParse(product.productPurchasePrice.toString()) ?? 0)) / 100) * int.parse(product.quantity.toString())).toStringAsFixed(2)
+    return (((double.parse(product.groupTaxRate.toString()) *
+                        (double.tryParse(
+                                product.productPurchasePrice.toString()) ??
+                            0)) /
+                    100) *
+                int.parse(product.quantity.toString())) >
+            0
+        ? (((double.parse(product.groupTaxRate.toString()) *
+                        (double.tryParse(
+                                product.productPurchasePrice.toString()) ??
+                            0)) /
+                    100) *
+                int.parse(product.quantity.toString()))
+            .toStringAsFixed(2)
         : '';
   }
 }
@@ -50,14 +70,23 @@ String calculateProductVat({required AddToCartModel product}) {
 String calculateProductVatPurchase({required ProductModel product}) {
   if (product.taxType == 'Inclusive') {
     double taxRate = double.parse(product.groupTaxRate.toString()) / 100;
-    return (((double.tryParse(product.productPurchasePrice) ?? 0) / (taxRate + 1) * taxRate) * (double.tryParse(product.productStock) ?? 0)).toStringAsFixed(2);
+    return (((double.tryParse(product.productPurchasePrice) ?? 0) /
+                (taxRate + 1) *
+                taxRate) *
+            (double.tryParse(product.productStock) ?? 0))
+        .toStringAsFixed(2);
   } else {
-    return (((double.parse(product.groupTaxRate.toString()) * (double.tryParse(product.productPurchasePrice) ?? 0)) / 100) * (double.tryParse(product.productStock) ?? 0)).toStringAsFixed(2);
+    return (((double.parse(product.groupTaxRate.toString()) *
+                    (double.tryParse(product.productPurchasePrice) ?? 0)) /
+                100) *
+            (double.tryParse(product.productStock) ?? 0))
+        .toStringAsFixed(2);
   }
 }
 
 bool isVatAdded({required List<AddToCartModel> products}) {
-  return products.any((element) => int.parse(element.groupTaxRate.toString()) > 0);
+  return products
+      .any((element) => double.parse(element.groupTaxRate.toString()) > 0);
 }
 
 ///________Demo_mode__________________
@@ -68,17 +97,24 @@ String loginScreenLogo = 'images/sblogo.png';
 bool isDemo = false;
 String demoText = 'You Can\'t change anything in demo mode';
 
-void postDailyTransaction({required DailyTransactionModel dailyTransactionModel}) async {
-  final DatabaseReference personalInformationRef = FirebaseDatabase.instance.ref().child(constUserId).child('Personal Information');
+void postDailyTransaction(
+    {required DailyTransactionModel dailyTransactionModel}) async {
+  final DatabaseReference personalInformationRef = FirebaseDatabase.instance
+      .ref()
+      .child(constUserId)
+      .child('Personal Information');
   num remainingBalance = 0;
   personalInformationRef.keepSynced(true);
 
   await personalInformationRef.get().then((value) {
     var data = jsonDecode(jsonEncode(value.value));
-    remainingBalance = num.tryParse(data['remainingShopBalance'].toString()) ?? 0;
+    remainingBalance =
+        num.tryParse(data['remainingShopBalance'].toString()) ?? 0;
   });
 
-  if (dailyTransactionModel.type == 'Sale' || dailyTransactionModel.type == 'Due Collection' || dailyTransactionModel.type == 'Income') {
+  if (dailyTransactionModel.type == 'Sale' ||
+      dailyTransactionModel.type == 'Due Collection' ||
+      dailyTransactionModel.type == 'Income') {
     remainingBalance += dailyTransactionModel.paymentIn;
   } else {
     remainingBalance -= dailyTransactionModel.paymentOut;
@@ -90,14 +126,21 @@ void postDailyTransaction({required DailyTransactionModel dailyTransactionModel}
   personalInformationRef.update({'remainingShopBalance': remainingBalance});
 
   ///_________dailyTransaction_Posting________________________________________________________________________
-  DatabaseReference dailyTransactionRef = FirebaseDatabase.instance.ref("$constUserId/Daily Transaction");
+  DatabaseReference dailyTransactionRef =
+      FirebaseDatabase.instance.ref("$constUserId/Daily Transaction");
   await dailyTransactionRef.push().set(dailyTransactionModel.toJson());
   dailyTransactionRef.keepSynced(true);
 }
 
 Future<String?> getSaleID({required String id}) async {
   String? key;
-  await FirebaseDatabase.instance.ref().child('Admin Panel').child('Seller List').orderByKey().get().then((value) async {
+  await FirebaseDatabase.instance
+      .ref()
+      .child('Admin Panel')
+      .child('Seller List')
+      .orderByKey()
+      .get()
+      .then((value) async {
     for (var element in value.children) {
       var data = jsonDecode(jsonEncode(element.value));
       if (data['userId'].toString() == id) {
@@ -117,7 +160,8 @@ void increaseStock(String productCode, num quantity) async {
       var data = jsonDecode(jsonEncode(element.value));
       if (data['productCode'] == productCode) {
         String? key = element.key;
-        num previousStock = num.tryParse(element.child('productStock').value.toString()) ?? 0;
+        num previousStock =
+            num.tryParse(element.child('productStock').value.toString()) ?? 0;
         print(previousStock);
         num remainStock = previousStock + quantity;
         ref.child(key!).update({'productStock': '$remainStock'});
@@ -146,7 +190,8 @@ void decreaseStock(String productCode, num quantity) async {
       var data = jsonDecode(jsonEncode(element.value));
       if (data['productCode'] == productCode) {
         String? key = element.key;
-        num previousStock = num.tryParse(element.child('productStock').value.toString()) ?? 0;
+        num previousStock =
+            num.tryParse(element.child('productStock').value.toString()) ?? 0;
         print(previousStock);
         num remainStock = previousStock - quantity;
         ref.child(key!).update({'productStock': '$remainStock'});
@@ -155,14 +200,22 @@ void decreaseStock(String productCode, num quantity) async {
   });
 }
 
-void updateFromShopRemainBalance({required num paidAmount, required bool isFromPurchase, required WidgetRef t}) async {
+void updateFromShopRemainBalance(
+    {required num paidAmount,
+    required bool isFromPurchase,
+    required WidgetRef t}) async {
   if (paidAmount > 0) {
     t.watch(profileDetailsProvider).when(
           data: (data) {
-            final ref = FirebaseDatabase.instance.ref('$constUserId/Personal Information');
+            final ref = FirebaseDatabase.instance
+                .ref('$constUserId/Personal Information');
             ref.keepSynced(true);
 
-            ref.update({'remainingShopBalance': isFromPurchase ? (data.remainingShopBalance ?? 0) + paidAmount : (data.remainingShopBalance ?? 0) - paidAmount});
+            ref.update({
+              'remainingShopBalance': isFromPurchase
+                  ? (data.remainingShopBalance ?? 0) + paidAmount
+                  : (data.remainingShopBalance ?? 0) - paidAmount
+            });
           },
           error: (error, stackTrace) {},
           loading: () {},
@@ -170,7 +223,10 @@ void updateFromShopRemainBalance({required num paidAmount, required bool isFromP
   }
 }
 
-void getSpecificCustomersDueUpdate({required String phoneNumber, required bool isDuePaid, required num due}) async {
+void getSpecificCustomersDueUpdate(
+    {required String phoneNumber,
+    required bool isDuePaid,
+    required num due}) async {
   final ref = FirebaseDatabase.instance.ref(constUserId).child('Customers');
   ref.keepSynced(true);
   String? key;
@@ -230,8 +286,10 @@ bool isReportShow = false;
 const String appVersion = '3.1.0';
 const String playStoreUrl = "market://details?id=com.maantechnology.mobipos";
 
-const String paypalClientId = 'ASWARYNRARFIbKf8U4u5Bq9-8tYVszzpkfRhohErQil3izlffjVQE-L0K2M0_bobdPhj2Qyf7uHoGctI';
-const String paypalClientSecret = 'EDNYPyTGpziJzfVhqsf75iodgFGSCOZAKXTHuD9YR5PWt5ruwc1HIzgT6STEznFfGro5E8h466i0sPtb';
+const String paypalClientId =
+    'ASWARYNRARFIbKf8U4u5Bq9-8tYVszzpkfRhohErQil3izlffjVQE-L0K2M0_bobdPhj2Qyf7uHoGctI';
+const String paypalClientSecret =
+    'EDNYPyTGpziJzfVhqsf75iodgFGSCOZAKXTHuD9YR5PWt5ruwc1HIzgT6STEznFfGro5E8h466i0sPtb';
 const bool sandbox = true;
 
 const kButtonDecoration = BoxDecoration(
@@ -415,7 +473,14 @@ List<String> baseFlagsCode = [
   'NP'
 ];
 
-List<String> productCategory = ['Fashion', 'Electronics', 'Computer', 'Gadgets', 'Watches', 'Cloths'];
+List<String> productCategory = [
+  'Fashion',
+  'Electronics',
+  'Computer',
+  'Gadgets',
+  'Watches',
+  'Cloths'
+];
 
 List<String> userRole = [
   'Super Admin',
