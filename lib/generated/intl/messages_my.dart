@@ -266,7 +266,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("ဖက်ရှင်း"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "အရင်းအမြစ်များသည်မျှော်လင့်ကိုသာစိတ်ကြိုက်သင့်များမှာ Pos Saas ကိုပြောင်းလဲရန်အခက်အခဲတစ်ခုဖြစ်ပါသည်။"),
+            "အရင်းအမြစ်များသည်မျှော်လင့်ကိုသာစိတ်ကြိုက်သင့်များမှာ Pix Pos ကိုပြောင်းလဲရန်အခက်အခဲတစ်ခုဖြစ်ပါသည်။"),
         "feedBack": MessageLookupByLibrary.simpleMessage("တုံ့ပြန်ချက်"),
         "firstName": MessageLookupByLibrary.simpleMessage("နာမည်အစီအစဉ်"),
         "fontSide": MessageLookupByLibrary.simpleMessage("ဖောင့်စက်"),
@@ -342,9 +342,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("မက်ဆေ့ခ်ျမှတ်တမ်းသမိုင်း"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas အက်ပလီကေးရှင်အကောင့်အဆင့်မှတစ်ဆင့်အသုံးပြုသူအဆင့်မြှင့်တောင်းအကောင်းကိုအသုံးပြုရန်အဆင့်တစ်စင်ခြင်း ကိုအချို့မရရှိပါ။ အကြောင်းအရင်းဖွင့်ရမည်၊ ဒါဟာ ကျောင်းပျက်လက်ကောင်း POS စနစ်တစ်ခုဖြစ်ပါသည်။"),
+            "Pix Pos အက်ပလီကေးရှင်အကောင့်အဆင့်မှတစ်ဆင့်အသုံးပြုသူအဆင့်မြှင့်တောင်းအကောင်းကိုအသုံးပြုရန်အဆင့်တစ်စင်ခြင်း ကိုအချို့မရရှိပါ။ အကြောင်းအရင်းဖွင့်ရမည်၊ ဒါဟာ ကျောင်းပျက်လက်ကောင်း POS စနစ်တစ်ခုဖြစ်ပါသည်။"),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas သည်စတိုး၊ အကောင့်၊ အကောင့်၊ အောင်မြင်မှုနှင့်အတူအကြောင်းအရင်းရွေးချယ်ရန်အကြောင်းအရင်းဖြစ်ပါသည်။"),
+            "Pix Pos သည်စတိုး၊ အကောင့်၊ အကောင့်၊ အောင်မြင်မှုနှင့်အတူအကြောင်းအရင်းရွေးချယ်ရန်အကြောင်းအရင်းဖြစ်ပါသည်။"),
         "monthly": MessageLookupByLibrary.simpleMessage("လစဉ်းကန့်"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("အချက်အလက်"),
         "name": MessageLookupByLibrary.simpleMessage("သင်၏အမည်ထည့်ပါ။"),
@@ -417,7 +417,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "စကားဝှက်မေ့နံပါတ်အကြောင်းကို ရယူရန်အီးမေးလ်လိပ်စာကိုရိုက်ထည့်ပါ။"),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pos Saas အား တက်သွင်းပါသည်"),
+            MessageLookupByLibrary.simpleMessage("Pix Pos အား တက်သွင်းပါသည်"),
         "premiumCustomerSupport": MessageLookupByLibrary.simpleMessage(
             "အဖွဲ့ အသုံးပြုသူ ကိုယ်ရေးရေးချယ်ရန်"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("အထူးအကြောင်း"),
@@ -477,7 +477,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ပြန်မှတ်တမ်းက်ငွေ"),
         "revenue": MessageLookupByLibrary.simpleMessage("ဝင်ငွေ"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "သင့်လုပ်ငန်းဒေတာကို စိုက်ထုတ်ကာကွယ်ပါ။ ကျွန်ုပ်တို့၏ Pos Saas POS Unlimited Upgrade တွင် အခမဲ့ဒေတာ အရန်ကူးခြင်း ပါ၀င်ပြီး သင့်တန်ဖိုးရှိသော အချက်အလက်များကို ကြိုမမြင်နိုင်သော အဖြစ်အပျက်များမှ ကာကွယ်ထားကြောင်း သေချာစေပါသည်။ အမှန်တကယ်အရေးကြီးသောအရာကို အာရုံစိုက်ပါ - သင့်လုပ်ငန်းတိုးတက်မှု။"),
+            "သင့်လုပ်ငန်းဒေတာကို စိုက်ထုတ်ကာကွယ်ပါ။ ကျွန်ုပ်တို့၏ Pix Pos POS Unlimited Upgrade တွင် အခမဲ့ဒေတာ အရန်ကူးခြင်း ပါ၀င်ပြီး သင့်တန်ဖိုးရှိသော အချက်အလက်များကို ကြိုမမြင်နိုင်သော အဖြစ်အပျက်များမှ ကာကွယ်ထားကြောင်း သေချာစေပါသည်။ အမှန်တကယ်အရေးကြီးသောအရာကို အာရုံစိုက်ပါ - သင့်လုပ်ငန်းတိုးတက်မှု။"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("ရောင်းအသေးစိတ်"),
         "salePrice": MessageLookupByLibrary.simpleMessage("ရောင်းစျေး"),
         "saleReports": MessageLookupByLibrary.simpleMessage("ရောင်းအသေးစိတ်"),
@@ -524,7 +524,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch": MessageLookupByLibrary.simpleMessage(
             "ရှာဖွေရန်အစတစ်ကြောင်းရိုက်ထည့်ပါ"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "အပိုကုန်ကျစရိတ်မရှိဘဲ နည်းပညာတိုးတက်မှု၏ ရှေ့တန်းတွင်နေပါ။ ကျွန်ုပ်တို့၏ Pos Saas POS Unlimited Upgrade သည် သင့်တွင် နောက်ဆုံးပေါ်ကိရိယာများနှင့် အင်္ဂါရပ်များကို သင့်လက်ချောင်းထိပ်တွင် အမြဲရှိနေစေရန် သေချာစေကာ သင့်လုပ်ငန်းသည် ခေတ်မီနေသေးကြောင်း အာမခံပါသည်။"),
+            "အပိုကုန်ကျစရိတ်မရှိဘဲ နည်းပညာတိုးတက်မှု၏ ရှေ့တန်းတွင်နေပါ။ ကျွန်ုပ်တို့၏ Pix Pos POS Unlimited Upgrade သည် သင့်တွင် နောက်ဆုံးပေါ်ကိရိယာများနှင့် အင်္ဂါရပ်များကို သင့်လက်ချောင်းထိပ်တွင် အမြဲရှိနေစေရန် သေချာစေကာ သင့်လုပ်ငန်းသည် ခေတ်မီနေသေးကြောင်း အာမခံပါသည်။"),
         "stockList": MessageLookupByLibrary.simpleMessage("ကုန်ပစ္စည်းစာရင်း"),
         "stocks": MessageLookupByLibrary.simpleMessage("ကုန်ပစ္စည်းကန်နံပါတ်"),
         "subTotal": MessageLookupByLibrary.simpleMessage("စုစုပေါင်း"),
@@ -546,7 +546,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase": MessageLookupByLibrary.simpleMessage(
             "အရောင်းဝယ်ခဲ့သောအချက်အလက်အားတင်ပြရန်ကူညီပါသည်"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "နာမည်က အကုန်ပြောတယ်။ Pos Saas POS Unlimited ဖြင့်၊ သင့်အသုံးပြုမှုအတွက် ကန့်သတ်ချက်မရှိပါ။ လက်တစ်ဆုပ်စာ အရောင်းအ၀ယ်လုပ်နေသည်ဖြစ်စေ သို့မဟုတ် ဖောက်သည်များ အလျင်စလိုကြုံနေရသည်ဖြစ်စေ သင်သည် ကန့်သတ်ချက်များဖြင့် ကန့်သတ်ချုပ်ချယ်ထားခြင်း မရှိကြောင်းကို ယုံကြည်စိတ်ချစွာဖြင့် လည်ပတ်နိုင်သည်"),
+            "နာမည်က အကုန်ပြောတယ်။ Pix Pos POS Unlimited ဖြင့်၊ သင့်အသုံးပြုမှုအတွက် ကန့်သတ်ချက်မရှိပါ။ လက်တစ်ဆုပ်စာ အရောင်းအ၀ယ်လုပ်နေသည်ဖြစ်စေ သို့မဟုတ် ဖောက်သည်များ အလျင်စလိုကြုံနေရသည်ဖြစ်စေ သင်သည် ကန့်သတ်ချက်များဖြင့် ကန့်သတ်ချုပ်ချယ်ထားခြင်း မရှိကြောင်းကို ယုံကြည်စိတ်ချစွာဖြင့် လည်ပတ်နိုင်သည်"),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "ဤအသုံးပြုသူကို ဖျက်နိုင်သောနောက်ဆုံးအကြောင်းသည်သင်၏အကောင့်မှာဖျက်နိုင်သည်နှင့်အချက်အလက်အားဖျက်မည်။ သင်သို့ဖျက်မလား?"),
         "thirdPartyServices":
@@ -579,7 +579,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("အကယ်ဒများအသုံးပြုပါနှင့်"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "ကျွန်ုပ်တို့၏ကျွမ်းကျင်ပညာရှင်အဖွဲ့မှ ဦးဆောင်သော ပုဂ္ဂိုလ်ရေးသီးသန့်လေ့ကျင့်မှုသင်တန်းများဖြင့် Pos Saas POS ၏ အလားအလာအပြည့်ကို လော့ခ်ဖွင့်ပါ။ အခြေခံမှစပြီး အဆင့်မြင့်နည်းပညာများအထိ၊ သင့်လုပ်ငန်းလုပ်ငန်းစဉ်များကို အကောင်းဆုံးဖြစ်အောင် စနစ်၏မျက်နှာစာတိုင်းကို အသုံးပြုရာတွင် သင်ကျွမ်းကျင်ကြောင်း သေချာပါသည်။"),
+            "ကျွန်ုပ်တို့၏ကျွမ်းကျင်ပညာရှင်အဖွဲ့မှ ဦးဆောင်သော ပုဂ္ဂိုလ်ရေးသီးသန့်လေ့ကျင့်မှုသင်တန်းများဖြင့် Pix Pos POS ၏ အလားအလာအပြည့်ကို လော့ခ်ဖွင့်ပါ။ အခြေခံမှစပြီး အဆင့်မြင့်နည်းပညာများအထိ၊ သင့်လုပ်ငန်းလုပ်ငန်းစဉ်များကို အကောင်းဆုံးဖြစ်အောင် စနစ်၏မျက်နှာစာတိုင်းကို အသုံးပြုရာတွင် သင်ကျွမ်းကျင်ကြောင်း သေချာပါသည်။"),
         "update": MessageLookupByLibrary.simpleMessage("အပြီးအစီး"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("ဆက်သွယ်ရန်အသုံးပြုရန်"),
@@ -598,7 +598,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadFile": MessageLookupByLibrary.simpleMessage("ဖိုင် တင်ရန်"),
         "upplier": MessageLookupByLibrary.simpleMessage("ကုန်ပစ္စည်းရောင်း"),
         "useMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pos Saas ကိုအသုံးပြုပါ"),
+            MessageLookupByLibrary.simpleMessage("Pix Pos ကိုအသုံးပြုပါ"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Use of the system"),
         "userRole":
@@ -642,7 +642,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("သင်မှာအီးမေးလ်ပြီးပါပြီ"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "သင်အောင်မြင်သောအကောင့်ဝင်ပြီးပါပြီ။ Pos Saas နှင့်တက်ရောက်ကြောင်းကိုကာကွယ်ရှိပါတယ်။"),
+            "သင်အောင်မြင်သောအကောင့်ဝင်ပြီးပါပြီ။ Pix Pos နှင့်တက်ရောက်ကြောင်းကိုကာကွယ်ရှိပါတယ်။"),
         "youHaveToReLogin":
             MessageLookupByLibrary.simpleMessage("သင့်အကောင့်ပြောပါတယ်။"),
         "youNeedToIdentityVerifyBeforeYouBuying":

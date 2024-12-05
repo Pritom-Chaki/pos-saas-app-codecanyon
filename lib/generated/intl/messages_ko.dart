@@ -340,8 +340,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseEnterTheEmailAddressBelowToRecive":
             MessageLookupByLibrary.simpleMessage(
                 "비밀번호 재설정 링크를 받으려면 이메일 주소를 입력해주세요."),
-        "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pos Saas 제공"),
+        "powerdedByMobiPos": MessageLookupByLibrary.simpleMessage("Pix Pos 제공"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("프리미엄 고객 지원"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("프리미엄 플랜"),
@@ -386,7 +385,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("환불 금액"),
         "revenue": MessageLookupByLibrary.simpleMessage("수익"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "비즈니스 데이터를 손쉽게 보호하세요. Pos Saas POS 무제한 업그레이드에는 무료 데이터 백업이 포함되어 소중한 정보가 예기치 않은 사건에 대비하여 보호됩니다. 진정 중요한 것에 집중하세요 - 비즈니스 성장."),
+            "비즈니스 데이터를 손쉽게 보호하세요. Pix Pos POS 무제한 업그레이드에는 무료 데이터 백업이 포함되어 소중한 정보가 예기치 않은 사건에 대비하여 보호됩니다. 진정 중요한 것에 집중하세요 - 비즈니스 성장."),
         "saleDetails": MessageLookupByLibrary.simpleMessage("판매 세부 정보"),
         "salePrice": MessageLookupByLibrary.simpleMessage("판매 가격"),
         "saleReports": MessageLookupByLibrary.simpleMessage("판매 보고서"),
@@ -423,7 +422,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("검색하려면 입력을 시작하세요"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "추가 비용 없이 기술 발전의 선두에 머무르세요. 우리의 Pos Saas POS 무제한 업그레이드를 통해 언제나 최신 도구와 기능을 손에 넣어 비즈니스가 최첨단 유지되도록 보장합니다."),
+            "추가 비용 없이 기술 발전의 선두에 머무르세요. 우리의 Pix Pos POS 무제한 업그레이드를 통해 언제나 최신 도구와 기능을 손에 넣어 비즈니스가 최첨단 유지되도록 보장합니다."),
         "stockList": MessageLookupByLibrary.simpleMessage("재고 목록"),
         "stocks": MessageLookupByLibrary.simpleMessage("재고"),
         "subTotal": MessageLookupByLibrary.simpleMessage("소계"),
@@ -442,7 +441,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("구매해 주셔서 감사합니다"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "이름이 모든 것을 말합니다. Pos Saas POS 무제한을 사용하면 사용량에 제한이 없습니다. 소수의 거래를 처리하거나 고객 급증을 경험하더라도 제한에 구애받지 않고 확신을 가지고 운영할 수 있습니다."),
+            "이름이 모든 것을 말합니다. Pix Pos POS 무제한을 사용하면 사용량에 제한이 없습니다. 소수의 거래를 처리하거나 고객 급증을 경험하더라도 제한에 구애받지 않고 확신을 가지고 운영할 수 있습니다."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "사용자가 삭제되며 모든 데이터가 계정에서 삭제됩니다. 정말 삭제하시겠습니까?"),
         "thirdPartyServices":
@@ -469,7 +468,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "units": MessageLookupByLibrary.simpleMessage("단위"),
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage("무제한 사용"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "우리의 전문 팀이 주도하는 맞춤 교육 세션으로 Pos Saas POS의 모든 측면을 최적화하여 비즈니스 프로세스를 향상시킬 수 있도록 Pos Saas POS의 모든 잠재력을 발휘하세요. 기본부터 고급 기술까지, 우리는 시스템의 모든 측면을 숙지하도록 보장합니다."),
+            "우리의 전문 팀이 주도하는 맞춤 교육 세션으로 Pix Pos POS의 모든 측면을 최적화하여 비즈니스 프로세스를 향상시킬 수 있도록 Pix Pos POS의 모든 잠재력을 발휘하세요. 기본부터 고급 기술까지, 우리는 시스템의 모든 측면을 숙지하도록 보장합니다."),
         "update": MessageLookupByLibrary.simpleMessage("업데이트"),
         "updateContact": MessageLookupByLibrary.simpleMessage("연락처 업데이트"),
         "updateNow": MessageLookupByLibrary.simpleMessage("지금 업데이트"),

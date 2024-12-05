@@ -270,7 +270,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Modă"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Features are the important part which makes Pos Saas  different from traditional solutions."),
+            "Features are the important part which makes Pix Pos  different from traditional solutions."),
         "feedBack": MessageLookupByLibrary.simpleMessage("FeedBack"),
         "firstName": MessageLookupByLibrary.simpleMessage("Prenume"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Font Side"),
@@ -340,9 +340,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("Message History"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas  app is free, easy to use. In fact, it\'s one of the best  POS systems around the world."),
+            "Pix Pos  app is free, easy to use. In fact, it\'s one of the best  POS systems around the world."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas  is a complete business solution with stock, account, sales, expense & loss/profit."),
+            "Pix Pos  is a complete business solution with stock, account, sales, expense & loss/profit."),
         "monthly": MessageLookupByLibrary.simpleMessage("Monthly"),
         "moreInfo":
             MessageLookupByLibrary.simpleMessage("Mai multe informații"),
@@ -413,7 +413,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Vă rugăm să introduceți adresa dvs. de email mai jos pentru a primi linkul de resetare a parolei."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Furnizat de Pos Saas"),
+            MessageLookupByLibrary.simpleMessage("Furnizat de Pix Pos"),
         "premiumCustomerSupport": MessageLookupByLibrary.simpleMessage(
             "Suport premium pentru clienți"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Premium plan"),
@@ -471,7 +471,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("Return Amount"),
         "revenue": MessageLookupByLibrary.simpleMessage("Venituri"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Protejați datele afacerii dvs. fără efort. Actualizarea nelimitată Pos Saas POS include backup gratuit al datelor, asigurându-se că informațiile valoroase sunt protejate împotriva oricăror evenimente neprevăzute. Concentrați-vă asupra a ceea ce contează cu adevărat - creșterea afacerii dvs."),
+            "Protejați datele afacerii dvs. fără efort. Actualizarea nelimitată Pix Pos POS include backup gratuit al datelor, asigurându-se că informațiile valoroase sunt protejate împotriva oricăror evenimente neprevăzute. Concentrați-vă asupra a ceea ce contează cu adevărat - creșterea afacerii dvs."),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Sale Details"),
         "salePrice": MessageLookupByLibrary.simpleMessage("Sale Price"),
         "saleReports": MessageLookupByLibrary.simpleMessage("Sale Report"),
@@ -517,7 +517,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch": MessageLookupByLibrary.simpleMessage(
             "Începeți să tastați pentru a căuta"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Rămâneți în fruntea avansurilor tehnologice fără costuri suplimentare. Actualizarea nelimitată Pos Saas POS asigură că aveți întotdeauna cele mai recente instrumente și funcționalități la îndemână, garantând că afacerea dvs. rămâne la cutting-edge."),
+            "Rămâneți în fruntea avansurilor tehnologice fără costuri suplimentare. Actualizarea nelimitată Pix Pos POS asigură că aveți întotdeauna cele mai recente instrumente și funcționalități la îndemână, garantând că afacerea dvs. rămâne la cutting-edge."),
         "stockList": MessageLookupByLibrary.simpleMessage("Listă de stoc"),
         "stocks": MessageLookupByLibrary.simpleMessage("Stocuri"),
         "subTotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
@@ -538,7 +538,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase": MessageLookupByLibrary.simpleMessage(
             "Vă mulțumim pentru achiziția dvs."),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Numele spune totul. Cu Pos Saas POS Unlimited, nu există nicio limitare a utilizării. Fie că procesați un număr mic de tranzacții sau aveți un val de clienți, puteți opera cu încredere, știind că nu sunteți limitat de constrângeri."),
+            "Numele spune totul. Cu Pix Pos POS Unlimited, nu există nicio limitare a utilizării. Fie că procesați un număr mic de tranzacții sau aveți un val de clienți, puteți opera cu încredere, știind că nu sunteți limitat de constrângeri."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "Utilizatorul va fi șters și toate datele vor fi șterse din contul dvs. Sunteți sigur că doriți să ștergeți acest lucru?"),
         "thirdPartyServices":
@@ -567,7 +567,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Utilizare nelimitată"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Deblocarea potențialului complet al Pos Saas POS cu sesiuni de pregătire personalizate conduse de echipa noastră de experți. De la elementele de bază până la tehnici avansate, ne asigurăm că sunteți bine pregătit pentru a utiliza fiecare aspect al sistemului pentru a vă optimiza procesele de afaceri."),
+            "Deblocarea potențialului complet al Pix Pos POS cu sesiuni de pregătire personalizate conduse de echipa noastră de experți. De la elementele de bază până la tehnici avansate, ne asigurăm că sunteți bine pregătit pentru a utiliza fiecare aspect al sistemului pentru a vă optimiza procesele de afaceri."),
         "update": MessageLookupByLibrary.simpleMessage("Actualizare"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Actualizați contactul"),
@@ -584,7 +584,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Încărcați documentul"),
         "uploadFile":
             MessageLookupByLibrary.simpleMessage("Încărcați fișierul"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("Use Pos Saas"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("Use Pix Pos"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Utilizarea Sistemului"),
         "userRole": MessageLookupByLibrary.simpleMessage("Rol de utilizator"),
@@ -627,7 +627,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Ați primit un email"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Ați fost autentificat cu succes în contul dvs. Rămâneți cu Pos Saas."),
+            "Ați fost autentificat cu succes în contul dvs. Rămâneți cu Pix Pos."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Trebuie să vă RE-LOGAȚI în contul dvs."),
         "youNeedToIdentityVerifyBeforeYouBuying":

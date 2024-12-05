@@ -264,7 +264,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Mitindo"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Vipengele ni sehemu muhimu inayofanya Pos Saas kuwa tofauti na suluhisho za jadi."),
+            "Vipengele ni sehemu muhimu inayofanya Pix Pos kuwa tofauti na suluhisho za jadi."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Maoni"),
         "firstName": MessageLookupByLibrary.simpleMessage("Jina la Kwanza"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Upande wa Mbele"),
@@ -335,9 +335,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("Historia ya Ujumbe"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Programu ya Pos Saas ni bure, rahisi kutumia. Kwa kweli, ni moja ya mfumo bora wa POS duniani."),
+            "Programu ya Pix Pos ni bure, rahisi kutumia. Kwa kweli, ni moja ya mfumo bora wa POS duniani."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas ni suluhisho kamili la biashara na hisa, akaunti, mauzo, matumizi, na hasara/faida."),
+            "Pix Pos ni suluhisho kamili la biashara na hisa, akaunti, mauzo, matumizi, na hasara/faida."),
         "monthly": MessageLookupByLibrary.simpleMessage("Kila Mwezi"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Maelezo Zaidi"),
         "name": MessageLookupByLibrary.simpleMessage("Ingiza Jina Lako."),
@@ -412,7 +412,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Tafadhali ingiza anwani yako ya barua pepe hapa chini ili upokee Kiungo cha Kubadilisha Nenosiri."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Inayoendeshwa na Pos Saas"),
+            MessageLookupByLibrary.simpleMessage("Inayoendeshwa na Pix Pos"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Msaada wa Wateja wa Kipekee"),
         "premiumPlan":
@@ -514,7 +514,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("Anza kuandika ili kutafuta"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Kuwa mstari wa mbele wa maendeleo ya teknolojia bila gharama za ziada. Sasisho la Pos Saas POS lisilokuwa na kikomo linahakikisha kuwa unakuwa na zana na huduma za hivi karibuni mkononi mwako, kuhakikisha biashara yako inabaki kuwa ya kisasa."),
+            "Kuwa mstari wa mbele wa maendeleo ya teknolojia bila gharama za ziada. Sasisho la Pix Pos POS lisilokuwa na kikomo linahakikisha kuwa unakuwa na zana na huduma za hivi karibuni mkononi mwako, kuhakikisha biashara yako inabaki kuwa ya kisasa."),
         "stockList": MessageLookupByLibrary.simpleMessage("Orodha ya Bidhaa"),
         "stocks": MessageLookupByLibrary.simpleMessage("Hisani"),
         "subTotal": MessageLookupByLibrary.simpleMessage("Jumla Ndogo"),
@@ -535,7 +535,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("Asante kwa ununuzi wako"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Jina linasema yote. Na Pos Saas POS lisilokuwa na kikomo, hakuna kikomo kwa matumizi yako. Iwe unaprocessing idadi ndogo ya manunuzi au unakumbana na msururu wa wateja, unaweza kufanya kazi kwa ujasiri, ukiwa na uhakika kuwa haujazuiwa na kikomo."),
+            "Jina linasema yote. Na Pix Pos POS lisilokuwa na kikomo, hakuna kikomo kwa matumizi yako. Iwe unaprocessing idadi ndogo ya manunuzi au unakumbana na msururu wa wateja, unaweza kufanya kazi kwa ujasiri, ukiwa na uhakika kuwa haujazuiwa na kikomo."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "Mtumiaji atafutwa na data zote zitafutwa kutoka kwenye akaunti yako. Una uhakika unataka kufuta hii?"),
         "thirdPartyServices":
@@ -566,7 +566,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage(
             "Matumizi Yasiyokuwa na Kikomo"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Fungua uwezo kamili wa Pos Saas POS na mafunzo ya kibinafsi yanayoongozwa na timu yetu ya wataalamu. Kutoka kwa misingi hadi mbinu za juu, tunahakikisha una maarifa ya kutosha ya kutumia kila sehemu ya mfumo ili kuboresha shughuli za biashara yako."),
+            "Fungua uwezo kamili wa Pix Pos POS na mafunzo ya kibinafsi yanayoongozwa na timu yetu ya wataalamu. Kutoka kwa misingi hadi mbinu za juu, tunahakikisha una maarifa ya kutosha ya kutumia kila sehemu ya mfumo ili kuboresha shughuli za biashara yako."),
         "update": MessageLookupByLibrary.simpleMessage("Sasisha"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Sasisha Mawasiliano"),
@@ -578,7 +578,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sasisha wasifu wako ili kuunganisha daktari wako na athari bora"),
         "uploadDocument": MessageLookupByLibrary.simpleMessage("Pakia Hati"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("Pakia Faili"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("Tumia Pos Saas"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("Tumia Pix Pos"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Matumizi ya Mfumo"),
         "userRole": MessageLookupByLibrary.simpleMessage("Wajibu wa Mtumiaji"),
@@ -618,7 +618,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Umepokea Barua pepe"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Umeingia kwenye akaunti yako kwa mafanikio. Endelea na Pos Saas."),
+            "Umeingia kwenye akaunti yako kwa mafanikio. Endelea na Pix Pos."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Lazima Uingie tena kwenye akaunti yako."),
         "youNeedToIdentityVerifyBeforeYouBuying":

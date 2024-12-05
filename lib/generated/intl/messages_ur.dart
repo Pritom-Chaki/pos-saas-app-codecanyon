@@ -327,9 +327,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("پیغام کی تاریخ"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas ایپ مفت ہے، استعمال کرنے میں آسان ہے۔ حقیقت میں، یہ دنیا بھر میں بہترین پوز سسٹموں میں سے ایک ہے۔"),
+            "Pix Pos ایپ مفت ہے، استعمال کرنے میں آسان ہے۔ حقیقت میں، یہ دنیا بھر میں بہترین پوز سسٹموں میں سے ایک ہے۔"),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas ایک مکمل کاروبار کا حل ہے جس میں اسٹاک، اکاؤنٹ، فروخت، اخراجات اور نفع/نقصان شامل ہیں۔"),
+            "Pix Pos ایک مکمل کاروبار کا حل ہے جس میں اسٹاک، اکاؤنٹ، فروخت، اخراجات اور نفع/نقصان شامل ہیں۔"),
         "monthly": MessageLookupByLibrary.simpleMessage("ماہانہ"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("مزید معلومات"),
         "name": MessageLookupByLibrary.simpleMessage("اپنا نام درج کریں۔"),
@@ -401,7 +401,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "براہ کرم اپنا ای میل ایڈریس درج کریں تاکہ آپ پاس ورڈ ری سیٹ لنک حاصل کر سکیں۔"),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pos Saas کی طرف سے ممتاز"),
+            MessageLookupByLibrary.simpleMessage("Pix Pos کی طرف سے ممتاز"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("پریمیم گاہک حمایت"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("پریمیم پلان"),
@@ -457,7 +457,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("واپسی رقم"),
         "revenue": MessageLookupByLibrary.simpleMessage("آمدنی"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "آسانی سے اپنے کاروبار کے ڈیٹا کو محفوظ کریں۔ ہمارا Pos Saas POS بے محدود اپ گریڈ مفت ڈیٹا بیک اپ شامل ہے، جو آپ کی قیمتی معلومات کو ناگہانی واقعات کے خلاف محفوظ رکھتا ہے۔ واقعی اہم چیزوں پر توجہ دیں - آپ کے کاروبار کی نمائندگی۔"),
+            "آسانی سے اپنے کاروبار کے ڈیٹا کو محفوظ کریں۔ ہمارا Pix Pos POS بے محدود اپ گریڈ مفت ڈیٹا بیک اپ شامل ہے، جو آپ کی قیمتی معلومات کو ناگہانی واقعات کے خلاف محفوظ رکھتا ہے۔ واقعی اہم چیزوں پر توجہ دیں - آپ کے کاروبار کی نمائندگی۔"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("فروخت کی تفصیلات"),
         "salePrice": MessageLookupByLibrary.simpleMessage("فروخت کی قیمت"),
         "saleReports": MessageLookupByLibrary.simpleMessage("فروخت کی رپورٹ"),
@@ -503,7 +503,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("تلاش کرنے کے لئے ٹائپ کریں"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "کسی بھی اضافی لاگت کے بغیر تکنولوجی کی ترقی کے سامنے رہیں. ہمارا Pos Saas POS Unlimited اپ گریڈ یہ یقینی بناتا ہے کہ آپ ہمیشہ آپ کے انگلیوں پر تازہ ترین ٹولز اور خصوصیات رکھتے ہیں، جو آپ کے کاروبار کو بندوبست رکھنے کی ضمانت دیتا ہے۔"),
+            "کسی بھی اضافی لاگت کے بغیر تکنولوجی کی ترقی کے سامنے رہیں. ہمارا Pix Pos POS Unlimited اپ گریڈ یہ یقینی بناتا ہے کہ آپ ہمیشہ آپ کے انگلیوں پر تازہ ترین ٹولز اور خصوصیات رکھتے ہیں، جو آپ کے کاروبار کو بندوبست رکھنے کی ضمانت دیتا ہے۔"),
         "stockList": MessageLookupByLibrary.simpleMessage("اسٹاک کی فہرست"),
         "stocks": MessageLookupByLibrary.simpleMessage("اسٹاک"),
         "subTotal": MessageLookupByLibrary.simpleMessage("ذیلی کل"),
@@ -572,7 +572,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadFile": MessageLookupByLibrary.simpleMessage("فائل اپ لوڈ کریں"),
         "upplier": MessageLookupByLibrary.simpleMessage("سپلائر"),
         "useMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pos Saas کا استعمال کریں"),
+            MessageLookupByLibrary.simpleMessage("Pix Pos کا استعمال کریں"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("سسٹم کا استعمال"),
         "userRole": MessageLookupByLibrary.simpleMessage("صارف کردار"),
@@ -614,7 +614,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("آپ کو ایک ای میل ملا ہے"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "آپ کامیابی سے اپنے اکاؤنٹ میں لاگ ان ہو گئے ہیں۔ Pos Saas کے ساتھ رہیں۔"),
+            "آپ کامیابی سے اپنے اکاؤنٹ میں لاگ ان ہو گئے ہیں۔ Pix Pos کے ساتھ رہیں۔"),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "آپ کو اپنے اکاؤنٹ پر دوبارہ لاگ ان کرنا ہوگا۔"),
         "youNeedToIdentityVerifyBeforeYouBuying":

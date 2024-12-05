@@ -265,7 +265,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Mode"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Funktionen sind der wichtige Teil, der Pos Saas von traditionellen Lösungen unterscheidet."),
+            "Funktionen sind der wichtige Teil, der Pix Pos von traditionellen Lösungen unterscheidet."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Feedback"),
         "firstName": MessageLookupByLibrary.simpleMessage("Vorname"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Vorderseite"),
@@ -337,9 +337,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("Nachrichtenverlauf"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Die Pos Saas-App ist kostenlos und einfach zu bedienen. Tatsächlich handelt es sich um eines der besten POS-Systeme weltweit."),
+            "Die Pix Pos-App ist kostenlos und einfach zu bedienen. Tatsächlich handelt es sich um eines der besten POS-Systeme weltweit."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas ist eine vollständige Geschäftslösung mit Lagerbestand, Konten, Verkauf, Ausgaben und Gewinn/Verlust."),
+            "Pix Pos ist eine vollständige Geschäftslösung mit Lagerbestand, Konten, Verkauf, Ausgaben und Gewinn/Verlust."),
         "monthly": MessageLookupByLibrary.simpleMessage("Monatlich"),
         "moreInfo":
             MessageLookupByLibrary.simpleMessage("Weitere Informationen"),
@@ -414,7 +414,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Bitte geben Sie Ihre E-Mail-Adresse unten ein, um den Link zum Zurücksetzen des Passworts zu erhalten."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Powered By Pos Saas"),
+            MessageLookupByLibrary.simpleMessage("Powered By Pix Pos"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Premium-Kundensupport"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Premium-Plan"),
@@ -469,7 +469,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("Rückgabebetrag"),
         "revenue": MessageLookupByLibrary.simpleMessage("Einnahmen"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Schützen Sie Ihre Geschäftsdaten mühelos. Unsere Pos Saas POS Unlimited Upgrade enthält eine kostenlose Datensicherung, die Ihre wertvollen Informationen vor unerwarteten Ereignissen schützt. Konzentrieren Sie sich auf das, was wirklich wichtig ist - das Wachstum Ihres Unternehmens."),
+            "Schützen Sie Ihre Geschäftsdaten mühelos. Unsere Pix Pos POS Unlimited Upgrade enthält eine kostenlose Datensicherung, die Ihre wertvollen Informationen vor unerwarteten Ereignissen schützt. Konzentrieren Sie sich auf das, was wirklich wichtig ist - das Wachstum Ihres Unternehmens."),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Verkaufsdetails"),
         "salePrice": MessageLookupByLibrary.simpleMessage("Verkaufspreis"),
         "saleReports": MessageLookupByLibrary.simpleMessage("Verkaufsbericht"),
@@ -516,7 +516,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch": MessageLookupByLibrary.simpleMessage(
             "Beginnen Sie mit der Eingabe für die Suche"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Bleiben Sie an der Spitze der technologischen Fortschritte ohne zusätzliche Kosten. Unsere Pos Saas POS Unlimited Upgrade stellt sicher, dass Sie immer die neuesten Werkzeuge und Funktionen zur Hand haben und garantiert, dass Ihr Unternehmen auf dem neuesten Stand bleibt."),
+            "Bleiben Sie an der Spitze der technologischen Fortschritte ohne zusätzliche Kosten. Unsere Pix Pos POS Unlimited Upgrade stellt sicher, dass Sie immer die neuesten Werkzeuge und Funktionen zur Hand haben und garantiert, dass Ihr Unternehmen auf dem neuesten Stand bleibt."),
         "stockList": MessageLookupByLibrary.simpleMessage("Warenliste"),
         "stocks": MessageLookupByLibrary.simpleMessage("Bestände"),
         "subTotal": MessageLookupByLibrary.simpleMessage("Zwischensumme"),
@@ -536,7 +536,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("Vielen Dank für Ihren Kauf"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Der Name sagt alles. Mit Pos Saas POS Unlimited gibt es keine Begrenzung Ihrer Nutzung. Egal, ob Sie nur eine Handvoll Transaktionen bearbeiten oder einen Ansturm von Kunden erleben, Sie können mit Vertrauen arbeiten und wissen, dass Sie nicht durch Grenzen eingeschränkt sind."),
+            "Der Name sagt alles. Mit Pix Pos POS Unlimited gibt es keine Begrenzung Ihrer Nutzung. Egal, ob Sie nur eine Handvoll Transaktionen bearbeiten oder einen Ansturm von Kunden erleben, Sie können mit Vertrauen arbeiten und wissen, dass Sie nicht durch Grenzen eingeschränkt sind."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "Der Benutzer wird gelöscht und alle Daten werden aus Ihrem Konto gelöscht. Sind Sie sicher, dass Sie dies löschen möchten?"),
         "thirdPartyServices":
@@ -566,7 +566,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Unbegrenzte Nutzung"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Schalten Sie das volle Potenzial von Pos Saas POS mit personalisierten Schulungssitzungen unter der Leitung unseres Expertenteams frei. Von den Grundlagen bis zu fortgeschrittenen Techniken stellen wir sicher, dass Sie gut darin sind, jeden Aspekt des Systems zu nutzen, um Ihre Geschäftsprozesse zu optimieren."),
+            "Schalten Sie das volle Potenzial von Pix Pos POS mit personalisierten Schulungssitzungen unter der Leitung unseres Expertenteams frei. Von den Grundlagen bis zu fortgeschrittenen Techniken stellen wir sicher, dass Sie gut darin sind, jeden Aspekt des Systems zu nutzen, um Ihre Geschäftsprozesse zu optimieren."),
         "update": MessageLookupByLibrary.simpleMessage("Aktualisieren"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Kontakt aktualisieren"),
@@ -582,8 +582,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dokument hochladen"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("Datei hochladen"),
         "upplier": MessageLookupByLibrary.simpleMessage("Lieferant"),
-        "useMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pos Saas verwenden"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("Pix Pos verwenden"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Verwendung des Systems"),
         "userRole": MessageLookupByLibrary.simpleMessage("Benutzerrolle"),
@@ -624,7 +623,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail": MessageLookupByLibrary.simpleMessage(
             "Sie haben eine E-Mail erhalten"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Sie haben sich erfolgreich in Ihrem Konto angemeldet. Bleiben Sie bei Pos Saas."),
+            "Sie haben sich erfolgreich in Ihrem Konto angemeldet. Bleiben Sie bei Pix Pos."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Sie müssen sich ERNEUT ANMELDEN in Ihrem Konto."),
         "youNeedToIdentityVerifyBeforeYouBuying":

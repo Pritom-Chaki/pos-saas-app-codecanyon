@@ -261,7 +261,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Muoti"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Ominaisuudet ovat tärkeä osa, joka erottaa Pos Saas -ratkaisun perinteisistä vaihtoehdoista."),
+            "Ominaisuudet ovat tärkeä osa, joka erottaa Pix Pos -ratkaisun perinteisistä vaihtoehdoista."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Palaute"),
         "firstName": MessageLookupByLibrary.simpleMessage("Etunimi"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Etupuoli"),
@@ -329,9 +329,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("Viestihistoria"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas -sovellus on ilmainen ja helppokäyttöinen. Itse asiassa se on yksi parhaista myyntipistejärjestelmistä maailmassa."),
+            "Pix Pos -sovellus on ilmainen ja helppokäyttöinen. Itse asiassa se on yksi parhaista myyntipistejärjestelmistä maailmassa."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas on täydellinen liiketoimintaratkaisu varastonhallintaa, tilinpitoa, myyntiä, kuluja ja voitto/tappio -seurantaa varten."),
+            "Pix Pos on täydellinen liiketoimintaratkaisu varastonhallintaa, tilinpitoa, myyntiä, kuluja ja voitto/tappio -seurantaa varten."),
         "monthly": MessageLookupByLibrary.simpleMessage("Kuukausi"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Lisätietoja"),
         "name": MessageLookupByLibrary.simpleMessage("Syötä nimesi"),
@@ -399,7 +399,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Syötä sähköpostiosoitteesi alle saadaksesi salasanan palautuslinkin."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Toimii Pos Saas -palvelulla"),
+            MessageLookupByLibrary.simpleMessage("Toimii Pix Pos -palvelulla"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Premium-asiakastuki"),
         "premiumPlan":
@@ -548,7 +548,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Rajoittamaton käyttö"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Avaa Pos Saas POS -järjestelmän täysi potentiaali henkilökohtaisten koulutussessioiden avulla, joita johtaa asiantuntijatiimimme. Perusteista edistyneisiin tekniikoihin varmistamme, että osaat hyödyntää järjestelmän jokaista näkökulmaa liiketoimintaprosessiesi optimoimiseksi."),
+            "Avaa Pix Pos POS -järjestelmän täysi potentiaali henkilökohtaisten koulutussessioiden avulla, joita johtaa asiantuntijatiimimme. Perusteista edistyneisiin tekniikoihin varmistamme, että osaat hyödyntää järjestelmän jokaista näkökulmaa liiketoimintaprosessiesi optimoimiseksi."),
         "update": MessageLookupByLibrary.simpleMessage("Päivitä"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Päivitä yhteystieto"),
@@ -566,7 +566,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadFile": MessageLookupByLibrary.simpleMessage("Lataa tiedosto"),
         "upplier": MessageLookupByLibrary.simpleMessage("Toimittaja"),
         "useMobiPos":
-            MessageLookupByLibrary.simpleMessage("Käytä Pos Saas -ratkaisua"),
+            MessageLookupByLibrary.simpleMessage("Käytä Pix Pos -ratkaisua"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Järjestelmän käyttö"),
         "userRole": MessageLookupByLibrary.simpleMessage("Käyttäjärooli"),
@@ -605,7 +605,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Sinulla on sähköposti"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Olet kirjautunut tilillesi onnistuneesti. Ole Pos Saas in kanssa."),
+            "Olet kirjautunut tilillesi onnistuneesti. Ole Pix Pos in kanssa."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Sinun on kirjauduttava uudelleen tilillesi."),
         "youNeedToIdentityVerifyBeforeYouBuying":

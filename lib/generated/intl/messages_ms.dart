@@ -265,7 +265,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Fesyen"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Ciri-ciri adalah bahagian penting yang membezakan Pos Saas daripada penyelesaian tradisional."),
+            "Ciri-ciri adalah bahagian penting yang membezakan Pix Pos daripada penyelesaian tradisional."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Maklum Balas"),
         "firstName": MessageLookupByLibrary.simpleMessage("Nama Pertama"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Hala depan"),
@@ -333,9 +333,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("Mesej"),
         "messageHistory": MessageLookupByLibrary.simpleMessage("Sejarah Mesej"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Aplikasi Pos Saas adalah percuma, mudah digunakan. Sebenarnya, ini adalah salah satu sistem POS terbaik di seluruh dunia."),
+            "Aplikasi Pix Pos adalah percuma, mudah digunakan. Sebenarnya, ini adalah salah satu sistem POS terbaik di seluruh dunia."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas adalah penyelesaian perniagaan yang lengkap dengan stok, akaun, jualan, perbelanjaan & rugi/keuntungan."),
+            "Pix Pos adalah penyelesaian perniagaan yang lengkap dengan stok, akaun, jualan, perbelanjaan & rugi/keuntungan."),
         "monthly": MessageLookupByLibrary.simpleMessage("Bulanan"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Maklumat Lanjut"),
         "name": MessageLookupByLibrary.simpleMessage("Masukkan Nama Anda."),
@@ -407,7 +407,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Sila masukkan alamat emel anda di bawah untuk menerima Pautan Tetapan Semula Kata Laluan."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Dikuasakan Oleh Pos Saas"),
+            MessageLookupByLibrary.simpleMessage("Dikuasakan Oleh Pix Pos"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Sokongan Pelanggan Premium"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Pelan Premium"),
@@ -464,7 +464,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("Jumlah Pulangan"),
         "revenue": MessageLookupByLibrary.simpleMessage("Pendapatan"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Lindungi data perniagaan anda dengan mudah. Upgrade Tanpa Had Pos Saas POS kami termasuk sandaran data percuma, memastikan maklumat berharga anda dilindungi daripada sebarang kejadian yang tidak dijangka. Tumpukan kepada apa yang benar-benar penting - pertumbuhan perniagaan anda."),
+            "Lindungi data perniagaan anda dengan mudah. Upgrade Tanpa Had Pix Pos POS kami termasuk sandaran data percuma, memastikan maklumat berharga anda dilindungi daripada sebarang kejadian yang tidak dijangka. Tumpukan kepada apa yang benar-benar penting - pertumbuhan perniagaan anda."),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Butiran Jualan"),
         "salePrice": MessageLookupByLibrary.simpleMessage("Harga Jualan"),
         "saleReports": MessageLookupByLibrary.simpleMessage("Laporan Jualan"),
@@ -509,7 +509,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("Mula taip untuk mencari"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Tetap di hadapan perkembangan teknologi tanpa kos tambahan. Pos Saas POS Unlimited Upgrade kami memastikan anda sentiasa memiliki alat dan ciri terkini di hujung jari anda, menjamin perniagaan anda kekal dalam keadaan paling canggih."),
+            "Tetap di hadapan perkembangan teknologi tanpa kos tambahan. Pix Pos POS Unlimited Upgrade kami memastikan anda sentiasa memiliki alat dan ciri terkini di hujung jari anda, menjamin perniagaan anda kekal dalam keadaan paling canggih."),
         "stockList": MessageLookupByLibrary.simpleMessage("Senarai Stok"),
         "stocks": MessageLookupByLibrary.simpleMessage("Stok"),
         "subTotal": MessageLookupByLibrary.simpleMessage("Jumlah Sub"),
@@ -529,7 +529,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase": MessageLookupByLibrary.simpleMessage(
             "Terima kasih atas pembelian anda"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Nama tersebut mengatakan segalanya. Dengan Pos Saas POS Unlimited, tidak ada had penggunaan. Sama ada anda memproses beberapa urus niaga atau mengalami lonjakan pelanggan, anda boleh beroperasi dengan yakin, dengan pengetahuan bahawa anda tidak terikat oleh had."),
+            "Nama tersebut mengatakan segalanya. Dengan Pix Pos POS Unlimited, tidak ada had penggunaan. Sama ada anda memproses beberapa urus niaga atau mengalami lonjakan pelanggan, anda boleh beroperasi dengan yakin, dengan pengetahuan bahawa anda tidak terikat oleh had."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "Pengguna ini akan dipadamkan dan semua data akan dihapuskan dari akaun anda. Adakah anda pasti untuk memadam ini?"),
         "thirdPartyServices":
@@ -560,7 +560,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Penggunaan Tanpa Had"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Buka potensi penuh Pos Saas POS dengan sesi latihan yang disesuaikan oleh pasukan pakar kami. Dari asas hingga teknik-teknik yang lebih canggih, kami memastikan anda mahir dalam menggunakan setiap aspek sistem untuk mengoptimumkan proses perniagaan anda."),
+            "Buka potensi penuh Pix Pos POS dengan sesi latihan yang disesuaikan oleh pasukan pakar kami. Dari asas hingga teknik-teknik yang lebih canggih, kami memastikan anda mahir dalam menggunakan setiap aspek sistem untuk mengoptimumkan proses perniagaan anda."),
         "update": MessageLookupByLibrary.simpleMessage("Kemaskini"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Kemaskini Kenalan"),
@@ -577,7 +577,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadDocument":
             MessageLookupByLibrary.simpleMessage("Muat Naik Dokumen"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("Muat Naik Fail"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("Guna Pos Saas"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("Guna Pix Pos"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Penggunaan Sistem"),
         "userRole": MessageLookupByLibrary.simpleMessage("Peranan Pengguna"),
@@ -617,7 +617,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Anda Telah Menerima Emel"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Anda berjaya log masuk ke akaun anda. Kekal dengan Pos Saas ."),
+            "Anda berjaya log masuk ke akaun anda. Kekal dengan Pix Pos ."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Anda perlu LOG MASUK semula ke akaun anda."),
         "youNeedToIdentityVerifyBeforeYouBuying":

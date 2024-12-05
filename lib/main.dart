@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
                     GlobalCupertinoLocalizations.delegate,
                   ],
                   supportedLocales: S.delegate.supportedLocales,
-                  title: 'POSBHARAT',
+                  title: 'Pix Pos',
                   initialRoute: '/',
                   builder: EasyLoading.init(),
                   routes: {

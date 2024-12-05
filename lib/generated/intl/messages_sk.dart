@@ -262,7 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Móda"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Funkcie sú dôležitou časťou, ktorá robí Pos Saas odlišným od tradičných riešení."),
+            "Funkcie sú dôležitou časťou, ktorá robí Pix Pos odlišným od tradičných riešení."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Spätná väzba"),
         "firstName": MessageLookupByLibrary.simpleMessage("Krstné meno"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Predná strana"),
@@ -331,9 +331,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("História správ"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas  app je zadarmo a jednoduchá na používanie. Je to vlastne jedno z najlepších POS systémov na svete."),
+            "Pix Pos  app je zadarmo a jednoduchá na používanie. Je to vlastne jedno z najlepších POS systémov na svete."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas je kompletné obchodné riešenie s evidenciou zásob, účtami, predajmi, nákladmi a ziskom/stratom."),
+            "Pix Pos je kompletné obchodné riešenie s evidenciou zásob, účtami, predajmi, nákladmi a ziskom/stratom."),
         "monthly": MessageLookupByLibrary.simpleMessage("Mesačne"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Viac informácií"),
         "name": MessageLookupByLibrary.simpleMessage("Zadajte svoje meno."),
@@ -405,8 +405,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseEnterTheEmailAddressBelowToRecive":
             MessageLookupByLibrary.simpleMessage(
                 "Prosím, zadajte nižšie svoju e-mailovú adresu, aby ste dostali odkaz na obnovenie hesla."),
-        "powerdedByMobiPos": MessageLookupByLibrary.simpleMessage(
-            "Používa technológiu Pos Saas"),
+        "powerdedByMobiPos":
+            MessageLookupByLibrary.simpleMessage("Používa technológiu Pix Pos"),
         "premiumCustomerSupport": MessageLookupByLibrary.simpleMessage(
             "Podpora pre prémiových zákazníkov"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Prémiový plán"),
@@ -462,7 +462,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("Vrátiť sumu"),
         "revenue": MessageLookupByLibrary.simpleMessage("Príjmy"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Ochráňte dáta svojho podniku bez námahy. Naša aktualizácia na neobmedzené používanie Pos Saas POS obsahuje bezplatné zálohovanie dát, čím sa zabezpečí ochrana vašich cenných informácií pred nepredvídateľnými udalosťami. Zamerajte sa na to, čo je skutočne dôležité - rast vášho podniku."),
+            "Ochráňte dáta svojho podniku bez námahy. Naša aktualizácia na neobmedzené používanie Pix Pos POS obsahuje bezplatné zálohovanie dát, čím sa zabezpečí ochrana vašich cenných informácií pred nepredvídateľnými udalosťami. Zamerajte sa na to, čo je skutočne dôležité - rast vášho podniku."),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Detaily predaja"),
         "salePrice": MessageLookupByLibrary.simpleMessage("Predajná cena"),
         "saleReports": MessageLookupByLibrary.simpleMessage("Správa o predaji"),
@@ -508,7 +508,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch": MessageLookupByLibrary.simpleMessage(
             "Začnite písať pre vyhľadávanie"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Buďte na čele technologických inovácií bez dodatočných nákladov. Naša aktualizácia na neobmedzené používanie systému Pos Saas POS zabezpečuje, že vždy máte k dispozícii najnovšie nástroje a funkcie, čo zaručuje, že vaša firma zostane v prednej časti."),
+            "Buďte na čele technologických inovácií bez dodatočných nákladov. Naša aktualizácia na neobmedzené používanie systému Pix Pos POS zabezpečuje, že vždy máte k dispozícii najnovšie nástroje a funkcie, čo zaručuje, že vaša firma zostane v prednej časti."),
         "stockList": MessageLookupByLibrary.simpleMessage("Zoznam tovaru"),
         "stocks": MessageLookupByLibrary.simpleMessage("Zásoby"),
         "subTotal": MessageLookupByLibrary.simpleMessage("Medzisúčet"),
@@ -529,7 +529,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("Ďakujeme za nákup"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Názov hovorí za všetko. S Pos Saas POS Unlimited neexistuje obmedzenie vašeho používania. Či už spracovávate len niekoľko transakcií alebo zažívate nápor zákazníkov, môžete prevádzkovať s istotou, že nie ste obmedzení žiadnymi limity."),
+            "Názov hovorí za všetko. S Pix Pos POS Unlimited neexistuje obmedzenie vašeho používania. Či už spracovávate len niekoľko transakcií alebo zažívate nápor zákazníkov, môžete prevádzkovať s istotou, že nie ste obmedzení žiadnymi limity."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "Používateľ bude vymazaný a všetky údaje budú z vášho účtu odstránené. Ste si istí, že chcete toto vymazať?"),
         "thirdPartyServices":
@@ -558,7 +558,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Neobmedzené používanie"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Odomknite plný potenciál systému Pos Saas POS prostredníctvom personalizovaných školení vedených naším expertným tímom. Od základov po pokročilé techniky vás naučíme, ako využívať každý aspekt systému na optimalizáciu vašich podnikových procesov."),
+            "Odomknite plný potenciál systému Pix Pos POS prostredníctvom personalizovaných školení vedených naším expertným tímom. Od základov po pokročilé techniky vás naučíme, ako využívať každý aspekt systému na optimalizáciu vašich podnikových procesov."),
         "update": MessageLookupByLibrary.simpleMessage("Aktualizovať"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Aktualizovať kontakt"),
@@ -576,7 +576,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nahrať dokument"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("Nahrať súbor"),
         "upplier": MessageLookupByLibrary.simpleMessage("Dodávateľ"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("Použite Pos Saas"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("Použite Pix Pos"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Používanie systému"),
         "userRole": MessageLookupByLibrary.simpleMessage("Používateľská rola"),
@@ -619,7 +619,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Dostali ste e-mail"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Úspešne ste sa prihlásili do vášho účtu. Zostaňte s Pos Saas."),
+            "Úspešne ste sa prihlásili do vášho účtu. Zostaňte s Pix Pos."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Musíte sa znovu PRIHLÁSIŤ do vášho účtu."),
         "youNeedToIdentityVerifyBeforeYouBuying":

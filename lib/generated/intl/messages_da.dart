@@ -260,7 +260,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Mode"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Funktioner er den vigtige del, der adskiller Pos Saas fra traditionelle løsninger."),
+            "Funktioner er den vigtige del, der adskiller Pix Pos fra traditionelle løsninger."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Feedback"),
         "firstName": MessageLookupByLibrary.simpleMessage("Fornavn"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Forside"),
@@ -330,9 +330,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("Beskedhistorik"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas-appen er gratis og nem at bruge. Faktisk er den en af de bedste POS-systemer i verden."),
+            "Pix Pos-appen er gratis og nem at bruge. Faktisk er den en af de bedste POS-systemer i verden."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas er en komplet forretningsløsning med lager, regnskab, salg, udgifter og tab/profit."),
+            "Pix Pos er en komplet forretningsløsning med lager, regnskab, salg, udgifter og tab/profit."),
         "monthly": MessageLookupByLibrary.simpleMessage("Månedlig"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Mere info"),
         "name": MessageLookupByLibrary.simpleMessage("Indtast dit navn."),
@@ -403,7 +403,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Indtast din e-mailadresse nedenfor for at modtage et link til nulstilling af adgangskoden."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Drevet af Pos Saas"),
+            MessageLookupByLibrary.simpleMessage("Drevet af Pix Pos"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Premium kundesupport"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Premium-plan"),
@@ -458,7 +458,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("Returbeløb"),
         "revenue": MessageLookupByLibrary.simpleMessage("Indtægter"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Beskyt dine forretningsdata ubesværet. Vores Pos Saas POS Ubegrænset Opgradering inkluderer gratis databackup, der sikrer, at dine værdifulde oplysninger er beskyttet mod uforudsete begivenheder. Fokuser på det, der virkelig betyder noget - væksten af din virksomhed."),
+            "Beskyt dine forretningsdata ubesværet. Vores Pix Pos POS Ubegrænset Opgradering inkluderer gratis databackup, der sikrer, at dine værdifulde oplysninger er beskyttet mod uforudsete begivenheder. Fokuser på det, der virkelig betyder noget - væksten af din virksomhed."),
         "saleDetails": MessageLookupByLibrary.simpleMessage("Salgsdetaljer"),
         "salePrice": MessageLookupByLibrary.simpleMessage("Salgspris"),
         "saleReports": MessageLookupByLibrary.simpleMessage("Salgsrapport"),
@@ -502,7 +502,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch": MessageLookupByLibrary.simpleMessage(
             "Begynd at skrive for at søge"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Forbliv i frontlinjen af teknologiske fremskridt uden ekstra omkostninger. Vores Pos Saas POS Ubegrænset Opgradering sikrer, at du altid har de nyeste værktøjer og funktioner lige ved hånden og garanterer, at din virksomhed forbliver skarpskåren."),
+            "Forbliv i frontlinjen af teknologiske fremskridt uden ekstra omkostninger. Vores Pix Pos POS Ubegrænset Opgradering sikrer, at du altid har de nyeste værktøjer og funktioner lige ved hånden og garanterer, at din virksomhed forbliver skarpskåren."),
         "stockList": MessageLookupByLibrary.simpleMessage("Lagerliste"),
         "stocks": MessageLookupByLibrary.simpleMessage("Lagerbeholdning"),
         "subTotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
@@ -522,7 +522,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("Tak for dit køb"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Navnet siger det hele. Med Pos Saas POS Ubegrænset er der ingen begrænsning for din brug. Uanset om du behandler en håndfuld transaktioner eller oplever en strøm af kunder, kan du arbejde med tillid og vide, at du ikke er begrænset af begrænsninger."),
+            "Navnet siger det hele. Med Pix Pos POS Ubegrænset er der ingen begrænsning for din brug. Uanset om du behandler en håndfuld transaktioner eller oplever en strøm af kunder, kan du arbejde med tillid og vide, at du ikke er begrænset af begrænsninger."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "Brugeren vil blive slettet, og alle data slettes fra din konto. Er du sikker på, at du vil slette dette?"),
         "thirdPartyServices":
@@ -552,7 +552,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Ubegrænset brug"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Lås den fulde potentiale op for Pos Saas POS med personlige træningssessioner ledet af vores ekspertteam. Fra grundlæggende til avancerede teknikker sørger vi for, at du er godt rustet til at udnytte hver facet af systemet for at optimere dine forretningsprocesser."),
+            "Lås den fulde potentiale op for Pix Pos POS med personlige træningssessioner ledet af vores ekspertteam. Fra grundlæggende til avancerede teknikker sørger vi for, at du er godt rustet til at udnytte hver facet af systemet for at optimere dine forretningsprocesser."),
         "update": MessageLookupByLibrary.simpleMessage("Opdater"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Opdater kontakt"),
@@ -570,7 +570,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Upload dokument"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("Upload fil"),
         "upplier": MessageLookupByLibrary.simpleMessage("Leverandør"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("Brug Pos Saas"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("Brug Pix Pos"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Brug af systemet"),
         "userRole": MessageLookupByLibrary.simpleMessage("Brugerrolle"),
@@ -611,7 +611,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Du har modtaget en e-mail"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Du er logget ind på din konto med succes. Bliv hos Pos Saas."),
+            "Du er logget ind på din konto med succes. Bliv hos Pix Pos."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Du skal GENINDLOGGE dig på din konto."),
         "youNeedToIdentityVerifyBeforeYouBuying":

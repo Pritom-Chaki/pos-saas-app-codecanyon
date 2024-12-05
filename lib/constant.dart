@@ -22,7 +22,7 @@ import 'model/add_to_cart_model.dart';
 // const kMainColor = Color(0xff3949AB);
 // const kMainColor = Color(0xff04A65A);
 
-const kMainColor = Color(0xfffc0440);
+const kMainColor = Color(0xff8a059e);
 const kGreyTextColor = Color(0xFF828282);
 const kBorderColorTextField = Color(0xFFC2C2C2);
 const kBorderColor = Color(0xff7D7D7D);

@@ -586,7 +586,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("आपके पास एक ईमेल है"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "आप सफलतापूर्वक अपने खाते में लॉग इन हो गए हैं। Pos Saas  के साथ रहें।"),
+            "आप सफलतापूर्वक अपने खाते में लॉग इन हो गए हैं। Pix Pos  के साथ रहें।"),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "आपको अपने खाते में पुनः लॉगिन करना होगा।"),
         "youNeedToIdentityVerifyBeforeYouBuying":

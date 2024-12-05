@@ -103,7 +103,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                   children: [
                     Text(lang.S.of(context).manageYourBussinessWith),
                     const Text(
-                      'POS SAAS',
+                      'Pix Pos',
                       style: TextStyle(color: kMainColor, fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     // const Image(width: 100, image: AssetImage('images/sb.png')),

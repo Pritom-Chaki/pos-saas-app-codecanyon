@@ -39,7 +39,7 @@ dependencies:
   cupertino_icons:
 
   google_fonts:
-  flutter_credit_card: ^4.0.1
+  #flutter_credit_card: ^4.0.1
   barcode_widget: ^2.0.4
   flutter_grid_button: ^2.1.0
   firebase_core: ^2.30.0

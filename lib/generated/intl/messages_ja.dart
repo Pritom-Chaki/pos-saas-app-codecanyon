@@ -217,7 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("ファッション"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "機能は、Pos Saasを従来のソリューションとは異なるものにする重要な部分です。"),
+            "機能は、Pix Posを従来のソリューションとは異なるものにする重要な部分です。"),
         "feedBack": MessageLookupByLibrary.simpleMessage("フィードバック"),
         "firstName": MessageLookupByLibrary.simpleMessage("名"),
         "fontSide": MessageLookupByLibrary.simpleMessage("表面"),
@@ -277,10 +277,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("メッセージ"),
         "messageHistory": MessageLookupByLibrary.simpleMessage("メッセージ履歴"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Pos Saasアプリは無料で、使いやすいです。実際、これは世界中で最も優れたPOSシステムの1つです。"),
+            "Pix Posアプリは無料で、使いやすいです。実際、これは世界中で最も優れたPOSシステムの1つです。"),
         "mobiPosIsaCompleteBusinesSolution":
             MessageLookupByLibrary.simpleMessage(
-                "Pos Saasは在庫、アカウント、販売、支出、損益を含む完全なビジネスソリューションです。"),
+                "Pix Posは在庫、アカウント、販売、支出、損益を含む完全なビジネスソリューションです。"),
         "monthly": MessageLookupByLibrary.simpleMessage("月次"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("詳細情報"),
         "name": MessageLookupByLibrary.simpleMessage("名前を入力してください"),
@@ -341,7 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "パスワードリセットリンクを受け取るために、以下にメールアドレスを入力してください。"),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Powered By Pos Saas"),
+            MessageLookupByLibrary.simpleMessage("Powered By Pix Pos"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("プレミアムカスタマーサポート"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("プレミアムプラン"),
@@ -386,7 +386,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("返金額"),
         "revenue": MessageLookupByLibrary.simpleMessage("収益"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "ビジネスデータを簡単に保護します。Pos Saas POS Unlimited Upgradeには無料のデータバックアップが含まれており、貴重な情報が予期せぬ出来事から保護されます。真に重要なことに集中してください - あなたのビジネスの成長です。"),
+            "ビジネスデータを簡単に保護します。Pix Pos POS Unlimited Upgradeには無料のデータバックアップが含まれており、貴重な情報が予期せぬ出来事から保護されます。真に重要なことに集中してください - あなたのビジネスの成長です。"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("販売詳細"),
         "salePrice": MessageLookupByLibrary.simpleMessage("販売価格"),
         "saleReports": MessageLookupByLibrary.simpleMessage("販売レポート"),
@@ -422,7 +422,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startNewSale": MessageLookupByLibrary.simpleMessage("新しい販売を開始"),
         "startTypingToSearch": MessageLookupByLibrary.simpleMessage("検索を開始する"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "追加費用なしで技術の最前線にとどまります。当社のPos Saas POS Unlimited Upgradeは、常に最新のツールと機能を手に入れることを保証し、あなたのビジネスが常に最新のものであることを保証します。"),
+            "追加費用なしで技術の最前線にとどまります。当社のPix Pos POS Unlimited Upgradeは、常に最新のツールと機能を手に入れることを保証し、あなたのビジネスが常に最新のものであることを保証します。"),
         "stockList": MessageLookupByLibrary.simpleMessage("在庫リスト"),
         "stocks": MessageLookupByLibrary.simpleMessage("在庫"),
         "subTotal": MessageLookupByLibrary.simpleMessage("小計"),
@@ -441,7 +441,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("ご購入いただき、ありがとうございます"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "その名前がすべてを物語っています。Pos Saas POS Unlimitedでは、使用回数に制限はありません。少数の取引を処理している場合でも、多くの顧客が押し寄せている場合でも、制限に縛られないで操作できます。"),
+            "その名前がすべてを物語っています。Pix Pos POS Unlimitedでは、使用回数に制限はありません。少数の取引を処理している場合でも、多くの顧客が押し寄せている場合でも、制限に縛られないで操作できます。"),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "ユーザーは削除され、すべてのデータがアカウントから削除されます。本当に削除してもよろしいですか？"),
         "thirdPartyServices": MessageLookupByLibrary.simpleMessage("第三者サービス"),
@@ -467,7 +467,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "units": MessageLookupByLibrary.simpleMessage("単位"),
         "unlimitedUsage": MessageLookupByLibrary.simpleMessage("制限なしの利用"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "専門家チームによるパーソナライズされたトレーニングセッションを活用して、Pos Saas POSのフルポテンシャルを引き出します。基本から高度なテクニックまで、システムのあらゆる側面を最適化してビジネスプロセスを行うことができるようにします。"),
+            "専門家チームによるパーソナライズされたトレーニングセッションを活用して、Pix Pos POSのフルポテンシャルを引き出します。基本から高度なテクニックまで、システムのあらゆる側面を最適化してビジネスプロセスを行うことができるようにします。"),
         "update": MessageLookupByLibrary.simpleMessage("更新"),
         "updateContact": MessageLookupByLibrary.simpleMessage("連絡先を更新"),
         "updateNow": MessageLookupByLibrary.simpleMessage("今すぐ更新"),
@@ -481,7 +481,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadDocument": MessageLookupByLibrary.simpleMessage("文書をアップロード"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("ファイルをアップロード"),
         "upplier": MessageLookupByLibrary.simpleMessage("サプライヤー"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("Pos Saasを使用する"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("Pix Posを使用する"),
         "useOfTheSystem": MessageLookupByLibrary.simpleMessage("システムの使用"),
         "userRole": MessageLookupByLibrary.simpleMessage("ユーザー ロール"),
         "userRoleDetails": MessageLookupByLibrary.simpleMessage("ユーザーロールの詳細"),
@@ -516,7 +516,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Eメールを受信しました"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "アカウントに正常にログインしました。Pos Saas をご利用ください。"),
+            "アカウントに正常にログインしました。Pix Pos をご利用ください。"),
         "youHaveToReLogin":
             MessageLookupByLibrary.simpleMessage("アカウントに再ログインする必要があります"),
         "youNeedToIdentityVerifyBeforeYouBuying":

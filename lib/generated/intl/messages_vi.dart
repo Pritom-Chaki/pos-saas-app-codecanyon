@@ -172,7 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dueList": MessageLookupByLibrary.simpleMessage("Danh sách nợ"),
         "dueReports": MessageLookupByLibrary.simpleMessage("Báo cáo nợ"),
         "easyToUseMobilePos": MessageLookupByLibrary.simpleMessage(
-            "Ứng dụng Pos Saas dễ sử dụng trên điện thoại"),
+            "Ứng dụng Pix Pos dễ sử dụng trên điện thoại"),
         "edit": MessageLookupByLibrary.simpleMessage("Chỉnh sửa"),
         "editPurchaseInvoice":
             MessageLookupByLibrary.simpleMessage("Chỉnh sửa hóa đơn mua hàng"),
@@ -258,7 +258,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebok": MessageLookupByLibrary.simpleMessage("Facebook"),
         "fashion": MessageLookupByLibrary.simpleMessage("Thời trang"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "Các tính năng là phần quan trọng làm nên sự khác biệt của Pos Saas so với các giải pháp truyền thống."),
+            "Các tính năng là phần quan trọng làm nên sự khác biệt của Pix Pos so với các giải pháp truyền thống."),
         "feedBack": MessageLookupByLibrary.simpleMessage("Phản hồi"),
         "firstName": MessageLookupByLibrary.simpleMessage("Tên"),
         "fontSide": MessageLookupByLibrary.simpleMessage("Mặt trước"),
@@ -327,9 +327,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("Lịch sử tin nhắn"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "Ứng dụng Pos Saas miễn phí, dễ sử dụng. Thực tế, đây là một trong những hệ thống POS tốt nhất trên thế giới."),
+            "Ứng dụng Pix Pos miễn phí, dễ sử dụng. Thực tế, đây là một trong những hệ thống POS tốt nhất trên thế giới."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas là một giải pháp kinh doanh hoàn chỉnh với quản lý kho, tài khoản, bán hàng, chi phí và lỗ/lãi."),
+            "Pix Pos là một giải pháp kinh doanh hoàn chỉnh với quản lý kho, tài khoản, bán hàng, chi phí và lỗ/lãi."),
         "monthly": MessageLookupByLibrary.simpleMessage("Hàng tháng"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Thông tin thêm"),
         "name": MessageLookupByLibrary.simpleMessage("Nhập tên của bạn."),
@@ -408,7 +408,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Vui lòng nhập địa chỉ email của bạn bên dưới để nhận liên kết đặt lại mật khẩu."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Được hỗ trợ bởi Pos Saas"),
+            MessageLookupByLibrary.simpleMessage("Được hỗ trợ bởi Pix Pos"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("Hỗ trợ khách hàng cao cấp"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("Gói cao cấp"),
@@ -467,7 +467,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Số tiền hoàn trả"),
         "revenue": MessageLookupByLibrary.simpleMessage("Doanh thu"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "Bảo vệ dữ liệu kinh doanh của bạn một cách dễ dàng. Bản nâng cấp không giới hạn của Pos Saas POS bao gồm việc sao lưu dữ liệu miễn phí, đảm bảo thông tin quý báu của bạn được bảo vệ trước bất kỳ sự kiện bất ngờ nào. Tập trung vào những điều thực sự quan trọng - sự phát triển kinh doanh của bạn."),
+            "Bảo vệ dữ liệu kinh doanh của bạn một cách dễ dàng. Bản nâng cấp không giới hạn của Pix Pos POS bao gồm việc sao lưu dữ liệu miễn phí, đảm bảo thông tin quý báu của bạn được bảo vệ trước bất kỳ sự kiện bất ngờ nào. Tập trung vào những điều thực sự quan trọng - sự phát triển kinh doanh của bạn."),
         "saleDetails":
             MessageLookupByLibrary.simpleMessage("Chi tiết bán hàng"),
         "salePrice": MessageLookupByLibrary.simpleMessage("Giá bán"),
@@ -513,7 +513,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch":
             MessageLookupByLibrary.simpleMessage("Bắt đầu nhập để tìm kiếm"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "Luôn ở phía trước của sự phát triển công nghệ mà không tốn thêm chi phí. Bản nâng cấp không giới hạn của Pos Saas POS đảm bảo bạn luôn có các công cụ và tính năng mới nhất ngay trước mắt, đảm bảo doanh nghiệp của bạn luôn ở mức đỉnh cao."),
+            "Luôn ở phía trước của sự phát triển công nghệ mà không tốn thêm chi phí. Bản nâng cấp không giới hạn của Pix Pos POS đảm bảo bạn luôn có các công cụ và tính năng mới nhất ngay trước mắt, đảm bảo doanh nghiệp của bạn luôn ở mức đỉnh cao."),
         "stockList":
             MessageLookupByLibrary.simpleMessage("Danh sách hàng tồn kho"),
         "stocks": MessageLookupByLibrary.simpleMessage("Tồn kho"),
@@ -536,7 +536,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase":
             MessageLookupByLibrary.simpleMessage("Cảm ơn bạn đã mua hàng"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "Tên nói lên tất cả. Với Pos Saas POS Unlimited, không giới hạn về việc sử dụng của bạn. Cho dù bạn đang xử lý một số giao dịch hoặc đối mặt với một lượng lớn khách hàng, bạn có thể hoạt động với sự tự tin, biết rằng bạn không bị giới hạn bởi các hạn chế."),
+            "Tên nói lên tất cả. Với Pix Pos POS Unlimited, không giới hạn về việc sử dụng của bạn. Cho dù bạn đang xử lý một số giao dịch hoặc đối mặt với một lượng lớn khách hàng, bạn có thể hoạt động với sự tự tin, biết rằng bạn không bị giới hạn bởi các hạn chế."),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "Người dùng sẽ bị xóa và tất cả dữ liệu sẽ bị xóa khỏi tài khoản của bạn. Bạn có chắc chắn muốn xóa không?"),
         "thirdPartyServices":
@@ -566,7 +566,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("Sử dụng không giới hạn"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Mở khóa tiềm năng đầy đủ của Pos Saas POS với các buổi đào tạo cá nhân do đội ngũ chuyên gia của chúng tôi dẫn đầu. Từ cơ bản đến các kỹ thuật tiên tiến, chúng tôi đảm bảo bạn thông thạo trong việc sử dụng mọi khía cạnh của hệ thống để tối ưu hóa quy trình kinh doanh của bạn."),
+            "Mở khóa tiềm năng đầy đủ của Pix Pos POS với các buổi đào tạo cá nhân do đội ngũ chuyên gia của chúng tôi dẫn đầu. Từ cơ bản đến các kỹ thuật tiên tiến, chúng tôi đảm bảo bạn thông thạo trong việc sử dụng mọi khía cạnh của hệ thống để tối ưu hóa quy trình kinh doanh của bạn."),
         "update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("Cập nhật liên hệ"),
@@ -583,7 +583,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadDocument":
             MessageLookupByLibrary.simpleMessage("Tải tài liệu lên"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("Tải tệp lên"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("Sử dụng Pos Saas"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("Sử dụng Pix Pos"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("Sử dụng của hệ thống"),
         "userRole": MessageLookupByLibrary.simpleMessage("Vai trò người dùng"),
@@ -624,7 +624,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("Bạn đã nhận được một email"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "Bạn đã đăng nhập thành công vào tài khoản của bạn. Hãy ở lại với Pos Saas ."),
+            "Bạn đã đăng nhập thành công vào tài khoản của bạn. Hãy ở lại với Pix Pos ."),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "Bạn phải ĐĂNG NHẬP lại vào tài khoản của mình."),
         "youNeedToIdentityVerifyBeforeYouBuying":

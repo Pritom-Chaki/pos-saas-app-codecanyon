@@ -330,7 +330,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
             "Pos Sass অ্যাপ বিনামূল্যে, ব্যবহার সহজ। সত্যিই, এটি বিশ্বের সেরা POS সিস্টেমের মধ্যে একটি।"),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas একটি পূর্ণ ব্যবসা সমাধান যা স্টক, হিসাব, বিক্রয়, ব্যয় এবং ক্ষতি/লাভ অধ্যায়ে থাকে।"),
+            "Pix Pos একটি পূর্ণ ব্যবসা সমাধান যা স্টক, হিসাব, বিক্রয়, ব্যয় এবং ক্ষতি/লাভ অধ্যায়ে থাকে।"),
         "monthly": MessageLookupByLibrary.simpleMessage("মাসিক"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("অধিক তথ্য"),
         "name": MessageLookupByLibrary.simpleMessage("আপনার নাম প্রবেশ করুন"),
@@ -402,7 +402,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "পাসওয়ার্ড রিসেট লিঙ্ক পেতে নিচে আপনার ইমেল ঠিকানা লিখুন."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pos Saas দ্বারা চালিত"),
+            MessageLookupByLibrary.simpleMessage("Pix Pos দ্বারা চালিত"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("প্রিমিয়াম গ্রাহক সমর্থন"),
         "premiumPlan":
@@ -455,7 +455,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "returnAmount": MessageLookupByLibrary.simpleMessage("ফেরত মূল্য"),
         "revenue": MessageLookupByLibrary.simpleMessage("রাজস্ব"),
         "safeGuardYourBusinessDate": MessageLookupByLibrary.simpleMessage(
-            "আপনার ব্যবসা ডেটা সহজলাভ করুন। আমাদের Pos Saas POS সীমাহীন আপগ্রেড বিনামূল্যে ডেটা ব্যাকআপ সহ এনেছে, আপনার মূল্যবান তথ্যটি যে কোনও অনুমান নিরাপত্তা প্রদান করে। সত্যিই গুরুত্বপূর্ণ মাধ্যমে আপনার ব্যবসা বৃদ্ধি করুন।"),
+            "আপনার ব্যবসা ডেটা সহজলাভ করুন। আমাদের Pix Pos POS সীমাহীন আপগ্রেড বিনামূল্যে ডেটা ব্যাকআপ সহ এনেছে, আপনার মূল্যবান তথ্যটি যে কোনও অনুমান নিরাপত্তা প্রদান করে। সত্যিই গুরুত্বপূর্ণ মাধ্যমে আপনার ব্যবসা বৃদ্ধি করুন।"),
         "saleDetails": MessageLookupByLibrary.simpleMessage("বিক্রয় বিশদ"),
         "salePrice": MessageLookupByLibrary.simpleMessage("বিক্রয় মূল্য"),
         "saleReports": MessageLookupByLibrary.simpleMessage("বিক্রয় রিপোর্ট"),
@@ -502,7 +502,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTypingToSearch": MessageLookupByLibrary.simpleMessage(
             "অনুসন্ধান করতে টাইপ করা শুরু করুন"),
         "stayAtTheForFront": MessageLookupByLibrary.simpleMessage(
-            "অতিরিক্ত খরচ ছাড়াই প্রযুক্তিগত উন্নতির আগে থাকুন। আমাদের Pos Saas POS সীমাহীন আপগ্রেড আপনার হাতে সর্বদা সর্বশেষ সরঞ্জাম এবং সুবিধা থাকতে নিশ্চিত করে, আপনার ব্যবসা সর্বদা একটি কোটি-একাধিক থাকতে সহায়ক হয়।"),
+            "অতিরিক্ত খরচ ছাড়াই প্রযুক্তিগত উন্নতির আগে থাকুন। আমাদের Pix Pos POS সীমাহীন আপগ্রেড আপনার হাতে সর্বদা সর্বশেষ সরঞ্জাম এবং সুবিধা থাকতে নিশ্চিত করে, আপনার ব্যবসা সর্বদা একটি কোটি-একাধিক থাকতে সহায়ক হয়।"),
         "stockList": MessageLookupByLibrary.simpleMessage("মজুত তালিকা"),
         "stocks": MessageLookupByLibrary.simpleMessage("স্টক"),
         "subTotal": MessageLookupByLibrary.simpleMessage("উপ-মোট"),
@@ -523,7 +523,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thankYouForYourPurchase": MessageLookupByLibrary.simpleMessage(
             "আপনার ক্রয়ের জন্য আপনাকে ধন্যবাদ"),
         "theNameSysIt": MessageLookupByLibrary.simpleMessage(
-            "নামটি সব কিছু বলে। Pos Saas POS সীমাহীন ব্যবহারে আপনার ব্যবহারের কোনও সীমা নেই। আপনি যদি কোনও লেনদেন প্রসেস করতে অথবা গ্রাহকের এক গুম থাকতে, তবে আপনি সীমাবদ্ধ নন হওয়া কারণে আত্মবিশ্বাসে কাজ করতে পারেন।"),
+            "নামটি সব কিছু বলে। Pix Pos POS সীমাহীন ব্যবহারে আপনার ব্যবহারের কোনও সীমা নেই। আপনি যদি কোনও লেনদেন প্রসেস করতে অথবা গ্রাহকের এক গুম থাকতে, তবে আপনি সীমাবদ্ধ নন হওয়া কারণে আত্মবিশ্বাসে কাজ করতে পারেন।"),
         "theUserWillBe": MessageLookupByLibrary.simpleMessage(
             "ব্যবহারকারীকে মুছে ফেলা হবে এবং আপনার অ্যাকাউন্ট থেকে সমস্ত ডেটা মুছে ফেলা হবে৷ আপনি কি এটি মুছতে নিশ্চিত?"),
         "thirdPartyServices":
@@ -551,7 +551,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("সীমাহীন ব্যবহার"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas POS এর ব্যবহারের পূর্ণ সামর্থ্য খোলুন, আমাদের বিশেষজ্ঞ দলের প্রথম প্রশাসক অভিযানের সাথে ব্যক্তিগত প্রশিক্ষণ অধিকার করে। মৌলিক থেকে উন্নত প্রযুক্তিগত কৌশলগুলির জন্য, আমরা আপনি আপনার ব্যবসার প্রক্রিয়াগুলি সর্বোत্তম করতে সিস্টেমের প্রত্যেক দিকে প্রকৌশলিক সম্পূর্ণ শিক্ষিত হওয়া নিশ্চিত করি।"),
+            "Pix Pos POS এর ব্যবহারের পূর্ণ সামর্থ্য খোলুন, আমাদের বিশেষজ্ঞ দলের প্রথম প্রশাসক অভিযানের সাথে ব্যক্তিগত প্রশিক্ষণ অধিকার করে। মৌলিক থেকে উন্নত প্রযুক্তিগত কৌশলগুলির জন্য, আমরা আপনি আপনার ব্যবসার প্রক্রিয়াগুলি সর্বোत্তম করতে সিস্টেমের প্রত্যেক দিকে প্রকৌশলিক সম্পূর্ণ শিক্ষিত হওয়া নিশ্চিত করি।"),
         "update": MessageLookupByLibrary.simpleMessage("আপডেট করুন"),
         "updateContact":
             MessageLookupByLibrary.simpleMessage("যোগাযোগ আপডেট করুন"),
@@ -570,7 +570,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadFile": MessageLookupByLibrary.simpleMessage("ফাইল আপলোড করুন"),
         "upplier": MessageLookupByLibrary.simpleMessage("সরবরাহকারী"),
         "useMobiPos":
-            MessageLookupByLibrary.simpleMessage("Pos Saas ব্যবহার করুন"),
+            MessageLookupByLibrary.simpleMessage("Pix Pos ব্যবহার করুন"),
         "useOfTheSystem":
             MessageLookupByLibrary.simpleMessage("সিস্টেমের ব্যবহার"),
         "userRole": MessageLookupByLibrary.simpleMessage("ব্যবহারকারী ভূমিকা"),
@@ -613,7 +613,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("আপনি একটি ইমেল পেয়েছেন"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "আপনি সফলভাবে আপনার অ্যাকাউন্টে লগইন করেছেন৷ Pos Saas এর সাথে থাকুন"),
+            "আপনি সফলভাবে আপনার অ্যাকাউন্টে লগইন করেছেন৷ Pix Pos এর সাথে থাকুন"),
         "youHaveToReLogin": MessageLookupByLibrary.simpleMessage(
             "আপনাকে আপনার অ্যাকাউন্টে পুনরায় লগইন করতে হবে।"),
         "youNeedToIdentityVerifyBeforeYouBuying":

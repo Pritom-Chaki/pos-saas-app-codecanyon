@@ -460,10 +460,10 @@ class S {
     );
   }
 
-  /// `Stay at the forefront of technological advancements without any extra costs. Our Pos Saas POS Unlimited Upgrade ensures that you always have the latest tools and features at your fingertips, guaranteeing your business remains cutting-edge.`
+  /// `Stay at the forefront of technological advancements without any extra costs. Our Pix Pos POS Unlimited Upgrade ensures that you always have the latest tools and features at your fingertips, guaranteeing your business remains cutting-edge.`
   String get stayAtTheForFront {
     return Intl.message(
-      'Stay at the forefront of technological advancements without any extra costs. Our Pos Saas POS Unlimited Upgrade ensures that you always have the latest tools and features at your fingertips, guaranteeing your business remains cutting-edge.',
+      'Stay at the forefront of technological advancements without any extra costs. Our Pix Pos POS Unlimited Upgrade ensures that you always have the latest tools and features at your fingertips, guaranteeing your business remains cutting-edge.',
       name: 'stayAtTheForFront',
       desc: '',
       args: [],
@@ -480,10 +480,10 @@ class S {
     );
   }
 
-  /// `Unlock the full potential of Pos Saas POS with personalized training sessions led by our expert team. From the basics to advanced techniques, we ensure you're well-versed in utilizing every facet of the system to optimize your business processes.`
+  /// `Unlock the full potential of Pix Pos POS with personalized training sessions led by our expert team. From the basics to advanced techniques, we ensure you're well-versed in utilizing every facet of the system to optimize your business processes.`
   String get unlockTheFull {
     return Intl.message(
-      'Unlock the full potential of Pos Saas POS with personalized training sessions led by our expert team. From the basics to advanced techniques, we ensure you\'re well-versed in utilizing every facet of the system to optimize your business processes.',
+      'Unlock the full potential of Pix Pos POS with personalized training sessions led by our expert team. From the basics to advanced techniques, we ensure you\'re well-versed in utilizing every facet of the system to optimize your business processes.',
       name: 'unlockTheFull',
       desc: '',
       args: [],
@@ -500,20 +500,20 @@ class S {
     );
   }
 
-  /// `The name says it all. With Pos Saas POS Unlimited, there's no cap on your usage. Whether you're processing a handful of transactions or experiencing a rush of customers, you can operate with confidence, knowing you're not constrained by limits`
+  /// `The name says it all. With Pix Pos POS Unlimited, there's no cap on your usage. Whether you're processing a handful of transactions or experiencing a rush of customers, you can operate with confidence, knowing you're not constrained by limits`
   String get theNameSysIt {
     return Intl.message(
-      'The name says it all. With Pos Saas POS Unlimited, there\'s no cap on your usage. Whether you\'re processing a handful of transactions or experiencing a rush of customers, you can operate with confidence, knowing you\'re not constrained by limits',
+      'The name says it all. With Pix Pos POS Unlimited, there\'s no cap on your usage. Whether you\'re processing a handful of transactions or experiencing a rush of customers, you can operate with confidence, knowing you\'re not constrained by limits',
       name: 'theNameSysIt',
       desc: '',
       args: [],
     );
   }
 
-  /// `Safeguard your business data effortlessly. Our Pos Saas POS Unlimited Upgrade includes free data backup, ensuring your valuable information is protected against any unforeseen events. Focus on what truly matters - your business growth.`
+  /// `Safeguard your business data effortlessly. Our Pix Pos POS Unlimited Upgrade includes free data backup, ensuring your valuable information is protected against any unforeseen events. Focus on what truly matters - your business growth.`
   String get safeGuardYourBusinessDate {
     return Intl.message(
-      'Safeguard your business data effortlessly. Our Pos Saas POS Unlimited Upgrade includes free data backup, ensuring your valuable information is protected against any unforeseen events. Focus on what truly matters - your business growth.',
+      'Safeguard your business data effortlessly. Our Pix Pos POS Unlimited Upgrade includes free data backup, ensuring your valuable information is protected against any unforeseen events. Focus on what truly matters - your business growth.',
       name: 'safeGuardYourBusinessDate',
       desc: '',
       args: [],
@@ -760,10 +760,10 @@ class S {
     );
   }
 
-  /// `Powered By Pos Saas`
+  /// `Powered By Pix Pos`
   String get powerdedByMobiPos {
     return Intl.message(
-      'Powered By Pos Saas',
+      'Powered By Pix Pos',
       name: 'powerdedByMobiPos',
       desc: '',
       args: [],
@@ -1279,10 +1279,10 @@ class S {
     );
   }
 
-  /// `You are successfully login into your account. Stay with Pos Saas .`
+  /// `You are successfully login into your account. Stay with Pix Pos .`
   String get youHaveSuccefulyLogin {
     return Intl.message(
-      'You are successfully login into your account. Stay with Pos Saas .',
+      'You are successfully login into your account. Stay with Pix Pos .',
       name: 'youHaveSuccefulyLogin',
       desc: '',
       args: [],
@@ -3949,10 +3949,10 @@ class S {
     );
   }
 
-  /// `Pos Saas  app is free, easy to use. In fact, it's one of the best  POS systems around the world.`
+  /// `Pix Pos  app is free, easy to use. In fact, it's one of the best  POS systems around the world.`
   String get mobiPosAppIsFree {
     return Intl.message(
-      'Pos Saas  app is free, easy to use. In fact, it\'s one of the best  POS systems around the world.',
+      'Pix Pos  app is free, easy to use. In fact, it\'s one of the best  POS systems around the world.',
       name: 'mobiPosAppIsFree',
       desc: '',
       args: [],
@@ -3969,10 +3969,10 @@ class S {
     );
   }
 
-  /// `Features are the important part which makes Pos Saas  different from traditional solutions.`
+  /// `Features are the important part which makes Pix Pos  different from traditional solutions.`
   String get featureAreTheImportant {
     return Intl.message(
-      'Features are the important part which makes Pos Saas  different from traditional solutions.',
+      'Features are the important part which makes Pix Pos  different from traditional solutions.',
       name: 'featureAreTheImportant',
       desc: '',
       args: [],
@@ -3989,10 +3989,10 @@ class S {
     );
   }
 
-  /// `Pos Saas  is a complete business solution with stock, account, sales, expense & loss/profit.`
+  /// `Pix Pos  is a complete business solution with stock, account, sales, expense & loss/profit.`
   String get mobiPosIsaCompleteBusinesSolution {
     return Intl.message(
-      'Pos Saas  is a complete business solution with stock, account, sales, expense & loss/profit.',
+      'Pix Pos  is a complete business solution with stock, account, sales, expense & loss/profit.',
       name: 'mobiPosIsaCompleteBusinesSolution',
       desc: '',
       args: [],
@@ -4029,10 +4029,10 @@ class S {
     );
   }
 
-  /// `Use Pos Saas`
+  /// `Use Pix Pos`
   String get useMobiPos {
     return Intl.message(
-      'Use Pos Saas',
+      'Use Pix Pos',
       name: 'useMobiPos',
       desc: '',
       args: [],

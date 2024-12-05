@@ -30,20 +30,24 @@ import '../../tap_payment/flutter_tap_payment.dart';
 import '../Home/home.dart';
 
 class PaymentPage extends StatefulWidget {
-  const PaymentPage({super.key, required this.selectedPlan, required this.onError, required this.totalAmount, required this.paymentModel});
+  const PaymentPage(
+      {super.key,
+      required this.selectedPlan,
+      required this.onError,
+      required this.totalAmount,
+      required this.paymentModel});
 
   final String totalAmount;
   final SubscriptionPlanModel selectedPlan;
   final Function onError;
   final PaymentModel paymentModel;
 
-
   @override
   State<PaymentPage> createState() => _PaymentPageState();
 }
 
 class _PaymentPageState extends State<PaymentPage> {
-  final primaryColor = const Color(0xFF27AE60);
+  final primaryColor = const Color(0xff8a059e);
   final kGreyTextColor = const Color(0xFF828282);
   String? whichPaymentIsChecked;
 
@@ -55,7 +59,6 @@ class _PaymentPageState extends State<PaymentPage> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +66,10 @@ class _PaymentPageState extends State<PaymentPage> {
         backgroundColor: Colors.transparent,
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0.0,
-        title:  const Text('Payment Method',style: TextStyle(color: Colors.black),),
+        title: const Text(
+          'Payment Method',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -72,31 +78,35 @@ class _PaymentPageState extends State<PaymentPage> {
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(30),
-                    topLeft: Radius.circular(30)
-                ),
-                color: Colors.white
-            ),
+                    topLeft: Radius.circular(30)),
+                color: Colors.white),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               child: Column(
                 children: [
                   Material(
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: whichPaymentIsChecked == 'Paypal' ? primaryColor : kGreyTextColor.withOpacity(0.2))),
+                        side: BorderSide(
+                            color: whichPaymentIsChecked == 'Paypal'
+                                ? primaryColor
+                                : kGreyTextColor.withOpacity(0.2))),
                     color: Colors.white,
                     child: CheckboxListTile(
                       value: whichPaymentIsChecked == 'Paypal',
-                      checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
                       onChanged: (val) {
                         setState(() {
-                          val == true ? whichPaymentIsChecked = 'Paypal' : whichPaymentIsChecked = 'Paypal';
+                          val == true
+                              ? whichPaymentIsChecked = 'Paypal'
+                              : whichPaymentIsChecked = 'Paypal';
                         });
                       },
                       contentPadding: const EdgeInsets.all(10.0),
                       activeColor: primaryColor,
-                      title:  const Text(
+                      title: const Text(
                         'Paypal',
                         style: TextStyle(
                           color: Colors.black,
@@ -116,14 +126,20 @@ class _PaymentPageState extends State<PaymentPage> {
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: whichPaymentIsChecked == 'Stripe' ? primaryColor : kGreyTextColor.withOpacity(0.1))),
+                        side: BorderSide(
+                            color: whichPaymentIsChecked == 'Stripe'
+                                ? primaryColor
+                                : kGreyTextColor.withOpacity(0.1))),
                     color: Colors.white,
                     child: CheckboxListTile(
                       value: whichPaymentIsChecked == 'Stripe',
-                      checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
                       onChanged: (val) {
                         setState(() {
-                          val == true ? whichPaymentIsChecked = 'Stripe' : whichPaymentIsChecked = 'Paypal';
+                          val == true
+                              ? whichPaymentIsChecked = 'Stripe'
+                              : whichPaymentIsChecked = 'Paypal';
                         });
                       },
                       contentPadding: const EdgeInsets.all(10.0),
@@ -148,19 +164,25 @@ class _PaymentPageState extends State<PaymentPage> {
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: whichPaymentIsChecked == 'Kkipay' ? primaryColor : kGreyTextColor.withOpacity(0.2))),
+                        side: BorderSide(
+                            color: whichPaymentIsChecked == 'Kkipay'
+                                ? primaryColor
+                                : kGreyTextColor.withOpacity(0.2))),
                     color: Colors.white,
                     child: CheckboxListTile(
                       value: whichPaymentIsChecked == 'Kkipay',
-                      checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
                       onChanged: (val) {
                         setState(() {
-                          val == true ? whichPaymentIsChecked = 'Kkipay' : whichPaymentIsChecked = 'Paypal';
+                          val == true
+                              ? whichPaymentIsChecked = 'Kkipay'
+                              : whichPaymentIsChecked = 'Paypal';
                         });
                       },
-                      contentPadding:  const EdgeInsets.all(10.0),
+                      contentPadding: const EdgeInsets.all(10.0),
                       activeColor: primaryColor,
-                      title:  const Text(
+                      title: const Text(
                         'KKIPAY',
                         style: TextStyle(
                           color: Colors.black,
@@ -180,19 +202,25 @@ class _PaymentPageState extends State<PaymentPage> {
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: whichPaymentIsChecked == 'Razorpay' ? primaryColor : kGreyTextColor.withOpacity(0.2))),
+                        side: BorderSide(
+                            color: whichPaymentIsChecked == 'Razorpay'
+                                ? primaryColor
+                                : kGreyTextColor.withOpacity(0.2))),
                     color: Colors.white,
                     child: CheckboxListTile(
                       value: whichPaymentIsChecked == 'Razorpay',
-                      checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
                       onChanged: (val) {
                         setState(() {
-                          val == true ? whichPaymentIsChecked = 'Razorpay' : whichPaymentIsChecked = 'Paypal';
+                          val == true
+                              ? whichPaymentIsChecked = 'Razorpay'
+                              : whichPaymentIsChecked = 'Paypal';
                         });
                       },
                       contentPadding: const EdgeInsets.all(10.0),
                       activeColor: primaryColor,
-                      title:  const Text(
+                      title: const Text(
                         'Rezorpay',
                         style: TextStyle(
                           color: Colors.black,
@@ -212,28 +240,32 @@ class _PaymentPageState extends State<PaymentPage> {
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: whichPaymentIsChecked == 'SSLCommerz' ? primaryColor : kGreyTextColor.withOpacity(0.2))),
+                        side: BorderSide(
+                            color: whichPaymentIsChecked == 'SSLCommerz'
+                                ? primaryColor
+                                : kGreyTextColor.withOpacity(0.2))),
                     color: Colors.white,
                     child: CheckboxListTile(
                       value: whichPaymentIsChecked == 'SSLCommerz',
-                      checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
                       onChanged: (val) {
                         setState(() {
-                          val == true ? whichPaymentIsChecked = 'SSLCommerz' : whichPaymentIsChecked = 'Paypal';
+                          val == true
+                              ? whichPaymentIsChecked = 'SSLCommerz'
+                              : whichPaymentIsChecked = 'Paypal';
                         });
                       },
                       contentPadding: const EdgeInsets.all(10.0),
                       activeColor: primaryColor,
-                      title:  const Text(
+                      title: const Text(
                         'SSLCommerz',
                         style: TextStyle(
                           color: Colors.black,
                         ),
                       ),
                       secondary: Container(
-                        decoration: BoxDecoration(
-                            color: kGreyTextColor
-                        ),
+                        decoration: BoxDecoration(color: kGreyTextColor),
                         child: Image.asset(
                           'images/sslcommerz.jpg',
                           height: 50.0,
@@ -249,19 +281,25 @@ class _PaymentPageState extends State<PaymentPage> {
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: whichPaymentIsChecked == 'Tap' ? primaryColor : kGreyTextColor.withOpacity(0.2))),
+                        side: BorderSide(
+                            color: whichPaymentIsChecked == 'Tap'
+                                ? primaryColor
+                                : kGreyTextColor.withOpacity(0.2))),
                     color: Colors.white,
                     child: CheckboxListTile(
                       value: whichPaymentIsChecked == 'Tap',
-                      checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
                       onChanged: (val) {
                         setState(() {
-                          val == true ? whichPaymentIsChecked = 'Tap' : whichPaymentIsChecked = 'Paypal';
+                          val == true
+                              ? whichPaymentIsChecked = 'Tap'
+                              : whichPaymentIsChecked = 'Paypal';
                         });
                       },
                       contentPadding: const EdgeInsets.all(10.0),
                       activeColor: primaryColor,
-                      title:  const Text(
+                      title: const Text(
                         'Tap',
                         style: TextStyle(
                           color: Colors.black,
@@ -281,19 +319,25 @@ class _PaymentPageState extends State<PaymentPage> {
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: whichPaymentIsChecked == 'Flutterwave' ? primaryColor : kGreyTextColor.withOpacity(0.2))),
+                        side: BorderSide(
+                            color: whichPaymentIsChecked == 'Flutterwave'
+                                ? primaryColor
+                                : kGreyTextColor.withOpacity(0.2))),
                     color: Colors.white,
                     child: CheckboxListTile(
                       value: whichPaymentIsChecked == 'Flutterwave',
-                      checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
                       onChanged: (val) {
                         setState(() {
-                          val == true ? whichPaymentIsChecked = 'Flutterwave' : whichPaymentIsChecked = 'Paypal';
+                          val == true
+                              ? whichPaymentIsChecked = 'Flutterwave'
+                              : whichPaymentIsChecked = 'Paypal';
                         });
                       },
                       contentPadding: const EdgeInsets.all(10.0),
                       activeColor: primaryColor,
-                      title:  const Text(
+                      title: const Text(
                         'Flutter Wave',
                         style: TextStyle(
                           color: Colors.black,
@@ -313,19 +357,25 @@ class _PaymentPageState extends State<PaymentPage> {
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: whichPaymentIsChecked == 'Paystack' ? primaryColor : kGreyTextColor.withOpacity(0.2))),
+                        side: BorderSide(
+                            color: whichPaymentIsChecked == 'Paystack'
+                                ? primaryColor
+                                : kGreyTextColor.withOpacity(0.2))),
                     color: Colors.white,
                     child: CheckboxListTile(
                       value: whichPaymentIsChecked == 'Paystack',
-                      checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
                       onChanged: (val) {
                         setState(() {
-                          val == true ? whichPaymentIsChecked = 'Paystack' : whichPaymentIsChecked = 'Paypal';
+                          val == true
+                              ? whichPaymentIsChecked = 'Paystack'
+                              : whichPaymentIsChecked = 'Paypal';
                         });
                       },
                       contentPadding: const EdgeInsets.all(10.0),
                       activeColor: primaryColor,
-                      title:  const Text(
+                      title: const Text(
                         'PayStack',
                         style: TextStyle(
                           color: Colors.black,
@@ -345,19 +395,25 @@ class _PaymentPageState extends State<PaymentPage> {
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: whichPaymentIsChecked == 'BillPlz' ? primaryColor : kGreyTextColor.withOpacity(0.2))),
+                        side: BorderSide(
+                            color: whichPaymentIsChecked == 'BillPlz'
+                                ? primaryColor
+                                : kGreyTextColor.withOpacity(0.2))),
                     color: Colors.white,
                     child: CheckboxListTile(
                       value: whichPaymentIsChecked == 'BillPlz',
-                      checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
                       onChanged: (val) {
                         setState(() {
-                          val == true ? whichPaymentIsChecked = 'BillPlz' : whichPaymentIsChecked = 'Paypal';
+                          val == true
+                              ? whichPaymentIsChecked = 'BillPlz'
+                              : whichPaymentIsChecked = 'Paypal';
                         });
                       },
                       contentPadding: const EdgeInsets.all(10.0),
                       activeColor: primaryColor,
-                      title:  const Text(
+                      title: const Text(
                         'BillPlz',
                         style: TextStyle(
                           color: Colors.black,
@@ -377,19 +433,25 @@ class _PaymentPageState extends State<PaymentPage> {
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: whichPaymentIsChecked == 'CashFree' ? primaryColor : kGreyTextColor.withOpacity(0.2))),
+                        side: BorderSide(
+                            color: whichPaymentIsChecked == 'CashFree'
+                                ? primaryColor
+                                : kGreyTextColor.withOpacity(0.2))),
                     color: Colors.white,
                     child: CheckboxListTile(
                       value: whichPaymentIsChecked == 'CashFree',
-                      checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
                       onChanged: (val) {
                         setState(() {
-                          val == true ? whichPaymentIsChecked = 'CashFree' : whichPaymentIsChecked = 'Paypal';
+                          val == true
+                              ? whichPaymentIsChecked = 'CashFree'
+                              : whichPaymentIsChecked = 'Paypal';
                         });
                       },
                       contentPadding: const EdgeInsets.all(10.0),
                       activeColor: primaryColor,
-                      title:  const Text(
+                      title: const Text(
                         'Cash Free',
                         style: TextStyle(
                           color: Colors.black,
@@ -409,19 +471,25 @@ class _PaymentPageState extends State<PaymentPage> {
                     elevation: 0.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: whichPaymentIsChecked == 'Iyzico' ? primaryColor : kGreyTextColor.withOpacity(0.2))),
+                        side: BorderSide(
+                            color: whichPaymentIsChecked == 'Iyzico'
+                                ? primaryColor
+                                : kGreyTextColor.withOpacity(0.2))),
                     color: Colors.white,
                     child: CheckboxListTile(
                       value: whichPaymentIsChecked == 'Iyzico',
-                      checkboxShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      checkboxShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
                       onChanged: (val) {
                         setState(() {
-                          val == true ? whichPaymentIsChecked = 'Iyzico' : whichPaymentIsChecked = 'Paypal';
+                          val == true
+                              ? whichPaymentIsChecked = 'Iyzico'
+                              : whichPaymentIsChecked = 'Paypal';
                         });
                       },
                       contentPadding: const EdgeInsets.all(10.0),
                       activeColor: primaryColor,
-                      title:  const Text(
+                      title: const Text(
                         'Iyzico',
                         style: TextStyle(
                           color: Colors.black,
@@ -443,9 +511,9 @@ class _PaymentPageState extends State<PaymentPage> {
       bottomNavigationBar: Container(
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: GestureDetector(
-            onTap: (){
+            onTap: () {
               _handlePayment(widget.totalAmount, paypalCurrency);
             },
             child: Container(
@@ -454,16 +522,19 @@ class _PaymentPageState extends State<PaymentPage> {
               width: context.width(),
               decoration: BoxDecoration(
                   color: cns.kMainColor,
-                  borderRadius: BorderRadius.circular(30.0)
-              ),
-              child:  const Center(child: Text('Purchase Now',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),)),
+                  borderRadius: BorderRadius.circular(30.0)),
+              child: const Center(
+                  child: Text(
+                'Purchase Now',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              )),
             ),
           ),
         ),
       ),
     );
   }
-
 
   //Handle Multiple Payment system
   _handlePayment(String totalAmount, String currency) {
@@ -480,9 +551,9 @@ class _PaymentPageState extends State<PaymentPage> {
       case 'Flutterwave':
         _handleFlutterwavePayment(totalAmount, currency);
         break;
-    case 'Kkipay':
-      _handleKkipayPayment(totalAmount, currency);
-      break;
+      case 'Kkipay':
+        _handleKkipayPayment(totalAmount, currency);
+        break;
       // case 'Stripe':
       //   _handleStripePayment(totalAmount, currency);
       //   break;
@@ -490,7 +561,7 @@ class _PaymentPageState extends State<PaymentPage> {
         _handleTapPayment(totalAmount, currency);
         break;
       case 'BillPlz':
-        _handleBillPlzPayment(totalAmount, currency,context);
+        _handleBillPlzPayment(totalAmount, currency, context);
         break;
       case 'Paystack':
         PayWithPayStack().now(
@@ -531,11 +602,16 @@ class _PaymentPageState extends State<PaymentPage> {
       //Make post request to Stripe
       var response = await http.post(
         Uri.parse('https://api.stripe.com/v1/payment_intents'),
-        headers: {'Authorization': 'Bearer ${widget.paymentModel.stripeInfoModel.stripeSecretKey}', 'Content-Type': 'application/x-www-form-urlencoded'},
+        headers: {
+          'Authorization':
+              'Bearer ${widget.paymentModel.stripeInfoModel.stripeSecretKey}',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
         body: body,
       );
       return json.decode(response.body);
-    } catch (err) {print(err.toString());
+    } catch (err) {
+      print(err.toString());
       throw Exception(err.toString());
     }
   }
@@ -564,17 +640,15 @@ class _PaymentPageState extends State<PaymentPage> {
   //   }
   // }
 
-  Future<void> _handleSslCommerzPayment(String totalAmount, String currency) async {
-
+  Future<void> _handleSslCommerzPayment(
+      String totalAmount, String currency) async {
     Sslcommerz sslcommerz = Sslcommerz(
       initializer: SSLCommerzInitialization(
         //Use the ipn if you have valid one, or it will fail the transaction.
         ipn_url: "www.ipnurl.com",
         currency: SSLCurrencyType.BDT,
         product_category: "Food",
-        sdkType: sslSandbox
-            ? SSLCSdkType.TESTBOX
-            : SSLCSdkType.LIVE,
+        sdkType: sslSandbox ? SSLCSdkType.TESTBOX : SSLCSdkType.LIVE,
         store_id: widget.paymentModel.sslInfoModel.sslStoreId,
         store_passwd: widget.paymentModel.sslInfoModel.sslStoreSecret,
         total_amount: totalAmount.toDouble(),
@@ -628,21 +702,23 @@ class _PaymentPageState extends State<PaymentPage> {
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, () {
       widget.onError();
     });
-    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, (PaymentSuccessResponse response) {
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+        (PaymentSuccessResponse response) {
       onSuccess();
     });
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, () {});
     razorpay.open(options);
   }
 
-
   //KkiPay Payment
   _handleKkipayPayment(String totalAmount, String currency) {
     var kkiapay = KKiaPay(
-        amount: widget.totalAmount.toInt(),
-        sandbox: true,
-        apikey: widget.paymentModel.kkiPayInfoModel.kkiPayApiKey,
-        callback: successCallback, reason: 'Payment in PosSaas',);
+      amount: widget.totalAmount.toInt(),
+      sandbox: true,
+      apikey: widget.paymentModel.kkiPayInfoModel.kkiPayApiKey,
+      callback: successCallback,
+      reason: 'Payment in PosSaas',
+    );
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => kkiapay),
@@ -650,8 +726,7 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   void successCallback(response, context) {
-    switch ( response['status'] ) {
-
+    switch (response['status']) {
       case PAYMENT_CANCELLED:
         debugPrint(PAYMENT_CANCELLED);
         Navigator.pop(context);
@@ -688,13 +763,12 @@ class _PaymentPageState extends State<PaymentPage> {
           content: Text(PAYMENT_SUCCESS),
         ));
         widget.onError();
-      break;
+        break;
 
       default:
         break;
     }
   }
-
 
   //Paypal payment
   _handlePaypalPayment(String totalAmount, String currency) {
@@ -776,7 +850,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 "email": 'Test@test.com',
                 "phone": {
                   "country_code": "965",
-                  "number":  '8994849383',
+                  "number": '8994849383',
                 }
               },
               // "merchant": {"id": ""},
@@ -845,15 +919,17 @@ class _PaymentPageState extends State<PaymentPage> {
     // }
   }
 
-
-  void onSuccess() async{
+  void onSuccess() async {
     try {
       EasyLoading.show(status: 'Loading...', dismissOnTap: false);
       final prefs = await SharedPreferences.getInstance();
 
       await prefs.setBool('isFiveDayRemainderShown', true);
 
-      final DatabaseReference subscriptionRef = FirebaseDatabase.instance.ref().child(constUserId).child('Subscription');
+      final DatabaseReference subscriptionRef = FirebaseDatabase.instance
+          .ref()
+          .child(constUserId)
+          .child('Subscription');
 
       SubscriptionModel subscriptionModel = SubscriptionModel(
         subscriptionName: widget.selectedPlan.subscriptionName,
@@ -882,18 +958,24 @@ class _PaymentPageState extends State<PaymentPage> {
       EasyLoading.showSuccess('Added Successfully', duration: const Duration());
     } catch (e) {
       EasyLoading.dismiss();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
     if (mounted) {
       await const Home().launch(context);
     }
   }
-  void _handleBillPlzPayment(String totalAmount, String currency, BuildContext context) async{
+
+  void _handleBillPlzPayment(
+      String totalAmount, String currency, BuildContext context) async {
     EasyLoading.show(status: 'Loading...', dismissOnTap: false);
-    var data = await BankInfoRepo().bilPlzPayment(totalAmount, "maanrealestate","c7bb01f7-9145-497c-b55f-3e423b96cc45", false);
+    var data = await BankInfoRepo().bilPlzPayment(totalAmount, "maanrealestate",
+        "c7bb01f7-9145-497c-b55f-3e423b96cc45", false);
     EasyLoading.dismiss();
-    WebviewScreen(url: data.url ?? "",onSuccess: onSuccess,onError: widget.onError,).launch(context);
+    WebviewScreen(
+      url: data.url ?? "",
+      onSuccess: onSuccess,
+      onError: widget.onError,
+    ).launch(context);
   }
 }
-
-

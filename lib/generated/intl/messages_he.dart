@@ -230,7 +230,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "expenseReport": MessageLookupByLibrary.simpleMessage("דוח הוצאות"),
         "fashion": MessageLookupByLibrary.simpleMessage("אופנה"),
         "featureAreTheImportant": MessageLookupByLibrary.simpleMessage(
-            "תכונות הן החלק החשוב שהופך את Pos Saas לשונה מהפתרונות המסורתיים."),
+            "תכונות הן החלק החשוב שהופך את Pix Pos לשונה מהפתרונות המסורתיים."),
         "feedBack": MessageLookupByLibrary.simpleMessage("משוב"),
         "firstName": MessageLookupByLibrary.simpleMessage("שם פרטי"),
         "fontSide": MessageLookupByLibrary.simpleMessage("צד קדמי"),
@@ -288,9 +288,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "messageHistory":
             MessageLookupByLibrary.simpleMessage("היסטורית הודעות"),
         "mobiPosAppIsFree": MessageLookupByLibrary.simpleMessage(
-            "אפליקציית Pos Saas היא חינמית וקלה לשימוש. למעשה, זו אחת ממערכות ה-POS הטובות ביותר בעולם."),
+            "אפליקציית Pix Pos היא חינמית וקלה לשימוש. למעשה, זו אחת ממערכות ה-POS הטובות ביותר בעולם."),
         "mobiPosIsaCompleteBusinesSolution": MessageLookupByLibrary.simpleMessage(
-            "Pos Saas היא פתרון עסקי מושלם עם מלאי, חשבונות, מכירות, הוצאות והפסד/רווח."),
+            "Pix Pos היא פתרון עסקי מושלם עם מלאי, חשבונות, מכירות, הוצאות והפסד/רווח."),
         "monthly": MessageLookupByLibrary.simpleMessage("חודשי"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("מידע נוסף"),
         "name": MessageLookupByLibrary.simpleMessage("הזן את שמך"),
@@ -356,7 +356,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "אנא הזן את כתובת הדוא\"ל שלך למעלה כדי לקבל קישור לאיפוס הסיסמה."),
         "powerdedByMobiPos":
-            MessageLookupByLibrary.simpleMessage("מופעל על ידי Pos Saas"),
+            MessageLookupByLibrary.simpleMessage("מופעל על ידי Pix Pos"),
         "premiumCustomerSupport":
             MessageLookupByLibrary.simpleMessage("תמיכת לקוחות משוכללת"),
         "premiumPlan": MessageLookupByLibrary.simpleMessage("תוכנית מעלות"),
@@ -482,7 +482,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unlimitedUsage":
             MessageLookupByLibrary.simpleMessage("שימוש בלתי מוגבל"),
         "unlockTheFull": MessageLookupByLibrary.simpleMessage(
-            "פתח את הפוטנציאל המלא של Pos Saas POS עם ישיבות אימון אישיות מובילות של צוות המומחים שלנו. מיסודות המערכת ועד טכניקות מתקדמות, אנו מבטיחים שתהיה מומחה בשימוש בכל פרט של המערכת למיטוב התהליכים בעסק שלך."),
+            "פתח את הפוטנציאל המלא של Pix Pos POS עם ישיבות אימון אישיות מובילות של צוות המומחים שלנו. מיסודות המערכת ועד טכניקות מתקדמות, אנו מבטיחים שתהיה מומחה בשימוש בכל פרט של המערכת למיטוב התהליכים בעסק שלך."),
         "update": MessageLookupByLibrary.simpleMessage("עדכן"),
         "updateContact": MessageLookupByLibrary.simpleMessage("עדכן איש קשר"),
         "updateNow": MessageLookupByLibrary.simpleMessage("עדכן עכשיו"),
@@ -496,7 +496,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "עדכן את הפרופיל שלך כדי להתחבר ללקוחות שלך עם השפעה טובה יותר"),
         "uploadDocument": MessageLookupByLibrary.simpleMessage("העלה מסמך"),
         "uploadFile": MessageLookupByLibrary.simpleMessage("העלה קובץ"),
-        "useMobiPos": MessageLookupByLibrary.simpleMessage("השתמש ב-Pos Saas"),
+        "useMobiPos": MessageLookupByLibrary.simpleMessage("השתמש ב-Pix Pos"),
         "useOfTheSystem": MessageLookupByLibrary.simpleMessage("שימוש במערכת"),
         "userRole": MessageLookupByLibrary.simpleMessage("תפקיד המשתמש"),
         "userRoleDetails":
@@ -534,7 +534,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "youHaveGotAnEmail":
             MessageLookupByLibrary.simpleMessage("יש לך הודעת דוא\"ל"),
         "youHaveSuccefulyLogin": MessageLookupByLibrary.simpleMessage(
-            "התחברת בהצלחה לחשבונך. נשאר עם Pos Saas ."),
+            "התחברת בהצלחה לחשבונך. נשאר עם Pix Pos ."),
         "youHaveToReLogin":
             MessageLookupByLibrary.simpleMessage("עליך להתחבר מחדש לחשבונך."),
         "youNeedToIdentityVerifyBeforeYouBuying":
